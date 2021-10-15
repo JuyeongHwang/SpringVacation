@@ -22,6 +22,8 @@ public class KidController : MonoBehaviour
     float butterflyHP = 100.0f;
     bool isArrived = false;
 
+    public float speed;
+
     void Awake ()
     {
         if (kidBody != null)
@@ -48,13 +50,19 @@ public class KidController : MonoBehaviour
             else
             {
 
-                //Vector3 targetDir = butterfly.transform.position - transform.position;
-                //float step = 1.0f * Time.deltaTime;
-                //Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-                //Debug.DrawRay(transform.position, newDir, Color.red);
-                //transform.rotation = Quaternion.LookRotation(newDir);
+                Vector3 targetDir = butterfly.transform.position - transform.position;
+                float step = 1.0f * Time.deltaTime;
+                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+                Debug.DrawRay(transform.position, newDir, Color.red);
+                transform.rotation = Quaternion.LookRotation(newDir);
 
-                transform.position = Vector3.MoveTowards(transform.position, butterfly.transform.position, 0.01f);
+
+                float dist = Mathf.Sqrt(Mathf.Abs(butterfly.transform.position.x-transform.position.x)+
+                    Mathf.Abs(butterfly.transform.position.y - transform.position.y)+
+                    Mathf.Abs(butterfly.transform.position.z - transform.position.z)
+                    );
+                speed = 0.001f * (dist);
+                transform.position = Vector3.MoveTowards(transform.position, butterfly.transform.position, speed);
 
             }
         }

@@ -6,6 +6,8 @@ public class MyGameManager : MonoBehaviour
 {
     public static MyGameManager Inst = null;
 
+    protected KidController kidController;
+
     void Awake ()
     {
         // 싱글톤
@@ -17,5 +19,8 @@ public class MyGameManager : MonoBehaviour
         {
             Destroy (gameObject);
         }
+
+        // 씬 내에 있는 꼬마를 불러온다
+        kidController = FindObjectOfType <KidController> ();
     }
 }

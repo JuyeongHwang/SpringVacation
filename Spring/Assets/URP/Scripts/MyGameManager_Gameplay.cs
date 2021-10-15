@@ -17,11 +17,16 @@ public class MyGameManager_Gameplay : MyGameManager
 
     public void Gameplay ()
     {
+        // 시간을 측정하기 위한 코루틴 수행
         if (igameplay != null)
             StopCoroutine (igameplay);
 
         igameplay = IGameplay ();
         StartCoroutine (igameplay);
+
+        // 캐릭터 애니메이션 수행
+        if (kidController != null)
+            kidController.SetAnimatorTrigger ("Run");
     }
 
 

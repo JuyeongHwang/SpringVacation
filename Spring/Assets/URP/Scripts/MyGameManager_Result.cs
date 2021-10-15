@@ -9,7 +9,12 @@ public class MyGameManager_Result : MyGameManager
 
     void Start ()
     {
+        // 코루틴 수행
         StartCoroutine (IResult ());
+
+        // 캐릭터 애니메이션 수행
+        if (kidController != null)
+            kidController.SetAnimatorTrigger ("Idle");
     }
 
     IEnumerator IResult ()

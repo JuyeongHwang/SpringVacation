@@ -12,15 +12,15 @@ public class KidController : MonoBehaviour
     [SerializeField]
     private List<GameObject> FoundBug;
     [SerializeField]
-    private GameObject findObject; //³ªÁß¿¡ struct·Î ´õ ´Ù¾çÇÑ °ïÃæ °ü¸® ¿¹Á¤ //target
+    private GameObject findObject; //ë‚˜ì¤‘ì— structë¡œ ë” ë‹¤ì–‘í•œ ê³¤ì¶© ê´€ë¦¬ ì˜ˆì • //target
     public string TagName;
     [SerializeField]
     private float shortDis;
 
-    public Text conditionText;
+    
 
     //characterInfo
-    //level, ¼öÁı¹° ¸®½ºÆ®,, µîµî
+    //level, ìˆ˜ì§‘ë¬¼ ë¦¬ìŠ¤íŠ¸,, ë“±ë“±
     float attackPower = 10f;
     bool isArrived = false;
 
@@ -38,7 +38,8 @@ public class KidController : MonoBehaviour
     private void Start()
     {
         detectBug();
-        conditionText.text = "Å½»ö Áß";
+        //conditionText.text = "íƒìƒ‰ ì¤‘";
+        UIManager_Gameplay.Inst.SetConditionText_Finding ();
     }
 
     private void Update()
@@ -58,8 +59,7 @@ public class KidController : MonoBehaviour
                 float step = 1.0f * Time.deltaTime;
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
                 Debug.DrawRay(transform.position, newDir, Color.red);
-                transform.rotation = Quaternion.LookRotation(newDir);
-
+                transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
 
                 float dist = Mathf.Sqrt(Mathf.Abs(findObject.transform.position.x-transform.position.x)+
                     Mathf.Abs(findObject.transform.position.y - transform.position.y)+
@@ -72,14 +72,23 @@ public class KidController : MonoBehaviour
         }
         else
         {
-            conditionText.text = "Å½»ö Áß";
+            //conditionText.text = "íƒìƒ‰ ì¤‘";
             detectBug();
+            UIManager_Gameplay.Inst.SetConditionText_Finding ();
         }
-        
     }
+
+    void LateUpdate ()
+    {
+        // íšŒì „ í›„ì²˜ë¦¬
+        // ìºë¦­í„°ì˜ ë²„ë²…ê±°ë¦¼ì„ ì¤„ì—¬ì£¼ê¸° ìœ„í•¨
+        float rotY = gameObject.transform.eulerAngles.y;
+        gameObject.transform.rotation = Quaternion.Euler (Vector3.up * rotY);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Ãæµ¹ ½ÃÀÛ!");
+        Debug.Log("ì¶©ëŒ ì‹œì‘!");
         if (collision.gameObject.CompareTag(TagName))
         {
             isArrived = true;
@@ -123,13 +132,14 @@ public class KidController : MonoBehaviour
 
     void makeBug()
     {
-        Debug.Log("ÀÚµ¿»ı¼º");
+        Debug.Log("ìë™ìƒì„±");
     }
-    //ÀÓ½Ã·Î... ³ªÁß¿¡ ¹öÅÍÇÃ¶óÀÌ °´Ã¼ ¸¸µé ¿¹Á¤
+    //ì„ì‹œë¡œ... ë‚˜ì¤‘ì— ë²„í„°í”Œë¼ì´ ê°ì²´ ë§Œë“¤ ì˜ˆì •
     void attackBug()
     {
-        //Debug.Log("½ºÆäÀÌ½º¹Ù¸¦ ´­·¯ °ø°İÇÏ¼¼¿ä~!");
-        conditionText.text = "½ºÆäÀÌ½º¹Ù¸¦ ´­·¯ °ïÃæÀ» ÀâÀ¸¼¼¿ä!";
+        //Debug.Log("ìŠ¤í˜ì´ìŠ¤ë°”ë¥¼ ëˆŒëŸ¬ ê³µê²©í•˜ì„¸ìš”~!");
+        //conditionText.text = "ìŠ¤í˜ì´ìŠ¤ë°”ë¥¼ ëˆŒëŸ¬ ê³¤ì¶©ì„ ì¡ìœ¼ì„¸ìš”!";
+        UIManager_Gameplay.Inst.SetConditionText_Finded ();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -141,6 +151,18 @@ public class KidController : MonoBehaviour
         {
             isArrived = false;
             Destroy(findObject.gameObject);
+
+            // ë°ì´í„° ë§¤ë‹ˆì ¸ì˜ butterflyNum ì¶”ê°€
+            if (DataManager.Inst != null)
+            {
+                DataManager.Inst.AddButterflyNumber (1);
+            }
+            
+            // UI ê°±ì‹ 
+            if (UIManager_Gameplay.Inst != null)
+            {
+                UIManager_Gameplay.Inst.UpdateButterflyNum ();
+            }
         }
     }
 }

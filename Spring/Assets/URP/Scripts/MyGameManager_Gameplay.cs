@@ -2,13 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyGameManager_Gameplay : MyGameManager
+public class MyGameManager_Gameplay : MonoBehaviour
 {
     [Header ("게임플레이 설정")]
     public float gameplayDuration = 60f;
     public float gameplayDuration_remaining = 0;
 
+    [Header ("캐릭터 설정")]
+    public KidController kidController;
+
     protected IEnumerator igameplay;
+
+    public static MyGameManager_Gameplay Inst = null;
+
+    //protected KidController kidController;
+
+    void Awake ()
+    {
+        // 싱글톤
+        if (Inst == null)
+        {
+            Inst = gameObject.GetComponent <MyGameManager_Gameplay> ();
+        }
+        else
+        {
+            Destroy (gameObject);
+        }
+
+        // kidController가 없으면 씬 내에서 찾는다
+        if (kidController == null)
+            kidController = FindObjectOfType <KidController> ();
+    }
 
     void Start ()
     {
@@ -37,6 +61,12 @@ public class MyGameManager_Gameplay : MyGameManager
         while (gameplayDuration_remaining > 0)
         {
             gameplayDuration_remaining -= Time.deltaTime;
+            
+            if (UIManager_Gameplay.Inst != null)
+            {
+                UIManager_Gameplay.Inst.SetTimeText (gameplayDuration_remaining);
+            }
+            
             yield return null;
         }
 

@@ -42,9 +42,13 @@ public class DelaunayTerrain : MonoBehaviour {
 
     void Start()
     {
-        Generate();
+        
     }
 
+    private void Awake()
+    {
+        Generate();
+    }
     public virtual void Generate() {
         UnityEngine.Random.InitState(0);
 

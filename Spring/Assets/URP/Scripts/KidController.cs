@@ -17,7 +17,6 @@ public class KidController : MonoBehaviour
     [SerializeField]
     private float shortDis;
 
-    
 
     //characterInfo
     //level, 수집물 리스트,, 등등
@@ -54,7 +53,6 @@ public class KidController : MonoBehaviour
             }
             else
             {
-
                 Vector3 targetDir = findObject.transform.position - transform.position;
                 float step = 1.0f * Time.deltaTime;
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
@@ -65,7 +63,7 @@ public class KidController : MonoBehaviour
                     Mathf.Abs(findObject.transform.position.y - transform.position.y)+
                     Mathf.Abs(findObject.transform.position.z - transform.position.z)
                     );
-                speed = 0.001f * (dist);
+                speed = 0.005f * (dist);
                 transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
 
             }
@@ -134,7 +132,7 @@ public class KidController : MonoBehaviour
     {
         Debug.Log("자동생성");
     }
-    //임시로... 나중에 버터플라이 객체 만들 예정
+
     void attackBug()
     {
         //Debug.Log("스페이스바를 눌러 공격하세요~!");

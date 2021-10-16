@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KidController : MonoBehaviour
 {
@@ -11,18 +12,20 @@ public class KidController : MonoBehaviour
     [SerializeField]
     private List<GameObject> FoundBug;
     [SerializeField]
-    private GameObject butterfly; //나중에 struct로 더 다양한 곤충 관리 예정 //target
+    private GameObject findObject; //나중에 struct로 더 다양한 곤충 관리 예정 //target
     public string TagName;
     [SerializeField]
     private float shortDis;
 
+    public Text conditionText;
+
     //characterInfo
     //level, 수집물 리스트,, 등등
     float attackPower = 10f;
-    float butterflyHP = 100.0f;
     bool isArrived = false;
 
-    public float speed;
+    [SerializeField]
+    private float speed;
 
     void Awake ()
     {
@@ -35,11 +38,12 @@ public class KidController : MonoBehaviour
     private void Start()
     {
         detectBug();
+        conditionText.text = "탐색 중";
     }
 
     private void Update()
     {
-        if (butterfly != null) 
+        if (findObject != null) 
         {
             //Debug.Log(butterfly.name);
             
@@ -50,25 +54,25 @@ public class KidController : MonoBehaviour
             else
             {
 
-                Vector3 targetDir = butterfly.transform.position - transform.position;
+                Vector3 targetDir = findObject.transform.position - transform.position;
                 float step = 1.0f * Time.deltaTime;
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
                 Debug.DrawRay(transform.position, newDir, Color.red);
                 transform.rotation = Quaternion.LookRotation(newDir);
 
 
-                float dist = Mathf.Sqrt(Mathf.Abs(butterfly.transform.position.x-transform.position.x)+
-                    Mathf.Abs(butterfly.transform.position.y - transform.position.y)+
-                    Mathf.Abs(butterfly.transform.position.z - transform.position.z)
+                float dist = Mathf.Sqrt(Mathf.Abs(findObject.transform.position.x-transform.position.x)+
+                    Mathf.Abs(findObject.transform.position.y - transform.position.y)+
+                    Mathf.Abs(findObject.transform.position.z - transform.position.z)
                     );
                 speed = 0.001f * (dist);
-                transform.position = Vector3.MoveTowards(transform.position, butterfly.transform.position, speed);
+                transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
 
             }
         }
         else
         {
-            butterflyHP = 100.0f;
+            conditionText.text = "탐색 중";
             detectBug();
         }
         
@@ -79,6 +83,7 @@ public class KidController : MonoBehaviour
         if (collision.gameObject.CompareTag(TagName))
         {
             isArrived = true;
+            
         }
         
 
@@ -98,14 +103,14 @@ public class KidController : MonoBehaviour
         shortDis = Vector3.Distance(gameObject.transform.position,
             FoundBug[0].transform.position);
 
-        butterfly = FoundBug[0];
+        findObject = FoundBug[0];
 
         foreach(GameObject found in FoundBug)
         {
             float Distance = Vector3.Distance(gameObject.transform.position, found.transform.position);
             if (Distance < shortDis)
             {
-                butterfly = found;
+                findObject = found;
                 shortDis = Distance;
             }
         }
@@ -123,18 +128,19 @@ public class KidController : MonoBehaviour
     //임시로... 나중에 버터플라이 객체 만들 예정
     void attackBug()
     {
-        Debug.Log("스페이스바를 눌러 공격하세요~!");
+        //Debug.Log("스페이스바를 눌러 공격하세요~!");
+        conditionText.text = "스페이스바를 눌러 곤충을 잡으세요!";
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            butterflyHP -= attackPower;
 
+            findObject.GetComponent<bugController>().bug.hp -= attackPower;
         }
 
-        if (butterflyHP <= 0.0f)
+        if (findObject.GetComponent<bugController>().bug.hp <= 0.0f)
         {
             isArrived = false;
-            Destroy(butterfly.gameObject);
+            Destroy(findObject.gameObject);
         }
     }
 }

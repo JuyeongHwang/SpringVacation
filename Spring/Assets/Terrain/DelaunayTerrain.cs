@@ -24,7 +24,11 @@ public class DelaunayTerrain : MonoBehaviour {
     public float frequencyBase = 2;
     public float persistence = 1.1f;
 
-    public GameObject myPrefab;
+    public GameObject myPrefab_butterfly;
+    public GameObject myPrefab_tree1;
+    public GameObject myPrefab_tree2;
+
+
     // Detail mesh parameters
     public Transform detailMesh;
     public int detailMeshesToGenerate = 50;
@@ -44,13 +48,26 @@ public class DelaunayTerrain : MonoBehaviour {
     int i = 0;
     void Start()
     {
+        //다른 방법을 강구해야함,,,임시로
         foreach (Vertex ver in mesh.Vertices)
         {
             Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
             if (i % 5 == 0)
             {
-                Instantiate(myPrefab, 
+                Instantiate(myPrefab_butterfly, 
                     new Vector3((float)ver.x+transform.position.x, elevations[i]+1.0f, (float)ver.y+transform.position.z), 
+                    Quaternion.identity);
+            }
+            else if (i % 34 == 0)
+            {
+                Instantiate(myPrefab_tree1,
+                    new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
+                    Quaternion.identity);
+            }
+            else if (i % 51 == 0)
+            {
+                Instantiate(myPrefab_tree2,
+                    new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
                     Quaternion.identity);
             }
             i++;

@@ -1285,17 +1285,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409fbd98ab4340f469a6fc2a0153d646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xsize: 100
-  ysize: 100
-  minPointRadius: 20
-  randomPoints: 50
+  xsize: 200
+  ysize: 200
+  minPointRadius: 5
+  randomPoints: 200
   trianglesInChunk: 20000
   elevationScale: 10
   sampleSize: 1
   octaves: 8
   frequencyBase: 2
   persistence: 1.1
-  myPrefab: {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
+  myPrefab_butterfly: {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
+  myPrefab_tree1: {fileID: 182406, guid: a1d34f7914a1d8148a0ce7262f7ba394, type: 3}
+  myPrefab_tree2: {fileID: 117604, guid: 9469bb1d3aa88ca40aa4079e96a27f8e, type: 3}
   detailMesh: {fileID: 4831155545516978, guid: 6cf986deb95a8a54d94827e5b2c36195, type: 3}
   detailMeshesToGenerate: 150
   chunkPrefab: {fileID: 4760822391077712, guid: 3f902dd3709cfc74b8331d78c6290acf, type: 3}

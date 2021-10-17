@@ -24,6 +24,7 @@ public class DelaunayTerrain : MonoBehaviour {
     public float frequencyBase = 2;
     public float persistence = 1.1f;
 
+    public GameObject myPrefab;
     // Detail mesh parameters
     public Transform detailMesh;
     public int detailMeshesToGenerate = 50;
@@ -40,17 +41,34 @@ public class DelaunayTerrain : MonoBehaviour {
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
 
+    int i = 0;
     void Start()
     {
-        
+        foreach (Vertex ver in mesh.Vertices)
+        {
+            Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
+            if (i % 5 == 0)
+            {
+                Instantiate(myPrefab, 
+                    new Vector3((float)ver.x+transform.position.x, elevations[i]+1.0f, (float)ver.y+transform.position.z), 
+                    Quaternion.identity);
+            }
+            i++;
+        }
     }
 
     private void Awake()
     {
         Generate();
     }
+
+    void spawnButterfly(Vertex ver)
+    {
+        
+    }
     public virtual void Generate() {
-        UnityEngine.Random.InitState(0);
+        int _seed = Random.Range(0,50);
+        Random.InitState(_seed);
 
         elevations = new List<float>();
 
@@ -69,9 +87,16 @@ public class DelaunayTerrain : MonoBehaviour {
             polygon.Add(new Vertex((double)sample.x, (double)sample.y));
         }
 
+
+        // Add some randomly sampled points
+        for (int i = 0; i < randomPoints; i++)
+        {
+            polygon.Add(new Vertex(Random.Range(45.0f,75.0f), Random.Range(0.0f, ysize)));
+        }
+
         // Add some randomly sampled points
         for (int i = 0; i < randomPoints; i++) {
-            polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize)));
+                polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize)));
         }
 
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
@@ -96,6 +121,12 @@ public class DelaunayTerrain : MonoBehaviour {
             }
 
             elevation = elevation / maxVal;
+
+            if (vert.x <= (double)70.0f && vert.x >=(double) 50.0f)
+            {
+                elevation = -0.5f;
+            }
+
             elevations.Add(elevation * elevationScale);
         }
 
@@ -225,19 +256,33 @@ public class DelaunayTerrain : MonoBehaviour {
         }
     }
 
-    public void OnDrawGizmos() {
-        if (mesh == null) {
-            // Probably in the editor
-            return;
-        }
+    //public void OnDrawGizmos() {
+    //    if (mesh == null) {
+    //        // Probably in the editor
+    //        return;
+    //    }
 
-        Gizmos.color = Color.red;
-        foreach (Edge edge in mesh.Edges) {
-            Vertex v0 = mesh.vertices[edge.P0];
-            Vertex v1 = mesh.vertices[edge.P1];
-            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
-            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
-            Gizmos.DrawLine(p0, p1);
-        }
-    }
+    //    Gizmos.color = Color.red;
+    //    foreach (Edge edge in mesh.Edges) {
+    //        Vertex v0 = mesh.vertices[edge.P0];
+    //        Vertex v1 = mesh.vertices[edge.P1];
+    //        Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+    //        Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+    //        Gizmos.DrawLine(p0, p1);
+    //    }
+
+    //    foreach(Vertex ver in mesh.Vertices)
+    //    {
+    //        if(ver.x == 0)
+    //        {
+    //            Gizmos.color = Color.yellow;
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawSphere(new Vector3((float)ver.x, 0, (float)ver.y), 1.0f);
+    //        }
+           
+    //    }
+    //}
 }

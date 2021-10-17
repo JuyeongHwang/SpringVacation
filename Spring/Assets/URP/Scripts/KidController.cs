@@ -63,7 +63,7 @@ public class KidController : MonoBehaviour
                     Mathf.Abs(findObject.transform.position.y - transform.position.y)+
                     Mathf.Abs(findObject.transform.position.z - transform.position.z)
                     );
-                speed = 0.005f * (dist);
+                speed = 0.001f * (dist);
                 transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
 
             }

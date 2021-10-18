@@ -27,7 +27,7 @@ public class DelaunayTerrain : MonoBehaviour {
     public GameObject myPrefab_butterfly;
     public GameObject myPrefab_tree1;
     public GameObject myPrefab_tree2;
-
+    public GameObject Bridge;
 
     // Detail mesh parameters
     public Transform detailMesh;
@@ -46,30 +46,49 @@ public class DelaunayTerrain : MonoBehaviour {
     private TriangleNet.Mesh mesh = null;
 
     int i = 0;
+    bool bridgeExist = false;
     void Start()
     {
-        //다른 방법을 강구해야함,,,임시로
+        //다른 방법을 강구해야함...임시로,,
         foreach (Vertex ver in mesh.Vertices)
         {
-            Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
-            if (i % 5 == 0)
+            //Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
+            if (ver.x <= (double)70.0f && ver.x >= (double)50.0f)
             {
-                Instantiate(myPrefab_butterfly, 
-                    new Vector3((float)ver.x+transform.position.x, elevations[i]+1.0f, (float)ver.y+transform.position.z), 
-                    Quaternion.identity);
+                if(bridgeExist ==false)
+                {
+                    Instantiate(Bridge,
+                           new Vector3((float)ver.x + transform.position.x, elevations[i] + 2.0f, (float)ver.y + transform.position.z),
+                           Quaternion.identity);
+
+                    bridgeExist = true;
+
+                }
             }
-            else if (i % 34 == 0)
+            else
             {
-                Instantiate(myPrefab_tree1,
-                    new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
-                    Quaternion.identity);
+                if (i % 12 == 0)
+                {
+                    Instantiate(myPrefab_butterfly,
+                        new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
+                        Quaternion.identity);
+
+                }
+                else if (i % 34 == 0)
+                {
+                    Instantiate(myPrefab_tree1,
+                        new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
+                        Quaternion.identity);
+                }
+                else if (i % 51 == 0)
+                {
+                    Instantiate(myPrefab_tree2,
+                        new Vector3((float)ver.x + transform.position.x, elevations[i] , (float)ver.y + transform.position.z),
+                        Quaternion.identity);
+                }
             }
-            else if (i % 51 == 0)
-            {
-                Instantiate(myPrefab_tree2,
-                    new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
-                    Quaternion.identity);
-            }
+            
+
             i++;
         }
     }
@@ -119,6 +138,7 @@ public class DelaunayTerrain : MonoBehaviour {
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
         
+
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
         // Sample perlin noise to get elevations
@@ -143,6 +163,7 @@ public class DelaunayTerrain : MonoBehaviour {
             {
                 elevation = -0.5f;
             }
+
 
             elevations.Add(elevation * elevationScale);
         }
@@ -273,33 +294,36 @@ public class DelaunayTerrain : MonoBehaviour {
         }
     }
 
-    //public void OnDrawGizmos() {
-    //    if (mesh == null) {
-    //        // Probably in the editor
-    //        return;
-    //    }
+    public void OnDrawGizmos()
+    {
+        if (mesh == null)
+        {
+            // Probably in the editor
+            return;
+        }
 
-    //    Gizmos.color = Color.red;
-    //    foreach (Edge edge in mesh.Edges) {
-    //        Vertex v0 = mesh.vertices[edge.P0];
-    //        Vertex v1 = mesh.vertices[edge.P1];
-    //        Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
-    //        Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
-    //        Gizmos.DrawLine(p0, p1);
-    //    }
+        Gizmos.color = Color.red;
+        foreach (Edge edge in mesh.Edges)
+        {
+            Vertex v0 = mesh.vertices[edge.P0];
+            Vertex v1 = mesh.vertices[edge.P1];
+            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+            Gizmos.DrawLine(p0, p1);
+        }
 
-    //    foreach(Vertex ver in mesh.Vertices)
-    //    {
-    //        if(ver.x == 0)
-    //        {
-    //            Gizmos.color = Color.yellow;
-    //        }
-    //        else
-    //        {
-    //            Gizmos.color = Color.red;
-    //            Gizmos.DrawSphere(new Vector3((float)ver.x, 0, (float)ver.y), 1.0f);
-    //        }
-           
-    //    }
-    //}
+        foreach (Vertex ver in mesh.Vertices)
+        {
+            if (ver.x == 0)
+            {
+                Gizmos.color = Color.yellow;
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(new Vector3((float)ver.x, 0, (float)ver.y), 1.0f);
+            }
+
+        }
+    }
 }

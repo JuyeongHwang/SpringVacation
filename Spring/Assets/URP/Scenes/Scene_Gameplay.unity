@@ -1267,7 +1267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785063992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.7, y: 0, z: -41.5}
+  m_LocalPosition: {x: -50, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 135648850}
@@ -1285,8 +1285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409fbd98ab4340f469a6fc2a0153d646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xsize: 200
-  ysize: 200
+  xsize: 100
+  ysize: 100
   minPointRadius: 5
   randomPoints: 200
   trianglesInChunk: 20000
@@ -1298,6 +1298,7 @@ MonoBehaviour:
   myPrefab_butterfly: {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
   myPrefab_tree1: {fileID: 182406, guid: a1d34f7914a1d8148a0ce7262f7ba394, type: 3}
   myPrefab_tree2: {fileID: 117604, guid: 9469bb1d3aa88ca40aa4079e96a27f8e, type: 3}
+  Bridge: {fileID: 5304659261160575381, guid: 512026cfba9f5084abfa96ab16248b4c, type: 3}
   detailMesh: {fileID: 4831155545516978, guid: 6cf986deb95a8a54d94827e5b2c36195, type: 3}
   detailMeshesToGenerate: 150
   chunkPrefab: {fileID: 4760822391077712, guid: 3f902dd3709cfc74b8331d78c6290acf, type: 3}
@@ -1450,11 +1451,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 951323919, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 951323919, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1398257520271782694, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_RootOrder
@@ -1462,15 +1463,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398257520271782694, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.32
+      value: -3.62
       objectReference: {fileID: 0}
     - target: {fileID: 1398257520271782694, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1398257520271782694, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.84
+      value: 5.67
       objectReference: {fileID: 0}
     - target: {fileID: 1398257520271782694, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1506,7 +1507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}

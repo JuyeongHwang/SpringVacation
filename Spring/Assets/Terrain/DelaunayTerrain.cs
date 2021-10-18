@@ -164,6 +164,11 @@ public class DelaunayTerrain : MonoBehaviour {
                 elevation = -0.5f;
             }
 
+            else if(vert.x >= 160.0f)
+            {
+                elevation = 3.0f;
+            }
+
 
             elevations.Add(elevation * elevationScale);
         }
@@ -294,36 +299,36 @@ public class DelaunayTerrain : MonoBehaviour {
         }
     }
 
-    public void OnDrawGizmos()
-    {
-        if (mesh == null)
-        {
-            // Probably in the editor
-            return;
-        }
+    //public void OnDrawGizmos()
+    //{
+    //    if (mesh == null)
+    //    {
+    //        // Probably in the editor
+    //        return;
+    //    }
 
-        Gizmos.color = Color.red;
-        foreach (Edge edge in mesh.Edges)
-        {
-            Vertex v0 = mesh.vertices[edge.P0];
-            Vertex v1 = mesh.vertices[edge.P1];
-            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
-            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
-            Gizmos.DrawLine(p0, p1);
-        }
+    //    Gizmos.color = Color.red;
+    //    foreach (Edge edge in mesh.Edges)
+    //    {
+    //        Vertex v0 = mesh.vertices[edge.P0];
+    //        Vertex v1 = mesh.vertices[edge.P1];
+    //        Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+    //        Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+    //        Gizmos.DrawLine(p0, p1);
+    //    }
 
-        foreach (Vertex ver in mesh.Vertices)
-        {
-            if (ver.x == 0)
-            {
-                Gizmos.color = Color.yellow;
-            }
-            else
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(new Vector3((float)ver.x, 0, (float)ver.y), 1.0f);
-            }
+    //    foreach (Vertex ver in mesh.Vertices)
+    //    {
+    //        if (ver.x == 0)
+    //        {
+    //            Gizmos.color = Color.yellow;
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawSphere(new Vector3((float)ver.x, 0, (float)ver.y), 1.0f);
+    //        }
 
-        }
-    }
+    //    }
+    //}
 }

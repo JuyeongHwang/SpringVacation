@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7458957964781346006}
-  - component: {fileID: 7458957964781346005}
+  - component: {fileID: 5174837157606544739}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7458957964781346005
+--- !u!114 &5174837157606544739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,17 +40,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7458957964781346007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409fbd98ab4340f469a6fc2a0153d646, type: 3}
+  m_Script: {fileID: 11500000, guid: 635510356c304b04c89de08713f3af2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xsize: 100
-  ysize: 100
+  xsize: 50
+  ysize: 50
   minPointRadius: 5
   randomPoints: 300
   trianglesInChunk: 20000
   elevationScale: 10
   sampleSize: 1
-  octaves: 8
+  octaves: 16
   frequencyBase: 2
   persistence: 1.1
   myPrefab_butterfly: {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
@@ -59,5 +59,9 @@ MonoBehaviour:
   Bridge: {fileID: 5304659261160575381, guid: 512026cfba9f5084abfa96ab16248b4c, type: 3}
   terrain: {fileID: 0}
   detailMesh: {fileID: 4831155545516978, guid: 6cf986deb95a8a54d94827e5b2c36195, type: 3}
-  detailMeshesToGenerate: 150
+  detailMeshesToGenerate: 50
   chunkPrefab: {fileID: 4760822391077712, guid: 3f902dd3709cfc74b8331d78c6290acf, type: 3}
+  nearTerrainHolder_u: {fileID: 0}
+  nearTerrainHolder_l: {fileID: 0}
+  nearTerrainHolder_r: {fileID: 0}
+  nearTerrainHolder_d: {fileID: 0}

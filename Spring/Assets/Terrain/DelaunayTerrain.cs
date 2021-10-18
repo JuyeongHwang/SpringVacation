@@ -38,15 +38,15 @@ public class DelaunayTerrain : MonoBehaviour {
     public Transform chunkPrefab = null;
 
     // Elevations at each point in the mesh
-    private List<float> elevations;
+    protected List<float> elevations;
     
     // Fast triangle querier for arbitrary points
-    private TriangleBin bin;
+    protected TriangleBin bin;
 
     // The delaunay mesh
-    private TriangleNet.Mesh mesh = null;
+    protected TriangleNet.Mesh mesh = null;
 
-    int i = 0;
+    /*int i = 0;
     bool bridgeExist = false;
     void Start()
     {
@@ -97,7 +97,7 @@ public class DelaunayTerrain : MonoBehaviour {
     private void Awake()
     {
         Generate();
-    }
+    }*/
 
     public virtual void Generate() {
         int _seed = Random.Range(0,50);
@@ -156,7 +156,7 @@ public class DelaunayTerrain : MonoBehaviour {
 
             elevation = elevation / maxVal;
 
-            if (vert.x <= (double)70.0f && vert.x >=(double) 50.0f)
+            /*if (vert.x <= (double)70.0f && vert.x >=(double) 50.0f)
             {
                 elevation = -0.5f;
             }
@@ -164,8 +164,7 @@ public class DelaunayTerrain : MonoBehaviour {
             else if(vert.x >= 160.0f)
             {
                 elevation = 3.0f;
-            }
-
+            }*/
 
             elevations.Add(elevation * elevationScale);
         }

@@ -11,8 +11,8 @@ public class MyGameManager_Gameplay : MonoBehaviour
     [Header ("캐릭터 설정")]
     public KidController kidController;
 
-    [Header("지형 생성")]
-    public GameObject forterrain;
+    //[Header("지형 생성")]
+    //public GameObject forterrain;
 
     protected IEnumerator igameplay;
 
@@ -40,7 +40,7 @@ public class MyGameManager_Gameplay : MonoBehaviour
     void Start ()
     {
         Gameplay ();
-        Instantiate(forterrain,new Vector3(-50,0,-50),Quaternion.identity);
+        //Instantiate(forterrain,new Vector3(-50,0,-50),Quaternion.identity);
     }
 
     public void Gameplay ()

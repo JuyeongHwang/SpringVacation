@@ -19,8 +19,8 @@ public class CustomDelaunayTerrain : DelaunayTerrain
     public CustomDelaunayTerrain nearTerrainHolder_r = null;
     public CustomDelaunayTerrain nearTerrainHolder_d = null;
 
-    protected int xsizeOffset = 0;
-    protected int ysizeOffset = 0;
+    int xsizeOffset = 0;
+    int ysizeOffset = 0;
 
     int i = 0;
     bool bridgeExist = false;
@@ -94,8 +94,8 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         //xSizeOffset = x;
         //ySizeOffset = y;
 
-        xsizeOffset = (int)gameObject.transform.localPosition.x;
-        ysizeOffset = (int)gameObject.transform.localPosition.z;
+        xsizeOffset = (int)gameObject.transform.position.x;
+        ysizeOffset = (int)gameObject.transform.position.z;
     }
 
     public override void Generate() 
@@ -173,22 +173,22 @@ public class CustomDelaunayTerrain : DelaunayTerrain
     {
         if (nearTerrainHolder_u == null)
         {
-            nearTerrainHolder_u = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.localPosition, NearTerrainDir.UP);
+            nearTerrainHolder_u = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.position, NearTerrainDir.UP);
         }
 
         if (nearTerrainHolder_l == null)
         {
-            nearTerrainHolder_l = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.localPosition, NearTerrainDir.LEFT);
+            nearTerrainHolder_l = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.position, NearTerrainDir.LEFT);
         }
 
         if (nearTerrainHolder_r == null)
         {
-            nearTerrainHolder_r = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.localPosition, NearTerrainDir.RIGHT);
+            nearTerrainHolder_r = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.position, NearTerrainDir.RIGHT);
         }
 
         if (nearTerrainHolder_d == null)
         {
-            nearTerrainHolder_d = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.localPosition, NearTerrainDir.DOWN);
+            nearTerrainHolder_d = EnvironmentManager.Inst.GetTerrainHolderByPosition (gameObject.transform.position, NearTerrainDir.DOWN);
         }
     }
 
@@ -200,22 +200,22 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
         if (nearTerrainHolder_u == null)
         {
-            nearTerrainHolder_u = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.localPosition, NearTerrainDir.UP);
+            nearTerrainHolder_u = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.UP);
         }
 
         if (nearTerrainHolder_l == null)
         {
-            nearTerrainHolder_l = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.localPosition, NearTerrainDir.LEFT);
+            nearTerrainHolder_l = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.LEFT);
         }
 
         if (nearTerrainHolder_r == null)
         {
-            nearTerrainHolder_r = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.localPosition, NearTerrainDir.RIGHT);
+            nearTerrainHolder_r = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.RIGHT);
         }
 
         if (nearTerrainHolder_d == null)
         {
-            nearTerrainHolder_d = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.localPosition, NearTerrainDir.DOWN);
+            nearTerrainHolder_d = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.DOWN);
         }
     }
 }

@@ -90,7 +90,7 @@ public class EnvironmentManager : MonoBehaviour
             }  
 
             // 해당 터레인 설정
-            GameObject g = Instantiate (customTerrainPrefab, gameObject.transform.position, Quaternion.identity);
+            GameObject g = Instantiate (customTerrainPrefab, instTerrainPos, Quaternion.identity);
             ret = g.GetComponent <CustomDelaunayTerrain> ();
 
             // 해당 터레인 위치 인덱스 설정 (인덱스 = 해당 위치 / 사이즈)
@@ -102,7 +102,7 @@ public class EnvironmentManager : MonoBehaviour
             g.gameObject.transform.SetParent (this.gameObject.transform);
 
             // 위치 설정 (로컬)
-            g.gameObject.transform.localPosition = instTerrainPos;
+            //g.gameObject.transform.position = instTerrainPos;
 
             // 리스트에 추가
             customTerrains.Add (ret);
@@ -137,7 +137,7 @@ public class EnvironmentManager : MonoBehaviour
 
         for (int i = 0; i < customTerrains.Count; i++)
         {
-            float dist = Vector3.Distance (pos, customTerrains [i].gameObject.transform.localPosition);
+            float dist = Vector3.Distance (pos, customTerrains [i].gameObject.transform.position);
             if (dist < e)
             {
                 ret = customTerrains [i];

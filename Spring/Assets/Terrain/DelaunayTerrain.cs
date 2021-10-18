@@ -28,6 +28,7 @@ public class DelaunayTerrain : MonoBehaviour {
     public GameObject myPrefab_tree1;
     public GameObject myPrefab_tree2;
     public GameObject Bridge;
+    public GameObject terrain;
 
     // Detail mesh parameters
     public Transform detailMesh;
@@ -98,10 +99,6 @@ public class DelaunayTerrain : MonoBehaviour {
         Generate();
     }
 
-    void spawnButterfly(Vertex ver)
-    {
-        
-    }
     public virtual void Generate() {
         int _seed = Random.Range(0,50);
         Random.InitState(_seed);

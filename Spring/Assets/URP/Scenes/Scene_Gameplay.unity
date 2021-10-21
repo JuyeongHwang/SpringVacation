@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8831aa3b78a50e8478e67f4f1d4fa3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayDuration: 60
+  gameplayDuration: 10000
   gameplayDuration_remaining: 0
   kidController: {fileID: 0}
 --- !u!4 &195963781
@@ -805,20 +805,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3420779302466885948, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
   m_PrefabInstance: {fileID: 1592377481}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1049759497
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049759496}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.8223784
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.78419554, z: 0}
 --- !u!4 &1100144855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1398257520271782694, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
@@ -1156,10 +1142,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1049759497, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
-      propertyPath: m_Constraints
-      value: 42
-      objectReference: {fileID: 0}
     - target: {fileID: 3420779302466885948, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
       propertyPath: m_Name
       value: Kid
@@ -1208,12 +1190,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7054725728203461189, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
-      propertyPath: conditionText
-      value: 
-      objectReference: {fileID: 285327556}
-    m_RemovedComponents:
-    - {fileID: 1049759499, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
 --- !u!1 &1678698319
 GameObject:

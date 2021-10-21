@@ -7,6 +7,15 @@ public class KidController : MonoBehaviour
 {
     public GameObject kidBody;
     protected Animator kidAnimator;
+    protected CharacterController kidCharacterController;
+    public float kidCharacterController_maxSpeed = 2.5f;
+    public float kidCharacterController_maxSpeedRangeDist = 5f;
+    public Vector3 kidCharacterController_velocity;
+    public bool kidCharacterController_isGrounded;
+    protected const float kidCharacterController_gravity = -10f;
+    protected float kidCharacterController_currentGravity = -10f;
+    protected const float kidCharacterController_detectGroundDist = 0.25f;
+    protected const string kidCharacterController_groundName = "Ground";
 
 
     [SerializeField]
@@ -32,6 +41,8 @@ public class KidController : MonoBehaviour
         {
             kidAnimator = kidBody.GetComponent <Animator> ();
         }
+
+        kidCharacterController = GetComponent <CharacterController> ();
     }
 
     private void Start()
@@ -43,31 +54,24 @@ public class KidController : MonoBehaviour
 
     private void Update()
     {
+        // 찾은 버그가 있으면
         if (findObject != null) 
         {
             //Debug.Log(butterfly.name);
             
+            // 감지된 버그의 주변에 도달했을 때
             if (isArrived)
             {
                 attackBug();
             }
+            // 이동한다
             else
             {
-                Vector3 targetDir = findObject.transform.position - transform.position;
-                float step = 1.0f * Time.deltaTime;
-                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-                Debug.DrawRay(transform.position, newDir, Color.red);
-                transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
-
-                float dist = Mathf.Sqrt(Mathf.Abs(findObject.transform.position.x-transform.position.x)+
-                    Mathf.Abs(findObject.transform.position.y - transform.position.y)+
-                    Mathf.Abs(findObject.transform.position.z - transform.position.z)
-                    );
-                speed = 0.004f * (dist);
-                transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
-
-            }
+                Move ();
+                MoveY ();
+            }   
         }
+        // 찾은 버그가 없으면
         else
         {
             //conditionText.text = "탐색 중";
@@ -87,14 +91,24 @@ public class KidController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("충돌 시작!");
+        
         if (collision.gameObject.CompareTag(TagName))
         {
             isArrived = true;
-            
         }
-        
-
     }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        Debug.Log("충돌 시작!");
+        
+        if (other.gameObject.CompareTag(TagName))
+        {
+            isArrived = true;
+        }
+    }
+
+    // ================================== kid 관련 함수 =========================================
 
     public void SetAnimatorTrigger (string triggerName)
     {
@@ -104,6 +118,62 @@ public class KidController : MonoBehaviour
         kidAnimator.SetTrigger (triggerName);
     }
 
+
+    void Move ()
+    {
+        // 회전
+        Vector3 targetDir = findObject.transform.position - transform.position;
+        float step = 1.0f * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+        Debug.DrawRay(transform.position, newDir, Color.red);
+        transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
+
+        float dist = Mathf.Sqrt(Mathf.Abs(findObject.transform.position.x-transform.position.x)+
+            Mathf.Abs(findObject.transform.position.y - transform.position.y)+
+            Mathf.Abs(findObject.transform.position.z - transform.position.z)
+            );
+        //speed = 0.004f * (dist);
+        //transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
+
+        // 앞으로 이동
+        float trueSpeed = kidCharacterController_maxSpeed;
+        //float trueRatio = dist / kidCharacterController_maxSpeedRangeDist;
+        //trueRatio = Mathf.Min (trueRatio, 1f);
+        //trueSpeed = Mathf.Lerp (0, trueSpeed, trueRatio);
+
+        kidCharacterController_velocity = newDir * trueSpeed;
+        kidCharacterController_velocity.y = kidCharacterController_currentGravity;
+
+        // 최종 이동
+        kidCharacterController.Move (kidCharacterController_velocity * Time.deltaTime);
+    }
+
+    void MoveY ()
+    {
+        // 탐지
+        RaycastHit hit;
+        int hitlayermask = 1 << LayerMask.NameToLayer (kidCharacterController_groundName);
+        if (Physics.Raycast (transform.position, Vector3.down, out hit, kidCharacterController_detectGroundDist, hitlayermask))
+        {
+            kidCharacterController_isGrounded = true;
+        }
+        else
+        {
+            kidCharacterController_isGrounded = false;
+        }
+
+        // 탐지따라서 중력을 더해준다
+        if (kidCharacterController_isGrounded == false)
+        {
+            kidCharacterController_currentGravity += Time.deltaTime * kidCharacterController_gravity;
+        }
+        else
+        {
+           kidCharacterController_currentGravity = 0f;
+        }
+    }
+
+    // ================================== bug 관련 함수 ============================================
     void detectBug()
     {
         FoundBug = new List<GameObject>(GameObject.FindGameObjectsWithTag(TagName));
@@ -127,7 +197,6 @@ public class KidController : MonoBehaviour
             makeBug();
         }
     }
-
     void makeBug()
     {
         Debug.Log("자동생성");

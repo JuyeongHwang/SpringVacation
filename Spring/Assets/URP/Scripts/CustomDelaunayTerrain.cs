@@ -54,7 +54,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
             }
             else
             {
-                if (i % 12 == 0)
+                if (i % 70 == 0)
                 {
                     Instantiate(myPrefab_butterfly,
                         new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),

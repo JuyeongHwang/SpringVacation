@@ -3,10 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KidController : MonoBehaviour
+public enum KidState
 {
+    NONE = -1, IDLE, CATCHING
+}
+
+public class KidController : MonoBehaviour
+{    
+    // 애니메이션 관련 변수들
     public GameObject kidBody;
+
     protected Animator kidAnimator;
+
+    public KidState currentKidState;
+    public KidState nextKidState;
+
+    protected IEnumerator icatching;
+
+    // 물리 관련 변수들
     protected CharacterController kidCharacterController;
     public float kidCharacterController_maxSpeed = 2.5f;
     public float kidCharacterController_maxSpeedRangeDist = 5f;
@@ -17,6 +31,7 @@ public class KidController : MonoBehaviour
     protected const float kidCharacterController_detectGroundDist = 0.25f;
     protected const string kidCharacterController_groundName = "Ground";
 
+    
 
     [SerializeField]
     private List<GameObject> FoundBug;
@@ -47,36 +62,85 @@ public class KidController : MonoBehaviour
 
     private void Start()
     {
-        detectBug();
-        //conditionText.text = "탐색 중";
         UIManager_Gameplay.Inst.SetConditionText_Finding ();
+
+        // 상태 설정
+        currentKidState = KidState.NONE;
+        nextKidState = KidState.IDLE;
     }
 
     private void Update()
     {
-        // 찾은 버그가 있으면
-        if (findObject != null) 
+        // 상태 설정에 따른 애니메이션 트리거 작동
+        if (nextKidState != KidState.NONE && nextKidState != currentKidState)
         {
-            //Debug.Log(butterfly.name);
-            
-            // 감지된 버그의 주변에 도달했을 때
-            if (isArrived)
+            currentKidState = nextKidState;
+            nextKidState = KidState.NONE;
+
+            switch (currentKidState)
             {
-                attackBug();
+                case KidState.IDLE:
+                SetAnimatorTrigger ("Run");
+
+                if (icatching != null)
+                    StopCoroutine (icatching);
+                break;
+
+                case KidState.CATCHING:
+                if (icatching != null)
+                    StopCoroutine (icatching);
+
+                icatching = ISetAnimatorTrigger_Catching ();
+                StartCoroutine (icatching);
+                break;
             }
-            // 이동한다
+        }
+
+        // 상태에 따른 행동요령
+        switch (currentKidState)
+        {
+            // 아이들/달리기
+            case KidState.IDLE:
+            // 찾은 버그가 있으면
+            if (findObject != null) 
+            {
+                // 감지된 버그의 주변에 도달했을 때
+                if (isArrived)
+                {
+                    attackBug();
+
+                    // 상태 변화: 채집
+                    nextKidState = KidState.CATCHING;
+                }
+                // 이동한다
+                else
+                {
+                    Move ();
+                    MoveY ();
+                }   
+            }
+            // 찾은 버그가 없으면
             else
             {
-                Move ();
-                MoveY ();
-            }   
-        }
-        // 찾은 버그가 없으면
-        else
-        {
-            //conditionText.text = "탐색 중";
-            detectBug();
-            UIManager_Gameplay.Inst.SetConditionText_Finding ();
+                detectBug();
+                UIManager_Gameplay.Inst.SetConditionText_Finding ();
+            }
+            break;
+
+            // 채집중
+            case KidState.CATCHING:
+            // 채집중이라면
+            if (isArrived) 
+            {   
+                attackBug ();
+            }
+            // 채집 완료하면
+            else
+            {   
+                // 상태 변화: 이동
+                nextKidState = KidState.IDLE;
+            }
+            break;
         }
     }
 
@@ -109,15 +173,6 @@ public class KidController : MonoBehaviour
     }
 
     // ================================== kid 관련 함수 =========================================
-
-    public void SetAnimatorTrigger (string triggerName)
-    {
-        if (kidAnimator == null)
-            return;
-
-        kidAnimator.SetTrigger (triggerName);
-    }
-
 
     void Move ()
     {
@@ -172,6 +227,34 @@ public class KidController : MonoBehaviour
            kidCharacterController_currentGravity = 0f;
         }
     }
+
+    // ================================= kid 관련 애니메이션 함수 ===========================================
+
+    public void SetAnimatorTrigger (string triggerName)
+    {
+        if (kidAnimator == null)
+            return;
+
+        kidAnimator.SetTrigger (triggerName);
+    }
+    
+    IEnumerator ISetAnimatorTrigger_Catching ()
+    {
+        float catchDelay = 1.5f;
+
+        // 주기마다 스윙 트리거 작동
+        while (true)
+        {
+            int rand = Random.Range (0, 2);
+            if (rand == 0)
+                SetAnimatorTrigger ("SwingA");
+            else
+                SetAnimatorTrigger ("SwingB");
+
+            yield return new WaitForSeconds (catchDelay);
+        }
+    }
+
 
     // ================================== bug 관련 함수 ============================================
     void detectBug()

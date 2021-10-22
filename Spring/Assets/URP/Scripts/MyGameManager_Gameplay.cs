@@ -53,8 +53,8 @@ public class MyGameManager_Gameplay : MonoBehaviour
         StartCoroutine (igameplay);
 
         // 캐릭터 애니메이션 수행
-        if (kidController != null)
-            kidController.SetAnimatorTrigger ("Run");
+        //if (kidController != null)
+        //    kidController.SetAnimatorTrigger ("Run");
     }
 
 

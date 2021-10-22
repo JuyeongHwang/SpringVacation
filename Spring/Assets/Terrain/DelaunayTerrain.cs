@@ -99,6 +99,7 @@ public class DelaunayTerrain : MonoBehaviour {
         Generate();
     }*/
 
+    // custom 터레인으로부터 상속받기 위한 virtual 함수로 설정
     public virtual void Generate() {
         int _seed = Random.Range(0,50);
         Random.InitState(_seed);
@@ -174,7 +175,8 @@ public class DelaunayTerrain : MonoBehaviour {
         ScatterDetailMeshes();
     }
     
-    public void MakeMesh() {
+    // custom 터레인으로부터 상속받기 위한 virtual 함수로 설정
+    public virtual void MakeMesh() {
         IEnumerator<Triangle> triangleEnumerator = mesh.Triangles.GetEnumerator();
 
         for (int chunkStart = 0; chunkStart < mesh.Triangles.Count; chunkStart += trianglesInChunk) {

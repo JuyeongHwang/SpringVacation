@@ -12,8 +12,10 @@ public class CustomDelaunayTerrain : DelaunayTerrain
     //public int indexX = 0;
     //public int indexY = 0;
 
-    //[Space (10)]
-
+    [Space (10)]
+    public int terrainLOD = 0;
+    
+    [Space (10)]
     public CustomDelaunayTerrain nearTerrainHolder_u = null;
     public CustomDelaunayTerrain nearTerrainHolder_l = null;
     public CustomDelaunayTerrain nearTerrainHolder_r = null;
@@ -167,6 +169,112 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         MakeMesh();
 
         ScatterDetailMeshes();
+    }
+
+    public override void MakeMesh() 
+    {
+        IEnumerator<Triangle> triangleEnumerator = mesh.Triangles.GetEnumerator();
+
+        for (int chunkStart = 0; chunkStart < mesh.Triangles.Count; chunkStart += trianglesInChunk) {
+            List<Vector3> vertices = new List<Vector3>();
+            List<Vector3> normals = new List<Vector3>();
+            List<Vector2> uvs = new List<Vector2>();
+            List<int> triangles = new List<int>();
+
+            int chunkEnd = chunkStart + trianglesInChunk;
+            for (int i = chunkStart; i < chunkEnd; i++) {
+                if (!triangleEnumerator.MoveNext()) {
+                    break;
+                }
+
+                Triangle triangle = triangleEnumerator.Current;
+
+                // For the triangles to be right-side up, they need
+                // to be wound in the opposite direction
+                // triangle.vertices != vertices
+                Vector3 v0 = GetPoint3D(triangle.vertices[2].id);
+                Vector3 v1 = GetPoint3D(triangle.vertices[1].id);
+                Vector3 v2 = GetPoint3D(triangle.vertices[0].id);
+
+                List<Vector3> _vertices = new List<Vector3>();
+                List<Vector3> _normals = new List<Vector3>();
+                List<Vector2> _uvs = new List<Vector2>();
+                List<int> _triangles = new List<int>();
+
+                MakeMeshLOD (v0, v1, v2
+                , ref _triangles, ref _vertices, ref _normals, ref _uvs
+                , vertices.Count, terrainLOD);
+
+                for (int j = 0; j < _triangles.Count; j++)
+                {
+                    triangles.Add (_triangles [j]);
+                    vertices.Add (_vertices [j]);
+                    normals.Add (_normals [j]);
+                    uvs.Add (_uvs [j]);
+                }
+            }   
+
+            Mesh chunkMesh = new Mesh();
+            chunkMesh.vertices = vertices.ToArray();
+            chunkMesh.uv = uvs.ToArray();
+            chunkMesh.triangles = triangles.ToArray();
+            chunkMesh.normals = normals.ToArray();
+
+            Transform chunk = Instantiate<Transform>(chunkPrefab, transform.position, transform.rotation);
+            chunk.GetComponent<MeshFilter>().mesh = chunkMesh;
+            chunk.GetComponent<MeshCollider>().sharedMesh = chunkMesh;
+            chunk.transform.parent = transform;
+        }
+    }
+
+    void MakeMeshLOD (Vector3 v0, Vector3 v1, Vector3 v2
+    , ref List<int> triangles_ref, ref List<Vector3> vertices_ref, ref List<Vector3> normals_ref, ref List<Vector2> uvs_ref
+    , int verticesNum, int LOD)
+    {
+        if (LOD == 0)
+        {
+            // 버텍스, 노멀, uv를 가져오기 위한 인덱스 값
+            triangles_ref.Add(verticesNum + vertices_ref.Count);
+            triangles_ref.Add(verticesNum + vertices_ref.Count + 1);
+            triangles_ref.Add(verticesNum + vertices_ref.Count + 2);
+
+            vertices_ref.Add(v0);
+            vertices_ref.Add(v1);
+            vertices_ref.Add(v2);
+
+            Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0);
+            normals_ref.Add(normal);
+            normals_ref.Add(normal);
+            normals_ref.Add(normal);
+
+            // 이것땜시 uv가 제대로 작동 안한거임,,,
+            uvs_ref.Add(new Vector2(0.0f, 0.0f));
+            uvs_ref.Add(new Vector2(0.0f, 0.0f));
+            uvs_ref.Add(new Vector2(0.0f, 0.0f));
+        }
+        // 메쉬를 쪼개기 위한 재귀함수
+        else
+        {
+            Vector3 v01 = (v0 + v1) / 2;
+            Vector3 v12 = (v1 + v2) / 2;
+            Vector3 v20 = (v2 + v0) / 2;
+
+            MakeMeshLOD (v12, v2, v20
+            , ref triangles_ref, ref vertices_ref, ref normals_ref, ref uvs_ref
+            , verticesNum, LOD-1);
+
+            MakeMeshLOD (v01, v20, v0
+            , ref triangles_ref, ref vertices_ref, ref normals_ref, ref uvs_ref
+            , verticesNum, LOD-1);
+
+            MakeMeshLOD (v20, v01, v12
+            , ref triangles_ref, ref vertices_ref, ref normals_ref, ref uvs_ref
+            , verticesNum, LOD-1);
+
+            MakeMeshLOD (v1, v12, v01
+            , ref triangles_ref, ref vertices_ref, ref normals_ref, ref uvs_ref
+            , verticesNum, LOD-1);
+        }
     }
 
     public void UpdateNearTerrain ()

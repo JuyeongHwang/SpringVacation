@@ -144,7 +144,10 @@ public class CustomDelaunayTerrain : DelaunayTerrain
                 Vector2 sampleUV = new Vector2 (seed[o] + (float)(vert.x+xsizeOffset)*sampleSize / (float)xsize * frequency,
                                                   seed[o] + (float)(vert.y+ysizeOffset)*sampleSize / (float)ysize * frequency);
 
-                float sample = (Mathf.PerlinNoise (sampleUV.x, sampleUV.y) - 0.5f) * amplitude;
+                // 기본지형
+                float sample = EnvironmentManager.Inst.GetTerrainNoise (sampleUV) * amplitude;
+                //sample *= EnvironmentManager.Inst.GetRiverNoise (sampleUV);
+
                 elevation += sample;
                 maxVal += amplitude;
                 amplitude /= persistence;

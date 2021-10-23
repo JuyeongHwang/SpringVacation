@@ -17,14 +17,25 @@ public class EnvironmentManager : MonoBehaviour
 
     [Space (10)]
     public KidController kidController;
-    //public float kidGenerationRange = 100;
 
     [Space (10)]
     public float checkDelay = 1f;
-
     [Header ("터레인 정보")]
     public CustomDelaunayTerrain currentCustomTerrain;
     public List <CustomDelaunayTerrain> customTerrains;
+
+    [Header ("터레인 노이즈 설정: 지형")]
+    public float terrainNoiseScale = 1f;
+    public float terrainNoisePow = 1f;
+    
+    [Header ("터레인 노이즈 설정: 강물")]
+    [Tooltip ("매 실행시 바뀌는 Texture")]
+    public Texture2D riverNoiseTexture2D;
+    public int riverNoiseSize = 1024;
+	public int riverRegionAmount = 50;
+    public float riverNoiseScale = 1f;
+    public float riverNoisePow = 1f;
+
 
     public static EnvironmentManager Inst = null;
 
@@ -48,6 +59,9 @@ public class EnvironmentManager : MonoBehaviour
 
         // 리스트 초기화
         customTerrains = new List<CustomDelaunayTerrain> ();
+
+        // 보로노이
+        riverNoiseTexture2D = GetDiagramByDistance ();
     }
 
     void Start ()
@@ -148,7 +162,7 @@ public class EnvironmentManager : MonoBehaviour
         return ret;
     }
 
-    // 터레인 유닛 사이즈
+    // ============================================ 터레인 사이즈 ====================================================
     public int GetTerrainUnitSize_Original ()
     {
         return terrainUnitSize;
@@ -220,4 +234,101 @@ public class EnvironmentManager : MonoBehaviour
             yield return new WaitForSeconds (checkDelay);
         }
     }
+
+    // ========================================== 노이즈 관련 ==================================================
+
+    // -0.5 ~ 0.5
+    public float GetTerrainNoise (Vector2 uv)
+    {
+        float ret = Mathf.PerlinNoise (uv.x * terrainNoiseScale, uv.y * terrainNoiseScale) - 0.5f;
+        ret = Mathf.Pow (ret, terrainNoisePow);
+        return ret;
+    }
+
+    // 0 or 1
+    public float GetRiverNoise (Vector2 uv)
+    {
+        Vector2 trueUV = new Vector2 (riverNoiseSize * 0.5f + (uv.x) * riverNoiseScale, riverNoiseSize * 0.5f + (uv.y) * riverNoiseScale);
+        //trueUV.x = (trueUV.x + riverNoiseSize) % riverNoiseSize;
+        //trueUV.y = (trueUV.y + riverNoiseSize) % riverNoiseSize; 
+
+        Color col = riverNoiseTexture2D.GetPixel ((int)trueUV.x, (int)trueUV.y);
+        float ret = col.r;
+        //print (ret);
+
+        if (ret > 0.5f)
+            return 0;
+        return 1;
+    }
+
+    // ========================================== 보로노이 ========================================================
+
+    Texture2D GetDiagramByDistance()
+	{
+		Vector2Int[] centroids = new Vector2Int[riverRegionAmount];
+		
+		for (int i = 0; i < riverRegionAmount; i++)
+		{
+			centroids[i] = new Vector2Int(Random.Range(0, riverNoiseSize), Random.Range(0, riverNoiseSize));
+		}
+		Color[] pixelColors = new Color[riverNoiseSize * riverNoiseSize];
+		float[] distances = new float[riverNoiseSize * riverNoiseSize];
+
+		//you can get the max distance in the same pass as you calculate the distances. :P oops!
+		float maxDst = float.MinValue;
+		for (int x = 0; x < riverNoiseSize; x++)
+		{
+			for (int y = 0; y < riverNoiseSize; y++)
+			{
+				int index = x * riverNoiseSize + y;
+				distances[index] = Vector2.Distance(new Vector2Int(x,y), centroids[GetClosestCentroidIndex(new Vector2Int(x,y), centroids)]);
+				if(distances[index] > maxDst)
+				{
+					maxDst = distances[index];
+				}
+			}	
+		}
+
+		for(int i = 0; i < distances.Length; i++)
+		{
+			float colorValue = distances[i] / maxDst;
+			pixelColors[i] = new Color(colorValue, colorValue, colorValue, 1f);
+		}
+		return GetImageFromColorArray(pixelColors);
+	}
+	/* didn't actually need this
+	float GetMaxDistance(float[] distances)
+	{
+		float maxDst = float.MinValue;
+		for(int i = 0; i < distances.Length; i++)
+		{
+			if(distances[i] > maxDst)
+			{
+				maxDst = distances[i];
+			}
+		}
+		return maxDst;
+	}*/
+	int GetClosestCentroidIndex(Vector2Int pixelPos, Vector2Int[] centroids)
+	{
+		float smallestDst = float.MaxValue;
+		int index = 0;
+		for(int i = 0; i < centroids.Length; i++)
+		{
+			if (Vector2.Distance(pixelPos, centroids[i]) < smallestDst)
+			{
+				smallestDst = Vector2.Distance(pixelPos, centroids[i]);
+				index = i;
+			}
+		}
+		return index;
+	}
+	Texture2D GetImageFromColorArray(Color[] pixelColors)
+	{
+		Texture2D tex = new Texture2D(riverNoiseSize, riverNoiseSize);
+		tex.filterMode = FilterMode.Point;
+		tex.SetPixels(pixelColors);
+		tex.Apply();
+		return tex;
+	}
 }   

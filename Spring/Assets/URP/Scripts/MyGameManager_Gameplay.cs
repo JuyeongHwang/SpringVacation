@@ -60,6 +60,7 @@ public class MyGameManager_Gameplay : MonoBehaviour
 
     IEnumerator IGameplay ()
     {
+        gameplayDuration *= DataManager.Inst.level;
         gameplayDuration_remaining = gameplayDuration;
 
         while (gameplayDuration_remaining > 0)

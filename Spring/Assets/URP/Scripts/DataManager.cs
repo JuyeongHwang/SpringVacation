@@ -6,8 +6,14 @@ public class DataManager : MonoBehaviour
 {
     [Header ("데이터 정보")]
     [SerializeField]
-    private int butterflyNum = 0;
+    public int butterflyNum = 0;
+    public int butterflyMuch = 100;
     public static DataManager Inst = null;
+
+
+    public float money = 0.0f;
+    public int level = 1; //level * time
+
 
     void Awake ()
     {

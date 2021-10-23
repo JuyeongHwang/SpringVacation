@@ -10,6 +10,7 @@ public class MySceneManager : MonoBehaviour
     [Header ("다음 씬 이름")]
     public string nextSceneName = "";
 
+//    public bool canClick = false;
     void Awake ()
     {
         // 싱글톤

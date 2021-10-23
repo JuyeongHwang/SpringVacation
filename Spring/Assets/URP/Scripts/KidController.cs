@@ -50,6 +50,7 @@ public class KidController : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    float time = 0.0f;
     void Awake ()
     {
         if (kidBody != null)
@@ -71,6 +72,7 @@ public class KidController : MonoBehaviour
 
     private void Update()
     {
+        time += Time.deltaTime;
         // 상태 설정에 따른 애니메이션 트리거 작동
         if (nextKidState != KidState.NONE && nextKidState != currentKidState)
         {
@@ -287,15 +289,9 @@ public class KidController : MonoBehaviour
 
     void attackBug()
     {
-        //Debug.Log("스페이스바를 눌러 공격하세요~!");
-        //conditionText.text = "스페이스바를 눌러 곤충을 잡으세요!";
         UIManager_Gameplay.Inst.SetConditionText_Finded ();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-            findObject.GetComponent<bugController>().bug.hp -= attackPower;
-        }
+        findObject.GetComponent<bugController>().bug.hp -= attackPower * Time.deltaTime *DataManager.Inst.level;
 
         if (findObject.GetComponent<bugController>().bug.hp <= 0.0f)
         {
@@ -305,13 +301,13 @@ public class KidController : MonoBehaviour
             // 데이터 매니져의 butterflyNum 추가
             if (DataManager.Inst != null)
             {
-                DataManager.Inst.AddButterflyNumber (1);
+                DataManager.Inst.AddButterflyNumber(1);
             }
-            
+
             // UI 갱신
             if (UIManager_Gameplay.Inst != null)
             {
-                UIManager_Gameplay.Inst.UpdateButterflyNum ();
+                UIManager_Gameplay.Inst.UpdateButterflyNum();
             }
         }
     }

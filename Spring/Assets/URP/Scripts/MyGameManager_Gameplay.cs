@@ -39,6 +39,7 @@ public class MyGameManager_Gameplay : MonoBehaviour
 
     void Start ()
     {
+        gameplayDuration += DataManager.Inst.level*5;
         Gameplay ();
         //Instantiate(forterrain,new Vector3(-50,0,-50),Quaternion.identity);
     }
@@ -60,7 +61,7 @@ public class MyGameManager_Gameplay : MonoBehaviour
 
     IEnumerator IGameplay ()
     {
-        gameplayDuration *= DataManager.Inst.level;
+       
         gameplayDuration_remaining = gameplayDuration;
 
         while (gameplayDuration_remaining > 0)

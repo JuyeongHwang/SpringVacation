@@ -26,7 +26,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     int i = 0;
     bool bridgeExist = false;
-
+    bool haveLake = false;
     private void Awake ()
     {
         // 생성에 필요한 수치들을 세팅후 Generate
@@ -36,6 +36,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     void Start ()
     {
+        haveLake = true;
         Generate ();
 
         //다른 방법을 강구해야함...임시로,,
@@ -131,6 +132,10 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
+        int x = xsize;
+        int y = ysize ;
+        float r = 2f;
+
         // Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices) {
             float elevation = 0.0f;
@@ -154,17 +159,8 @@ public class CustomDelaunayTerrain : DelaunayTerrain
                 frequency *= frequencyBase;
             }
 
+
             elevation = elevation / maxVal;
-
-            if (vert.x <= (double)70.0f && vert.x >=(double) 50.0f)
-            {
-                elevation = -0.5f;
-            }
-
-            else if(vert.x >= 160.0f)
-            {
-                elevation = 3.0f;
-            }
 
             elevations.Add(elevation * elevationScale);
         }

@@ -136,6 +136,8 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         int y = ysize ;
         float r = 2f;
 
+        float lowY = -0.5f;
+
         // Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices) {
             float elevation = 0.0f;
@@ -151,7 +153,13 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
                 // 기본지형
                 float sample = EnvironmentManager.Inst.GetTerrainNoise (sampleUV) * amplitude;
-                //sample *= EnvironmentManager.Inst.GetRiverNoise (sampleUV);
+
+                // 강물
+                float sample0 = EnvironmentManager.Inst.GetRiverNoise (sampleUV);
+                if (sample0 == 0)
+                {
+                    sample = lowY;
+                }
 
                 elevation += sample;
                 maxVal += amplitude;

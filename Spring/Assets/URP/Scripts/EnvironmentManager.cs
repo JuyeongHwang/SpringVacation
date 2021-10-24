@@ -34,6 +34,7 @@ public class EnvironmentManager : MonoBehaviour
     public int riverNoiseSize = 1024;
 	public int riverRegionAmount = 50;
     public float riverNoiseScale = 1f;
+    public float riverNoiseCutoff = 0.3f;
     public float riverNoisePow = 1f;
 
 
@@ -256,7 +257,7 @@ public class EnvironmentManager : MonoBehaviour
         float ret = col.r;
         //print (ret);
 
-        if (ret > 0.5f)
+        if (ret > riverNoiseCutoff)
             return 0;
         return 1;
     }

@@ -40,6 +40,7 @@ public class MyDel_Terrain : MonoBehaviour
     private TriangleBin bin;
 
     public MyDelLeft mdl;
+    public MyDelUp mdu;
 
     Otri otri = default(Otri);
     Osub osub = default(Osub);
@@ -50,17 +51,26 @@ public class MyDel_Terrain : MonoBehaviour
     private TriangleNet.Mesh mesh = null;
 
 
-
-    public List<Vertex> left = new List<Vertex>();
-    public List<Vertex> up = new List<Vertex>();
-    public Dictionary<double, float> hashElev = new Dictionary<double, float>();
     public List<double> leftx = new List<double>();
+    public List<double> upy = new List<double>();
     void Start()
     {
         osub.seg = null;
         Generate();
-        generateLeft(); //info
+        //left
+
+        List<Vertex> left = new List<Vertex>();
+        Dictionary<double, float> hashElev = new Dictionary<double, float>();
+        generateLeft(left,hashElev); //info
         mdl.Generate(left, hashElev);
+        left.Clear();
+        leftx.Clear();
+
+        //up
+        hashElev.Clear();
+        List<Vertex> up = new List<Vertex>();
+        generateUp(up, hashElev); //info
+        mdu.Generate(up, hashElev);
     }
 
     public virtual void Generate()
@@ -146,7 +156,7 @@ public class MyDel_Terrain : MonoBehaviour
     }
 
 
-    public void generateLeft()
+    void generateLeft(List<Vertex> left, Dictionary<double, float> hashElev)
     {
         Debug.Log("Left");
 
@@ -157,6 +167,23 @@ public class MyDel_Terrain : MonoBehaviour
                 left.Add(vert);
                 leftx.Add(vert.x);
                 hashElev.Add(vert.x, elevations[vert.id]);
+
+            }
+        }
+    }
+
+    void generateUp(List<Vertex> up, Dictionary<double, float> hashElev)
+    {
+        Debug.Log("Up");
+
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            //ysize
+            if (vert.x <=0.0f)
+            {
+                up.Add(vert);
+                upy.Add(vert.y); //계속 바뀌는 값
+                hashElev.Add(vert.y, elevations[vert.id]);
 
             }
         }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MyGameManager_Result : MonoBehaviour
 {
-    [Header ("인트로 설정")]
-    public float introDuration = 3f;
+    //[Header ("인트로 설정")]
+    //public float introDuration = 3f;
 
     public static MyGameManager_Result Inst = null;
     void Awake ()
@@ -24,7 +24,7 @@ public class MyGameManager_Result : MonoBehaviour
     void Start ()
     {
         // 코루틴 수행
-        StartCoroutine (IResult ());
+        //StartCoroutine (IResult ());
 
         // 캐릭터 애니메이션 수행
         //if (kidController != null)
@@ -32,7 +32,7 @@ public class MyGameManager_Result : MonoBehaviour
     
     }
 
-    IEnumerator IResult ()
+    /*IEnumerator IResult ()
     {
         yield return new WaitForSecondsRealtime (introDuration);
 
@@ -40,5 +40,5 @@ public class MyGameManager_Result : MonoBehaviour
         {
             MySceneManager.Inst.GotoNextScene ();
         }
-    }
+    }*/
 }

@@ -5,26 +5,48 @@ using UnityEngine.UI;
 
 public class storeManager : MonoBehaviour
 {
-
     public Button levelBtn;
     public void ClickSell()
     {
-        DataManager.Inst.money += DataManager.Inst.butterflyNum * DataManager.Inst.butterflyMuch;
-        DataManager.Inst.butterflyNum = 0;
+        if (DataManager.Inst != null)
+        {
+            DataManager.Inst.money += DataManager.Inst.butterflyNum * DataManager.Inst.butterflyMuch;
+            DataManager.Inst.butterflyNum = 0;
+        }
+        
+        if (UIManager_Result.Inst != null)
+        {
+            UIManager_Result.Inst.UpdateButterflyNum ();
+        }
     }
 
     public void ClickLevelUp()
     {
-        
-        if(DataManager.Inst.money > 100 * (DataManager.Inst.level / 2))
+        if (DataManager.Inst != null)
         {
-            DataManager.Inst.level += 1;
-            DataManager.Inst.money -= 100 * (DataManager.Inst.level / 2);
+            if(DataManager.Inst.money > 100 * (DataManager.Inst.level / 2))
+            {
+                DataManager.Inst.level += 1;
+                DataManager.Inst.money -= 100 * (DataManager.Inst.level / 2);
+            }
+            else
+            {
+                levelBtn.interactable = false;
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½. 
+            }
         }
-        else
+    }
+
+    public void ClickNextGame ()
+    {
+        if (DataManager.Inst != null)
         {
-            levelBtn.interactable = false;
-            //·¹º§ ºÒ°¡. 
+            DataManager.Inst.day += 1;
+        }
+
+        if (MySceneManager.Inst != null)
+        {
+            MySceneManager.Inst.GotoNextScene ();
         }
     }
 

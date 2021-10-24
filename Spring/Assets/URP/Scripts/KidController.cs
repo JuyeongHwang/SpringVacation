@@ -301,7 +301,7 @@ public class KidController : MonoBehaviour
             // 데이터 매니져의 butterflyNum 추가
             if (DataManager.Inst != null)
             {
-                DataManager.Inst.AddButterflyNumber(1);
+                DataManager.Inst.butterflyNum += 1;
             }
 
             // UI 갱신

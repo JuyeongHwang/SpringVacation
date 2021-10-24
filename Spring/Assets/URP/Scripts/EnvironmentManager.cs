@@ -195,7 +195,7 @@ public class EnvironmentManager : MonoBehaviour
             float posXMax = posXMin + EnvironmentManager.Inst.GetTerrainUnitSize_Original ();
 
             float posZMin = currentCustomTerrain.gameObject.transform.position.z;
-            float posZSMax = posZMin + EnvironmentManager.Inst.GetTerrainUnitSize_Original ();
+            float posZMax = posZMin + EnvironmentManager.Inst.GetTerrainUnitSize_Original ();
 
             Vector3 kidPos = kidController.gameObject.transform.position;
 
@@ -217,7 +217,7 @@ public class EnvironmentManager : MonoBehaviour
                 currentCustomTerrain.GenerateNearTerrain ();
                 gen = true;
             }
-            else if (kidPos.z > posZSMax)
+            else if (kidPos.z > posZMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_u;
                 currentCustomTerrain.GenerateNearTerrain ();

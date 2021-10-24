@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
     public float money = 0.0f;
     public int level = 1; //level * time
 
+    public int day = 1;
 
     void Awake ()
     {
@@ -32,7 +33,8 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad (this.gameObject);
     }
 
-    public void AddButterflyNumber (int i)
+    // 간단한 시스템이고 싱글톤이기도하니 get set 같은 함수를 이용하지 않고 잠시 주석처리 해놓았습니다
+    /*public void AddButterflyNumber (int i)
     {
         butterflyNum += i;
     }
@@ -40,5 +42,5 @@ public class DataManager : MonoBehaviour
     public int GetButterflyNumber ()
     {
         return butterflyNum;
-    }
+    }*/
 }

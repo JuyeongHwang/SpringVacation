@@ -7,6 +7,7 @@ public class UIManager_Result : MonoBehaviour
 {
     [Header ("결과 UI 세팅")]
     public Text numberText;
+    public Text dayText;
 
     public static UIManager_Result Inst = null;
 
@@ -26,21 +27,23 @@ public class UIManager_Result : MonoBehaviour
     void Start ()
     {
         // 데이터 매니져로부터 데이터를 가져온다
-        if (DataManager.Inst != null)
+        UpdateButterflyNum ();
+        UpdateDayText ();
+    }
+
+    public void UpdateButterflyNum ()
+    {
+        if (numberText != null && DataManager.Inst != null)
         {
-            SetButterflyNumber (DataManager.Inst.GetButterflyNumber ());
-        }   
-        else
-        {
-            SetButterflyNumber (0);
+            numberText.text = "채집한 나비: " + DataManager.Inst.butterflyNum.ToString () + " 마리";
         }
     }
 
-    public void SetButterflyNumber (int num)
+    public void UpdateDayText ()
     {
-        if (numberText != null)
+        if (dayText.text != null && DataManager.Inst != null)
         {
-            numberText.text = "채집한 나비: " + num.ToString () + " 마리";
+            dayText.text = "DAY " + DataManager.Inst.day.ToString ();
         }
     }
 }

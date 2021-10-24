@@ -9,6 +9,7 @@ public class UIManager_Gameplay : MonoBehaviour
     public Text conditionText;
     public Text timeText;
     public Text numText;
+    public Text dayText;
 
     public static UIManager_Gameplay Inst = null;
 
@@ -29,6 +30,7 @@ public class UIManager_Gameplay : MonoBehaviour
     {
         SetConditionText_Finding ();
         SetTimeText (0);
+        SetDayText (DataManager.Inst.day);
         UpdateButterflyNum ();
     }
 
@@ -52,7 +54,15 @@ public class UIManager_Gameplay : MonoBehaviour
     {
         if (timeText != null)
         {
-            timeText.text = "남은시간: " + time.ToString ();
+            timeText.text = "남은시간: " + ((int)time).ToString ();
+        }
+    }
+
+    public void SetDayText (int day)
+    {
+        if (dayText != null)
+        {
+            dayText.text = "DAY " + day.ToString ();
         }
     }
 
@@ -63,7 +73,7 @@ public class UIManager_Gameplay : MonoBehaviour
 
         if (numText != null)
         {
-            numText.text = "잡은 나비: " + DataManager.Inst.GetButterflyNumber ().ToString () + " 마리";
+            numText.text = "잡은 나비: " + DataManager.Inst.butterflyNum.ToString () + " 마리";
         }
     }
 }

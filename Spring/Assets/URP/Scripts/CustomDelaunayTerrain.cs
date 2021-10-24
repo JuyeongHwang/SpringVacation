@@ -134,7 +134,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
         int x = xsize;
         int y = ysize ;
-        float r = 2f;
+        //float r = 2f;
 
         float lowY = -0.5f;
 

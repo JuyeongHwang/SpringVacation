@@ -11,7 +11,6 @@ public class storeManager : MonoBehaviour
     {
         DataManager.Inst.money += DataManager.Inst.butterflyNum * DataManager.Inst.butterflyMuch;
         DataManager.Inst.butterflyNum = 0;
-        UIManager_Result.Inst.SetButterflyNumber(0);
     }
 
     public void ClickLevelUp()

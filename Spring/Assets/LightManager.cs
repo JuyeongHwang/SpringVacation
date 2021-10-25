@@ -12,6 +12,8 @@ public class LightManager : MonoBehaviour
     [SerializeField, Range(0, 24)]
     private float TimeOfDay;
 
+    public Material riverMat;
+
 
     private void Update()
     {
@@ -20,7 +22,7 @@ public class LightManager : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            TimeOfDay += Time.deltaTime;
+            TimeOfDay += Time.deltaTime * 24f / MyGameManager_Gameplay.Inst.gameplayDuration;
             TimeOfDay %= 24; //Clamp between 0-24
             UpdateLighting(TimeOfDay / 24f);
         }
@@ -35,14 +37,24 @@ public class LightManager : MonoBehaviour
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePrecent);
         RenderSettings.fogColor = Preset.FogColor.Evaluate(timePrecent);
 
+        float startX = -0f;
+        float endX = 200f;
+
         if (DirectionLight != null)
         {
+            float curtX = Mathf.Lerp (startX, endX, timePrecent);
+
             DirectionLight.color = Preset.DirectionalColor.Evaluate(timePrecent);
-            DirectionLight.transform.localRotation = Quaternion.Euler(new Vector3((timePrecent * 360f) - 90f, 170f, 0));
+            DirectionLight.transform.localRotation = Quaternion.Euler(new Vector3(curtX, 170f, 0));
+
+            if (riverMat != null)
+            {
+                riverMat.SetFloat ("Vector1_ff3c4a1f6b0941508044adf34c334e48", 1 - Mathf.Sin (Mathf.PI * timePrecent));
+            }
         }
 
     }
-    private void OnValidate()
+    /*private void OnValidate()
     {
         if (DirectionLight != null)
             return;
@@ -64,5 +76,5 @@ public class LightManager : MonoBehaviour
         }
 
     }
-
+*/
 }

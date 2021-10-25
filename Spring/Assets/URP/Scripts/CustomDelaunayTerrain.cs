@@ -38,6 +38,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
     {
         haveLake = true;
         Generate ();
+        //GenerateNearTerrain ();
 
         //다른 방법을 강구해야함...임시로,,
         foreach (Vertex ver in mesh.Vertices)
@@ -307,30 +308,37 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         }
     }
 
-    public void GenerateNearTerrain ()
+    public void GenerateNearTerrain (int level)
     {
         UpdateNearTerrain ();
+        
+        if (level <= 0)
+            return;
 
         // =======================================================
 
         if (nearTerrainHolder_u == null)
         {
             nearTerrainHolder_u = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.UP);
+            nearTerrainHolder_u.GenerateNearTerrain (level-1);
         }
 
         if (nearTerrainHolder_l == null)
         {
             nearTerrainHolder_l = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.LEFT);
+            nearTerrainHolder_l.GenerateNearTerrain (level-1);
         }
 
         if (nearTerrainHolder_r == null)
         {
             nearTerrainHolder_r = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.RIGHT);
+            nearTerrainHolder_r.GenerateNearTerrain (level-1);
         }
 
         if (nearTerrainHolder_d == null)
         {
             nearTerrainHolder_d = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.DOWN);
+            nearTerrainHolder_d.GenerateNearTerrain (level-1);
         }
     }
 }

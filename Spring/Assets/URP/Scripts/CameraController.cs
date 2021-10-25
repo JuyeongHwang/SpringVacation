@@ -5,12 +5,23 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [Header ("카메라 설정")]
+    public Camera mainCamera;
     public GameObject cameraFocusObject;
     public float cameraFocusSmooth = 1;
     public float cameraFocusSmooth_rot = 1;
 
+    void Awake ()
+    {
+        
+    }
+
     void LateUpdate ()
     {
+        if (mainCamera != null)
+        {
+            mainCamera.depthTextureMode = DepthTextureMode.Depth;
+        }
+        
         if (cameraFocusObject == null)
             return;
 

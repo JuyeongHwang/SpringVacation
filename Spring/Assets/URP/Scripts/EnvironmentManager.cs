@@ -68,7 +68,7 @@ public class EnvironmentManager : MonoBehaviour
     void Start ()
     {
         currentCustomTerrain = InstantiateCustomTerrain (Vector3.zero, NearTerrainDir.NONE);
-        currentCustomTerrain.GenerateNearTerrain ();
+        currentCustomTerrain.GenerateNearTerrain (2);
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
         CheckKidPosition ();
@@ -202,25 +202,25 @@ public class EnvironmentManager : MonoBehaviour
             if (kidPos.x < posXMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_l;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (2);
                 gen = true;
             }
             else if (kidPos.x > posXMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_r;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (2);
                 gen = true;
             }
             else if (kidPos.z < posZMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_d;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (2);
                 gen = true;
             }
             else if (kidPos.z > posZMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_u;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (2);
                 gen = true;
             }
 

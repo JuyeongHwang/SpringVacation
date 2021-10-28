@@ -55,22 +55,21 @@ public class MyDel_Terrain : MonoBehaviour
     public List<double> upy = new List<double>();
     void Start()
     {
-        osub.seg = null;
         Generate();
         //left
 
-        List<Vertex> left = new List<Vertex>();
-        Dictionary<double, float> hashElev = new Dictionary<double, float>();
-        generateLeft(left,hashElev); //info
-        mdl.Generate(left, hashElev);
-        left.Clear();
-        leftx.Clear();
+        //List<Vertex> left = new List<Vertex>();
+        //Dictionary<double, float> hashElev = new Dictionary<double, float>();
+        //generateLeft(left,hashElev); //info
+        //mdl.Generate(left, hashElev);
+        //left.Clear();
+        //leftx.Clear();
 
-        //up
-        hashElev.Clear();
-        List<Vertex> up = new List<Vertex>();
-        generateUp(up, hashElev); //info
-        mdu.Generate(up, hashElev);
+        ////up
+        //hashElev.Clear();
+        //List<Vertex> up = new List<Vertex>();
+        //generateUp(up, hashElev); //info
+        //mdu.Generate(up, hashElev);
     }
 
     public virtual void Generate()
@@ -96,10 +95,7 @@ public class MyDel_Terrain : MonoBehaviour
         PoissonDiscSampler sampler = new PoissonDiscSampler(xsize, ysize, minPointRadius);
         Polygon polygon = new Polygon();
 
-        polygon.Add(new Vertex(xsize, ysize));
-        polygon.Add(new Vertex(xsize, 0));
-        polygon.Add(new Vertex(0, ysize));
-        polygon.Add(new Vertex(0, 0));
+
 
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
@@ -114,7 +110,10 @@ public class MyDel_Terrain : MonoBehaviour
             polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize)));
 
         }
-
+        polygon.Add(new Vertex(xsize, ysize));
+        polygon.Add(new Vertex(xsize, 0));
+        polygon.Add(new Vertex(0, ysize));
+        polygon.Add(new Vertex(0, 0));
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
 
@@ -142,11 +141,6 @@ public class MyDel_Terrain : MonoBehaviour
 
             elevation = elevation / maxVal;
 
-            if (vert.y <= ysize / 2)
-            {
-                elevation += 3.0f;
-            }
-
             elevations.Add(elevation);
         }
 
@@ -162,7 +156,7 @@ public class MyDel_Terrain : MonoBehaviour
 
         foreach (Vertex vert in mesh.Vertices)
         {
-            if (vert.y <= 0f)
+            if (vert.y == 0f)
             {
                 left.Add(vert);
                 leftx.Add(vert.x);
@@ -179,7 +173,7 @@ public class MyDel_Terrain : MonoBehaviour
         foreach (Vertex vert in mesh.Vertices)
         {
             //ysize
-            if (vert.x <=0.0f)
+            if (vert.x ==0.0f)
             {
                 up.Add(vert);
                 upy.Add(vert.y); //계속 바뀌는 값

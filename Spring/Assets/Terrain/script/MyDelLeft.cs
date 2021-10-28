@@ -5,6 +5,7 @@ using TriangleNet.Topology;
 
 public class MyDelLeft : MonoBehaviour
 {
+
     // Maximum size of the terrain.
     public int xsize = 50;
     public int ysize = 50;
@@ -17,6 +18,13 @@ public class MyDelLeft : MonoBehaviour
 
     // Triangles in each chunk.
     public int trianglesInChunk = 20000;
+
+    // Perlin noise parameters
+    public float elevationScale = 100.0f;
+    public float sampleSize = 1.0f;
+    public int octaves = 8;
+    public float frequencyBase = 2;
+    public float persistence = 1.1f;
 
     // Detail mesh parameters
     public Transform detailMesh;
@@ -31,13 +39,6 @@ public class MyDelLeft : MonoBehaviour
     // Fast triangle querier for arbitrary points
     private TriangleBin bin;
 
-    //public MyDel_Terrain mdt;
-
-    Otri otri = default(Otri);
-    Osub osub = default(Osub);
-
-
-    float max_x = -10, max_z = -10, min_x = 10, min_z = 10;
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
 
@@ -49,24 +50,10 @@ public class MyDelLeft : MonoBehaviour
         //Generate();
     }
 
-    public virtual void Generate(List<Vertex> leftedge, Dictionary<double, float> hashElev)
+
+    void makePolygon(Polygon polygon, PoissonDiscSampler sampler)
     {
-        osub.seg = null;
-        //init 
-        max_x = xsize;
-        max_z = ysize;
-        min_x = 0;
-        min_z = 0;
-
-        int rseed = Random.RandomRange(0, 50);
-        UnityEngine.Random.InitState(rseed);
-
-        elevations = new List<float>();
-
-        PoissonDiscSampler sampler = new PoissonDiscSampler(xsize, ysize, minPointRadius);
-        Polygon polygon = new Polygon();
-
-
+       
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
         {
@@ -84,24 +71,63 @@ public class MyDelLeft : MonoBehaviour
         {
             polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize - 1.0f)));
         }
+        polygon.Add(new Vertex(xsize, ysize));
+        polygon.Add(new Vertex(xsize, 0));
+        polygon.Add(new Vertex(0, ysize));
+        polygon.Add(new Vertex(0, 0));
+    }
+    public virtual void Generate(List<Vertex> leftedge, Dictionary<double, float> hashElev)
+    {
+        int rseed = Random.RandomRange(0, 50);
+        UnityEngine.Random.InitState(rseed);
+
+        elevations = new List<float>();
+
+        float[] seed = new float[octaves];
+
+        for (int i = 0; i < octaves; i++)
+        {
+            seed[i] = Random.Range(0.0f, 100.0f);
+        }
+        
+        PoissonDiscSampler sampler = new PoissonDiscSampler(xsize, ysize, minPointRadius);
+        Polygon polygon = new Polygon();
+
+        makePolygon(polygon, sampler);
 
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
 
-
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
-        float elev;
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
+            float elevation = 0.0f;
+            float amplitude = Mathf.Pow(persistence, octaves);
+            float frequency = 1.0f;
+            float maxVal = 0.0f;
+
+            for (int o = 0; o < octaves; o++)
+            {
+                float sample = (Mathf.PerlinNoise(seed[o] + (float)vert.x * sampleSize / (float)xsize * frequency,
+                                                  seed[o] + (float)vert.y * sampleSize / (float)ysize * frequency) - 0.5f) * amplitude;
+
+                elevation += sample;
+                maxVal += amplitude;
+                amplitude /= persistence;
+                frequency *= frequencyBase;
+            }
+
+            elevation = elevation / maxVal;
+
             if (hashElev.ContainsKey(vert.x))
             {
                 elevations.Add(hashElev[vert.x]);
             }
             else
             {
-                elevations.Add(1);
+                elevations.Add(elevation);
             }
         }
 
@@ -109,10 +135,6 @@ public class MyDelLeft : MonoBehaviour
 
         ScatterDetailMeshes();
     }
-
-
-    private TriangleNet.Mesh mesh2 = null;
-    private TriangleBin bin2;
 
 
     public void MakeMesh()

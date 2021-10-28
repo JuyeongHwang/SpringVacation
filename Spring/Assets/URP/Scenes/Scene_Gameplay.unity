@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731701, g: 0.13414618, b: 0.121079, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731695, g: 0.13414617, b: 0.12107901, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 135648850}
   - component: {fileID: 135648851}
+  - component: {fileID: 135648852}
   m_Layer: 0
   m_Name: Env.
   m_TagString: Untagged
@@ -168,13 +169,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05de5e77c6609ec4c837215a4bd8488f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainUnitSize: 100
+  terrainUnitSize: 50
   terrainUnitSize_gap: 5
   customTerrainPrefab: {fileID: 7458957964781346007, guid: 8b5113c391d1f10418ac95d3826f8223, type: 3}
   kidController: {fileID: 0}
   checkDelay: 0.1
   currentCustomTerrain: {fileID: 0}
   customTerrains: []
+  edgeMaker: {fileID: 135648852}
   terrainNoiseScale: 1
   terrainNoisePow: 1
   riverNoiseTexture2D: {fileID: 0}
@@ -183,6 +185,18 @@ MonoBehaviour:
   riverNoiseScale: 512
   riverNoiseCutoff: 0.3
   riverNoisePow: 1
+--- !u!114 &135648852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135648849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28537f9dc26af5d48b70154744622bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &195963779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,7 +1276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1711884895
 MeshCollider:
   m_ObjectHideFlags: 0

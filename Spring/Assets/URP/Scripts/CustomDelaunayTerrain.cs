@@ -36,53 +36,55 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     void Start ()
     {
-        haveLake = true;
-        Generate ();
-        //GenerateNearTerrain ();
+        //haveLake = true;
+        //Generate ();
+        ////GenerateNearTerrain ();
 
-        //다른 방법을 강구해야함...임시로,,
-        foreach (Vertex ver in mesh.Vertices)
-        {
-            //Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
-            if (ver.x <= (double)70.0f && ver.x >= (double)50.0f)
-            {
-                if(bridgeExist ==false)
-                {
-                    Instantiate(Bridge,
-                           new Vector3((float)ver.x + transform.position.x, elevations[i] + 2.0f, (float)ver.y + transform.position.z),
-                           Quaternion.identity);
+        ////다른 방법을 강구해야함...임시로,,
+        //foreach (Vertex ver in mesh.Vertices)
+        //{
+        //    //Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
+        //    if (ver.x <= (double)70.0f && ver.x >= (double)50.0f)
+        //    {
+        //        if(bridgeExist ==false)
+        //        {
+        //            Instantiate(Bridge,
+        //                   new Vector3((float)ver.x + transform.position.x, elevations[i] + 2.0f, (float)ver.y + transform.position.z),
+        //                   Quaternion.identity);
 
-                    bridgeExist = true;
+        //            bridgeExist = true;
 
-                }
-            }
-            else
-            {
-                if (i % 70 == 0)
-                {
-                    Instantiate(myPrefab_butterfly,
-                        new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
-                        Quaternion.identity);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (i % 70 == 0)
+        //        {
+        //            Instantiate(myPrefab_butterfly,
+        //                new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
+        //                Quaternion.identity);
 
-                }
-                else if (i % 34 == 0)
-                {
-                    Instantiate(myPrefab_tree1,
-                        new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
-                        Quaternion.identity);
-                }
-                else if (i % 51 == 0)
-                {
-                    Instantiate(myPrefab_tree2,
-                        new Vector3((float)ver.x + transform.position.x, elevations[i] , (float)ver.y + transform.position.z),
-                        Quaternion.identity);
-                }
-            }
+        //        }
+        //        else if (i % 34 == 0)
+        //        {
+        //            Instantiate(myPrefab_tree1,
+        //                new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
+        //                Quaternion.identity);
+        //        }
+        //        else if (i % 51 == 0)
+        //        {
+        //            Instantiate(myPrefab_tree2,
+        //                new Vector3((float)ver.x + transform.position.x, elevations[i] , (float)ver.y + transform.position.z),
+        //                Quaternion.identity);
+        //        }
+        //    }
             
 
-            i++;
-        }
+        //    i++;
+        //}
     }
+
+
 
     public void SetSize ()
     {
@@ -104,7 +106,8 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     public override void Generate() 
     {
-        UnityEngine.Random.InitState(0);
+        
+        UnityEngine.Random.InitState(Random.Range(0,50));
 
         elevations = new List<float>();
 
@@ -117,6 +120,11 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         PoissonDiscSampler sampler = new PoissonDiscSampler(xsize, ysize, minPointRadius);
 
         Polygon polygon = new Polygon();
+
+        polygon.Add(new Vertex(xsize, ysize));
+        polygon.Add(new Vertex(xsize, 0));
+        polygon.Add(new Vertex(0, ysize));
+        polygon.Add(new Vertex(0, 0));
 
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples()) {
@@ -148,19 +156,19 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
             for (int o = 0; o < octaves; o++) 
             {
-                // offset을 주어 연결이 자연스럽게 보이도록 한다
-                Vector2 sampleUV = new Vector2 (seed[o] + (float)(vert.x+xsizeOffset)*sampleSize / (float)xsize * frequency,
-                                                  seed[o] + (float)(vert.y+ysizeOffset)*sampleSize / (float)ysize * frequency);
-
-                // 기본지형
-                float sample = EnvironmentManager.Inst.GetTerrainNoise (sampleUV) * amplitude;
+                float sample = (Mathf.PerlinNoise(seed[o] + (float)vert.x * sampleSize / (float)xsize * frequency,
+                                                  seed[o] + (float)vert.y * sampleSize / (float)ysize * frequency) - 0.5f) * amplitude;
+                elevation += sample;
+                maxVal += amplitude;
+                amplitude /= persistence;
+                frequency *= frequencyBase;
 
                 // 강물
-                float sample0 = EnvironmentManager.Inst.GetRiverNoise (sampleUV);
-                if (sample0 == 0)
-                {
-                    sample = lowY;
-                }
+                //float sample0 = EnvironmentManager.Inst.GetRiverNoise (sampleUV);
+                //if (sample0 == 0)
+                //{
+                //    sample = lowY;
+                //}
 
                 elevation += sample;
                 maxVal += amplitude;
@@ -170,28 +178,58 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
 
             elevation = elevation / maxVal;
-
+            if (vert.y <ysize / 2)
+            {
+                elevation += 0.5f;
+            }
             elevations.Add(elevation * elevationScale);
         }
 
         MakeMesh();
-
         ScatterDetailMeshes();
     }
 
-    public override void MakeMesh() 
+    public Dictionary<double, float> dUpElevation = new Dictionary<double, float>();
+    public List<double> ylist = new List<double>();
+    public void UpEdgeGenerator()
+    {
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            if (vert.x >= this.transform.position.x+xsize)
+            {
+                ylist.Add(vert.y);
+                dUpElevation.Add(vert.y, elevations[vert.hash]);
+            }
+        }
+    }
+
+
+    public TriangleNet.Mesh GetTerrainMesh()
+    {
+        return mesh;
+    }
+
+    public List<float> GetElevations()
+    {
+        return elevations;
+    }
+
+    public override void MakeMesh()
     {
         IEnumerator<Triangle> triangleEnumerator = mesh.Triangles.GetEnumerator();
 
-        for (int chunkStart = 0; chunkStart < mesh.Triangles.Count; chunkStart += trianglesInChunk) {
+        for (int chunkStart = 0; chunkStart < mesh.Triangles.Count; chunkStart += trianglesInChunk)
+        {
             List<Vector3> vertices = new List<Vector3>();
             List<Vector3> normals = new List<Vector3>();
             List<Vector2> uvs = new List<Vector2>();
             List<int> triangles = new List<int>();
 
             int chunkEnd = chunkStart + trianglesInChunk;
-            for (int i = chunkStart; i < chunkEnd; i++) {
-                if (!triangleEnumerator.MoveNext()) {
+            for (int i = chunkStart; i < chunkEnd; i++)
+            {
+                if (!triangleEnumerator.MoveNext())
+                {
                     break;
                 }
 
@@ -209,18 +247,18 @@ public class CustomDelaunayTerrain : DelaunayTerrain
                 List<Vector2> _uvs = new List<Vector2>();
                 List<int> _triangles = new List<int>();
 
-                MakeMeshLOD (v0, v1, v2
+                MakeMeshLOD(v0, v1, v2
                 , ref _triangles, ref _vertices, ref _normals, ref _uvs
                 , vertices.Count, terrainLOD);
 
                 for (int j = 0; j < _triangles.Count; j++)
                 {
-                    triangles.Add (_triangles [j]);
-                    vertices.Add (_vertices [j]);
-                    normals.Add (_normals [j]);
-                    uvs.Add (_uvs [j]);
+                    triangles.Add(_triangles[j]);
+                    vertices.Add(_vertices[j]);
+                    normals.Add(_normals[j]);
+                    uvs.Add(_uvs[j]);
                 }
-            }   
+            }
 
             Mesh chunkMesh = new Mesh();
             chunkMesh.vertices = vertices.ToArray();

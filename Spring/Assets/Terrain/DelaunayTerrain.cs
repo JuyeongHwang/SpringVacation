@@ -122,10 +122,15 @@ public class DelaunayTerrain : MonoBehaviour {
         }
 
 
-        // Add some randomly sampled points
-        for (int i = 0; i < randomPoints; i++)
+        polygon.Add(new Vertex(xsize, ysize));
+        polygon.Add(new Vertex(xsize, 0));
+        polygon.Add(new Vertex(0, ysize));
+        polygon.Add(new Vertex(0, 0));
+
+        // Add uniformly-spaced points
+        foreach (Vector2 sample in sampler.Samples())
         {
-            polygon.Add(new Vertex(Random.Range(45.0f,75.0f), Random.Range(0.0f, ysize)));
+            polygon.Add(new Vertex((double)sample.x, (double)sample.y));
         }
 
         // Add some randomly sampled points
@@ -174,7 +179,9 @@ public class DelaunayTerrain : MonoBehaviour {
 
         ScatterDetailMeshes();
     }
-    
+
+
+
     // custom 터레인으로부터 상속받기 위한 virtual 함수로 설정
     public virtual void MakeMesh() {
         IEnumerator<Triangle> triangleEnumerator = mesh.Triangles.GetEnumerator();

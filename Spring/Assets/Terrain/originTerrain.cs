@@ -92,27 +92,6 @@ public class originTerrain : MonoBehaviour
         ScatterDetailMeshes();
     }
 
-    bool CheckNearUp()
-    {
-        for (int i = 0; i < TM.terrains.Count; i++)
-        {
-
-            Vector3 nearUpPos = new Vector3(this.transform.position.x + xsize, 0, this.transform.position.z);
-            if (
-                new Vector3(TM.terrains[i].transform.position.x, 
-                TM.terrains[i].transform.position.y,
-                TM.terrains[i].transform.position.z)== nearUpPos)
-            {
-                edgeMaker.UpEdgeGenerator(TM.terrains[i].GetComponent<originTerrain>().mesh, elevations,xsize);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    void MakeNearUp()
-    {
-    }
 
     void makePolygon(Polygon polygon, PoissonDiscSampler sampler)
     {
@@ -121,12 +100,6 @@ public class originTerrain : MonoBehaviour
         polygon.Add(new Vertex(xsize, 0));
         polygon.Add(new Vertex(0, ysize));
         polygon.Add(new Vertex(0, 0));
-
-        if (!CheckNearUp())
-        {
-            MakeNearUp();
-        }
-
 
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
@@ -165,12 +138,6 @@ public class originTerrain : MonoBehaviour
             elevations.Add(elevation * elevationScale);
         }
     }
-
-    public Dictionary<double, float> GenRightEdge()
-    {
-        return edgeMaker.RightEdgeGenerator(mesh,elevations);
-    }
-
 
     public void MakeMesh()
     {

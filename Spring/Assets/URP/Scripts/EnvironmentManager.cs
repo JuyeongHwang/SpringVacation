@@ -23,6 +23,8 @@ public class EnvironmentManager : MonoBehaviour
     [Header ("터레인 정보")]
     public CustomDelaunayTerrain currentCustomTerrain;
     public List <CustomDelaunayTerrain> customTerrains;
+    public EdgeManager edgeMaker;
+    List<GameObject> terrain_objects;
 
     [Header ("터레인 노이즈 설정: 지형")]
     public float terrainNoiseScale = 1f;
@@ -37,7 +39,7 @@ public class EnvironmentManager : MonoBehaviour
     public float riverNoiseCutoff = 0.3f;
     public float riverNoisePow = 1f;
 
-
+    
     public static EnvironmentManager Inst = null;
 
     IEnumerator icheck;
@@ -60,7 +62,7 @@ public class EnvironmentManager : MonoBehaviour
 
         // 리스트 초기화
         customTerrains = new List<CustomDelaunayTerrain> ();
-
+        terrain_objects = new List<GameObject>();
         // 보로노이
         riverNoiseTexture2D = GetDiagramByDistance ();
     }
@@ -104,10 +106,47 @@ public class EnvironmentManager : MonoBehaviour
 
             }  
 
+            //내일 할거
+            // 엣지 정보 가져오기
+            //바인딩하기
+            //그다음에 generator하기
+            //up,down,left,right마다 generator 다르게 해줘야하는데,,이걸 일일히 해줘야하나???? 고민
             // 해당 터레인 설정
             GameObject g = Instantiate (customTerrainPrefab, instTerrainPos, Quaternion.identity);
             ret = g.GetComponent <CustomDelaunayTerrain> ();
+            
 
+            //새로 생성하는 애 기준, 위아래좌우에 있는지 확인
+            foreach(GameObject trans in terrain_objects)
+            {
+                // 새로 생성되는 위치 instTerrainPos
+
+                //UP에 있는지 확인하고 있으면 그 터레인 up edge 정보 가져와서 downedge에 바인딩해주기
+                if (trans.transform.position == instTerrainPos - Vector3.forward * terrainUnitSize)
+                {
+                    Debug.Log(instTerrainPos + " DOWN " + trans.transform.position);
+                    //trans.GetComponent<CustomDelaunayTerrain>().UpEdgeGenerator();
+                }
+                //DOWN
+                if(trans.transform.position == instTerrainPos + Vector3.forward * terrainUnitSize)
+                {
+                    Debug.Log(instTerrainPos + " UP " + trans.transform.position);
+                }
+
+                //RIGHT                
+                if (trans.transform.position == instTerrainPos - Vector3.right * terrainUnitSize)
+                {
+                    Debug.Log(instTerrainPos + " Left " + trans.transform.position);
+                }
+
+                //LEFT
+                if (trans.transform.position == instTerrainPos + Vector3.right * terrainUnitSize)
+                {
+                    Debug.Log(instTerrainPos + " Right " + trans.transform.position);
+                }
+            }
+            
+            ret.Generate();
             // 해당 터레인 위치 인덱스 설정 (인덱스 = 해당 위치 / 사이즈)
             //ret.customPos = gameObject.transform.position;
             //ret.indexX = (int)pivotTerrainPos.x / GetTerrainUnitSize_Original ();
@@ -121,6 +160,7 @@ public class EnvironmentManager : MonoBehaviour
 
             // 리스트에 추가
             customTerrains.Add (ret);
+            terrain_objects.Add(g);
         }
 
         return ret;

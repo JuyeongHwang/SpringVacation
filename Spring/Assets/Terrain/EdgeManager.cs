@@ -8,6 +8,9 @@ public class EdgeManager : MonoBehaviour
 {
 
 
+    public Dictionary<double, float> dRightElevation = new Dictionary<double, float>();
+    public Dictionary<double, float> dUpElevation = new Dictionary<double, float>();
+
 
     public void EdgeGenerator(TriangleNet.Mesh mesh)
     {
@@ -19,8 +22,7 @@ public class EdgeManager : MonoBehaviour
 
 
     //List<Vertex> lRight = new List<Vertex>();
-    
-    Dictionary<double, float> dRightElevation = new Dictionary<double, float>();
+
 
     public Dictionary<double, float> RightEdgeGenerator(TriangleNet.Mesh mesh, List<float> elevations)
     {
@@ -34,9 +36,8 @@ public class EdgeManager : MonoBehaviour
         return dRightElevation;
     }
 
-    Dictionary<double, float> dUpElevation = new Dictionary<double, float>();
-
-    public Dictionary<double, float> UpEdgeGenerator(TriangleNet.Mesh mesh, List<float> elevations,int xsize)
+    
+    public void UpEdgeGenerator(Dictionary<double, float> myEdge, TriangleNet.Mesh mesh, List<float> elevations,int xsize)
     {
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -45,6 +46,6 @@ public class EdgeManager : MonoBehaviour
                 dUpElevation.Add(vert.y, elevations[vert.hash]);
             }
         }
-        return dUpElevation;
+        myEdge = dUpElevation;
     }
 }

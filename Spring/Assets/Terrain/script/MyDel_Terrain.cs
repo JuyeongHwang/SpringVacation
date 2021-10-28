@@ -96,6 +96,10 @@ public class MyDel_Terrain : MonoBehaviour
         Polygon polygon = new Polygon();
 
 
+        polygon.Add(new Vertex(xsize, ysize));
+        polygon.Add(new Vertex(xsize, 0));
+        polygon.Add(new Vertex(0, ysize));
+        polygon.Add(new Vertex(0, 0));
 
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
@@ -110,10 +114,7 @@ public class MyDel_Terrain : MonoBehaviour
             polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize)));
 
         }
-        polygon.Add(new Vertex(xsize, ysize));
-        polygon.Add(new Vertex(xsize, 0));
-        polygon.Add(new Vertex(0, ysize));
-        polygon.Add(new Vertex(0, 0));
+
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
 

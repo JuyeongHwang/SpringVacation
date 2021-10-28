@@ -21,17 +21,12 @@ public class CustomDelaunayTerrain : DelaunayTerrain
     public CustomDelaunayTerrain nearTerrainHolder_r = null;
     public CustomDelaunayTerrain nearTerrainHolder_d = null;
 
-    int xsizeOffset = 0;
-    int ysizeOffset = 0;
-
-    int i = 0;
     bool bridgeExist = false;
     bool haveLake = false;
     private void Awake ()
     {
         // 생성에 필요한 수치들을 세팅후 Generate
         SetSize ();
-        SetSizeOffset ();
     }
 
     void Start ()
@@ -91,18 +86,20 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         //xsize = x;
         //ysize = y;
 
-        xsize = EnvironmentManager.Inst.GetTerrainUnitSize ();
-        ysize = EnvironmentManager.Inst.GetTerrainUnitSize ();
+        xsize = EnvironmentManager.Inst.GetTerrainUnitSize_Original();
+        ysize = EnvironmentManager.Inst.GetTerrainUnitSize_Original();
     }
 
-    public void SetSizeOffset ()
-    {
-        //xSizeOffset = x;
-        //ySizeOffset = y;
 
-        xsizeOffset = (int)gameObject.transform.position.x;
-        ysizeOffset = (int)gameObject.transform.position.z;
-    }
+    public bool meetLeft = false;
+    public bool meetRight = false;
+    public bool meetDown = false;
+    public bool meetup = false;
+
+    //public Dictionary<Vertex, float> myDownElevation = new Dictionary<Vertex, float>();
+
+    List<float> bindingAtDownElevation = new List<float>();
+    List<double> bindingAtDownX = new List<double>();
 
     public override void Generate() 
     {
@@ -127,14 +124,31 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         polygon.Add(new Vertex(0, 0));
 
         // Add uniformly-spaced points
-        foreach (Vector2 sample in sampler.Samples()) {
+        foreach (Vector2 sample in sampler.Samples())
+        {
             polygon.Add(new Vertex((double)sample.x, (double)sample.y));
         }
-
         // Add some randomly sampled points
-        for (int i = 0; i < randomPoints; i++) {
-            polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize)));
+        float xRange = Random.Range(0.0f, xsize);
+        float yRange = Random.Range(0.0f, ysize);
+
+        //edge별로 설졍 1
+
+        if (meetDown)
+        {
+            foreach(float Bindx in bindingAtDownX)
+            {
+                // + transform.position.z
+                polygon.Add(new Vertex(Bindx, ysize));
+            }
+            yRange = Random.Range(0.0f, ysize - 10f);
         }
+
+        for (int i = 0; i < randomPoints; i++)
+        {
+            polygon.Add(new Vertex(xRange,yRange ));
+        }
+
 
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
@@ -157,7 +171,8 @@ public class CustomDelaunayTerrain : DelaunayTerrain
             for (int o = 0; o < octaves; o++) 
             {
                 float sample = (Mathf.PerlinNoise(seed[o] + (float)vert.x * sampleSize / (float)xsize * frequency,
-                                                  seed[o] + (float)vert.y * sampleSize / (float)ysize * frequency) - 0.5f) * amplitude;
+                                                 seed[o] + (float)vert.y * sampleSize / (float)ysize * frequency) - 0.5f) * amplitude;
+
                 elevation += sample;
                 maxVal += amplitude;
                 amplitude /= persistence;
@@ -178,40 +193,25 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
 
             elevation = elevation / maxVal;
-            if (vert.y <ysize / 2)
+
+
+
+            //if (vert.y < transform.position.z + ysize / 2)
+            //{
+            //    elevation += 0.5f;
+            //}
+
+            //edge별로 설졍 2
+            if (meetDown)
             {
-                elevation += 0.5f;
             }
+
             elevations.Add(elevation * elevationScale);
+
         }
 
         MakeMesh();
         ScatterDetailMeshes();
-    }
-
-    public Dictionary<double, float> dUpElevation = new Dictionary<double, float>();
-    public List<double> ylist = new List<double>();
-    public void UpEdgeGenerator()
-    {
-        foreach (Vertex vert in mesh.Vertices)
-        {
-            if (vert.x >= this.transform.position.x+xsize)
-            {
-                ylist.Add(vert.y);
-                dUpElevation.Add(vert.y, elevations[vert.hash]);
-            }
-        }
-    }
-
-
-    public TriangleNet.Mesh GetTerrainMesh()
-    {
-        return mesh;
-    }
-
-    public List<float> GetElevations()
-    {
-        return elevations;
     }
 
     public override void MakeMesh()

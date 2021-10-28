@@ -11,8 +11,7 @@ public enum NearTerrainDir
 public class EnvironmentManager : MonoBehaviour
 {
     [Header ("씬 환경 설정")]
-    public int terrainUnitSize = 100;
-    public int terrainUnitSize_gap = 25;
+    public int terrainUnitSize = 50;
     public GameObject customTerrainPrefab;
 
     [Space (10)]
@@ -106,12 +105,13 @@ public class EnvironmentManager : MonoBehaviour
 
             }  
 
-            //내일 할거
+            //앞으로 할거 ************
             // 엣지 정보 가져오기
             //바인딩하기
             //그다음에 generator하기
             //up,down,left,right마다 generator 다르게 해줘야하는데,,이걸 일일히 해줘야하나???? 고민
             // 해당 터레인 설정
+
             GameObject g = Instantiate (customTerrainPrefab, instTerrainPos, Quaternion.identity);
             ret = g.GetComponent <CustomDelaunayTerrain> ();
             
@@ -124,25 +124,32 @@ public class EnvironmentManager : MonoBehaviour
                 //UP에 있는지 확인하고 있으면 그 터레인 up edge 정보 가져와서 downedge에 바인딩해주기
                 if (trans.transform.position == instTerrainPos - Vector3.forward * terrainUnitSize)
                 {
-                    Debug.Log(instTerrainPos + " DOWN " + trans.transform.position);
+                    //Debug.Log(instTerrainPos + " DOWN " + trans.transform.position);
+                    ret.meetup = true;
                     //trans.GetComponent<CustomDelaunayTerrain>().UpEdgeGenerator();
                 }
+
                 //DOWN
                 if(trans.transform.position == instTerrainPos + Vector3.forward * terrainUnitSize)
                 {
-                    Debug.Log(instTerrainPos + " UP " + trans.transform.position);
+                    ret.meetDown = true;
+                    //trans.GetComponent<CustomDelaunayTerrain>().MakeUpEdge();
+                    //만난 애 : trans, 새로 만드는 애 : g/ret
+                    //Debug.Log(instTerrainPos + " UP " + trans.transform.position);
                 }
 
                 //RIGHT                
                 if (trans.transform.position == instTerrainPos - Vector3.right * terrainUnitSize)
                 {
-                    Debug.Log(instTerrainPos + " Left " + trans.transform.position);
+                    ret.meetRight = true;
+                    //Debug.Log(instTerrainPos + " Left " + trans.transform.position);
                 }
 
                 //LEFT
                 if (trans.transform.position == instTerrainPos + Vector3.right * terrainUnitSize)
                 {
-                    Debug.Log(instTerrainPos + " Right " + trans.transform.position);
+                    ret.meetLeft = true;
+                    //Debug.Log(instTerrainPos + " Right " + trans.transform.position);
                 }
             }
             
@@ -207,11 +214,6 @@ public class EnvironmentManager : MonoBehaviour
     public int GetTerrainUnitSize_Original ()
     {
         return terrainUnitSize;
-    }
-
-    public int GetTerrainUnitSize ()
-    {
-        return terrainUnitSize + terrainUnitSize_gap;
     }
 
     void CheckKidPosition ()

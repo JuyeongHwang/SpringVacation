@@ -6,16 +6,12 @@ using TriangleNet.Topology;
 
 public class originTerrain : MonoBehaviour
 {
-
-    public TerrainManager TM;
-    public EdgeManager edgeMaker;
-
     [HideInInspector] public bool hasNearUp;
     [HideInInspector] public bool hasNearDown;
     [HideInInspector] public bool hasNearLeft;
     [HideInInspector] public bool hasNearRight;
 
-    
+
 
     // Maximum size of the terrain.
     public int xsize = 50;
@@ -55,15 +51,38 @@ public class originTerrain : MonoBehaviour
 
     void Start()
     {
-        this.transform.position = new Vector3(xsize, 0, 0);
         Generate();
-        TM.terrains.Add(this.gameObject);
+
+        foreach (Edge edge in mesh.Edges)
+        {
+            Vertex v0 = new Vertex(mesh.vertices[edge.P0].x + transform.position.x, mesh.vertices[edge.P0].y + transform.position.z);
+            Vertex v1 = new Vertex(mesh.vertices[edge.P1].x + transform.position.x, mesh.vertices[edge.P1].y + transform.position.z);
+            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+        }
+
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            
+        }
+        
+        foreach(Triangle tri in mesh.Triangles)
+        {
+
+            Vertex v0 = tri.vertices[0];
+            Vertex v1 = tri.vertices[1];
+            Vertex v2 = tri.vertices[2];
+
+            Vector3 G = new Vector3( (float)(v0.x + v1.x + v2.x) / 3, 0, (float)(v0.y + v1.y + v2.y) / 3);
+
+            Debug.Log(tri.neighbors.Length);
+        }
+
     }
 
     public virtual void Generate()
     {
-        int _seed = Random.Range(0, 50);
-        UnityEngine.Random.InitState(_seed);
+        UnityEngine.Random.InitState(0);
 
         elevations = new List<float>();
 
@@ -71,35 +90,12 @@ public class originTerrain : MonoBehaviour
 
         for (int i = 0; i < octaves; i++)
         {
-            seed[i] = Random.Range(0.0f, 100.0f);
+            seed[i] = Random.Range(5.0f, 95.0f);
         }
 
         PoissonDiscSampler sampler = new PoissonDiscSampler(xsize, ysize, minPointRadius);
 
         Polygon polygon = new Polygon();
-
-        makePolygon(polygon, sampler);
-
-        TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
-        mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
-
-        bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
-
-        Setelevation(seed);
-
-        MakeMesh();
-
-        ScatterDetailMeshes();
-    }
-
-
-    void makePolygon(Polygon polygon, PoissonDiscSampler sampler)
-    {
-
-        polygon.Add(new Vertex(xsize, ysize));
-        polygon.Add(new Vertex(xsize, 0));
-        polygon.Add(new Vertex(0, ysize));
-        polygon.Add(new Vertex(0, 0));
 
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
@@ -110,12 +106,13 @@ public class originTerrain : MonoBehaviour
         // Add some randomly sampled points
         for (int i = 0; i < randomPoints; i++)
         {
-            polygon.Add(new Vertex(Random.Range(0.0f, xsize), Random.Range(0.0f, ysize)));
+            polygon.Add(new Vertex(Random.Range(5.0f, xsize-5f), Random.Range(5.0f, ysize-5f)));
         }
-    }
+        TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
+        mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
 
-    void Setelevation(float[] seed)
-    {
+        bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
+
         // Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -134,9 +131,13 @@ public class originTerrain : MonoBehaviour
                 frequency *= frequencyBase;
             }
 
-            elevation = elevation / maxVal;
-            elevations.Add(elevation * elevationScale);
+            elevation = elevation / maxVal * elevationScale;
+            elevations.Add(elevation);
         }
+
+        MakeMesh();
+
+        ScatterDetailMeshes();
     }
 
     public void MakeMesh()
@@ -270,5 +271,50 @@ public class originTerrain : MonoBehaviour
 
             Instantiate<Transform>(detailMesh, position, randomRotation, this.transform);
         }
+    }
+
+
+    List<Edge> segment = new List<Edge>();
+
+    public void OnDrawGizmos()
+    {
+        if (mesh == null)
+        {
+            // Probably in the editor
+            return;
+        }
+
+       
+        foreach (Edge edge in mesh.Edges)
+        {
+            if (mesh.vertices[edge.P0].id %10==0)
+            {
+                Gizmos.color = Color.blue;
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+            }
+            Vertex v0 = new Vertex(mesh.vertices[edge.P0].x + transform.position.x, mesh.vertices[edge.P0].y + transform.position.z);
+            Vertex v1 = new Vertex(mesh.vertices[edge.P1].x + transform.position.x, mesh.vertices[edge.P1].y + transform.position.z);
+            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+            Gizmos.DrawLine(p0, p1);
+        }
+
+
+        //// Gizmos.color = Color.blue;
+        ////foreach (Triangle tri in mesh.Triangles)
+        ////{
+
+        ////    Vertex v0 = tri.vertices[0];
+        ////    Vertex v1 = tri.vertices[1];
+        ////    Vertex v2 = tri.vertices[2];
+
+        ////    Vector3 G = new Vector3((float)(v0.x + v1.x + v2.x) / 3, 0, (float)(v0.y + v1.y + v2.y) / 3);
+
+        ////    Gizmos.DrawSphere(G, 0.5f);
+        
+        ////}
     }
 }

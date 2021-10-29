@@ -69,7 +69,7 @@ public class EnvironmentManager : MonoBehaviour
     void Start ()
     {
         currentCustomTerrain = InstantiateCustomTerrain (Vector3.zero, NearTerrainDir.NONE);
-        currentCustomTerrain.GenerateNearTerrain (2);
+        currentCustomTerrain.GenerateNearTerrain (1);
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
         CheckKidPosition ();
@@ -114,45 +114,9 @@ public class EnvironmentManager : MonoBehaviour
 
             GameObject g = Instantiate (customTerrainPrefab, instTerrainPos, Quaternion.identity);
             ret = g.GetComponent <CustomDelaunayTerrain> ();
-            
 
-            //새로 생성하는 애 기준, 위아래좌우에 있는지 확인
-            foreach(GameObject trans in terrain_objects)
-            {
-                // 새로 생성되는 위치 instTerrainPos
+            checkAlreadyHave(ret, instTerrainPos);
 
-                //UP에 있는지 확인하고 있으면 그 터레인 up edge 정보 가져와서 downedge에 바인딩해주기
-                if (trans.transform.position == instTerrainPos - Vector3.forward * terrainUnitSize)
-                {
-                    //Debug.Log(instTerrainPos + " DOWN " + trans.transform.position);
-                    ret.meetup = true;
-                    //trans.GetComponent<CustomDelaunayTerrain>().UpEdgeGenerator();
-                }
-
-                //DOWN
-                if(trans.transform.position == instTerrainPos + Vector3.forward * terrainUnitSize)
-                {
-                    ret.meetDown = true;
-                    //trans.GetComponent<CustomDelaunayTerrain>().MakeUpEdge();
-                    //만난 애 : trans, 새로 만드는 애 : g/ret
-                    //Debug.Log(instTerrainPos + " UP " + trans.transform.position);
-                }
-
-                //RIGHT                
-                if (trans.transform.position == instTerrainPos - Vector3.right * terrainUnitSize)
-                {
-                    ret.meetRight = true;
-                    //Debug.Log(instTerrainPos + " Left " + trans.transform.position);
-                }
-
-                //LEFT
-                if (trans.transform.position == instTerrainPos + Vector3.right * terrainUnitSize)
-                {
-                    ret.meetLeft = true;
-                    //Debug.Log(instTerrainPos + " Right " + trans.transform.position);
-                }
-            }
-            
             ret.Generate();
             // 해당 터레인 위치 인덱스 설정 (인덱스 = 해당 위치 / 사이즈)
             //ret.customPos = gameObject.transform.position;
@@ -173,6 +137,56 @@ public class EnvironmentManager : MonoBehaviour
         return ret;
     }
 
+    void checkAlreadyHave(CustomDelaunayTerrain ret, Vector3 instTerrainPos)
+    {
+        //새로 생성하는 애 기준, 위아래좌우에 있는지 확인
+        foreach (GameObject trans in terrain_objects)
+        {
+            // 새로 생성되는 위치 instTerrainPos
+
+            //Down에 있는지 확인하고 있으면 그 터레인 up edge 정보 가져와서 downedge에 바인딩해주기
+            if (trans.transform.position == instTerrainPos - Vector3.forward * terrainUnitSize)
+            {
+                //Debug.Log(instTerrainPos + " DOWN " + trans.transform.position);
+
+                ret.meetDown = true;
+                trans.GetComponent<CustomDelaunayTerrain>().GenDownNearEdge();
+                ret.nearDownEdgeInfo = trans.GetComponent<CustomDelaunayTerrain>().nearDownEdgeInfo;
+                //trans.GetComponent<CustomDelaunayTerrain>().UpEdgeGenerator();
+            }
+
+            //Up
+            if (trans.transform.position == instTerrainPos + Vector3.forward * terrainUnitSize)
+            {
+                ret.meetup = true;
+                trans.GetComponent<CustomDelaunayTerrain>().GenUpNearEdge();
+                ret.nearUpEdgeInfo = trans.GetComponent<CustomDelaunayTerrain>().nearUpEdgeInfo;
+                //trans.GetComponent<CustomDelaunayTerrain>().MakeUpEdge();
+                //만난 애 : trans, 새로 만드는 애 : g/ret
+                //Debug.Log(instTerrainPos + " UP " + trans.transform.position);
+            }
+
+            //Left                
+            if (trans.transform.position == instTerrainPos - Vector3.right * terrainUnitSize)
+            {
+                ret.meetLeft = true;
+
+                trans.GetComponent<CustomDelaunayTerrain>().GenLeftNearEdge();
+                ret.nearLeftEdgeInfo = trans.GetComponent<CustomDelaunayTerrain>().nearLeftEdgeInfo;
+
+                //Debug.Log(instTerrainPos + " Left " + trans.transform.position);
+            }
+
+            //Right
+            if (trans.transform.position == instTerrainPos + Vector3.right * terrainUnitSize)
+            {
+                ret.meetRight = true;
+                trans.GetComponent<CustomDelaunayTerrain>().GenRightNearEdge();
+                ret.nearRightEdgeInfo = trans.GetComponent<CustomDelaunayTerrain>().nearRightEdgeInfo;
+                //Debug.Log(instTerrainPos + " Right " + trans.transform.position);
+            }
+        }
+    }
     public CustomDelaunayTerrain GetTerrainHolderByPosition (Vector3 pos, NearTerrainDir dir)
     {
         float e = 0.01f;

@@ -31,61 +31,13 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     void Start ()
     {
-        //haveLake = true;
-        //Generate ();
-        ////GenerateNearTerrain ();
 
-        ////다른 방법을 강구해야함...임시로,,
-        //foreach (Vertex ver in mesh.Vertices)
-        //{
-        //    //Debug.Log(ver.x+" " + ver.y+" " + elevations[i]);
-        //    if (ver.x <= (double)70.0f && ver.x >= (double)50.0f)
-        //    {
-        //        if(bridgeExist ==false)
-        //        {
-        //            Instantiate(Bridge,
-        //                   new Vector3((float)ver.x + transform.position.x, elevations[i] + 2.0f, (float)ver.y + transform.position.z),
-        //                   Quaternion.identity);
-
-        //            bridgeExist = true;
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (i % 70 == 0)
-        //        {
-        //            Instantiate(myPrefab_butterfly,
-        //                new Vector3((float)ver.x + transform.position.x, elevations[i] + 1.0f, (float)ver.y + transform.position.z),
-        //                Quaternion.identity);
-
-        //        }
-        //        else if (i % 34 == 0)
-        //        {
-        //            Instantiate(myPrefab_tree1,
-        //                new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
-        //                Quaternion.identity);
-        //        }
-        //        else if (i % 51 == 0)
-        //        {
-        //            Instantiate(myPrefab_tree2,
-        //                new Vector3((float)ver.x + transform.position.x, elevations[i] , (float)ver.y + transform.position.z),
-        //                Quaternion.identity);
-        //        }
-        //    }
-            
-
-        //    i++;
-        //}
     }
 
 
 
     public void SetSize ()
     {
-        //xsize = x;
-        //ysize = y;
-
         xsize = EnvironmentManager.Inst.GetTerrainUnitSize_Original();
         ysize = EnvironmentManager.Inst.GetTerrainUnitSize_Original();
     }
@@ -98,8 +50,12 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     //public Dictionary<Vertex, float> myDownElevation = new Dictionary<Vertex, float>();
 
-    List<float> bindingAtDownElevation = new List<float>();
-    List<double> bindingAtDownX = new List<double>();
+    public Dictionary<double, float> nearRightEdgeInfo = new Dictionary<double, float>();
+    public Dictionary<double, float> nearLeftEdgeInfo = new Dictionary<double, float>();
+
+    public Dictionary<double, float> nearUpEdgeInfo = new Dictionary<double, float>();
+    public Dictionary<double, float> nearDownEdgeInfo = new Dictionary<double, float>();
+
 
     public override void Generate() 
     {
@@ -123,36 +79,72 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         polygon.Add(new Vertex(0, ysize));
         polygon.Add(new Vertex(0, 0));
 
+  
+        // Add some randomly sampled points
+        float xRange = Random.Range(2.0f, xsize-2.0f);
+        float yRange = Random.Range(2.0f, ysize - 2.0f);
+
+        //edge별로 설졍 1
+
+        if (meetRight)
+        {
+            foreach(double bindY in nearRightEdgeInfo.Keys)
+            {
+                // + transform.position.z
+                polygon.Add(new Vertex(xsize, bindY));
+            }
+            yRange = Random.Range(2.0f, ysize - 4f);
+        }
+        if (meetLeft)
+        {
+            foreach(double bindY in nearLeftEdgeInfo.Keys)
+            {
+                polygon.Add(new Vertex(0, bindY));
+            }
+            yRange = Random.Range(4.0f, ysize - 2.0f);
+        }
+
+
+        if (meetup)
+        {
+            foreach (double bindX in nearUpEdgeInfo.Keys)
+            {
+                // + transform.position.z
+                polygon.Add(new Vertex(bindX,ysize));
+            }
+            xRange = Random.Range(2.0f, ysize - 4f);
+        }
+        if (meetDown)
+        {
+            foreach (double bindX in nearDownEdgeInfo.Keys)
+            {
+                polygon.Add(new Vertex(bindX,0.0f));
+            }
+            yRange = Random.Range(4.0f, ysize - 2.0f);
+        }
+
+
+
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
         {
             polygon.Add(new Vertex((double)sample.x, (double)sample.y));
+
         }
-        // Add some randomly sampled points
-        float xRange = Random.Range(0.0f, xsize);
-        float yRange = Random.Range(0.0f, ysize);
 
-        //edge별로 설졍 1
-
-        if (meetDown)
+        for (int i = 0; i < 5; i++)
         {
-            foreach(float Bindx in bindingAtDownX)
-            {
-                // + transform.position.z
-                polygon.Add(new Vertex(Bindx, ysize));
-            }
-            yRange = Random.Range(0.0f, ysize - 10f);
+            polygon.Add(new Vertex(xRange,yRange));
         }
 
-        for (int i = 0; i < randomPoints; i++)
-        {
-            polygon.Add(new Vertex(xRange,yRange ));
-        }
+
 
 
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
         
+
+
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
         int x = xsize;
@@ -178,13 +170,6 @@ public class CustomDelaunayTerrain : DelaunayTerrain
                 amplitude /= persistence;
                 frequency *= frequencyBase;
 
-                // 강물
-                //float sample0 = EnvironmentManager.Inst.GetRiverNoise (sampleUV);
-                //if (sample0 == 0)
-                //{
-                //    sample = lowY;
-                //}
-
                 elevation += sample;
                 maxVal += amplitude;
                 amplitude /= persistence;
@@ -192,27 +177,123 @@ public class CustomDelaunayTerrain : DelaunayTerrain
             }
 
 
-            elevation = elevation / maxVal;
-
-
-
-            //if (vert.y < transform.position.z + ysize / 2)
-            //{
-            //    elevation += 0.5f;
-            //}
+            elevation = elevation / maxVal * elevationScale;
 
             //edge별로 설졍 2
-            if (meetDown)
+            if (meetRight)
             {
+                if (vert.x >= xsize)
+                {
+                    if (nearRightEdgeInfo.ContainsKey(vert.y))
+                    {
+                        elevation = nearRightEdgeInfo[vert.y];
+                    }
+                }
+
+            }
+            if (meetLeft)
+            {
+                if (vert.x <= 0.0f)
+                {
+                    if (nearLeftEdgeInfo.ContainsKey(vert.y))
+                    {
+                        elevation = nearLeftEdgeInfo[vert.y];
+                    }
+
+                }
             }
 
-            elevations.Add(elevation * elevationScale);
+            if (meetup)
+            {
+                if (vert.y >= ysize)
+                {
+                    if (nearUpEdgeInfo.ContainsKey(vert.x))
+                    {
+                        elevation = nearUpEdgeInfo[vert.x];
+                    }
+                }
+            }
+
+            if (meetDown)
+            {
+                if (vert.y <=0.0f)
+                {
+                    if (nearUpEdgeInfo.ContainsKey(vert.x))
+                    {
+                        elevation = nearUpEdgeInfo[vert.x];
+                    }
+                }
+            }
+
+            elevations.Add(elevation);
 
         }
 
+        nearRightEdgeInfo.Clear();
+        nearLeftEdgeInfo.Clear();
+        nearUpEdgeInfo.Clear();
+        nearDownEdgeInfo.Clear();
         MakeMesh();
         ScatterDetailMeshes();
     }
+
+
+    public void GenRightNearEdge()
+    {//nearEdgeInfo
+        nearRightEdgeInfo.Clear();
+
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            if (vert.x <= 0.0f)
+            {
+                nearRightEdgeInfo.Add(vert.y, elevations[vert.id]);
+            }
+        }
+
+    }
+
+    public void GenLeftNearEdge()
+    {//nearEdgeInfo
+        nearLeftEdgeInfo.Clear();
+
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            if (vert.x >= xsize)
+            {
+                nearLeftEdgeInfo.Add(vert.y, elevations[vert.id]);
+            }
+        }
+
+    }
+
+    public void GenUpNearEdge()
+    {//nearEdgeInfo
+        nearUpEdgeInfo.Clear();
+
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            if (vert.y >= ysize)
+            {
+                nearLeftEdgeInfo.Add(vert.x, elevations[vert.id]);
+            }
+        }
+
+    }
+
+    public void GenDownNearEdge()
+    {//nearEdgeInfo
+        nearDownEdgeInfo.Clear();
+
+        foreach (Vertex vert in mesh.Vertices)
+        {
+            if (vert.y <=0.0f)
+            {
+                nearLeftEdgeInfo.Add(vert.x, elevations[vert.id]);
+            }
+        }
+
+    }
+
 
     public override void MakeMesh()
     {
@@ -377,6 +458,22 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         {
             nearTerrainHolder_d = EnvironmentManager.Inst.InstantiateCustomTerrain (gameObject.transform.position, NearTerrainDir.DOWN);
             nearTerrainHolder_d.GenerateNearTerrain (level-1);
+        }
+    }
+
+    public void OnDrawGizmos() {
+        if (mesh == null) {
+            // Probably in the editor
+            return;
+        }
+
+        Gizmos.color = Color.red;
+        foreach (Edge edge in mesh.Edges) {
+            Vertex v0 = mesh.vertices[edge.P0];
+            Vertex v1 = mesh.vertices[edge.P1];
+            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+            Gizmos.DrawLine(p0, p1);
         }
     }
 }

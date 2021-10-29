@@ -74,15 +74,13 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
         Polygon polygon = new Polygon();
 
-        polygon.Add(new Vertex(xsize, ysize));
-        polygon.Add(new Vertex(xsize, 0));
-        polygon.Add(new Vertex(0, ysize));
-        polygon.Add(new Vertex(0, 0));
 
-  
+        polygon.Add(new Vertex(xsize, ysize));
+
+
         // Add some randomly sampled points
-        float xRange = Random.Range(2.0f, xsize-2.0f);
-        float yRange = Random.Range(2.0f, ysize - 2.0f);
+        float xRange = Random.Range(8.0f, xsize-8.0f);
+        float yRange = Random.Range(8.0f, ysize - 8.0f);
 
         //edge별로 설졍 1
 
@@ -90,10 +88,9 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         {
             foreach(double bindY in nearRightEdgeInfo.Keys)
             {
-                // + transform.position.z
                 polygon.Add(new Vertex(xsize, bindY));
             }
-            yRange = Random.Range(2.0f, ysize - 4f);
+            yRange = Random.Range(8.0f, ysize - 8f);
         }
         if (meetLeft)
         {
@@ -101,7 +98,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
             {
                 polygon.Add(new Vertex(0, bindY));
             }
-            yRange = Random.Range(4.0f, ysize - 2.0f);
+            yRange = Random.Range(8.0f, ysize - 8.0f);
         }
 
 
@@ -109,20 +106,25 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         {
             foreach (double bindX in nearUpEdgeInfo.Keys)
             {
-                // + transform.position.z
-                polygon.Add(new Vertex(bindX,ysize));
+                polygon.Add(new Vertex(bindX, ysize));
+
             }
-            xRange = Random.Range(2.0f, ysize - 4f);
+            xRange = Random.Range(8.0f, ysize - 8f);
+            
         }
+
         if (meetDown)
         {
             foreach (double bindX in nearDownEdgeInfo.Keys)
             {
-                polygon.Add(new Vertex(bindX,0.0f));
+
+                polygon.Add(new Vertex(bindX, 0.0f));
             }
-            yRange = Random.Range(4.0f, ysize - 2.0f);
+            yRange = Random.Range(8.0f, ysize - 8.0f);
+
         }
 
+        polygon.Add(new Vertex(xsize, 0));
 
 
         // Add uniformly-spaced points
@@ -131,12 +133,13 @@ public class CustomDelaunayTerrain : DelaunayTerrain
             polygon.Add(new Vertex((double)sample.x, (double)sample.y));
 
         }
-
+        polygon.Add(new Vertex(0, ysize));
+        
         for (int i = 0; i < 5; i++)
         {
             polygon.Add(new Vertex(xRange,yRange));
         }
-
+        polygon.Add(new Vertex(0, 0));
 
 
 
@@ -182,46 +185,33 @@ public class CustomDelaunayTerrain : DelaunayTerrain
             //edge별로 설졍 2
             if (meetRight)
             {
-                if (vert.x >= xsize)
+                if (nearRightEdgeInfo.ContainsKey(vert.y))
                 {
-                    if (nearRightEdgeInfo.ContainsKey(vert.y))
-                    {
-                        elevation = nearRightEdgeInfo[vert.y];
-                    }
+                    elevation = nearRightEdgeInfo[vert.y];
                 }
 
             }
             if (meetLeft)
             {
-                if (vert.x <= 0.0f)
+                if (nearLeftEdgeInfo.ContainsKey(vert.y))
                 {
-                    if (nearLeftEdgeInfo.ContainsKey(vert.y))
-                    {
-                        elevation = nearLeftEdgeInfo[vert.y];
-                    }
-
+                    elevation = nearLeftEdgeInfo[vert.y];
                 }
             }
 
             if (meetup)
             {
-                if (vert.y >= ysize)
+                if (nearUpEdgeInfo.ContainsKey(vert.x))
                 {
-                    if (nearUpEdgeInfo.ContainsKey(vert.x))
-                    {
-                        elevation = nearUpEdgeInfo[vert.x];
-                    }
+                    elevation = nearUpEdgeInfo[vert.x];
                 }
             }
 
             if (meetDown)
             {
-                if (vert.y <=0.0f)
+                if (nearDownEdgeInfo.ContainsKey(vert.x))
                 {
-                    if (nearUpEdgeInfo.ContainsKey(vert.x))
-                    {
-                        elevation = nearUpEdgeInfo[vert.x];
-                    }
+                    elevation = nearDownEdgeInfo[vert.x];
                 }
             }
 
@@ -241,12 +231,14 @@ public class CustomDelaunayTerrain : DelaunayTerrain
     public void GenRightNearEdge()
     {//nearEdgeInfo
         nearRightEdgeInfo.Clear();
-
         foreach (Vertex vert in mesh.Vertices)
         {
             if (vert.x <= 0.0f)
             {
-                nearRightEdgeInfo.Add(vert.y, elevations[vert.id]);
+                if (nearRightEdgeInfo.ContainsKey(vert.y))
+                { 
+                    nearRightEdgeInfo.Add(vert.y, elevations[vert.id]);
+                }
             }
         }
 
@@ -260,7 +252,7 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         {
             if (vert.x >= xsize)
             {
-                nearLeftEdgeInfo.Add(vert.y, elevations[vert.id]);
+                if (nearLeftEdgeInfo.ContainsKey(vert.y))  nearLeftEdgeInfo.Add(vert.y, elevations[vert.id]);
             }
         }
 
@@ -268,27 +260,29 @@ public class CustomDelaunayTerrain : DelaunayTerrain
 
     public void GenUpNearEdge()
     {//nearEdgeInfo
-        nearUpEdgeInfo.Clear();
+
+        nearDownEdgeInfo.Clear();
 
         foreach (Vertex vert in mesh.Vertices)
         {
-            if (vert.y >= ysize)
+            if (vert.y <= 0.0f)
             {
-                nearLeftEdgeInfo.Add(vert.x, elevations[vert.id]);
+                if (nearDownEdgeInfo.ContainsKey(vert.x))  nearDownEdgeInfo.Add(vert.x, elevations[vert.id]);
             }
+
         }
 
     }
 
     public void GenDownNearEdge()
     {//nearEdgeInfo
-        nearDownEdgeInfo.Clear();
-
+        nearUpEdgeInfo.Clear();
         foreach (Vertex vert in mesh.Vertices)
         {
-            if (vert.y <=0.0f)
+            if (vert.y >= ysize)
             {
-                nearLeftEdgeInfo.Add(vert.x, elevations[vert.id]);
+                if (nearUpEdgeInfo.ContainsKey(vert.x))
+                    nearUpEdgeInfo.Add(vert.x, elevations[vert.id]);
             }
         }
 
@@ -468,12 +462,19 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         }
 
         Gizmos.color = Color.red;
-        foreach (Edge edge in mesh.Edges) {
-            Vertex v0 = mesh.vertices[edge.P0];
-            Vertex v1 = mesh.vertices[edge.P1];
-            Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
-            Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
-            Gizmos.DrawLine(p0, p1);
+
+        foreach(Vertex vert in mesh.Vertices)
+        {
+            Gizmos.DrawSphere(new Vector3((float)vert.x + this.transform.position.x, 
+                elevations[vert.id],
+                 (float)vert.y + this.transform.position.z), 0.1f);
         }
+        //foreach (Edge edge in mesh.Edges) {
+        //    Vertex v0 = mesh.vertices[edge.P0];
+        //    Vertex v1 = mesh.vertices[edge.P1];
+        //    Vector3 p0 = new Vector3((float)v0.x, 0.0f, (float)v0.y);
+        //    Vector3 p1 = new Vector3((float)v1.x, 0.0f, (float)v1.y);
+        //    Gizmos.DrawLine(p0, p1);
+        //}
     }
 }

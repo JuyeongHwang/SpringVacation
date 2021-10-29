@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.AI;
 public enum KidState
 {
     NONE = -1, IDLE, CATCHING
@@ -31,7 +31,7 @@ public class KidController : MonoBehaviour
     protected const float kidCharacterController_detectGroundDist = 0.25f;
     protected const string kidCharacterController_groundName = "Ground";
 
-    
+    NavMeshAgent agent;
 
     [SerializeField]
     private List<GameObject> FoundBug;
@@ -59,6 +59,7 @@ public class KidController : MonoBehaviour
         }
 
         kidCharacterController = GetComponent <CharacterController> ();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -117,8 +118,9 @@ public class KidController : MonoBehaviour
                 // 이동한다
                 else
                 {
-                    Move ();
-                    MoveY ();
+                    agent.SetDestination(findObject.transform.position);
+                    //Move ();
+                    //MoveY ();
                 }   
             }
             // 찾은 버그가 없으면

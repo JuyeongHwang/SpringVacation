@@ -42,12 +42,19 @@ public class myDel_Terrain : MonoBehaviour
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
     [Space(10)]
+    public GameObject Butterfly;
+
+    [Space(10)]
     public myDel_Terrain nearTerrainHolder_u = null;
     public myDel_Terrain nearTerrainHolder_l = null;
     public myDel_Terrain nearTerrainHolder_r = null;
     public myDel_Terrain nearTerrainHolder_d = null;
 
 
+    private void Start()
+    {
+        GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
+    }
     public bool meetRight;
     public bool meetLeft;
     public bool meetUp;
@@ -96,6 +103,7 @@ public class myDel_Terrain : MonoBehaviour
 
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
+
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -143,7 +151,7 @@ public class myDel_Terrain : MonoBehaviour
         //{
         //    elevation -= 0.3f;
         //}
-
+        SpawnButterFly();
         MakeMesh();
 
         ScatterDetailMeshes();
@@ -341,6 +349,7 @@ public class myDel_Terrain : MonoBehaviour
 
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
+        SpawnButterFly();
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -372,7 +381,7 @@ public class myDel_Terrain : MonoBehaviour
             //uplift map
             if (vert.x + this.transform.position.x >= 50)
             {
-                elevation += 10f;
+                elevation += (this.transform.position.x)/10;
             }
             if (vert.x + this.transform.position.x <= -50)
             {
@@ -385,18 +394,17 @@ public class myDel_Terrain : MonoBehaviour
                 if (bindingRightElev.ContainsKey(vert.y))
                 {
                     elevation = (bindingRightElev[vert.y]);
+                    
                 }
 
             }
-
-
-
 
             if (vert.x >= xsize)
             {
                 if (bindingRightElev.ContainsKey(vert.y))
                 {
                     elevation = (bindingRightElev[vert.y]);
+                   
                 }
 
             }
@@ -406,10 +414,12 @@ public class myDel_Terrain : MonoBehaviour
                 if (bindingLeftElev.ContainsKey(vert.y))
                 {
                     elevation = (bindingLeftElev[vert.y]);
+
                     if (vert.x + transform.position.x <= -40)
                     {
                         elevation += 2.5f;
                     }
+                    
                 }
             }
 
@@ -419,6 +429,7 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     elevation = bindingUpElev[vert.x];
                 }
+                
             }
 
             else if (vert.y <= 0)
@@ -456,6 +467,14 @@ public class myDel_Terrain : MonoBehaviour
 
         ScatterDetailMeshes();
     }
+
+
+    public void SpawnButterFly()
+    {
+        GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
+
+    }
+
 
 
     public void ClearUsedEdge()

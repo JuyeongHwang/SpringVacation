@@ -67,9 +67,15 @@ public class EnvManager : MonoBehaviour
     {
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
         currentCustomTerrain.GenerateNearTerrain();
+        NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
         CheckKidPosition();
+        foreach (var s in surfaces)
+        {
+            s.RemoveData();
+            s.BuildNavMesh();
+        }
     }
 
     // 환경 매니져에서 인스턴스 수행
@@ -110,18 +116,16 @@ public class EnvManager : MonoBehaviour
              */
             // 해당 터레인 설정
             GameObject g = Instantiate(customTerrainPrefab, instTerrainPos, Quaternion.identity);
-            NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
-            foreach (var s in surfaces)
-            {
-                s.RemoveData();
-                s.BuildNavMesh();
-            }
+
             ret = g.GetComponent<myDel_Terrain>();
 
 
             foreach (myDel_Terrain ct in customTerrains)
             {
-                if (instTerrainPos + Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
+
+                if (ret.meetDown && ret.meetLeft&&ret.meetRight && ret.meetUp) { break; }
+
+                if (!ret.meetRight&& instTerrainPos + Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
                 {
                     ret.meetRight = true;
                     ct.generateLeft();
@@ -130,7 +134,7 @@ public class EnvManager : MonoBehaviour
                     ret.bindingRightElev = ct.hashleftElev;
 
                 }
-                if (instTerrainPos - Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
+                if (!ret.meetLeft && instTerrainPos - Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
                 {
                     ret.meetLeft = true;
                     ct.generateRight();
@@ -138,7 +142,7 @@ public class EnvManager : MonoBehaviour
                     ret.bindingLeftVertex = ct.rightVert;
                     ret.bindingLeftElev = ct.hashrightElev;
                 }
-                if (instTerrainPos + Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
+                if (!ret.meetUp && instTerrainPos + Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
                 {
                     ret.meetUp = true;
                     ct.generateDown(); //info
@@ -146,7 +150,7 @@ public class EnvManager : MonoBehaviour
                     ret.bindingUpVertex = ct.downVert;
                     ret.bindingUpElev = ct.hashDownElev;
                 }
-                if (instTerrainPos - Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
+                if (!ret.meetDown && instTerrainPos - Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
                 {
 
                     ret.meetDown = true;
@@ -171,6 +175,8 @@ public class EnvManager : MonoBehaviour
                 ret.GenerateForNear();
             }
 
+
+
             // 부모를 해당 매니저로 설정한다
             g.gameObject.transform.SetParent(this.gameObject.transform);
 
@@ -183,6 +189,22 @@ public class EnvManager : MonoBehaviour
 
         return ret;
     }
+
+
+    private void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
+            foreach (var s in surfaces)
+            {
+                s.RemoveData();
+                s.BuildNavMesh();
+            }
+        }
+    }
+
 
     public myDel_Terrain GetTerrainHolderByPosition(Vector3 pos, NearTerrainDir2 dir)
     {

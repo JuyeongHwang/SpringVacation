@@ -5,7 +5,7 @@ using UnityEngine;
 public class MyGameManager_Gameplay : MonoBehaviour
 {
     [Header ("게임플레이 설정")]
-    public float gameplayDuration = 60f;
+    //public float gameplayDuration = 60f;
     public float gameplayDuration_remaining = 0;
 
     [Header ("캐릭터 설정")]
@@ -39,7 +39,8 @@ public class MyGameManager_Gameplay : MonoBehaviour
 
     void Start ()
     {
-        gameplayDuration += DataManager.Inst.level*5;
+        //gameplayDuration += DataManager.Inst.level*5;
+
         Gameplay ();
         //Instantiate(forterrain,new Vector3(-50,0,-50),Quaternion.identity);
     }
@@ -61,8 +62,17 @@ public class MyGameManager_Gameplay : MonoBehaviour
 
     IEnumerator IGameplay ()
     {
-       
-        gameplayDuration_remaining = gameplayDuration;
+        //gameplayDuration_remaining = gameplayDuration;
+        if (DataManager.Inst != null)
+        {
+            gameplayDuration_remaining = DataManager.Inst.GetDataPreset ()
+            .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].DAYDURATION;
+        }
+        else
+        {
+            // 기본시간 지정
+            gameplayDuration_remaining = 30f;
+        }
 
         while (gameplayDuration_remaining > 0)
         {

@@ -13,7 +13,16 @@ public class LightManager : MonoBehaviour
     private float TimeOfDay;
 
     public Material riverMat;
+    protected float dayDuration;
 
+    void Start ()
+    {
+        if (DataManager.Inst != null)
+        {
+            dayDuration =  DataManager.Inst.GetDataPreset ()
+            .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].DAYDURATION;
+        }
+    }
 
     private void Update()
     {
@@ -22,7 +31,7 @@ public class LightManager : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            TimeOfDay += Time.deltaTime * 24f / MyGameManager_Gameplay.Inst.gameplayDuration;
+            TimeOfDay += Time.deltaTime * 24f / dayDuration;
             TimeOfDay %= 24; //Clamp between 0-24
             UpdateLighting(TimeOfDay / 24f);
         }

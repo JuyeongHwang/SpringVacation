@@ -24,10 +24,15 @@ public class storeManager : MonoBehaviour
     {
         if (DataManager.Inst != null)
         {
-            if(DataManager.Inst.money > 100 * (DataManager.Inst.level / 2))
+            // 데이터매니져를 통한 요구 머니와 현재 머니를 가져와서 판단
+            float currentMoney = DataManager.Inst.GetMoney ();
+            float requirementMoney = DataManager.Inst.GetDataPreset ()
+            .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].REQUIREMENTMONEY;
+
+            if(currentMoney >=  requirementMoney)
             {
-                DataManager.Inst.level += 1;
-                DataManager.Inst.money -= 100 * (DataManager.Inst.level / 2);
+                DataManager.Inst.IncreaseLevelIndex ();
+                DataManager.Inst.AddMoney (requirementMoney);
             }
             else
             {

@@ -19,7 +19,7 @@ public class KidController : MonoBehaviour
     public Animator kidAnimator;
     public Animator[] kidToolAnimators; // 지정 받아야 하는 애니메이터
     protected Animator kidToolAnimator; // 인덱스를 이용한 현재 애니메이터
-    public int kidToolIndex;
+    //public int kidToolIndex;
 
     [Header ("상태 설정")]
     public KidState currentKidState;
@@ -29,8 +29,8 @@ public class KidController : MonoBehaviour
 
     // 물리 관련 변수들
     protected CharacterController kidCharacterController;
-    public float kidCharacterController_maxSpeed = 2.5f;
-    public float kidCharacterController_maxSpeedRangeDist = 5f;
+    public float kidCharacterController_moveSpeed = 2.5f;   // 기본속도
+    //public float kidCharacterController_maxSpeedRangeDist = 5f;
     public Vector3 kidCharacterController_velocity;
     public bool kidCharacterController_isGrounded;
     protected const float kidCharacterController_gravity = -10f;
@@ -51,7 +51,7 @@ public class KidController : MonoBehaviour
 
     //characterInfo
     //level, 수집물 리스트,, 등등
-    float attackPower = 10f;
+    float attackPower = 10f;    // 기본 잡기
     bool isArrived = false;
 
     [SerializeField]
@@ -68,7 +68,8 @@ public class KidController : MonoBehaviour
         kidCharacterController = GetComponent <CharacterController> ();
         agent = GetComponent<NavMeshAgent>();
 
-        SetChildToolByIndex (kidToolIndex);
+        SetChildToolByIndex (DataManager.Inst.GetDataPreset ().DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()]
+        .TOOLINDEX);
     }
 
     private void Start()
@@ -78,6 +79,16 @@ public class KidController : MonoBehaviour
         // 상태 설정
         currentKidState = KidState.NONE;
         nextKidState = KidState.IDLE;
+
+        // 이동 속도 및 공격 속도 설정
+        if (DataManager.Inst != null)
+        {
+            kidCharacterController_moveSpeed = DataManager.Inst.GetDataPreset ()
+            .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].MOVESPEED;
+
+            attackPower = DataManager.Inst.GetDataPreset ()
+            .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].CATCHPOWER;
+        }
     }
 
     private void Update()
@@ -204,12 +215,12 @@ public class KidController : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
 
         // 앞으로 이동
-        float trueSpeed = kidCharacterController_maxSpeed;
+        //float trueSpeed = kidCharacterController_maxSpeed;
         //float trueRatio = dist / kidCharacterController_maxSpeedRangeDist;
         //trueRatio = Mathf.Min (trueRatio, 1f);
         //trueSpeed = Mathf.Lerp (0, trueSpeed, trueRatio);
 
-        kidCharacterController_velocity = newDir * trueSpeed;
+        kidCharacterController_velocity = newDir * kidCharacterController_moveSpeed;
         kidCharacterController_velocity.y = kidCharacterController_currentGravity;
 
         // 최종 이동
@@ -309,7 +320,7 @@ public class KidController : MonoBehaviour
     {
         UIManager_Gameplay.Inst.SetConditionText_Finded ();
 
-        findObject.GetComponent<bugController>().bug.hp -= attackPower * Time.deltaTime *DataManager.Inst.level;
+        findObject.GetComponent<bugController>().bug.hp -= attackPower * Time.deltaTime;
 
         if (findObject.GetComponent<bugController>().bug.hp <= 0.0f)
         {
@@ -334,10 +345,10 @@ public class KidController : MonoBehaviour
 
     public void SetChildToolByIndex (int index)
     {
-        if (0 <= kidToolIndex && kidToolIndex < kidToolAnimators.Length
-        && kidToolAnimators [kidToolIndex])
+        if (0 <= index && index < kidToolAnimators.Length
+        && kidToolAnimators [index] != null)
         {
-            kidToolAnimator = kidToolAnimators [kidToolIndex];
+            kidToolAnimator = kidToolAnimators [index];
 
             for (int i = 0; i < kidToolAnimators.Length; i++)
             {

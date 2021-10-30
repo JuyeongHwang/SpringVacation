@@ -900,7 +900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8831aa3b78a50e8478e67f4f1d4fa3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayDuration: 10
   gameplayDuration_remaining: 0
   kidController: {fileID: 1170337323}
 --- !u!4 &695846853
@@ -948,8 +947,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   butterflyNum: 0
   butterflyMuch: 100
+  dataPreset: {fileID: 11400000, guid: ed83b4f4126d9514dab77f9e462072e1, type: 2}
   money: 0
-  level: 1
+  levelIndex: 0
   day: 1
 --- !u!4 &834595183
 Transform:

@@ -10,9 +10,18 @@ public class DataManager : MonoBehaviour
     public int butterflyMuch = 100;
     public static DataManager Inst = null;
 
+    [SerializeField]
+    protected DataPreset dataPreset;
 
     public float money = 0.0f;
-    public int level = 1; //level * time
+    // 레벨
+    // 이동속도증가
+    // 공격속도증가
+    // 하루시간증가
+    // 채집시간감소
+
+    //public int level = 1; //level * time
+    public int levelIndex = 0;  // 0 ~ maxLevel-1
 
     public int day = 1;
 
@@ -43,4 +52,40 @@ public class DataManager : MonoBehaviour
     {
         return butterflyNum;
     }*/
+
+    // ================================ 데이터 프리셋 =================================
+
+    public DataPreset GetDataPreset ()
+    {
+        return dataPreset;
+    }
+    
+    // ================================== 머니 관련 ==================================
+
+    public float GetMoney ()
+    {
+        return money;
+    }
+
+    public void AddMoney (float add)
+    {
+        money += add;
+        money = Mathf.Max (money, 0f);
+    }
+
+    // ================================== 레벨 관련 =================================
+
+    public int GetLevelIndex ()
+    {
+        return levelIndex;
+    }
+
+    public void IncreaseLevelIndex ()
+    {
+        if (DataManager.Inst == null)
+            return;
+
+        levelIndex++;
+        levelIndex = Mathf.Min (levelIndex, dataPreset.DATAINFORMATIONS.Length);
+    }
 }

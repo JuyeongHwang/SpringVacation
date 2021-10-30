@@ -133,6 +133,21 @@ public class myDel_Terrain : MonoBehaviour
             {
                 elevation = 4f;
             }
+
+            if (transform.position.x == vert.x + 40)
+            {
+                elevation = 4.0f;
+            }
+
+
+            float dist = Mathf.Sqrt(Mathf.Pow((10- (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((10 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist <= 4) // -30,30, r= 9
+            {
+                elevation = (16 - dist) ;
+            }
             elevations.Add(elevation);
         }
         //예시
@@ -280,18 +295,18 @@ public class myDel_Terrain : MonoBehaviour
             seed[i] = Random.Range(0.0f, 100.0f);
         }
 
-        if (meetDown) { minY += 4; }
-        if (meetUp) { maxY -= 4; }
-        if (meetLeft) { minX += 4; }
-        if (meetRight)
-        {
-            maxX -= 4
-   ;
-        }
+        if (meetDown) { minY += 3; }
+        if (meetUp) { maxY -= 3; }
+        if (meetLeft) { minX += 3; }
+        if (meetRight){ maxX -= 3; }
 
         PoissonDiscSampler sampler = new PoissonDiscSampler(minX, minY, maxX, maxY, minPointRadius);
         Polygon polygon = new Polygon();
 
+        polygon.Add(new Vertex(xsize, ysize));
+        polygon.Add(new Vertex(xsize, 0));
+        polygon.Add(new Vertex(0, ysize));
+        polygon.Add(new Vertex(0, 0));
 
         // Add uniformly-spaced points
         foreach (Vector2 sample in sampler.Samples())
@@ -330,10 +345,7 @@ public class myDel_Terrain : MonoBehaviour
             }
         }
 
-        polygon.Add(new Vertex(xsize, ysize));
-        polygon.Add(new Vertex(xsize, 0));
-        polygon.Add(new Vertex(0, ysize));
-        polygon.Add(new Vertex(0, 0));
+
 
         // Add some randomly sampled points
         for (int i = 0; i < randomPoints; i++)
@@ -347,9 +359,9 @@ public class myDel_Terrain : MonoBehaviour
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
 
 
-        bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
+        bin = new TriangleBin(mesh, (int)maxX, (int)maxX, minPointRadius * 2.0f);
 
-        SpawnButterFly();
+       
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -387,6 +399,25 @@ public class myDel_Terrain : MonoBehaviour
             {
                 elevation -= 10f;
             }
+
+            if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
+            {
+                if (transform.position.z + vert.y <= 10)
+                {
+                    elevation = -1.0f * elevationScale;
+                }
+
+            }
+
+            float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
+                 + Mathf.Pow((10 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist <= 4) // -30,30, r= 9
+            {
+                elevation = (16 - dist);
+            }
+
 
             //edge 연결
             if (vert.x >= xsize)
@@ -441,6 +472,8 @@ public class myDel_Terrain : MonoBehaviour
             }
 
 
+
+ 
             elevations.Add(elevation);
 
         }
@@ -460,7 +493,7 @@ public class myDel_Terrain : MonoBehaviour
         //{
         //    elevation -= 0.3f;
         //}
-
+        SpawnButterFly();
         ClearUsedEdge();
 
         MakeMesh();

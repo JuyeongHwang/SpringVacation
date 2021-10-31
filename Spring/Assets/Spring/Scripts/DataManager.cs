@@ -6,8 +6,8 @@ public class DataManager : MonoBehaviour
 {
     [Header ("데이터 정보")]
     [SerializeField]
-    public int butterflyNum = 0;
-    public int butterflyMuch = 100;
+   // public int butterflyNum = 0;
+   // public int butterflyMuch = 100;
     public static DataManager Inst = null;
 
     [SerializeField]

@@ -73,7 +73,9 @@ public class UIManager_Gameplay : MonoBehaviour
 
         if (numText != null)
         {
-            numText.text = "잡은 나비: " + DataManager.Inst.butterflyNum.ToString () + " 마리";
+            //numberText.text = "채집한 나비: " + DataManager.Inst.butterflyNum.ToString () + " 마리";
+
+            numText.text =  DataManager.Inst.money.ToString () + " 단위";
         }
     }
 }

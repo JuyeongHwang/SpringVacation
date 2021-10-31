@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
     // 레벨
     // 이동속도증가
@@ -23,8 +24,10 @@ public class DataInformation
     protected float requirementMoney;
     [SerializeField]
     protected int toolIndex;
+    [SerializeField]
+    protected Sprite toolImage;
 
-    public float LEVEL
+    public int LEVEL
     {
         get {return level;}
     }
@@ -52,6 +55,11 @@ public class DataInformation
     public int TOOLINDEX
     {
         get {return toolIndex;}
+    }
+
+    public Sprite TOOLIMAGE
+    {
+        get {return toolImage;}
     }
 }
 

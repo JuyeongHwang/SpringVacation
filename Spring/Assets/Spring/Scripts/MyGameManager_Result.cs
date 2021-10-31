@@ -7,6 +7,9 @@ public class MyGameManager_Result : MonoBehaviour
     //[Header ("인트로 설정")]
     //public float introDuration = 3f;
 
+    [Header ("캐릭터 설정")]
+    public KidController_Result kidController_result;
+
     public static MyGameManager_Result Inst = null;
     void Awake ()
     {
@@ -19,6 +22,10 @@ public class MyGameManager_Result : MonoBehaviour
         {
             Destroy (gameObject);
         }
+
+        // kidController가 없으면 씬 내에서 찾는다
+        if (kidController_result == null)
+            kidController_result = FindObjectOfType <KidController_Result> ();
     }
 
     void Start ()
@@ -41,4 +48,19 @@ public class MyGameManager_Result : MonoBehaviour
             MySceneManager.Inst.GotoNextScene ();
         }
     }*/
+
+    public void UpgradeKid ()
+    {
+        kidController_result.SetToolIndex (DataManager.Inst.GetLevelIndex ());
+        kidController_result.SetChildToolByIndex ();
+        SetKidAnimatorTrigger ("Upgrade");
+    }
+
+    public void SetKidAnimatorTrigger (string trigger)
+    {
+        if (kidController_result == null)
+            return;
+
+        kidController_result.SetAnimatorTrigger (trigger);
+    }
 }

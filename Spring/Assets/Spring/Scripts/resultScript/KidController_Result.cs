@@ -13,7 +13,7 @@ public class KidController_Result : MonoBehaviour
 
     void Start ()
     {
-        SetChildToolByIndex (kidToolIndex);
+        SetChildToolByIndex ();
         SetAnimatorTrigger ("Idle");
     }
 
@@ -32,7 +32,12 @@ public class KidController_Result : MonoBehaviour
         kidToolAnimator.SetTrigger (triggerName);
     }
 
-    public void SetChildToolByIndex (int index)
+    public void SetToolIndex (int index)
+    {
+        kidToolIndex = index;
+    }
+
+    public void SetChildToolByIndex ()
     {
         if (0 <= kidToolIndex && kidToolIndex < kidToolAnimators.Length
         && kidToolAnimators [kidToolIndex])
@@ -41,7 +46,7 @@ public class KidController_Result : MonoBehaviour
 
             for (int i = 0; i < kidToolAnimators.Length; i++)
             {
-                if (i == index)
+                if (i == kidToolIndex)
                 {
                     kidToolAnimators [i].gameObject.SetActive (true);
                 }

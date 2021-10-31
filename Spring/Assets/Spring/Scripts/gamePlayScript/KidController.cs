@@ -138,11 +138,11 @@ public class KidController : MonoBehaviour
                 // 이동한다
                 else
                 {
-                    agent.SetDestination(findObject.transform.position);
-                    //Move ();
-                    //MoveY ();
-                }   
-            }
+                    //agent.SetDestination(findObject.transform.position);
+                        Move();
+                        MoveY();
+                    }
+                }
             // 찾은 버그가 없으면
             else
             {

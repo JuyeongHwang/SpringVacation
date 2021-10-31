@@ -67,15 +67,15 @@ public class EnvManager : MonoBehaviour
     {
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
         currentCustomTerrain.GenerateNearTerrain();
-        NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
+        //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
         CheckKidPosition();
-        foreach (var s in surfaces)
-        {
-            s.RemoveData();
-            s.BuildNavMesh();
-        }
+        //foreach (var s in surfaces)
+        //{
+        //    s.RemoveData();
+        //    s.BuildNavMesh();
+        //}
     }
 
     // 환경 매니져에서 인스턴스 수행
@@ -194,15 +194,15 @@ public class EnvManager : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
-            foreach (var s in surfaces)
-            {
-                s.RemoveData();
-                s.BuildNavMesh();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
+        //    foreach (var s in surfaces)
+        //    {
+        //        s.RemoveData();
+        //        s.BuildNavMesh();
+        //    }
+        //}
     }
 
 

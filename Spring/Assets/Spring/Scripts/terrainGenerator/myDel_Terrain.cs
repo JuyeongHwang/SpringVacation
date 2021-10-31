@@ -43,6 +43,8 @@ public class myDel_Terrain : MonoBehaviour
     private TriangleNet.Mesh mesh = null;
     [Space(10)]
     public GameObject Butterfly;
+    public GameObject myPrefab_tree2;
+    public GameObject water_plane;
 
     [Space(10)]
     public myDel_Terrain nearTerrainHolder_u = null;
@@ -140,14 +142,45 @@ public class myDel_Terrain : MonoBehaviour
             }
 
 
-            float dist = Mathf.Sqrt(Mathf.Pow((10- (float)vert.x + transform.position.x), 2)
-                + Mathf.Pow((10 - (float)vert.y) + transform.position.z, 2));
+            float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
             //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
             if (dist <= 4) // -30,30, r= 9
             {
-                elevation = (16 - dist) ;
+                elevation += (16 - dist);
             }
+
+            float dist2 = Mathf.Sqrt(Mathf.Pow((7 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist2 <= 4) // -30,30, r= 9
+            {
+                elevation += (16 - dist2);
+            }
+
+            float dist3 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+            + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist3 <= 3) // -30,30, r= 9
+            {
+                elevation += (9 - dist3);
+            }
+
+
+            float dist4 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+             + Mathf.Pow((-5 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist4 <= 5) // -30,30, r= 9
+            {
+                elevation += (25 - dist4);
+            }
+
+
+
             elevations.Add(elevation);
         }
         //예시
@@ -166,7 +199,7 @@ public class myDel_Terrain : MonoBehaviour
         //{
         //    elevation -= 0.3f;
         //}
-        SpawnButterFly();
+        //SpawnButterFly();
         MakeMesh();
 
         ScatterDetailMeshes();
@@ -390,7 +423,7 @@ public class myDel_Terrain : MonoBehaviour
             //{
 
             //}
-            //uplift map
+            //uplift map **********
             if (vert.x + this.transform.position.x >= 50)
             {
                 elevation += (this.transform.position.x)/10;
@@ -400,6 +433,8 @@ public class myDel_Terrain : MonoBehaviour
                 elevation -= 10f;
             }
 
+
+            // 강가 ********
             if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
             {
                 if (transform.position.z + vert.y <= 10)
@@ -409,17 +444,50 @@ public class myDel_Terrain : MonoBehaviour
 
             }
 
+
+            //make Mountain****************************
+
+
             float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
-                 + Mathf.Pow((10 - (float)vert.y) + transform.position.z, 2));
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
             //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
             if (dist <= 4) // -30,30, r= 9
             {
-                elevation = (16 - dist);
+                elevation += (16 - dist);
+            }
+
+            float dist2 = Mathf.Sqrt(Mathf.Pow((7 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist2 <= 4) // -30,30, r= 9
+            {
+                elevation += (16 - dist2);
+            }
+
+            float dist3 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+            + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist3 <= 3) // -30,30, r= 9
+            {
+                elevation += (9 - dist3);
             }
 
 
-            //edge 연결
+            float dist4 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+             + Mathf.Pow((-5 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist4 <= 5) // -30,30, r= 9
+            {
+                elevation += (25 - dist4);
+            }
+
+
+            //edge 연결*****************************
+
             if (vert.x >= xsize)
             {
                 if (bindingRightElev.ContainsKey(vert.y))
@@ -502,9 +570,56 @@ public class myDel_Terrain : MonoBehaviour
     }
 
 
+    int i = 0;
     public void SpawnButterFly()
     {
-        GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
+        //foreach(Triangle tri in mesh.Triangles)
+        //{
+        //    if(i % 55 == 0)
+        //    {
+        //        float a = ((float)tri.vertices[0].x + transform.position.x*3 + (float)tri.vertices[1].x + (float)tri.vertices[2].x )/ 3;
+        //        float b = ((float)tri.vertices[0].y + transform.position.y * 3 + (float)tri.vertices[1].y + (float)tri.vertices[2].y) / 3;
+        //        float c = (elevations[tri.vertices[0].id] + elevations[tri.vertices[1].id] + elevations[tri.vertices[2].id]) / 3;
+
+        //        GameObject g = Instantiate(Butterfly, new Vector3(a,c,b), Quaternion.identity);
+        //    }
+        //}
+
+
+        foreach (Vertex ver in mesh.Vertices)
+        {
+
+            if (transform.position.x + ver.x > 55 && transform.position.x + ver.x < 80)
+            {
+                if (transform.position.z + ver.y <= 7)
+                {
+                    Instantiate(water_plane,
+                    new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
+                    Quaternion.identity);
+                }
+
+            }
+            else
+            {
+                if (i % 39 == 0)
+                {
+                    Instantiate(myPrefab_tree2,
+                        new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
+                        Quaternion.identity);
+                }
+
+                else if (i % 51 == 0)
+                {
+                    Instantiate(Butterfly,
+                        new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
+                        Quaternion.identity);
+                }
+            }
+
+
+
+            i++;
+        }
 
     }
 

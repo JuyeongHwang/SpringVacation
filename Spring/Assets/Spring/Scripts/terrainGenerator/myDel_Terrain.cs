@@ -309,6 +309,7 @@ public class myDel_Terrain : MonoBehaviour
     public List<Vertex> bindingDownVertex = new List<Vertex>();
     public Dictionary<double, float> bindingDownElev = new Dictionary<double, float>();
 
+    public List<Vertex> faildBindingEdge = new List<Vertex>();
     float minX = 0, minY = 0, maxX = 0, maxY = 0;
     public virtual void GenerateForNear()
     {
@@ -488,27 +489,25 @@ public class myDel_Terrain : MonoBehaviour
 
             //edge ¿¬°á*****************************
 
-            if (vert.x >= xsize)
-            {
-                if (bindingRightElev.ContainsKey(vert.y))
-                {
-                    elevation = (bindingRightElev[vert.y]);
-                    
-                }
-
-            }
-
-            if (vert.x >= xsize)
+            if (vert.x >= xsize && meetRight)
             {
                 if (bindingRightElev.ContainsKey(vert.y))
                 {
                     elevation = (bindingRightElev[vert.y]);
                    
                 }
+                else
+                {
+                    faildBindingEdge.Add(vert);
+                    //elevation = -3;
+                    //Instantiate(water_plane,
+                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
+                    //Quaternion.identity);
+                }
 
             }
 
-            else if (vert.x <= 0)
+            if (vert.x <= 0)
             {
                 if (bindingLeftElev.ContainsKey(vert.y))
                 {
@@ -520,6 +519,14 @@ public class myDel_Terrain : MonoBehaviour
                     }
                     
                 }
+                else
+                {
+                    faildBindingEdge.Add(vert);
+                    //elevation = -3;
+                    //Instantiate(water_plane,
+                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
+                    //Quaternion.identity);
+                }
             }
 
             if (vert.y >= ysize)
@@ -528,14 +535,30 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     elevation = bindingUpElev[vert.x];
                 }
-                
+                else
+                {
+                    faildBindingEdge.Add(vert);
+                    //elevation = -3;
+                    //Instantiate(water_plane,
+                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
+                    //Quaternion.identity);
+                }
+
             }
 
-            else if (vert.y <= 0)
+            if (vert.y <= 0)
             {
                 if (bindingDownElev.ContainsKey(vert.x))
                 {
                     elevation = bindingDownElev[vert.x];
+                }
+                else
+                {
+                    faildBindingEdge.Add(vert);
+                    //elevation = -3;
+                    //Instantiate(water_plane,
+                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
+                    //Quaternion.identity);
                 }
             }
 
@@ -562,6 +585,7 @@ public class myDel_Terrain : MonoBehaviour
         //    elevation -= 0.3f;
         //}
         SpawnButterFly();
+        //MakeWaterLoad();
         ClearUsedEdge();
 
         MakeMesh();
@@ -569,6 +593,17 @@ public class myDel_Terrain : MonoBehaviour
         ScatterDetailMeshes();
     }
 
+
+    void MakeWaterLoad()
+    {
+        foreach(Vertex ver in faildBindingEdge)
+        {
+            elevations[ver.id] = -5;
+            Instantiate(water_plane,
+            new Vector3((float)ver.x + transform.position.x, -0.5f, (float)ver.y + transform.position.z),
+            Quaternion.identity);
+        }
+    }
 
     int i = 0;
     public void SpawnButterFly()

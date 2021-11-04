@@ -28,6 +28,20 @@ public class MySceneManager : MonoBehaviour
     {
         Scene s = SceneManager.GetSceneByName (nextSceneName);
         if (s != null)
-            SceneManager.LoadScene (nextSceneName);
+        {
+            SceneManager.LoadScene(nextSceneName);
+            if(nextSceneName == "Scene_Result")
+            {
+                MyGameManager_Gameplay.Inst.isLoadGameScene = false;
+                GameObject.Find("Env.").SetActive(false);
+            }
+            else if(nextSceneName == "Gameplay")
+            {
+                MyGameManager_Gameplay.Inst.isLoadGameScene = true;
+                //GameObject.Find("Env.").SetActive(true);
+            }
+            
+        }
+            
     }
 }

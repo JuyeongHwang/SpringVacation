@@ -17,6 +17,7 @@ public class MyGameManager_Gameplay : MonoBehaviour
     protected IEnumerator igameplay;
 
     public static MyGameManager_Gameplay Inst = null;
+    public bool isLoadGameScene = true;
 
     //protected KidController kidController;
 

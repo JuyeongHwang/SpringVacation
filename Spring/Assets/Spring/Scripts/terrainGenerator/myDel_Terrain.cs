@@ -53,9 +53,14 @@ public class myDel_Terrain : MonoBehaviour
     public myDel_Terrain nearTerrainHolder_d = null;
 
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void Start()
     {
-        GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
+        
+        //GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
     }
     public bool meetRight;
     public bool meetLeft;
@@ -621,6 +626,7 @@ public class myDel_Terrain : MonoBehaviour
         //}
 
 
+        GameObject g;
         foreach (Vertex ver in mesh.Vertices)
         {
 
@@ -628,9 +634,10 @@ public class myDel_Terrain : MonoBehaviour
             {
                 if (transform.position.z + ver.y <= 7)
                 {
-                    Instantiate(water_plane,
+                    g = Instantiate(water_plane,
                     new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
                     Quaternion.identity);
+                    g.transform.parent = this.transform;
                 }
 
             }
@@ -638,16 +645,18 @@ public class myDel_Terrain : MonoBehaviour
             {
                 if (i % 39 == 0)
                 {
-                    Instantiate(myPrefab_tree2,
+                    g=Instantiate(myPrefab_tree2,
                         new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
                         Quaternion.identity);
+                    g.transform.parent = this.transform;
                 }
 
                 else if (i % 51 == 0)
                 {
-                    Instantiate(Butterfly,
+                    g=Instantiate(Butterfly,
                         new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
                         Quaternion.identity);
+                    g.transform.parent = this.transform;
                 }
             }
 

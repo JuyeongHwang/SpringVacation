@@ -61,16 +61,19 @@ public class EnvManager : MonoBehaviour
         customTerrains = new List<myDel_Terrain>();
         // 보로노이
         riverNoiseTexture2D = GetDiagramByDistance();
+        currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
+        currentCustomTerrain.GenerateNearTerrain();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
-        currentCustomTerrain.GenerateNearTerrain();
+
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
-        CheckKidPosition();
+        //CheckKidPosition();
         //foreach (var s in surfaces)
         //{
         //    s.RemoveData();
@@ -78,6 +81,7 @@ public class EnvManager : MonoBehaviour
         //}
     }
 
+    
     // 환경 매니져에서 인스턴스 수행
     // 그리고 해당 컴포넌트를 반환
     public myDel_Terrain InstantiateCustomTerrain(Vector3 pivotTerrainPos, NearTerrainDir2 terrainDir)
@@ -193,16 +197,12 @@ public class EnvManager : MonoBehaviour
 
     private void Update()
     {
-        
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
-        //    foreach (var s in surfaces)
-        //    {
-        //        s.RemoveData();
-        //        s.BuildNavMesh();
-        //    }
-        //}
+        if (MyGameManager_Gameplay.Inst.isLoadGameScene == true)
+        {
+            this.gameObject.SetActive(true);
+            CheckKidPosition();
+            MyGameManager_Gameplay.Inst.isLoadGameScene = false;
+        }
     }
 
 

@@ -64,7 +64,7 @@ public class EnvManager : MonoBehaviour
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
         currentCustomTerrain.GenerateNearTerrain();
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -73,7 +73,7 @@ public class EnvManager : MonoBehaviour
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
-        //CheckKidPosition();
+        CheckKidPosition();
         //foreach (var s in surfaces)
         //{
         //    s.RemoveData();
@@ -199,9 +199,7 @@ public class EnvManager : MonoBehaviour
     {
         if (MyGameManager_Gameplay.Inst.isLoadGameScene == true)
         {
-            this.gameObject.SetActive(true);
             CheckKidPosition();
-            MyGameManager_Gameplay.Inst.isLoadGameScene = false;
         }
     }
 

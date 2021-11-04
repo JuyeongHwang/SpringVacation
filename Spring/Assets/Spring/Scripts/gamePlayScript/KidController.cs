@@ -319,8 +319,10 @@ public class KidController : MonoBehaviour
     void attackBug()
     {
         UIManager_Gameplay.Inst.SetConditionText_Finded ();
-
-        findObject.GetComponent<bugController>().bug.hp -= attackPower * Time.deltaTime;
+        if (findObject.GetComponent<bugController>())
+        { 
+            findObject.GetComponent<bugController>().bug.hp -= attackPower * Time.deltaTime;
+        }
 
         if (findObject.GetComponent<bugController>().bug.hp <= 0.0f)
         {

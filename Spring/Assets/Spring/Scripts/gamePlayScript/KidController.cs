@@ -24,6 +24,7 @@ public class KidController : MonoBehaviour
     [Header ("상태 설정")]
     public KidState currentKidState;
     public KidState nextKidState;
+    public bugController currentBugController;  // 현재 목표로하는 버그 컨트롤러 (일정거리에 상관없음)
 
     protected IEnumerator icatching;
 
@@ -40,13 +41,15 @@ public class KidController : MonoBehaviour
 
     NavMeshAgent agent;
 
-    [SerializeField]
-    private List<GameObject> FoundBug;
-    [SerializeField]
-    private GameObject findObject; //나중에 struct로 더 다양한 곤충 관리 예정 //target
-    public string TagName;
-    [SerializeField]
-    private float shortDis;
+    //[SerializeField]
+    //private List<GameObject> FoundBug;
+    //[SerializeField]
+    //private GameObject findObject; //나중에 struct로 더 다양한 곤충 관리 예정 //target
+    //public string TagName;
+    //[SerializeField]
+    //private float shortDis;
+
+    protected const string bugTagName = "Bug";
 
 
     //characterInfo
@@ -116,6 +119,7 @@ public class KidController : MonoBehaviour
                 break;
 
                 case KidState.CATCHING:
+                // 코루틴으로 애니메이션설정
                 if (icatching != null)
                     StopCoroutine (icatching);
 
@@ -131,13 +135,11 @@ public class KidController : MonoBehaviour
             // 아이들/달리기
             case KidState.IDLE:
             // 찾은 버그가 있으면
-            if (findObject != null) 
+            if (currentBugController != null) 
             {
                 // 감지된 버그의 주변에 도달했을 때
                 if (isArrived)
                 {
-                    attackBug();
-
                     // 상태 변화: 채집
                     nextKidState = KidState.CATCHING;
                 }
@@ -145,10 +147,10 @@ public class KidController : MonoBehaviour
                 else
                 {
                     //agent.SetDestination(findObject.transform.position);
-                        Move();
-                        MoveY();
-                    }
+                    Move();
+                    MoveY();
                 }
+            }
             // 찾은 버그가 없으면
             else
             {
@@ -182,23 +184,27 @@ public class KidController : MonoBehaviour
         gameObject.transform.rotation = Quaternion.Euler (Vector3.up * rotY);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other) 
     {
-        Debug.Log("충돌 시작!");
-        
-        if (collision.gameObject.CompareTag(TagName))
+        if (other.gameObject.GetComponent <bugController> () != null
+            && currentBugController != null
+            && other.gameObject == currentBugController.gameObject)
         {
+            Debug.Log ("채집시작!");
+
             isArrived = true;
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerExit (Collider other)
     {
-        Debug.Log("충돌 시작!");
-        
-        if (other.gameObject.CompareTag(TagName))
+        if (other.gameObject.GetComponent <bugController> () != null
+            && currentBugController != null
+            && other.gameObject == currentBugController.gameObject)
         {
-            isArrived = true;
+            Debug.Log ("도망간다!");
+
+            isArrived = false;
         }
     }
 
@@ -206,25 +212,22 @@ public class KidController : MonoBehaviour
 
     void Move ()
     {
-        // 회전
-        Vector3 targetDir = findObject.transform.position - transform.position;
-        float step = 1.0f * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-        Debug.DrawRay(transform.position, newDir, Color.red);
-        transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
+        Vector3 newDir = gameObject.transform.forward;
 
-        float dist = Mathf.Sqrt(Mathf.Abs(findObject.transform.position.x-transform.position.x)+
-            Mathf.Abs(findObject.transform.position.y - transform.position.y)+
-            Mathf.Abs(findObject.transform.position.z - transform.position.z)
-            );
-        //speed = 0.004f * (dist);
-        //transform.position = Vector3.MoveTowards(transform.position, findObject.transform.position, speed);
+        if (currentBugController != null)
+        {
+            // 회전
+            Vector3 targetDir = currentBugController.transform.position - transform.position;
+            float step = 1.0f * Time.deltaTime;
+            newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+            Debug.DrawRay(transform.position, newDir, Color.red);
+            transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
 
-        // 앞으로 이동
-        //float trueSpeed = kidCharacterController_maxSpeed;
-        //float trueRatio = dist / kidCharacterController_maxSpeedRangeDist;
-        //trueRatio = Mathf.Min (trueRatio, 1f);
-        //trueSpeed = Mathf.Lerp (0, trueSpeed, trueRatio);
+            float dist = Mathf.Sqrt(Mathf.Abs(currentBugController.transform.position.x-transform.position.x)+
+                Mathf.Abs(currentBugController.transform.position.y - transform.position.y)+
+                Mathf.Abs(currentBugController.transform.position.z - transform.position.z)
+                );
+        }
 
         kidCharacterController_velocity = newDir * kidCharacterController_moveSpeed;
         kidCharacterController_velocity.y = kidCharacterController_currentGravity;
@@ -294,57 +297,64 @@ public class KidController : MonoBehaviour
 
 
     // ================================== bug 관련 함수 ============================================
+
+    // 사실상 한 프레임에서만 수행 될거기 때문에
+    // 기존의 FoundBug 리스트 shortDist .. 등을 지역변수로 설정하였습니다
     void detectBug()
     {
-        FoundBug = new List<GameObject>(GameObject.FindGameObjectsWithTag(TagName));
-        shortDis = Vector3.Distance(gameObject.transform.position,
+        List<bugController> FoundBug = new List<bugController>(GameObject.FindObjectsOfType <bugController> ());
+        float shortDist = Vector3.Distance(gameObject.transform.position,
             FoundBug[0].transform.position);
 
-        findObject = FoundBug[0];
+        currentBugController = FoundBug[0];
 
-        foreach(GameObject found in FoundBug)
+        foreach(bugController found in FoundBug)
         {
             float Distance = Vector3.Distance(gameObject.transform.position, found.transform.position);
-            if (Distance < shortDis)
+            if (Distance < shortDist)
             {
-                findObject = found;
-                shortDis = Distance;
+                currentBugController = found;
+                shortDist = Distance;
             }
         }
         
-        if(FoundBug.Count == 0)
+        /*if(FoundBug.Count == 0)
         {
             makeBug();
-        }
+        }*/
     }
-    void makeBug()
+
+    /*void makeBug()
     {
         Debug.Log("자동생성");
-    }
+    }*/
 
     void attackBug()
     {
         UIManager_Gameplay.Inst.SetConditionText_Finded ();
-        if (findObject.GetComponent<bugController>())
+
+
+        if (currentBugController != null)
         { 
-            findObject.GetComponent<bugController>().bug.hp -= attackPower * Time.deltaTime;
-        }
+            // 체력을 깎고 살아있는지 bool 타입으로 리턴받음
+            bool bugAlive = currentBugController.AddBugHP  (-attackPower * Time.deltaTime);
 
-        if (findObject.GetComponent<bugController>().bug.hp <= 0.0f)
-        {
-            isArrived = false;
-            Destroy(findObject.gameObject);
-
-            // 데이터 매니져의 butterflyNum 추가
-            if (DataManager.Inst != null)
+            // 리턴값이 false라면
+            if (bugAlive == false)
             {
-                DataManager.Inst.money += 200;  // 나중에 곤충에 따라 재화가치를 다르게 할 것
-            }
+                isArrived = false;
 
-            // UI 갱신
-            if (UIManager_Gameplay.Inst != null)
-            {
-                UIManager_Gameplay.Inst.UpdateButterflyNum();
+                // 데이터 매니져의 butterflyNum 추가
+                if (DataManager.Inst != null)
+                {
+                    DataManager.Inst.money += 200;  // 나중에 곤충에 따라 재화가치를 다르게 할 것
+                }
+
+                // UI 갱신
+                if (UIManager_Gameplay.Inst != null)
+                {
+                    UIManager_Gameplay.Inst.UpdateButterflyNum();
+                }
             }
         }
     }

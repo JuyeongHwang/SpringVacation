@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class bugController : MonoBehaviour
 {
     //[HideInInspector]
@@ -17,6 +18,17 @@ public class bugController : MonoBehaviour
     public Slider hpBar;
 
     protected Animator bugAnimator;
+
+    // 이동관련함수
+    public float bugMoveSpeed;
+    public float bugMoveDist;
+    public float bugMoveDelay;
+    public float bugFloatingDist;
+    public float bugRotSpeed;
+
+    public IEnumerator ibugMove;
+
+    protected const string groundLayerName = "Ground";
 
     void Awake ()
     {
@@ -41,7 +53,8 @@ public class bugController : MonoBehaviour
         hpBar.value = 1f;
         bugAlive = true;
 
-        SetBugAnimatorTrigger ("Idle");
+        // 이동
+        BugMove ();
     }
 
     private void Update()
@@ -113,5 +126,106 @@ public class bugController : MonoBehaviour
     public float GetBugHP ()
     {
         return bugHP_current;
+    }
+
+    // ============================== 이동 관련 =====================================
+    // 전체적인 움직임은 코루틴으로 작동하도록 코드를 작성하였습니다
+
+    void BugMove ()
+    {
+        if (ibugMove != null )
+            StopCoroutine (ibugMove);
+
+        ibugMove = IBugMove ();
+        StartCoroutine (ibugMove);
+    }
+
+    IEnumerator IBugMove ()
+    {
+        while (true)
+        {
+            if (bugInfo_start != null)
+            {   
+                bugMoveSpeed = bugInfo_start.GetBugMoveSpeed ();
+                bugMoveDist = bugInfo_start.GetBugMoveDistance ();
+                bugMoveDelay = bugInfo_start.GetBugMoveDelay ();
+                bugFloatingDist = bugInfo_start.GetBugFlyingDistanceFromGround ();
+                bugRotSpeed = bugInfo_start.GetBugRotationSpeed ();
+            }
+            else
+            {
+                // 기본값
+                bugMoveSpeed = 2.5f;
+                bugMoveDist = 5f;
+                bugMoveDelay = 3f;
+                bugFloatingDist = 0.5f;
+                bugRotSpeed = 0.25f;
+            }
+
+            // 애니메이션
+            SetBugAnimatorTrigger ("Idle");
+
+            // 딜레이만큼 대기
+            yield return new WaitForSeconds (bugMoveDist);
+
+            // 위치 설정
+            Vector3 currentPos = gameObject.transform.position;
+            Vector3 targetPos = currentPos;
+
+            // 최대 n번 검사
+            int checkN = 10;
+            for (int i = 0; i < checkN; i++)
+            {
+                bool targetPosOK = false;
+
+                // 현재 위치를 중앙으로 bugMoveDist만큼 사각형을 구역으로 가정하고
+                // 그 구역안의 한 위치를 무작위로 설정한다
+                targetPos.x += Random.Range (-bugMoveDist, bugMoveDist);
+                targetPos.z += Random.Range (-bugMoveDist, bugMoveDist);
+
+                // 위에서 레이를 쏴서 y 값 설정
+                float detectLength = 100;
+                int hitlayermask = 1 << LayerMask.NameToLayer (groundLayerName);
+
+                Vector3 rayPos = targetPos;
+                rayPos.y = detectLength;
+
+                RaycastHit hit;
+                if (Physics.Raycast (rayPos, Vector3.down, out hit, detectLength * 1.1f, hitlayermask))
+                {
+                    targetPos.y = hit.point.y + bugFloatingDist;
+                }
+
+                // 추후에 지형에 따른 검사 과정 추가
+                {
+                    targetPosOK = true;
+                }
+
+                if (targetPosOK)
+                {
+                    break;
+                }
+            }
+
+            // 애니메이션
+            SetBugAnimatorTrigger ("Move");
+            
+            while (Vector3.Distance (currentPos, targetPos) > 0.1f)
+            {
+                Vector3 moveDir = targetPos - currentPos;
+                moveDir = moveDir.normalized;
+
+                // 이동
+                gameObject.transform.position += moveDir * bugMoveSpeed * Time.deltaTime;
+                
+                // 회전
+                gameObject.transform.forward += moveDir * Time.deltaTime * bugRotSpeed;
+
+                // 후처리
+                currentPos = gameObject.transform.position;
+
+                yield return null;
+            }
+        }
     }
 }

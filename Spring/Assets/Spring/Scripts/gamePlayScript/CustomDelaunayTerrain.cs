@@ -133,8 +133,6 @@ public class CustomDelaunayTerrain : DelaunayTerrain
         
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
-        int x = xsize;
-        int y = ysize ;
         //float r = 2f;
 
         float lowY = -0.5f;

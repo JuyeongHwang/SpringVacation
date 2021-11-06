@@ -42,7 +42,10 @@ public class myDel_Terrain : MonoBehaviour
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
     [Space(10)]
-    public GameObject Butterfly;
+   // public GameObject Butterfly;
+    public GameObject[] bugsPrefabs;
+
+    [Space (10)]
     public GameObject myPrefab_tree2;
     public GameObject water_plane;
 
@@ -68,8 +71,6 @@ public class myDel_Terrain : MonoBehaviour
     public bool meetDown;
     public virtual void Generate()
     {
-
-
         int rseed = Random.Range(0, 50);
         UnityEngine.Random.InitState(rseed);
 
@@ -146,11 +147,10 @@ public class myDel_Terrain : MonoBehaviour
                 elevation = 4.0f;
             }
 
-
             float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
                 + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist <= 4) // -30,30, r= 9
             {
                 elevation += (16 - dist);
@@ -159,7 +159,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist2 = Mathf.Sqrt(Mathf.Pow((7 - (float)vert.x + transform.position.x), 2)
                 + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist2 <= 4) // -30,30, r= 9
             {
                 elevation += (16 - dist2);
@@ -168,7 +168,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist3 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
             + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist3 <= 3) // -30,30, r= 9
             {
                 elevation += (9 - dist3);
@@ -178,7 +178,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist4 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
              + Mathf.Pow((-5 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist4 <= 5) // -30,30, r= 9
             {
                 elevation += (25 - dist4);
@@ -188,7 +188,7 @@ public class myDel_Terrain : MonoBehaviour
 
             elevations.Add(elevation);
         }
-        //¿¹½Ã
+        //ì˜ˆì‹œ
 
         //if(vert.x + transform.position.x <= -70)
         //{
@@ -329,9 +329,9 @@ public class myDel_Terrain : MonoBehaviour
 
         float[] seed = new float[octaves];
 
-        for (int i = 0; i < octaves; i++)
+        for (int ii = 0; ii < octaves; ii++)
         {
-            seed[i] = Random.Range(0.0f, 100.0f);
+            seed[ii] = Random.Range(0.0f, 100.0f);
         }
 
         if (meetDown) { minY += 3; }
@@ -383,8 +383,6 @@ public class myDel_Terrain : MonoBehaviour
                 polygon.Add(new Vertex(ver.x, 0));
             }
         }
-
-
 
         // Add some randomly sampled points
         for (int i = 0; i < randomPoints; i++)
@@ -440,7 +438,7 @@ public class myDel_Terrain : MonoBehaviour
             }
 
 
-            // °­°¡ ********
+            // ê°•ê°€ ********
             if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
             {
                 if (transform.position.z + vert.y <= 10)
@@ -457,7 +455,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
                 + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist <= 4) // -30,30, r= 9
             {
                 elevation += (16 - dist);
@@ -466,7 +464,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist2 = Mathf.Sqrt(Mathf.Pow((7 - (float)vert.x + transform.position.x), 2)
                 + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist2 <= 4) // -30,30, r= 9
             {
                 elevation += (16 - dist2);
@@ -475,7 +473,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist3 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
             + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist3 <= 3) // -30,30, r= 9
             {
                 elevation += (9 - dist3);
@@ -485,14 +483,14 @@ public class myDel_Terrain : MonoBehaviour
             float dist4 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
              + Mathf.Pow((-5 - (float)vert.y) + transform.position.z, 2));
 
-            //¿øÀÇ Áß½ÉÀº env¿¡¼­ ÀÔ·Â¹Ş¾Æ¿Àµµ·Ï ¹Ù²Ù±â. env¿¡¼­ ¹Ì¸® »ê ±¸¿ª, ¹Ù´Ù±¸¿ª ³ª´­ ¿¹Á¤
+            //ì›ì˜ ì¤‘ì‹¬ì€ envì—ì„œ ì…ë ¥ë°›ì•„ì˜¤ë„ë¡ ë°”ê¾¸ê¸°. envì—ì„œ ë¯¸ë¦¬ ì‚° êµ¬ì—­, ë°”ë‹¤êµ¬ì—­ ë‚˜ëˆŒ ì˜ˆì •
             if (dist4 <= 5) // -30,30, r= 9
             {
                 elevation += (25 - dist4);
             }
 
 
-            //edge ¿¬°á*****************************
+            //edge ì—°ê²°*****************************
 
             if (vert.x >= xsize && meetRight)
             {
@@ -512,7 +510,7 @@ public class myDel_Terrain : MonoBehaviour
 
             }
 
-            if (vert.x <= 0)
+            if (vert.x <= 0 && meetLeft)    // meet ê´€ë ¨ ì¡°ê±´ ì¶”ê°€
             {
                 if (bindingLeftElev.ContainsKey(vert.y))
                 {
@@ -534,7 +532,7 @@ public class myDel_Terrain : MonoBehaviour
                 }
             }
 
-            if (vert.y >= ysize)
+            if (vert.y >= ysize && meetUp)  // meet ê´€ë ¨ ì¡°ê±´ ì¶”ê°€
             {
                 if (bindingUpElev.ContainsKey(vert.x))
                 {
@@ -551,7 +549,7 @@ public class myDel_Terrain : MonoBehaviour
 
             }
 
-            if (vert.y <= 0)
+            if (vert.y <= 0 && meetDown)    // meet ê´€ë ¨ ì¡°ê±´ ì¶”ê°€
             {
                 if (bindingDownElev.ContainsKey(vert.x))
                 {
@@ -567,13 +565,10 @@ public class myDel_Terrain : MonoBehaviour
                 }
             }
 
-
-
- 
             elevations.Add(elevation);
 
         }
-        //¿¹½Ã
+        //ì˜ˆì‹œ
 
         //if(vert.x + transform.position.x <= -70)
         //{
@@ -651,22 +646,21 @@ public class myDel_Terrain : MonoBehaviour
                     g.transform.parent = this.transform;
                 }
 
-                else if (i % 51 == 0)
+                else if (i % 51 == 0 && bugsPrefabs.Length > 0)
                 {
-                    g=Instantiate(Butterfly,
+                    // ëœë¤ìœ¼ë¡œ ê³¤ì¶© ìƒì„±
+                    int bugIndex = Random.Range (0, bugsPrefabs.Length);
+
+                    g=Instantiate(bugsPrefabs [bugIndex],
                         new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
                         Quaternion.identity);
                     g.transform.parent = this.transform;
                 }
             }
 
-
-
             i++;
         }
-
     }
-
 
 
     public void ClearUsedEdge()
@@ -857,30 +851,39 @@ public class myDel_Terrain : MonoBehaviour
         }
     }
 
-    public void GenerateNearTerrain()
+    //public void GenerateNearTerrain (int depth)
+    public void GenerateNearTerrain ()
     {
         UpdateNearTerrain();
+
+        // ì¬ê·€í•¨ìˆ˜ë¥¼ ëë‚¼ ì¡°ê±´
+        //if (depth <= 0)
+        //    return;
 
         // =======================================================
 
         if (nearTerrainHolder_u == null)
         {
             nearTerrainHolder_u = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.UP);
+           // nearTerrainHolder_u.GenerateNearTerrain ();
         }
 
         if (nearTerrainHolder_l == null)
         {
             nearTerrainHolder_l = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.LEFT);
+            //nearTerrainHolder_l.GenerateNearTerrain ();
         }
 
         if (nearTerrainHolder_r == null)
         {
             nearTerrainHolder_r = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.RIGHT);
+           // nearTerrainHolder_r.GenerateNearTerrain ();
         }
 
         if (nearTerrainHolder_d == null)
         {
             nearTerrainHolder_d = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.DOWN);
+            //nearTerrainHolder_d.GenerateNearTerrain ();
         }
     }
 }

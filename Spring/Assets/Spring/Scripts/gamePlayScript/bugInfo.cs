@@ -13,6 +13,9 @@ public class bugInfo : ScriptableObject
     [SerializeField]
     private float bugHP;
 
+    [SerializeField]
+    private float bugMoney = 250;
+
     [Header ("곤충 이동 설정")]
     [SerializeField]
     private float bugMoveSpeed_min;
@@ -32,8 +35,8 @@ public class bugInfo : ScriptableObject
     [SerializeField]
     private float bugRotSpeed = 0.5f;
 
-    [SerializeField]
-    private float bugFlyingDistFromGround = 0.75f;
+    //[SerializeField]
+    //private float bugFlyingDistFromGround = 0.75f;
 
     public string GetBugName ()
     {
@@ -43,6 +46,11 @@ public class bugInfo : ScriptableObject
     public float GetBugHP ()
     {
         return bugHP;
+    }
+
+    public float GetBugMoney ()
+    {
+        return bugMoney;
     }
 
     public float GetBugMoveSpeed ()
@@ -65,8 +73,8 @@ public class bugInfo : ScriptableObject
         return bugRotSpeed;
     }
 
-    public float GetBugFlyingDistanceFromGround ()
+    /*public float GetBugFlyingDistanceFromGround ()
     {
         return bugFlyingDistFromGround;
-    }
+    }*/
 }

@@ -10,7 +10,7 @@ public enum NearTerrainDir2
 
 public class EnvManager : MonoBehaviour
 {
-    [Header("¾À È¯°æ ¼³Á¤")]
+    [Header("ì”¬ í™˜ê²½ ì„¤ì •")]
     public int terrainUnitSize = 100;
     public GameObject customTerrainPrefab;
 
@@ -19,16 +19,17 @@ public class EnvManager : MonoBehaviour
 
     [Space(10)]
     public float checkDelay = 1f;
-    [Header("ÅÍ·¹ÀÎ Á¤º¸")]
+    [Header("í„°ë ˆì¸ ì •ë³´")]
     public myDel_Terrain currentCustomTerrain;
     public List<myDel_Terrain> customTerrains;
+    //public int nearTerrainDepth = 2;    // ì¬ê·€í•¨ìˆ˜ë¡œ ì§€í˜• ìƒì„±ì„ ìœ„í•œ ìˆ˜ì¹˜
 
-    [Header("ÅÍ·¹ÀÎ ³ëÀÌÁî ¼³Á¤: ÁöÇü")]
+    [Header("í„°ë ˆì¸ ë…¸ì´ì¦ˆ ì„¤ì •: ì§€í˜•")]
     public float terrainNoiseScale = 1f;
     public float terrainNoisePow = 1f;
 
-    [Header("ÅÍ·¹ÀÎ ³ëÀÌÁî ¼³Á¤: °­¹°")]
-    [Tooltip("¸Å ½ÇÇà½Ã ¹Ù²î´Â Texture")]
+    [Header("í„°ë ˆì¸ ë…¸ì´ì¦ˆ ì„¤ì •: ê°•ë¬¼")]
+    [Tooltip("ë§¤ ì‹¤í–‰ì‹œ ë°”ë€ŒëŠ” Texture")]
     public Texture2D riverNoiseTexture2D;
     public int riverNoiseSize = 1024;
     public int riverRegionAmount = 50;
@@ -43,7 +44,7 @@ public class EnvManager : MonoBehaviour
 
     void Awake()
     {
-        // ½Ì±ÛÅæ
+        // ì‹±ê¸€í†¤
         if (Inst == null)
         {
             Inst = gameObject.GetComponent<EnvManager>();
@@ -53,16 +54,16 @@ public class EnvManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Å°µå Ã£±â
+        // í‚¤ë“œ ì°¾ê¸°
         if (kidController == null)
             kidController = FindObjectOfType<KidController>();
 
-        // ¸®½ºÆ® ÃÊ±âÈ­
+        // ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
         customTerrains = new List<myDel_Terrain>();
-        // º¸·Î³ëÀÌ
+        // ë³´ë¡œë…¸ì´
         riverNoiseTexture2D = GetDiagramByDistance();
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
-        currentCustomTerrain.GenerateNearTerrain();
+        currentCustomTerrain.GenerateNearTerrain ();
 
         //DontDestroyOnLoad(gameObject);
     }
@@ -72,7 +73,7 @@ public class EnvManager : MonoBehaviour
 
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
-        // ÁÖ±â¸¶´Ù Ä³¸¯ÅÍ À§Ä¡ Ã¼Å© ÈÄ ÁöÇü »ı¼º
+        // ì£¼ê¸°ë§ˆë‹¤ ìºë¦­í„° ìœ„ì¹˜ ì²´í¬ í›„ ì§€í˜• ìƒì„±
         CheckKidPosition();
         //foreach (var s in surfaces)
         //{
@@ -82,8 +83,8 @@ public class EnvManager : MonoBehaviour
     }
 
     
-    // È¯°æ ¸Å´ÏÁ®¿¡¼­ ÀÎ½ºÅÏ½º ¼öÇà
-    // ±×¸®°í ÇØ´ç ÄÄÆ÷³ÍÆ®¸¦ ¹İÈ¯
+    // í™˜ê²½ ë§¤ë‹ˆì ¸ì—ì„œ ì¸ìŠ¤í„´ìŠ¤ ìˆ˜í–‰
+    // ê·¸ë¦¬ê³  í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ë¥¼ ë°˜í™˜
     public myDel_Terrain InstantiateCustomTerrain(Vector3 pivotTerrainPos, NearTerrainDir2 terrainDir)
     {
         myDel_Terrain ret = null;
@@ -118,7 +119,7 @@ public class EnvManager : MonoBehaviour
              * 2. generate edge met terrain 'ct'
              * 3. bind the edge in 'g'
              */
-            // ÇØ´ç ÅÍ·¹ÀÎ ¼³Á¤
+            // í•´ë‹¹ í„°ë ˆì¸ ì„¤ì •
             GameObject g = Instantiate(customTerrainPrefab, instTerrainPos, Quaternion.identity);
 
             ret = g.GetComponent<myDel_Terrain>();
@@ -165,7 +166,7 @@ public class EnvManager : MonoBehaviour
                 }
             }
 
-            // ÇØ´ç ÅÍ·¹ÀÎ À§Ä¡ ÀÎµ¦½º ¼³Á¤ (ÀÎµ¦½º = ÇØ´ç À§Ä¡ / »çÀÌÁî)
+            // í•´ë‹¹ í„°ë ˆì¸ ìœ„ì¹˜ ì¸ë±ìŠ¤ ì„¤ì • (ì¸ë±ìŠ¤ = í•´ë‹¹ ìœ„ì¹˜ / ì‚¬ì´ì¦ˆ)
             //ret.customPos = gameObject.transform.position;
             //ret.indexX = (int)pivotTerrainPos.x / GetTerrainUnitSize_Original ();
             //ret.indexY = (int)pivotTerrainPos.y / GetTerrainUnitSize_Original ();
@@ -174,20 +175,20 @@ public class EnvManager : MonoBehaviour
             {
                 ret.Generate();
             }
-            else //ÇÒ´ç¹Ş¾Æ¾ßÇÒ ¿§Áö°¡ ÇÏ³ª¶óµµ ÀÖ´Â °æ¿ì
+            else //í• ë‹¹ë°›ì•„ì•¼í•  ì—£ì§€ê°€ í•˜ë‚˜ë¼ë„ ìˆëŠ” ê²½ìš°
             {
                 ret.GenerateForNear();
             }
 
 
 
-            // ºÎ¸ğ¸¦ ÇØ´ç ¸Å´ÏÀú·Î ¼³Á¤ÇÑ´Ù
+            // ë¶€ëª¨ë¥¼ í•´ë‹¹ ë§¤ë‹ˆì €ë¡œ ì„¤ì •í•œë‹¤
             g.gameObject.transform.SetParent(this.gameObject.transform);
 
-            // À§Ä¡ ¼³Á¤ (·ÎÄÃ)
+            // ìœ„ì¹˜ ì„¤ì • (ë¡œì»¬)
             //g.gameObject.transform.position = instTerrainPos;
 
-            // ¸®½ºÆ®¿¡ Ãß°¡
+            // ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
             customTerrains.Add(ret);
         }
 
@@ -241,7 +242,7 @@ public class EnvManager : MonoBehaviour
         return ret;
     }
 
-    // ============================================ ÅÍ·¹ÀÎ »çÀÌÁî ====================================================
+    // ============================================ í„°ë ˆì¸ ì‚¬ì´ì¦ˆ ====================================================
     public int GetTerrainUnitSize_Original()
     {
         return terrainUnitSize;
@@ -260,8 +261,14 @@ public class EnvManager : MonoBehaviour
     {
         bool gen = false;
 
-        while (kidController != null && EnvManager.Inst != null)
+        while (true)
         {
+            // ì¡°ê±´ì„ whileì—ì„œ ê²€ì‚¬í•˜ë„ë¡ ìˆ˜ì •
+            if (kidController == null || EnvManager.Inst == null || currentCustomTerrain == null)
+            {
+                continue;
+            }
+
             gen = false;
 
             float posXMin = currentCustomTerrain.gameObject.transform.position.x;
@@ -275,25 +282,25 @@ public class EnvManager : MonoBehaviour
             if (kidPos.x < posXMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_l;
-                currentCustomTerrain.GenerateNearTerrain();
+                currentCustomTerrain.GenerateNearTerrain ();
                 gen = true;
             }
             else if (kidPos.x > posXMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_r;
-                currentCustomTerrain.GenerateNearTerrain();
+                currentCustomTerrain.GenerateNearTerrain ();
                 gen = true;
             }
             else if (kidPos.z < posZMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_d;
-                currentCustomTerrain.GenerateNearTerrain();
+                currentCustomTerrain.GenerateNearTerrain ();
                 gen = true;
             }
             else if (kidPos.z > posZSMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_u;
-                currentCustomTerrain.GenerateNearTerrain();
+                currentCustomTerrain.GenerateNearTerrain ();
                 gen = true;
             }
 
@@ -309,7 +316,7 @@ public class EnvManager : MonoBehaviour
         }
     }
 
-    // ========================================== ³ëÀÌÁî °ü·Ã ==================================================
+    // ========================================== ë…¸ì´ì¦ˆ ê´€ë ¨ ==================================================
 
     // -0.5 ~ 0.5
     public float GetTerrainNoise(Vector2 uv)
@@ -335,7 +342,7 @@ public class EnvManager : MonoBehaviour
         return 1;
     }
 
-    // ========================================== º¸·Î³ëÀÌ ========================================================
+    // ========================================== ë³´ë¡œë…¸ì´ ========================================================
 
     Texture2D GetDiagramByDistance()
     {

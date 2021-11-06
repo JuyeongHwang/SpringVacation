@@ -35,6 +35,12 @@ public class bugController : MonoBehaviour
         bugAnimator = GetComponentInChildren <Animator> ();
     }
 
+    private void OnEnable() 
+    {
+        // 이동
+        BugMove ();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,9 +58,6 @@ public class bugController : MonoBehaviour
         
         hpBar.value = 1f;
         bugAlive = true;
-
-        // 이동
-        BugMove ();
     }
 
     private void Update()
@@ -149,7 +152,7 @@ public class bugController : MonoBehaviour
                 bugMoveSpeed = bugInfo_start.GetBugMoveSpeed ();
                 bugMoveDist = bugInfo_start.GetBugMoveDistance ();
                 bugMoveDelay = bugInfo_start.GetBugMoveDelay ();
-                bugFloatingDist = bugInfo_start.GetBugFlyingDistanceFromGround ();
+               // bugFloatingDist = bugInfo_start.GetBugFlyingDistanceFromGround ();
                 bugRotSpeed = bugInfo_start.GetBugRotationSpeed ();
             }
             else
@@ -158,7 +161,7 @@ public class bugController : MonoBehaviour
                 bugMoveSpeed = 2.5f;
                 bugMoveDist = 5f;
                 bugMoveDelay = 3f;
-                bugFloatingDist = 0.5f;
+                //bugFloatingDist = 0.5f;
                 bugRotSpeed = 0.25f;
             }
 
@@ -193,7 +196,7 @@ public class bugController : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast (rayPos, Vector3.down, out hit, detectLength * 1.1f, hitlayermask))
                 {
-                    targetPos.y = hit.point.y + bugFloatingDist;
+                    targetPos.y = hit.point.y;// + bugFloatingDist;
                 }
 
                 // 추후에 지형에 따른 검사 과정 추가
@@ -227,5 +230,17 @@ public class bugController : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    // ============================= 돈 ===========================================
+
+    public float GetBugMoney ()
+    {
+        if (bugInfo_start != null)
+        {
+            return bugInfo_start.GetBugMoney ();
+        }
+
+        return 250;
     }
 }

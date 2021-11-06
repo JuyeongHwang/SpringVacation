@@ -344,10 +344,10 @@ public class KidController : MonoBehaviour
             {
                 isArrived = false;
 
-                // 데이터 매니져의 butterflyNum 추가
+                // 데이터 매니져의 재화 추가
                 if (DataManager.Inst != null)
                 {
-                    DataManager.Inst.money += 200;  // 나중에 곤충에 따라 재화가치를 다르게 할 것
+                    DataManager.Inst.money += currentBugController.GetBugMoney ();
                 }
 
                 // UI 갱신

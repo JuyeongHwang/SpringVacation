@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
    // public int butterflyMuch = 100;
     public static DataManager Inst = null;
     public GameObject Env;
-    public GameObject Kid;
+    //public GameObject Kid;
 
     [SerializeField]
     protected DataPreset dataPreset;

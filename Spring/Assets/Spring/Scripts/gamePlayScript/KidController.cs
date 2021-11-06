@@ -72,6 +72,12 @@ public class KidController : MonoBehaviour
         .TOOLINDEX);
     }
 
+    private void OnEnable() 
+    {
+        // 활성화 시키면 달리는 상태로 시작
+        SetAnimatorTrigger ("Run");
+    }
+
     private void Start()
     {
         UIManager_Gameplay.Inst.SetConditionText_Finding ();

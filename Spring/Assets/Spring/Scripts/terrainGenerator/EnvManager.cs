@@ -68,11 +68,14 @@ public class EnvManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
     }
 
+    int maxRange = 0;
+    int minRange = 0;
     void Start()
     {
 
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
-
+        maxRange = Random.Range(1, 3);
+        minRange = Random.Range(1, 3);
         // 주기마다 캐릭터 위치 체크 후 지형 생성
         CheckKidPosition();
         //foreach (var s in surfaces)
@@ -82,6 +85,7 @@ public class EnvManager : MonoBehaviour
         //}
     }
 
+    bool canGenerate;
     
     // 환경 매니져에서 인스턴스 수행
     // 그리고 해당 컴포넌트를 반환
@@ -113,99 +117,114 @@ public class EnvManager : MonoBehaviour
 
             }
 
-            /*
+
+            if (instTerrainPos.x >= -100 && instTerrainPos.x <=50 )
+            {
+                if (instTerrainPos.z >= -100 && instTerrainPos.z <=50)
+                    canGenerate = true;
+                else
+                    canGenerate = false;
+            }
+            else
+            {
+                canGenerate=false;
+            }
+
+            if (canGenerate)
+            {
+                /*
              * 
              * 1. detect near terrain
              * 2. generate edge met terrain 'ct'
              * 3. bind the edge in 'g'
              */
-            // 해당 터레인 설정
-            GameObject g = Instantiate(customTerrainPrefab, instTerrainPos, Quaternion.identity);
+                // 해당 터레인 설정
+                GameObject g = Instantiate(customTerrainPrefab, instTerrainPos, Quaternion.identity);
 
-            ret = g.GetComponent<myDel_Terrain>();
+                ret = g.GetComponent<myDel_Terrain>();
 
 
-            foreach (myDel_Terrain ct in customTerrains)
-            {
-
-                if (ret.meetDown && ret.meetLeft&&ret.meetRight && ret.meetUp) { break; }
-
-                if (!ret.meetRight&& instTerrainPos + Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
-                {
-                    ret.meetRight = true;
-                    ct.generateLeft();
-
-                    ret.bindingRightVertex = ct.leftVert;
-                    ret.bindingRightElev = ct.hashleftElev;
-
-                }
-                if (!ret.meetLeft && instTerrainPos - Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
-                {
-                    ret.meetLeft = true;
-                    ct.generateRight();
-
-                    ret.bindingLeftVertex = ct.rightVert;
-                    ret.bindingLeftElev = ct.hashrightElev;
-                }
-                if (!ret.meetUp && instTerrainPos + Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
-                {
-                    ret.meetUp = true;
-                    ct.generateDown(); //info
-
-                    ret.bindingUpVertex = ct.downVert;
-                    ret.bindingUpElev = ct.hashDownElev;
-                }
-                if (!ret.meetDown && instTerrainPos - Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
+                foreach (myDel_Terrain ct in customTerrains)
                 {
 
-                    ret.meetDown = true;
-                    ct.generateUp();
+                    if (ret.meetDown && ret.meetLeft && ret.meetRight && ret.meetUp) { break; }
 
-                    ret.bindingDownVertex = ct.upVert;
-                    ret.bindingDownElev = ct.hashupElev;
+                    if (!ret.meetRight && instTerrainPos + Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
+                    {
+                        ret.meetRight = true;
+                        ct.generateLeft();
+
+                        ret.bindingRightVertex = ct.leftVert;
+                        ret.bindingRightElev = ct.hashleftElev;
+
+                    }
+                    if (!ret.meetLeft && instTerrainPos - Vector3.right * terrainUnitSize == ct.gameObject.transform.position)
+                    {
+                        ret.meetLeft = true;
+                        ct.generateRight();
+
+                        ret.bindingLeftVertex = ct.rightVert;
+                        ret.bindingLeftElev = ct.hashrightElev;
+                    }
+                    if (!ret.meetUp && instTerrainPos + Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
+                    {
+                        ret.meetUp = true;
+                        ct.generateDown(); //info
+
+                        ret.bindingUpVertex = ct.downVert;
+                        ret.bindingUpElev = ct.hashDownElev;
+                    }
+                    if (!ret.meetDown && instTerrainPos - Vector3.forward * terrainUnitSize == ct.gameObject.transform.position)
+                    {
+
+                        ret.meetDown = true;
+                        ct.generateUp();
+
+                        ret.bindingDownVertex = ct.upVert;
+                        ret.bindingDownElev = ct.hashupElev;
+                    }
                 }
+
+
+                if (!ret.meetDown && !ret.meetLeft && !ret.meetRight && !ret.meetUp)
+                {
+                    ret.Generate();
+                }
+                else //할당받아야할 엣지가 하나라도 있는 경우
+                {
+
+                    //제한 (-200,-200이라 하자)
+                    if (instTerrainPos.x >= -100 && instTerrainPos.z >= -100)
+                    {
+                        ret.GenerateForNear();
+
+                    }
+                    else
+                    {
+                        Debug.Log("EndLine");
+                    }
+
+                }
+
+                // 부모를 해당 매니저로 설정한다
+                g.gameObject.transform.SetParent(this.gameObject.transform);
+
+                // 위치 설정 (로컬)
+                //g.gameObject.transform.position = instTerrainPos;
+
+                // 리스트에 추가
+                customTerrains.Add(ret);
             }
-
-            // 해당 터레인 위치 인덱스 설정 (인덱스 = 해당 위치 / 사이즈)
-            //ret.customPos = gameObject.transform.position;
-            //ret.indexX = (int)pivotTerrainPos.x / GetTerrainUnitSize_Original ();
-            //ret.indexY = (int)pivotTerrainPos.y / GetTerrainUnitSize_Original ();
-
-            if (!ret.meetDown && !ret.meetLeft && !ret.meetRight && !ret.meetUp)
-            {
-                ret.Generate();
-            }
-            else //할당받아야할 엣지가 하나라도 있는 경우
-            {
-
-                //제한 (-200,-200이라 하자)
-                if(instTerrainPos.x >= -100 && instTerrainPos.z >= -100)
-                {
-                    ret.GenerateForNear();
-                    
-                }
-                else
-                {
-                    Debug.Log("EndLine");
-                }
-                
-            }
-
-
-
-            // 부모를 해당 매니저로 설정한다
-            g.gameObject.transform.SetParent(this.gameObject.transform);
-
-            // 위치 설정 (로컬)
-            //g.gameObject.transform.position = instTerrainPos;
-
-            // 리스트에 추가
-            customTerrains.Add(ret);
         }
 
         return ret;
     }
 
+
+    void SetEdge(Vector3 instTerrainPos, myDel_Terrain ret, GameObject g)
+    {
+        
+    }
 
     private void Update()
     {

@@ -231,6 +231,12 @@ public class EnvManager : MonoBehaviour
         if (kidController == null)
         {
             kidController = FindObjectOfType <KidController> ();
+
+            // 찾은 프레임에서 코루틴 수행
+            if (kidController != null)
+            {
+                CheckKidPosition ();
+            }
         }
     }
 

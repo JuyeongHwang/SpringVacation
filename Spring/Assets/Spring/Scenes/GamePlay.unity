@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731695, g: 0.13414617, b: 0.12107901, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731701, g: 0.13414618, b: 0.121079, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -916,6 +916,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bugs_mantis
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
 --- !u!1001 &582467399
@@ -1105,6 +1109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bugs_beetle
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8eba5cca7e834a94488b7b2649d0dea7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8417361359673230750, guid: 8eba5cca7e834a94488b7b2649d0dea7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1287,6 +1295,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
       propertyPath: m_Name
       value: bugs_butterfly
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3919479669875337753, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1510,6 +1522,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f533d0ca2fdb02342ad8178694761909, type: 3}
       propertyPath: m_Name
       value: bugs_stagbeetle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f533d0ca2fdb02342ad8178694761909, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f533d0ca2fdb02342ad8178694761909, type: 3}

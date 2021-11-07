@@ -140,6 +140,23 @@ public class myDel_Terrain : MonoBehaviour
 
             elevations.Add(elevation);
         }
+        //예시
+
+        //if(vert.x + transform.position.x <= -70)
+        //{
+        //    elevation += 0.3f;
+        //}
+
+        //else if (vert.x <= (double)70.0f && vert.x >=(double) 50.0f)
+        //{
+        //    elevation = -0.5f;
+        //}
+
+        //else if(vert.x + transform.position.x >= 10)
+        //{
+        //    elevation -= 0.3f;
+        //}
+        //SpawnButterFly();
         MakeMesh();
 
         ScatterDetailMeshes();
@@ -333,7 +350,7 @@ public class myDel_Terrain : MonoBehaviour
 
         bin = new TriangleBin(mesh, (int)maxX, (int)maxX, minPointRadius * 2.0f);
 
-
+       
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -357,54 +374,32 @@ public class myDel_Terrain : MonoBehaviour
 
 
 
-            // uplift ************
-            if (vert.x + this.transform.position.x >= 60)
-            {
-                elevation += (this.transform.position.x) / 20;
-            }
-            if (vert.y + this.transform.position.z >= 60)
-            {
-                elevation += (this.transform.position.z) / 20;
-            }
 
-            //(100,100) 한정 _ 예시 // 못움직이게
-            if (vert.x + this.transform.position.x >= 100)
-            {
-                elevation += (this.transform.position.x) / 5;
-            }
-            if (vert.y + this.transform.position.z >= 100)
-            {
-                elevation += (this.transform.position.z) / 5;
-            }
-
-            //절벽
-            if (vert.x + this.transform.position.x < -30)
-            {
-                elevation -= 12.0f;
-            }
-            else if (vert.y + this.transform.position.z < -90)
-            {
-                elevation -= 12.0f;
-            }
-
-
-            // 강가 ***********
-            //if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
+            //if (vert.x < xsize && vert.x > 0 && vert.y < ysize && vert.y > 0)
             //{
-            //    if (transform.position.z + vert.y <= 10)
-            //    {
-            //        elevation = -1.0f * elevationScale;
-            //    }
 
             //}
-
-            if (transform.position.z + vert.y <= 10 && transform.position.z + vert.y >= -10)
+            //uplift map **********
+            if (vert.x + this.transform.position.x >= 50)
             {
-                if(transform.position.x + vert.x < 0)
-                {
-                    elevation -= 5f;
-                }
+                elevation += (this.transform.position.x)/10;
             }
+            if (vert.x + this.transform.position.x <= -50)
+            {
+                elevation -= 10f;
+            }
+
+
+            // 강가 ********
+            if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
+            {
+                if (transform.position.z + vert.y <= 10)
+                {
+                    elevation = -1.0f * elevationScale;
+                }
+
+            }
+
 
             //make Mountain****************************
 
@@ -558,78 +553,21 @@ public class myDel_Terrain : MonoBehaviour
         //    }
         //}
 
-        
+
         GameObject g;
-
-
-        //waterplane size : 1
-        foreach(Triangle tri in mesh.Triangles)
-        {
-            float gx = (float)tri.vertices[0].x + (float)tri.vertices[1].x + (float)tri.vertices[2].x;
-            gx /= 3;
-
-            float gy = (float)tri.vertices[0].y + (float)tri.vertices[1].y + (float)tri.vertices[2].y;
-            gy /= 3;
-
-
-            Vector3 v0 = GetPoint3D(tri.vertices[2].id);
-            Vector3 v1 = GetPoint3D(tri.vertices[1].id);
-            Vector3 v2 = GetPoint3D(tri.vertices[0].id);
-
-            Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0);
-            
-            if (transform.position.z + gy < 8 && transform.position.z + gy > -8)
-            {
-                
-                if (transform.position.x + gx < -5)
-                {
-                    float gelev = elevations[tri.vertices[0].id] + elevations[tri.vertices[1].id] + elevations[tri.vertices[2].id];
-                    gelev /= 3;
-
-                    g = Instantiate(water_plane,
-                        new Vector3(gx + transform.position.x, gelev + 1.0f, gy + transform.position.z),
-                        Quaternion.identity);
-                    //Quaternion.Euler(new Vector3(normal.x, normal.y, normal.z))
-                    g.transform.parent = this.transform;
-                }
-            }
-        }
-
         foreach (Vertex ver in mesh.Vertices)
         {
 
-            //if (transform.position.x + ver.x > 55 && transform.position.x + ver.x < 80)
-            //{
-            //    if (transform.position.z + ver.y <= 7)
-            //    {
-            //        g = Instantiate(water_plane,
-            //        new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
-            //        Quaternion.identity);
-            //        g.transform.parent = this.transform;
-            //    }
-
-            //}
-            if (transform.position.z + ver.y <= 10 && transform.position.z + ver.y >= -10)
+            if (transform.position.x + ver.x > 55 && transform.position.x + ver.x < 80)
             {
-                //절벽 지점 알아오기
-                //if (transform.position.x + ver.x < 0)
-                //{
-                //    if (ver.x == -30)
-                //    {
-                //        g = Instantiate(water_plane,
-                //        new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
-                //        Quaternion.Euler(new Vector3(0, 0, 45)));
-                        
-                //    }
-                //    else
-                //    {
-                //        g = Instantiate(water_plane,
-                //        new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
-                //        Quaternion.identity);
-                //    }
-                    
-                //    g.transform.parent = this.transform;
-                //}
+                if (transform.position.z + ver.y <= 7)
+                {
+                    g = Instantiate(water_plane,
+                    new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
+                    Quaternion.identity);
+                    g.transform.parent = this.transform;
+                }
+
             }
             else
             {

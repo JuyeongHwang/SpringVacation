@@ -133,9 +133,57 @@ public class myDel_Terrain : MonoBehaviour
 
             elevation = elevation / maxVal * elevationScale;
 
+            if (vert.y <= xsize / 2)
+            {
+                elevation += 2.0f;
+            }
+            if (vert.x <= 2)
+            {
+                elevation = 4f;
+            }
 
-            elevation += MakeMountainElevation(60, 50, 20, vert);
-            elevation += MakeMountainElevation(0, 0, 10, vert);
+            if (transform.position.x == vert.x + 40)
+            {
+                elevation = 4.0f;
+            }
+
+            float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist <= 4) // -30,30, r= 9
+            {
+                elevation += (16 - dist);
+            }
+
+            float dist2 = Mathf.Sqrt(Mathf.Pow((7 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist2 <= 4) // -30,30, r= 9
+            {
+                elevation += (16 - dist2);
+            }
+
+            float dist3 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+            + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist3 <= 3) // -30,30, r= 9
+            {
+                elevation += (9 - dist3);
+            }
+
+
+            float dist4 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+             + Mathf.Pow((-5 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist4 <= 5) // -30,30, r= 9
+            {
+                elevation += (25 - dist4);
+            }
+
 
 
             elevations.Add(elevation);
@@ -404,8 +452,43 @@ public class myDel_Terrain : MonoBehaviour
             //make Mountain****************************
 
 
-            elevation += MakeMountainElevation(60, 50, 20, vert);
-            elevation += MakeMountainElevation(0, 0, 10, vert);
+            float dist = Mathf.Sqrt(Mathf.Pow((10 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist <= 4) // -30,30, r= 9
+            {
+                elevation += (16 - dist);
+            }
+
+            float dist2 = Mathf.Sqrt(Mathf.Pow((7 - (float)vert.x + transform.position.x), 2)
+                + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist2 <= 4) // -30,30, r= 9
+            {
+                elevation += (16 - dist2);
+            }
+
+            float dist3 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+            + Mathf.Pow((15 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist3 <= 3) // -30,30, r= 9
+            {
+                elevation += (9 - dist3);
+            }
+
+
+            float dist4 = Mathf.Sqrt(Mathf.Pow((15 - (float)vert.x + transform.position.x), 2)
+             + Mathf.Pow((-5 - (float)vert.y) + transform.position.z, 2));
+
+            //원의 중심은 env에서 입력받아오도록 바꾸기. env에서 미리 산 구역, 바다구역 나눌 예정
+            if (dist4 <= 5) // -30,30, r= 9
+            {
+                elevation += (25 - dist4);
+            }
+
 
             //edge 연결*****************************
 
@@ -510,22 +593,6 @@ public class myDel_Terrain : MonoBehaviour
         ScatterDetailMeshes();
     }
 
-
-    float MakeMountainElevation(float cx, float cy, float r, Vertex vert)
-    {
-        float mountainElev = 0;
-
-        //중점으로부터 떨어진 거리
-        float dist = Mathf.Sqrt(Mathf.Pow((cx - ((float)vert.x + transform.position.x)), 2)
-            + Mathf.Pow((cy - ((float)vert.y + transform.position.z)), 2));
-
-        if (dist <= r)
-        {
-            mountainElev = r - dist;
-        }
-
-        return mountainElev;
-    }
 
     void MakeWaterLoad()
     {

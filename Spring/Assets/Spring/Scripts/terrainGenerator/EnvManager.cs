@@ -177,7 +177,18 @@ public class EnvManager : MonoBehaviour
             }
             else //할당받아야할 엣지가 하나라도 있는 경우
             {
-                ret.GenerateForNear();
+
+                //제한 (-200,-200이라 하자)
+                if(instTerrainPos.x >= -100 && instTerrainPos.z >= -100)
+                {
+                    ret.GenerateForNear();
+                    
+                }
+                else
+                {
+                    Debug.Log("EndLine");
+                }
+                
             }
 
 

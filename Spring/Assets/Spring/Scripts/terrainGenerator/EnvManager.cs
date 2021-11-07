@@ -39,7 +39,6 @@ public class EnvManager : MonoBehaviour
     public static EnvManager Inst = null;
 
     [Header("Navmesh")]
-
     IEnumerator icheck;
 
     void Awake()
@@ -65,7 +64,7 @@ public class EnvManager : MonoBehaviour
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
         currentCustomTerrain.GenerateNearTerrain ();
 
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     int maxRange = 0;
@@ -228,12 +227,12 @@ public class EnvManager : MonoBehaviour
 
     private void Update()
     {
-        if (MyGameManager_Gameplay.Inst.isLoadGameScene == true)
+        // 컨트롤러를 찾을 때 까지 반복
+        if (kidController == null)
         {
-            CheckKidPosition();
+            kidController = FindObjectOfType <KidController> ();
         }
     }
-
 
     public myDel_Terrain GetTerrainHolderByPosition(Vector3 pos, NearTerrainDir2 dir)
     {

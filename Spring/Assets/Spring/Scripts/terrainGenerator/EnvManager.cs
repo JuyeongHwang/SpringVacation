@@ -10,16 +10,13 @@ public enum NearTerrainDir2
 
 public class EnvManager : MonoBehaviour
 {
-    [Header("씬 환경 설정")]
+    [Header("터레인 설정")]
     public int terrainUnitSize = 100;
+    public EnvSetting envSetting;   // 프리셋 개념
     public GameObject customTerrainPrefab;
+    public float checkDelay = 1f;   // 체크 주기
 
-    [Space(10)]
-    public KidController kidController;
-
-    [Space(10)]
-    public float checkDelay = 1f;
-    [Header("터레인 정보")]
+    [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
     public List<myDel_Terrain> customTerrains;
     //private bool updateNearTerrainFrame = false;    // 지형을 생성하는 한 프레임에서만 true
@@ -36,6 +33,9 @@ public class EnvManager : MonoBehaviour
     public int riverRegionAmount = 50;
     public float riverNoiseScale = 1f;
     public float riverNoisePow = 1f;
+
+    [Header ("터레인 기타 설정")]
+    public KidController kidController;
 
     public static EnvManager Inst = null;
 
@@ -91,8 +91,6 @@ public class EnvManager : MonoBehaviour
         //}
     }
 
-    bool canGenerate;
-    
     // 환경 매니져에서 인스턴스 수행
     // 그리고 해당 컴포넌트를 반환
     public myDel_Terrain InstantiateCustomTerrain(Vector3 pivotTerrainPos, NearTerrainDir2 terrainDir)
@@ -122,7 +120,7 @@ public class EnvManager : MonoBehaviour
                     break;
             }
 
-            if (instTerrainPos.x >= -100 && instTerrainPos.x <=50 )
+            /*if (instTerrainPos.x >= -100 && instTerrainPos.x <=50 )
             {
                 if (instTerrainPos.z >= -100 && instTerrainPos.z <=50)
                     canGenerate = true;
@@ -132,6 +130,19 @@ public class EnvManager : MonoBehaviour
             else
             {
                 canGenerate=false;
+            }*/
+
+            // 지역변수로 설정
+            bool canGenerate;
+
+            if (envSetting != null)
+            {
+                canGenerate = envSetting.GetIsAbleToGenerate (new Vector2 (instTerrainPos.x, instTerrainPos.z));
+            }
+            else
+            {
+                // 세팅이 없으면 무제한
+                canGenerate = true;
             }
 
             if (canGenerate)
@@ -196,9 +207,11 @@ public class EnvManager : MonoBehaviour
                 }
                 else //할당받아야할 엣지가 하나라도 있는 경우
                 {
+                    
+                    ret.GenerateForNear();
 
                     //제한 (-200,-200이라 하자)
-                    if (instTerrainPos.x >= -100 && instTerrainPos.z >= -100)
+                    /*if (instTerrainPos.x >= -100 && instTerrainPos.z >= -100)
                     {
                         ret.GenerateForNear();
 
@@ -206,7 +219,7 @@ public class EnvManager : MonoBehaviour
                     else
                     {
                         Debug.Log("EndLine");
-                    }
+                    }*/
 
                 }
 

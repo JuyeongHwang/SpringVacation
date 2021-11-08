@@ -797,9 +797,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainUnitSize: 50
+  envSetting: {fileID: 11400000, guid: 1b57884620952b64fa15a0ffd37bb817, type: 2}
   customTerrainPrefab: {fileID: 6002182535403649078, guid: 6051785c901f7a049996260ec17ce38f, type: 3}
-  kidController: {fileID: 1170337323}
-  checkDelay: 1
+  checkDelay: 0.25
   currentCustomTerrain: {fileID: 0}
   customTerrains: []
   nearTerrainDepth: 2
@@ -810,6 +810,7 @@ MonoBehaviour:
   riverRegionAmount: 50
   riverNoiseScale: 1
   riverNoisePow: 1
+  kidController: {fileID: 1170337323}
 --- !u!4 &352560302
 Transform:
   m_ObjectHideFlags: 0

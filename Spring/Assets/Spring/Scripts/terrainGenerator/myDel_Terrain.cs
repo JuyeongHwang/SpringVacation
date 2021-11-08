@@ -71,16 +71,24 @@ public class myDel_Terrain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            for(int i = 0; i<elevations.Count; i++)
+            foreach (Vertex ver in mesh.Vertices)
             {
-                elevations[i] += 5.0f;
+                if(ver.x + transform.position.x >= 3 && ver.x + transform.position.x <=13)
+                {
+                    elevations[ver.id] -= 1.5f;
+                }
             }
+            //for(int i = 0; i<elevations.Count; i++)
+            //{
+            //    elevations[i] += 5.0f;
+            //}
 
             for(int j = 0; j < this.gameObject.transform.childCount; j++)
             {
                 if(transform.GetChild(j) != null)
                 {
-                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
+                    if(transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                        Destroy(this.gameObject.transform.GetChild(j).gameObject);
                 }
                 
             }

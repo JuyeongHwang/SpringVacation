@@ -22,7 +22,8 @@ public class EnvManager : MonoBehaviour
     [Header("터레인 정보")]
     public myDel_Terrain currentCustomTerrain;
     public List<myDel_Terrain> customTerrains;
-    //public int nearTerrainDepth = 2;    // 재귀함수로 지형 생성을 위한 수치
+    //private bool updateNearTerrainFrame = false;    // 지형을 생성하는 한 프레임에서만 true
+    public int nearTerrainDepth = 2;    // 재귀함수로 지형 생성을 위한 수치
 
     [Header("터레인 노이즈 설정: 지형")]
     public float terrainNoiseScale = 1f;
@@ -61,9 +62,7 @@ public class EnvManager : MonoBehaviour
         customTerrains = new List<myDel_Terrain>();
         // 보로노이
         riverNoiseTexture2D = GetDiagramByDistance();
-        currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
-        currentCustomTerrain.GenerateNearTerrain ();
-
+        
         DontDestroyOnLoad(gameObject);
     }
 
@@ -71,12 +70,20 @@ public class EnvManager : MonoBehaviour
     int minRange = 0;
     void Start()
     {
-
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
         maxRange = Random.Range(1, 3);
         minRange = Random.Range(1, 3);
+
+        // 지형생성
+        currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
+        currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
+
         // 주기마다 캐릭터 위치 체크 후 지형 생성
-        CheckKidPosition();
+        if (kidController != null)
+        {
+            CheckKidPosition();
+        }
+
         //foreach (var s in surfaces)
         //{
         //    s.RemoveData();
@@ -113,9 +120,7 @@ public class EnvManager : MonoBehaviour
                 case NearTerrainDir2.RIGHT:
                     instTerrainPos += Vector3.right * terrainUnitSize;
                     break;
-
             }
-
 
             if (instTerrainPos.x >= -100 && instTerrainPos.x <=50 )
             {
@@ -317,25 +322,25 @@ public class EnvManager : MonoBehaviour
             if (kidPos.x < posXMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_l;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
                 gen = true;
             }
             else if (kidPos.x > posXMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_r;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
                 gen = true;
             }
             else if (kidPos.z < posZMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_d;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
                 gen = true;
             }
             else if (kidPos.z > posZSMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_u;
-                currentCustomTerrain.GenerateNearTerrain ();
+                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
                 gen = true;
             }
 

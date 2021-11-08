@@ -825,6 +825,9 @@ public class myDel_Terrain : MonoBehaviour
 
     public void UpdateNearTerrain()
     {
+        if (EnvManager.Inst == null)
+            return;
+
         if (nearTerrainHolder_u == null)
         {
             nearTerrainHolder_u = EnvManager.Inst.GetTerrainHolderByPosition(gameObject.transform.position, NearTerrainDir2.UP);
@@ -846,39 +849,68 @@ public class myDel_Terrain : MonoBehaviour
         }
     }
 
-    //public void GenerateNearTerrain (int depth)
-    public void GenerateNearTerrain ()
-    {
-        UpdateNearTerrain();
+    public void GenerateNearTerrain (int depth)
+    //public void GenerateNearTerrain ()
+    {   
+        if (EnvManager.Inst == null)
+            return;
+
+        // 자기 자신 주변 업데이트
+        UpdateNearTerrain ();
 
         // 재귀함수를 끝낼 조건
-        //if (depth <= 0)
-        //    return;
+        if (depth <= 0)
+            return;
 
         // =======================================================
+        // 1단계: 일단 생성
 
         if (nearTerrainHolder_u == null)
         {
             nearTerrainHolder_u = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.UP);
-           // nearTerrainHolder_u.GenerateNearTerrain ();
         }
 
         if (nearTerrainHolder_l == null)
         {
             nearTerrainHolder_l = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.LEFT);
-            //nearTerrainHolder_l.GenerateNearTerrain ();
         }
 
         if (nearTerrainHolder_r == null)
         {
             nearTerrainHolder_r = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.RIGHT);
-           // nearTerrainHolder_r.GenerateNearTerrain ();
         }
 
         if (nearTerrainHolder_d == null)
         {
             nearTerrainHolder_d = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.DOWN);
-            //nearTerrainHolder_d.GenerateNearTerrain ();
         }
+
+        // =======================================================
+        // 2단계: 확인 및 생성 반복
+
+        if (nearTerrainHolder_u != null)
+        {
+            nearTerrainHolder_u.UpdateNearTerrain(); 
+            nearTerrainHolder_u.GenerateNearTerrain (depth-1);
+        }
+
+        if (nearTerrainHolder_l != null)
+        {
+            nearTerrainHolder_l.UpdateNearTerrain(); 
+            nearTerrainHolder_l.GenerateNearTerrain (depth-1);
+        }
+
+        if (nearTerrainHolder_r != null)
+        {
+            nearTerrainHolder_r.UpdateNearTerrain(); 
+            nearTerrainHolder_r.GenerateNearTerrain (depth-1);
+        }
+
+        if (nearTerrainHolder_d != null)
+        {
+            nearTerrainHolder_d.UpdateNearTerrain(); 
+            nearTerrainHolder_d.GenerateNearTerrain (depth-1);
+        }
+       // UpdateNearTerrain();
     }
 }

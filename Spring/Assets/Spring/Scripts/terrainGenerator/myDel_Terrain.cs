@@ -65,6 +65,32 @@ public class myDel_Terrain : MonoBehaviour
         
         //GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+            for(int i = 0; i<elevations.Count; i++)
+            {
+                elevations[i] += 5.0f;
+            }
+
+            for(int j = 0; j < this.gameObject.transform.childCount; j++)
+            {
+                if(transform.GetChild(j) != null)
+                {
+                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
+                }
+                
+            }
+
+            MakeMesh();
+            ScatterDetailMeshes();
+        }
+    }
+
+
     public bool meetRight;
     public bool meetLeft;
     public bool meetUp;

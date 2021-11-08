@@ -283,10 +283,11 @@ public class myDel_Terrain : MonoBehaviour
         polygon.Add(new Vertex(0, 0));
 
         // Add uniformly-spaced points
-        foreach (Vector2 sample in sampler.Samples())
+        // 재귀함수 구현 중 아래 반복문이 문제가 되어 주석처리하였습니다
+        /*foreach (Vector2 sample in sampler.Samples())
         {
             polygon.Add(new Vertex((double)sample.x, (double)sample.y));
-        }
+        }*/
 
         if (meetRight)
         {

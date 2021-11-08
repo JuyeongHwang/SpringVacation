@@ -14,22 +14,20 @@ public class EnvSetting : ScriptableObject
     // 외부 값을 통해 생성 가능한지의 여부만 리턴하도록 설정
     public bool GetIsAbleToGenerate (Vector2 curtPos)
     {
-        bool ret = false;
-        
         // 세팅값이 잘못됬으면
         if (boundryCoord_min.x >= boundryCoord_max.x
         || boundryCoord_min.y >= boundryCoord_max.y)
         {
-            ret = true;
+            return true;
         }
 
         // 조건을 만족하면
         if (boundryCoord_min.x <= curtPos.x && curtPos.x <= boundryCoord_max.x
         && boundryCoord_min.y <= curtPos.y && curtPos.y <= boundryCoord_max.y)
         {
-            ret = true;
+            return true;
         }
 
-        return ret;
+        return false;
     }
 }

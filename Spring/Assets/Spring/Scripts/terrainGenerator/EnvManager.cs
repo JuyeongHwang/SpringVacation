@@ -36,8 +36,12 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 기타 설정")]
     public KidController kidController;
+    [HideInInspector]
+    
+
 
     public static EnvManager Inst = null;
+    
 
     [Header("Navmesh")]
     IEnumerator icheck;

@@ -68,7 +68,8 @@ public class myDel_Terrain : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //강
+        if (Input.GetKeyDown(KeyCode.A))
         {
 
             foreach (Vertex ver in mesh.Vertices)
@@ -82,7 +83,19 @@ public class myDel_Terrain : MonoBehaviour
                 if(DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
                 {
                     elevations[ver.id] -= 0.5f;
+
+                    //최소한의 기준
+                    if (elevations[ver.id] < -0.5)
+                    {
+                        GameObject g = Instantiate(water_plane,
+                        new Vector3((float)ver.x + transform.position.x, -0.6f, (float)ver.y + transform.position.z),
+                        Quaternion.identity);
+                        g.transform.parent = this.transform;
+                    }
+                    
                 }
+
+                
             }
             //for(int i = 0; i<elevations.Count; i++)
             //{
@@ -102,6 +115,34 @@ public class myDel_Terrain : MonoBehaviour
             MakeMesh();
             ScatterDetailMeshes();
         }
+
+        //산
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+
+            foreach (Vertex ver in mesh.Vertices)
+            {
+                if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
+                {
+                    elevations[ver.id] += 0.5f;
+                }
+            }
+
+            for (int j = 0; j < this.gameObject.transform.childCount; j++)
+            {
+                if (transform.GetChild(j) != null)
+                {
+                    if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                        Destroy(this.gameObject.transform.GetChild(j).gameObject);
+                }
+
+            }
+
+            MakeMesh();
+            ScatterDetailMeshes();
+        }
+
+
     }
 
     bool DrawCircle(Transform trans, Vertex vert,float r)

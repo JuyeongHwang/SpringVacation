@@ -120,18 +120,6 @@ public class EnvManager : MonoBehaviour
                     break;
             }
 
-            /*if (instTerrainPos.x >= -100 && instTerrainPos.x <=50 )
-            {
-                if (instTerrainPos.z >= -100 && instTerrainPos.z <=50)
-                    canGenerate = true;
-                else
-                    canGenerate = false;
-            }
-            else
-            {
-                canGenerate=false;
-            }*/
-
             // 지역변수로 설정
             bool canGenerate;
 
@@ -209,25 +197,10 @@ public class EnvManager : MonoBehaviour
                 {
                     
                     ret.GenerateForNear();
-
-                    //제한 (-200,-200이라 하자)
-                    /*if (instTerrainPos.x >= -100 && instTerrainPos.z >= -100)
-                    {
-                        ret.GenerateForNear();
-
-                    }
-                    else
-                    {
-                        Debug.Log("EndLine");
-                    }*/
-
                 }
 
                 // 부모를 해당 매니저로 설정한다
                 g.gameObject.transform.SetParent(this.gameObject.transform);
-
-                // 위치 설정 (로컬)
-                //g.gameObject.transform.position = instTerrainPos;
 
                 // 리스트에 추가
                 customTerrains.Add(ret);
@@ -235,12 +208,6 @@ public class EnvManager : MonoBehaviour
         }
 
         return ret;
-    }
-
-
-    void SetEdge(Vector3 instTerrainPos, myDel_Terrain ret, GameObject g)
-    {
-        
     }
 
     private void Update()

@@ -73,9 +73,15 @@ public class myDel_Terrain : MonoBehaviour
 
             foreach (Vertex ver in mesh.Vertices)
             {
-                if(ver.x + transform.position.x >= 3 && ver.x + transform.position.x <=13)
+                
+                //if(ver.x + transform.position.x >= 3 && ver.x + transform.position.x <=13)
+                //{
+                //    elevations[ver.id] -= 1.5f;
+                //}
+
+                if(DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
                 {
-                    elevations[ver.id] -= 1.5f;
+                    elevations[ver.id] -= 0.5f;
                 }
             }
             //for(int i = 0; i<elevations.Count; i++)
@@ -98,7 +104,20 @@ public class myDel_Terrain : MonoBehaviour
         }
     }
 
+    bool DrawCircle(Transform trans, Vertex vert,float r)
+    {
 
+        //중점으로부터 떨어진 거리
+        float dist = Mathf.Sqrt(Mathf.Pow((trans.position.x - ((float)vert.x + transform.position.x)), 2)
+            + Mathf.Pow((trans.position.z - ((float)vert.y + transform.position.z)), 2));
+
+        if (dist <= r)
+        {
+            return true;
+        }
+
+        return false;
+    }
     public bool meetRight;
     public bool meetLeft;
     public bool meetUp;

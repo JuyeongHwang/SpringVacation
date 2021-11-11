@@ -25,6 +25,9 @@ public class KidController : MonoBehaviour
     public KidState currentKidState;
     public KidState nextKidState;
     public bugController currentBugController;  // 현재 목표로하는 버그 컨트롤러 (일정거리에 상관없음)
+    public Button StopCatching;
+    bool stopcatching = false;
+
 
     protected IEnumerator icatching;
 

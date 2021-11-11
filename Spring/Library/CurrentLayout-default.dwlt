@@ -19,9 +19,9 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Scene
   m_RootView: {fileID: 9}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 696}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 333, y: 271}
   m_MaxSize: {x: 14003, y: 10021}
   vertical: 0
-  controlID: 124
+  controlID: 125
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_MinSize: {x: 276, y: 292}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 177
+  controlID: 178
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -202,8 +202,8 @@ MonoBehaviour:
     y: 30
     width: 2560
     height: 1307
-  m_MinSize: {x: 609, y: 471}
-  m_MaxSize: {x: 18004, y: 14021}
+  m_MinSize: {x: 609, y: 492}
+  m_MaxSize: {x: 18004, y: 14042}
   vertical: 0
   controlID: 37
 --- !u!114 &9
@@ -228,7 +228,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1357
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 696}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -301,8 +301,8 @@ MonoBehaviour:
     y: 0
     width: 1789
     height: 1307
-  m_MinSize: {x: 333, y: 471}
-  m_MaxSize: {x: 14003, y: 14021}
+  m_MinSize: {x: 333, y: 492}
+  m_MaxSize: {x: 14003, y: 14042}
   vertical: 1
   controlID: 38
 --- !u!114 &13
@@ -324,8 +324,8 @@ MonoBehaviour:
     y: 0
     width: 1789
     height: 650
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 25}
   m_Panes:
   - {fileID: 25}
@@ -381,10 +381,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1536
+    x: 0
     y: 73
-    width: 1376
-    height: 322
+    width: 1788
+    height: 629
   m_ViewDataDictionary: {fileID: 0}
 --- !u!114 &16
 MonoBehaviour:
@@ -408,8 +408,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 1835
-    height: 566
+    width: 1788
+    height: 629
   m_ViewDataDictionary: {fileID: 0}
 --- !u!114 &17
 MonoBehaviour:
@@ -3273,22 +3273,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Spring/Scripts/terrainGenerator
+    - Assets/Resources/BrokenVector/LowPolyCliffPack
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Spring/Scripts/terrainGenerator
+  - Assets/BrokenVector/LowPolyCliffPack
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\user\Documents\GitHub\SpringVacation\Spring
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 6a5a0000
-    m_LastClickedID: 23146
-    m_ExpandedIDs: 00000000f6590000f8590000fa590000fc590000fe590000005a0000025a0000045a0000065a0000085a00000a5a00005e5a000000ca9a3b
+    m_SelectedIDs: c4820000
+    m_LastClickedID: 33476
+    m_ExpandedIDs: 00000000165a00001a5a00001c5a00001e5a0000205a0000225a0000245a0000805a0000925b0000f061000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3316,7 +3316,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f6590000f8590000fa590000fc590000fe590000005a0000025a0000045a0000065a0000085a00000a5a0000
+    m_ExpandedIDs: 00000000165a0000185a00001a5a00001c5a00001e5a0000205a0000225a0000245a0000265a0000285a00002a5a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3343,7 +3343,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000000000000b2560000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -3437,20 +3437,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6ee0f7ff
-      m_LastClickedID: -532370
-      m_ExpandedIDs: 5043f7ff7459f7ff52fbfffff4ffffff5849000070490000
+      m_SelectedIDs: fa940000
+      m_LastClickedID: 38138
+      m_ExpandedIDs: 4abfffffe4c1ffffe2d6ffffeedaffff46fbffff78490000904900001e7f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: particleSystem
-        m_OriginalName: particleSystem
+        m_Name: Rocktile Straight 2
+        m_OriginalName: Rocktile Straight 2
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -532370
+        m_UserData: -16658
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -3499,9 +3499,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 13.030056, y: -27.818762, z: -15.47176}
+    m_Target: {x: -26.27, y: 2.3603988, z: 0.31560707}
     speed: 2
-    m_Value: {x: 13.030056, y: -27.818762, z: -15.47176}
+    m_Value: {x: -26.27, y: 2.3604002, z: 0.3156072}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -3548,13 +3548,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.112588264, y: 0.8871913, z: -0.32734492, w: 0.30573896}
+    m_Target: {x: 0.12289067, y: 0.86216784, z: -0.25070506, w: 0.42323893}
     speed: 2
-    m_Value: {x: 0.11305566, y: 0.88654745, z: -0.3271077, w: 0.3070056}
+    m_Value: {x: 0.12349905, y: 0.86161, z: -0.25194538, w: 0.4229655}
   m_Size:
-    m_Target: 41.951263
+    m_Target: 149.57053
     speed: 2
-    m_Value: 41.951263
+    m_Value: 143.12968
   m_Ortho:
     m_Target: 0
     speed: 2

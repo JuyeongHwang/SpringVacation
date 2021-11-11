@@ -641,111 +641,28 @@ public class myDel_Terrain : MonoBehaviour
     int i = 0;
     public void SpawnButterFly()
     {
-        //foreach(Triangle tri in mesh.Triangles)
-        //{
-        //    if(i % 55 == 0)
-        //    {
-        //        float a = ((float)tri.vertices[0].x + transform.position.x*3 + (float)tri.vertices[1].x + (float)tri.vertices[2].x )/ 3;
-        //        float b = ((float)tri.vertices[0].y + transform.position.y * 3 + (float)tri.vertices[1].y + (float)tri.vertices[2].y) / 3;
-        //        float c = (elevations[tri.vertices[0].id] + elevations[tri.vertices[1].id] + elevations[tri.vertices[2].id]) / 3;
-
-        //        GameObject g = Instantiate(Butterfly, new Vector3(a,c,b), Quaternion.identity);
-        //    }
-        //}
-
         
         GameObject g;
 
-
-        //waterplane size : 1
-        //foreach(Triangle tri in mesh.Triangles)
-        //{
-        //    float gx = (float)tri.vertices[0].x + (float)tri.vertices[1].x + (float)tri.vertices[2].x;
-        //    gx /= 3;
-
-        //    float gy = (float)tri.vertices[0].y + (float)tri.vertices[1].y + (float)tri.vertices[2].y;
-        //    gy /= 3;
-
-
-        //    Vector3 v0 = GetPoint3D(tri.vertices[2].id);
-        //    Vector3 v1 = GetPoint3D(tri.vertices[1].id);
-        //    Vector3 v2 = GetPoint3D(tri.vertices[0].id);
-
-        //    Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0);
-            
-        //    if (transform.position.z + gy < 8 && transform.position.z + gy > -8)
-        //    {
-                
-        //        if (transform.position.x + gx < -5)
-        //        {
-        //            float gelev = elevations[tri.vertices[0].id] + elevations[tri.vertices[1].id] + elevations[tri.vertices[2].id];
-        //            gelev /= 3;
-
-        //            g = Instantiate(water_plane,
-        //                new Vector3(gx + transform.position.x, gelev + 1.0f, gy + transform.position.z),
-        //                Quaternion.identity);
-        //            //Quaternion.Euler(new Vector3(normal.x, normal.y, normal.z))
-        //            g.transform.parent = this.transform;
-        //        }
-        //    }
-        //}
-
         foreach (Vertex ver in mesh.Vertices)
         {
-
-            //if (transform.position.x + ver.x > 55 && transform.position.x + ver.x < 80)
-            //{
-            //    if (transform.position.z + ver.y <= 7)
-            //    {
-            //        g = Instantiate(water_plane,
-            //        new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
-            //        Quaternion.identity);
-            //        g.transform.parent = this.transform;
-            //    }
-
-            //}
-            if (transform.position.z + ver.y <= 10 && transform.position.z + ver.y >= -10)
+            if (i % 39 == 0)
             {
-                //절벽 지점 알아오기
-                //if (transform.position.x + ver.x < 0)
-                //{
-                //    if (ver.x == -30)
-                //    {
-                //        g = Instantiate(water_plane,
-                //        new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
-                //        Quaternion.Euler(new Vector3(0, 0, 45)));
-                        
-                //    }
-                //    else
-                //    {
-                //        g = Instantiate(water_plane,
-                //        new Vector3((float)ver.x + transform.position.x, elevations[i] + 2f, (float)ver.y + transform.position.z),
-                //        Quaternion.identity);
-                //    }
-                    
-                //    g.transform.parent = this.transform;
-                //}
+                g = Instantiate(myPrefab_tree2,
+                    new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
+                    Quaternion.identity);
+                g.transform.parent = this.transform;
             }
-            else
+
+            else if (i % 51 == 0 && bugsPrefabs.Length > 0)
             {
-                if (i % 39 == 0)
-                {
-                    g=Instantiate(myPrefab_tree2,
-                        new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
-                        Quaternion.identity);
-                    g.transform.parent = this.transform;
-                }
+                // 랜덤으로 곤충 생성
+                int bugIndex = Random.Range(0, bugsPrefabs.Length);
 
-                else if (i % 51 == 0 && bugsPrefabs.Length > 0)
-                {
-                    // 랜덤으로 곤충 생성
-                    int bugIndex = Random.Range (0, bugsPrefabs.Length);
-
-                    g=Instantiate(bugsPrefabs [bugIndex],
-                        new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
-                        Quaternion.identity);
-                    g.transform.parent = this.transform;
-                }
+                g = Instantiate(bugsPrefabs[bugIndex],
+                    new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
+                    Quaternion.identity);
+                g.transform.parent = this.transform;
             }
 
             i++;
@@ -1007,5 +924,24 @@ public class myDel_Terrain : MonoBehaviour
             nearTerrainHolder_d.GenerateNearTerrain (depth-1);
         }
        // UpdateNearTerrain();
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        foreach (Triangle tri in mesh.Triangles)
+        {
+
+        }
+        foreach (Edge edge in mesh.Edges)
+        {
+
+        }
+
+        foreach(Vertex vert in mesh.Vertices)
+        {
+            
+        }
     }
 }

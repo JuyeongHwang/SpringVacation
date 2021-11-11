@@ -658,37 +658,37 @@ public class myDel_Terrain : MonoBehaviour
 
 
         //waterplane size : 1
-        foreach(Triangle tri in mesh.Triangles)
-        {
-            float gx = (float)tri.vertices[0].x + (float)tri.vertices[1].x + (float)tri.vertices[2].x;
-            gx /= 3;
+        //foreach(Triangle tri in mesh.Triangles)
+        //{
+        //    float gx = (float)tri.vertices[0].x + (float)tri.vertices[1].x + (float)tri.vertices[2].x;
+        //    gx /= 3;
 
-            float gy = (float)tri.vertices[0].y + (float)tri.vertices[1].y + (float)tri.vertices[2].y;
-            gy /= 3;
+        //    float gy = (float)tri.vertices[0].y + (float)tri.vertices[1].y + (float)tri.vertices[2].y;
+        //    gy /= 3;
 
 
-            Vector3 v0 = GetPoint3D(tri.vertices[2].id);
-            Vector3 v1 = GetPoint3D(tri.vertices[1].id);
-            Vector3 v2 = GetPoint3D(tri.vertices[0].id);
+        //    Vector3 v0 = GetPoint3D(tri.vertices[2].id);
+        //    Vector3 v1 = GetPoint3D(tri.vertices[1].id);
+        //    Vector3 v2 = GetPoint3D(tri.vertices[0].id);
 
-            Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0);
+        //    Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0);
             
-            if (transform.position.z + gy < 8 && transform.position.z + gy > -8)
-            {
+        //    if (transform.position.z + gy < 8 && transform.position.z + gy > -8)
+        //    {
                 
-                if (transform.position.x + gx < -5)
-                {
-                    float gelev = elevations[tri.vertices[0].id] + elevations[tri.vertices[1].id] + elevations[tri.vertices[2].id];
-                    gelev /= 3;
+        //        if (transform.position.x + gx < -5)
+        //        {
+        //            float gelev = elevations[tri.vertices[0].id] + elevations[tri.vertices[1].id] + elevations[tri.vertices[2].id];
+        //            gelev /= 3;
 
-                    g = Instantiate(water_plane,
-                        new Vector3(gx + transform.position.x, gelev + 1.0f, gy + transform.position.z),
-                        Quaternion.identity);
-                    //Quaternion.Euler(new Vector3(normal.x, normal.y, normal.z))
-                    g.transform.parent = this.transform;
-                }
-            }
-        }
+        //            g = Instantiate(water_plane,
+        //                new Vector3(gx + transform.position.x, gelev + 1.0f, gy + transform.position.z),
+        //                Quaternion.identity);
+        //            //Quaternion.Euler(new Vector3(normal.x, normal.y, normal.z))
+        //            g.transform.parent = this.transform;
+        //        }
+        //    }
+        //}
 
         foreach (Vertex ver in mesh.Vertices)
         {

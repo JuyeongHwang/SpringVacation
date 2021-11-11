@@ -19,7 +19,7 @@ public class EnvManager : MonoBehaviour
     [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
     public List<myDel_Terrain> customTerrains;
-    //private bool updateNearTerrainFrame = false;    // 지형을 생성하는 한 프레임에서만 true
+    public List <EnvObject> envObjects;
     public int nearTerrainDepth = 2;    // 재귀함수로 지형 생성을 위한 수치
 
     [Header("터레인 노이즈 설정: 지형")]
@@ -435,5 +435,67 @@ public class EnvManager : MonoBehaviour
         tex.SetPixels(pixelColors);
         tex.Apply();
         return tex;
+    }
+
+    // ======================================= EnvObject 추가 ==================================
+
+    public void AddEnvObject (EnvObject envO)
+    {  
+        if (envO == null)
+            return;
+
+        envObjects.Add (envO);
+    }
+
+    public EnvObject GetEnvObjectByCase (EnvObjectType fav, EnvObject originEnvObject, Vector3 originPos)
+    {
+        float distMax = 100;
+        float dist0 = 1000;
+
+        // 가장 가까운 것 및 리턴할 것
+        EnvObject ee = null;
+
+        // 후보 리스트
+        List <EnvObject> ees = new List<EnvObject> ();
+
+        // 모든 ???? 환경 오브젝트를 순회하며 검사한다
+        foreach (EnvObject e in envObjects)
+        {
+            // 조건 부적합
+            if (e.GetEnvObjectType () != fav)
+            {
+                continue;
+            }
+
+            // 조건 부적합
+            if (originEnvObject == e)
+            {
+                continue;
+            }
+
+            float dist = Vector3.Distance (e.gameObject.transform.position, originPos);
+
+            // 가장 가까운거와 후보리스트 계산
+            if (dist0 > dist)
+            {
+                dist0 = dist;
+                ee = e;
+
+                if (distMax > dist)
+                {
+                    ees.Add (ee);
+                }
+            }
+        }
+
+        // 후보리스트가 있으면 랜덤
+        if (ees.Count != 0)
+        {
+            ee = ees [Random.Range (0, ees.Count)];
+        }
+
+        // 없으면 가장 가까운것
+        
+        return ee;
     }
 }

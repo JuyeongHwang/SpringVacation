@@ -16,24 +16,27 @@ public class bugInfo : ScriptableObject
     [SerializeField]
     private float bugMoney = 250;
 
+    [SerializeField]
+    private EnvObjectType bugFavoriteEnvObjectType;
+
     [Header ("곤충 이동 설정")]
     [SerializeField]
     private float bugMoveSpeed_min;
     [SerializeField]
     private float bugMoveSpeed_max;
-    
     [SerializeField]
+    private float bugRotSpeed = 0.5f;
+
+
+    /*[SerializeField]
     private float bugMoveDist_min;
     [SerializeField]
-    private float bugMoveDist_max;
+    private float bugMoveDist_max;*/
 
     [SerializeField]
     private float bugMoveDelay_min;
     [SerializeField]
     private float bugMoveDelay_max;
-
-    [SerializeField]
-    private float bugRotSpeed = 0.5f;
 
     //[SerializeField]
     //private float bugFlyingDistFromGround = 0.75f;
@@ -58,9 +61,14 @@ public class bugInfo : ScriptableObject
         return Random.Range (bugMoveSpeed_min, bugMoveSpeed_max);
     }
 
-    public float GetBugMoveDistance ()
+    public float GetBugRotationSpeed ()
     {
-        return Random.Range (bugMoveDist_min, bugMoveDist_max);
+        return bugRotSpeed;
+    }
+    
+    public EnvObjectType GetBugFavoriteEnvObjectType ()
+    {
+        return bugFavoriteEnvObjectType;
     }
 
     public float GetBugMoveDelay ()
@@ -68,10 +76,14 @@ public class bugInfo : ScriptableObject
         return Random.Range (bugMoveDelay_min, bugMoveDelay_max);
     }
 
-    public float GetBugRotationSpeed ()
+    /*public float GetBugMoveDistance ()
     {
-        return bugRotSpeed;
+        return Random.Range (bugMoveDist_min, bugMoveDist_max);
     }
+
+    
+
+    */
 
     /*public float GetBugFlyingDistanceFromGround ()
     {

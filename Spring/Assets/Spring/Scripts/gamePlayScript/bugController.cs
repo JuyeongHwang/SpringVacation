@@ -21,10 +21,11 @@ public class bugController : MonoBehaviour
 
     // 이동관련함수
     public float bugMoveSpeed;
-    public float bugMoveDist;
+    //public float bugMoveDist;
     public float bugMoveDelay;
-    public float bugFloatingDist;
+    //public float bugFloatingDist;
     public float bugRotSpeed;
+    public EnvObject currentEnvObject;
 
     public IEnumerator ibugMove;
 
@@ -150,7 +151,7 @@ public class bugController : MonoBehaviour
             if (bugInfo_start != null)
             {   
                 bugMoveSpeed = bugInfo_start.GetBugMoveSpeed ();
-                bugMoveDist = bugInfo_start.GetBugMoveDistance ();
+                //bugMoveDist = bugInfo_start.GetBugMoveDistance ();
                 bugMoveDelay = bugInfo_start.GetBugMoveDelay ();
                // bugFloatingDist = bugInfo_start.GetBugFlyingDistanceFromGround ();
                 bugRotSpeed = bugInfo_start.GetBugRotationSpeed ();
@@ -159,32 +160,28 @@ public class bugController : MonoBehaviour
             {
                 // 기본값
                 bugMoveSpeed = 2.5f;
-                bugMoveDist = 5f;
+                //bugMoveDist = 5f;
                 bugMoveDelay = 3f;
                 //bugFloatingDist = 0.5f;
                 bugRotSpeed = 0.25f;
             }
 
-            // 애니메이션
-            SetBugAnimatorTrigger ("Idle");
-
-            // 딜레이만큼 대기
-            yield return new WaitForSeconds (bugMoveDist);
+            
 
             // 위치 설정
             Vector3 currentPos = gameObject.transform.position;
             Vector3 targetPos = currentPos;
 
             // 최대 n번 검사
-            int checkN = 10;
+            /*int checkN = 10;
             for (int i = 0; i < checkN; i++)
             {
                 bool targetPosOK = false;
 
                 // 현재 위치를 중앙으로 bugMoveDist만큼 사각형을 구역으로 가정하고
                 // 그 구역안의 한 위치를 무작위로 설정한다
-                targetPos.x += Random.Range (-bugMoveDist, bugMoveDist);
-                targetPos.z += Random.Range (-bugMoveDist, bugMoveDist);
+                //targetPos.x += Random.Range (-bugMoveDist, bugMoveDist);
+                //targetPos.z += Random.Range (-bugMoveDist, bugMoveDist);
 
                 // 위에서 레이를 쏴서 y 값 설정
                 float detectLength = 100;
@@ -208,6 +205,17 @@ public class bugController : MonoBehaviour
                 {
                     break;
                 }
+            }*/
+
+            // 이동 과정 수정
+            if (EnvManager.Inst != null)
+            {
+                currentEnvObject = EnvManager.Inst.GetEnvObjectByCase (bugInfo_start.GetBugFavoriteEnvObjectType (), currentEnvObject, currentPos);
+            }
+            
+            if (currentEnvObject != null)
+            {
+                targetPos = currentEnvObject.gameObject.transform.position;
             }
 
             // 애니메이션
@@ -229,6 +237,12 @@ public class bugController : MonoBehaviour
 
                 yield return null;
             }
+
+            // 애니메이션
+            SetBugAnimatorTrigger ("Idle");
+
+            // 딜레이만큼 대기
+            yield return new WaitForSeconds (bugMoveDelay);
         }
     }
 

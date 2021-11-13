@@ -48,7 +48,10 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 기타 설정")]
     public KidController kidController;
+    
     [HideInInspector]
+    public GameObject waterPlane;
+
     public static EnvManager Inst = null;
     
 
@@ -79,13 +82,10 @@ public class EnvManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    int maxRange = 0;
-    int minRange = 0;
+
     void Start()
     {
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
-        maxRange = Random.Range(1, 3);
-        minRange = Random.Range(1, 3);
 
         // 지형생성
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
@@ -138,7 +138,8 @@ public class EnvManager : MonoBehaviour
 
             if (envSetting != null)
             {
-                canGenerate = envSetting.GetIsAbleToGenerate (new Vector2 (instTerrainPos.x, instTerrainPos.z));
+                //canGenerate = envSetting.GetIsAbleToGenerate (new Vector2 (instTerrainPos.x, instTerrainPos.z));
+                canGenerate = true;
             }
             else
             {
@@ -148,12 +149,6 @@ public class EnvManager : MonoBehaviour
 
             if (canGenerate)
             {
-                /*
-             * 
-             * 1. detect near terrain
-             * 2. generate edge met terrain 'ct'
-             * 3. bind the edge in 'g'
-             */
                 // 해당 터레인 설정
                 GameObject g = Instantiate(customTerrainPrefab, instTerrainPos, Quaternion.identity);
 
@@ -201,6 +196,9 @@ public class EnvManager : MonoBehaviour
                     }
                 }
 
+                int mountain = Random.Range(0, 2);
+                //Debug.Log(mountain);
+                ret.hasMountain = (mountain == 0 ? false : true);
 
                 if (!ret.meetDown && !ret.meetLeft && !ret.meetRight && !ret.meetUp)
                 {

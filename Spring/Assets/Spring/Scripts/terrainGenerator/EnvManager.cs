@@ -13,8 +13,20 @@ public class EnvManager : MonoBehaviour
     [Header("터레인 설정")]
     public int terrainUnitSize = 100;
     public EnvSetting envSetting;   // 프리셋 개념
-    public GameObject customTerrainPrefab;
     public float checkDelay = 1f;   // 체크 주기
+
+
+    [Header ("터레인 홀더 설정")]       // 생성된 프리팹의 인스턴스를 모아주는 역할
+    public GameObject envObjectHolder;
+    public GameObject bugHolder;
+    
+
+    [Header ("터레인 프리팹 설정")]     // 나무, 버그 등 프리팹은 EnvManger에서 관리
+    public GameObject customTerrainPrefab;
+    public GameObject[] treePrefabs;
+    public GameObject[] flowerPrefabs;
+    public GameObject[] bugPrefabs;
+
 
     [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
@@ -37,9 +49,6 @@ public class EnvManager : MonoBehaviour
     [Header ("터레인 기타 설정")]
     public KidController kidController;
     [HideInInspector]
-    
-
-
     public static EnvManager Inst = null;
     
 
@@ -475,16 +484,17 @@ public class EnvManager : MonoBehaviour
 
             float dist = Vector3.Distance (e.gameObject.transform.position, originPos);
 
-            // 가장 가까운거와 후보리스트 계산
+            // 후보 등록
+            if (distMax > dist)
+            {
+                ees.Add (e);
+            }
+
+            // 가장 가까운거
             if (dist0 > dist)
             {
                 dist0 = dist;
-                ee = e;
-
-                if (distMax > dist)
-                {
-                    ees.Add (ee);
-                }
+                ee = e;  
             }
         }
 
@@ -497,5 +507,52 @@ public class EnvManager : MonoBehaviour
         // 없으면 가장 가까운것
         
         return ee;
+    }
+
+    // ====================================== 프리팹 관련 =========================================
+
+    public GameObject Instantiate_EnvObject_Tree (Vector3 pos)
+    {
+        GameObject ret = null;
+
+        if (treePrefabs.Length > 0)
+        {
+            int index = Random.Range (0, treePrefabs.Length);
+            float rotY = Random.Range (0, 360f);
+
+            ret = Instantiate (treePrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), envObjectHolder.transform);
+        }
+
+        return ret;
+    }
+
+    public GameObject Instantiate_EnvObject_Flower (Vector3 pos)
+    {
+        GameObject ret = null;
+
+        if (flowerPrefabs.Length > 0)
+        {
+            int index = Random.Range (0, flowerPrefabs.Length);
+            float rotY = Random.Range (0, 360f);
+
+            ret = Instantiate (flowerPrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), envObjectHolder.transform);
+        }
+
+        return ret;
+    }
+
+    public GameObject Instantiate_Bug (Vector3 pos)
+    {
+        GameObject ret = null;
+
+        if (bugPrefabs.Length > 0)
+        {
+            int index = Random.Range (0, bugPrefabs.Length);
+            float rotY = Random.Range (0, 360f);
+
+            ret = Instantiate (bugPrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), bugHolder.transform);
+        }
+
+        return ret;
     }
 }

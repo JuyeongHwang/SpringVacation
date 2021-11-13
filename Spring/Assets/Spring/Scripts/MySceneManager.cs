@@ -33,21 +33,31 @@ public class MySceneManager : MonoBehaviour
             if(nextSceneName == "Scene_Result")
             {
                 //MyGameManager_Gameplay.Inst.isLoadGameScene = false;
-                DataManager.Inst.Env.gameObject.SetActive(false);
+                //DataManager.Inst.Env.gameObject.SetActive(false);
                 //DataManager.Inst.Kid.gameObject.SetActive(false);
 
                 //GameObject.Find("Env.").SetActive(false);
+
+                if (EnvManager.Inst != null)
+                {
+                    EnvManager.Inst.gameObject.SetActive (false);
+                }
             }
             else if(nextSceneName == "Gameplay")
             {
                 //MyGameManager_Gameplay.Inst.isLoadGameScene = true;
-                DataManager.Inst.Env.gameObject.SetActive(true);
+                //DataManager.Inst.Env.gameObject.SetActive(true);
                 //DataManager.Inst.Kid.gameObject.SetActive(true);
                 //reset transform.
                 //DataManager.Inst.Kid.gameObject.transform.position = new Vector3(33, 0, 33);
                 //DataManager.Inst.Kid.gameObject.transform.rotation = Quaternion.identity;
 
                 //GameObject.Find("Env.").SetActive(true);
+
+                if (EnvManager.Inst != null)
+                {
+                    EnvManager.Inst.gameObject.SetActive (true);
+                }
             }
 
         }

@@ -41,12 +41,12 @@ public class myDel_Terrain : MonoBehaviour
 
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
-    [Space(10)]
+    //[Space(10)]
    // public GameObject Butterfly;
-    public GameObject[] bugsPrefabs;
+    //public GameObject[] bugsPrefabs;
 
-    [Space (10)]
-    public GameObject myPrefab_tree2;
+    //[Space (10)]
+    //public GameObject myPrefab_tree2;
     public GameObject water_plane;
 
     [Space(10)]
@@ -638,31 +638,50 @@ public class myDel_Terrain : MonoBehaviour
         }
     }
 
-    int i = 0;
     public void SpawnButterFly()
     {
-        
-        GameObject g;
+        int i = 0;
+
+        //GameObject g;
 
         foreach (Vertex ver in mesh.Vertices)
         {
+            // 나무 생성
             if (i % 39 == 0)
             {
-                g = Instantiate(myPrefab_tree2,
+                /*g = Instantiate(myPrefab_tree2,
                     new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
                     Quaternion.identity);
-                g.transform.parent = this.transform;
+                g.transform.parent = this.transform;*/
+
+                if (EnvManager.Inst != null)
+                {
+                    EnvManager.Inst.Instantiate_EnvObject_Tree (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                }
             }
 
-            else if (i % 51 == 0 && bugsPrefabs.Length > 0)
+            // 꽃 생성
+            if (i % 47 == 0)
+            {
+                if (EnvManager.Inst != null)
+                {
+                    EnvManager.Inst.Instantiate_EnvObject_Flower (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                }
+            }
+
+            else if (i % 51 == 0)
             {
                 // 랜덤으로 곤충 생성
-                int bugIndex = Random.Range(0, bugsPrefabs.Length);
+                /*int bugIndex = Random.Range(0, bugsPrefabs.Length);
 
                 g = Instantiate(bugsPrefabs[bugIndex],
                     new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
                     Quaternion.identity);
-                g.transform.parent = this.transform;
+                g.transform.parent = this.transform;*/
+                if (EnvManager.Inst != null)
+                {
+                    EnvManager.Inst.Instantiate_Bug (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                }
             }
 
             i++;

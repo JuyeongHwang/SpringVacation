@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Env Setting", menuName = "Scriptables/Env Setting")]
 public class EnvSetting : ScriptableObject
 {
-    [Header ("지형 설정")]
     [SerializeField]
     Vector2 boundryCoord_min = new Vector2 (-100f, -100f);
     [SerializeField]

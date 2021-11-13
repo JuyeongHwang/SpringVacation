@@ -8,22 +8,16 @@ public class bugController : MonoBehaviour
 {
     //[HideInInspector]
     //public bugInfo bug;
-    [Header ("곤충 설정")]
+
     public bugInfo bugInfo_start;
-    public Slider hpBar;
-    protected Animator bugAnimator;
-
-    public BoxCollider bugCollider_min;
-    public BoxCollider bugCollider_max;
-
-
-    [Header ("곤충 현재 상태")]
 
     public float bugHP_current;
     public float bugHP_max;
+
     public bool bugAlive = true;
-    public bool bugCollider = false;    // in: true, out: false
-    
+    public Slider hpBar;
+
+    protected Animator bugAnimator;
 
     // 이동관련함수
     public float bugMoveSpeed;
@@ -33,7 +27,7 @@ public class bugController : MonoBehaviour
     public float bugRotSpeed;
     public EnvObject currentEnvObject;
 
-    private IEnumerator ibugMove;
+    public IEnumerator ibugMove;
 
     protected const string groundLayerName = "Ground";
 
@@ -62,11 +56,9 @@ public class bugController : MonoBehaviour
         }
 
         bugHP_current = bugHP_max;
-        bugAlive = true;
         
         hpBar.value = 1f;
-        
-        SetColliderByBoolean (bugCollider = false);
+        bugAlive = true;
     }
 
     private void Update()
@@ -264,25 +256,5 @@ public class bugController : MonoBehaviour
         }
 
         return 250;
-    }
-
-    // ============================ 콜라이더 설정 =====================================
-
-    // 첫 시작 Start 함수
-    // 혹은 KidCollider에서 수행    
-    public void SetColliderByBoolean (bool b)
-    {
-        // IN
-        if (b == true)
-        {
-            bugCollider_max.enabled = true;
-            bugCollider_min.enabled = false;
-        }
-        // OUT
-        else
-        {
-            bugCollider_max.enabled = false;
-            bugCollider_min.enabled = true;
-        }
     }
 }

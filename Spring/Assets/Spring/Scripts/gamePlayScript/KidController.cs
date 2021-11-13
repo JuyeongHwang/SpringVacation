@@ -189,31 +189,25 @@ public class KidController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        bugController b = other.gameObject.GetComponent <bugController> ();
-
-        if (b != null
+        if (other.gameObject.GetComponent <bugController> () != null
             && currentBugController != null
             && other.gameObject == currentBugController.gameObject)
         {
             Debug.Log ("채집시작!");
 
             isArrived = true;
-            b.SetColliderByBoolean (true);
         }
     }
 
     private void OnTriggerExit (Collider other)
     {
-        bugController b = other.gameObject.GetComponent <bugController> ();
-
-        if (b != null
+        if (other.gameObject.GetComponent <bugController> () != null
             && currentBugController != null
             && other.gameObject == currentBugController.gameObject)
         {
             Debug.Log ("도망간다!");
 
             isArrived = false;
-            b.SetColliderByBoolean (false);
         }
     }
 

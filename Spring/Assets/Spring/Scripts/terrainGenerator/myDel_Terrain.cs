@@ -490,12 +490,7 @@ public class myDel_Terrain : MonoBehaviour
             //    elevation += (this.transform.position.z) / 5;
             //}
 
-            ////절벽
-            hasCliff = true;
-            if (hasCliff)
-            {
-
-            }
+            
             //if (vert.x + this.transform.position.x < -30)
             //{
             //    elevation -= 12.0f;
@@ -509,6 +504,21 @@ public class myDel_Terrain : MonoBehaviour
 
             ////make Mountain****************************
 
+            
+
+            //elevation += MakeMountainElevation(60, 50, 20, vert);
+            //elevation += MakeMountainElevation(0, 0, 10, vert);
+
+            ////절벽
+            hasCliff = true;
+            if (hasCliff)
+            {
+                if(transform.position.x + vert.x <= -50)
+                {
+                    elevation -= 10.0f;
+                }
+            }
+
             if (hasMountain)
             {
                 float Radius = Random.Range(10, 20);
@@ -516,11 +526,6 @@ public class myDel_Terrain : MonoBehaviour
                 float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
                 elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
             }
-
-            //elevation += MakeMountainElevation(60, 50, 20, vert);
-            //elevation += MakeMountainElevation(0, 0, 10, vert);
-
-
             hasRiver = true;
             ////// 강가 ***********
             if (hasRiver)
@@ -529,13 +534,13 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (transform.position.x + vert.x < 0)
                     {
-                        elevation = depth;
+                        elevation += depth;
 
                         if (!makeWaterPlane)
                         {
                             GameObject water = Instantiate(water_plane,
                             new Vector3(transform.position.x + 25,
-                            -2.3f, transform.position.z + 25),
+                            elevation -depth, transform.position.z + 25),
                             Quaternion.identity);
 
                             water.transform.SetParent(this.gameObject.transform);
@@ -547,7 +552,7 @@ public class myDel_Terrain : MonoBehaviour
                         {
                             GameObject bri = Instantiate(bridge,
                             new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
-                            -1f, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
+                            elevation -depth, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
                             Quaternion.identity);
 
                             bri.transform.SetParent(this.gameObject.transform);
@@ -557,6 +562,8 @@ public class myDel_Terrain : MonoBehaviour
                     }
                 }
             }
+
+            
 
             ////if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
             ////{

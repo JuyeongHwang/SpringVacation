@@ -3,7 +3,6 @@ using UnityEngine;
 using TriangleNet.Geometry;
 using TriangleNet.Topology;
 
-
 public class myDel_Terrain : MonoBehaviour
 {
     // Maximum size of the terrain.
@@ -55,6 +54,9 @@ public class myDel_Terrain : MonoBehaviour
     public myDel_Terrain nearTerrainHolder_r = null;
     public myDel_Terrain nearTerrainHolder_d = null;
 
+    public bool hasMountain;
+    public bool hasRiver = true;
+    public bool hasCliff;
 
     private void Awake()
     {
@@ -71,7 +73,7 @@ public class myDel_Terrain : MonoBehaviour
         //강
         if (Input.GetKeyDown(KeyCode.A))
         {
-
+            //List<Vertex> changeVert = new List<Vertex>();
             foreach (Vertex ver in mesh.Vertices)
             {
                 
@@ -83,37 +85,38 @@ public class myDel_Terrain : MonoBehaviour
                 if(DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
                 {
                     elevations[ver.id] -= 0.5f;
-
-                    //최소한의 기준
-                    if (elevations[ver.id] < -0.5)
-                    {
-                        GameObject g = Instantiate(water_plane,
-                        new Vector3((float)ver.x + transform.position.x, -0.6f, (float)ver.y + transform.position.z),
-                        Quaternion.identity);
-                        g.transform.parent = this.transform;
-                    }
-                    
+                    //changeVert.Add(ver);
                 }
 
                 
             }
-            //for(int i = 0; i<elevations.Count; i++)
-            //{
-            //    elevations[i] += 5.0f;
-            //}
-
             for(int j = 0; j < this.gameObject.transform.childCount; j++)
             {
                 if(transform.GetChild(j) != null)
                 {
                     if(transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
                         Destroy(this.gameObject.transform.GetChild(j).gameObject);
-                }
-                
-            }
 
+                    //if(transform.GetChild(j).transform.name == ("Tree Type0 05(Clone)"))
+                    //{
+                    //    Debug.Log("Hello");
+                    //    for (int i = 0; i < changeVert.Count; i++)
+                    //    {
+                    //        GameObject g;
+                    //        Vertex tree = new Vertex(transform.GetChild(j).gameObject.transform.position.x, transform.GetChild(j).gameObject.transform.position.z);
+                    //        if(tree.Equals(changeVert[i]))
+                    //        {
+                    //            g = transform.GetChild(j).gameObject;
+                    //            g.transform.position.Set(g.transform.position.x, g.transform.position.y - 0.5f, g.transform.position.z);
+
+                    //        }
+                    //    }
+                    //}
+                }
+            }
             MakeMesh();
             ScatterDetailMeshes();
+            //changeVert.Clear();
         }
 
         //산
@@ -228,8 +231,8 @@ public class myDel_Terrain : MonoBehaviour
             elevation = elevation / maxVal * elevationScale;
 
 
-            elevation += MakeMountainElevation(60, 50, 20, vert);
-            elevation += MakeMountainElevation(0, 0, 10, vert);
+            //elevation += MakeMountainElevation(60, 50, 20, vert);
+            //elevation += MakeMountainElevation(0, 0, 10, vert);
 
 
             elevations.Add(elevation);
@@ -345,6 +348,10 @@ public class myDel_Terrain : MonoBehaviour
 
     public List<Vertex> faildBindingEdge = new List<Vertex>();
     float minX = 0, minY = 0, maxX = 0, maxY = 0;
+
+    float width;
+    float depth;
+    float startPoint;
     public virtual void GenerateForNear()
     {
 
@@ -428,7 +435,10 @@ public class myDel_Terrain : MonoBehaviour
 
         bin = new TriangleBin(mesh, (int)maxX, (int)maxX, minPointRadius * 2.0f);
 
-
+        bool makeWaterPlane = false;
+        width = Random.Range(5.0f, 10.0f);
+        depth = Random.Range(-4.7f, -13f);
+        startPoint = Random.Range(0.0f + width, 50.0f - width);
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -452,60 +462,100 @@ public class myDel_Terrain : MonoBehaviour
 
 
 
-            // uplift ************
-            if (vert.x + this.transform.position.x >= 60)
-            {
-                elevation += (this.transform.position.x) / 20;
-            }
-            if (vert.y + this.transform.position.z >= 60)
-            {
-                elevation += (this.transform.position.z) / 20;
-            }
-
-            //(100,100) 한정 _ 예시 // 못움직이게
-            if (vert.x + this.transform.position.x >= 100)
-            {
-                elevation += (this.transform.position.x) / 5;
-            }
-            if (vert.y + this.transform.position.z >= 100)
-            {
-                elevation += (this.transform.position.z) / 5;
-            }
-
-            //절벽
-            if (vert.x + this.transform.position.x < -30)
-            {
-                elevation -= 12.0f;
-            }
-            else if (vert.y + this.transform.position.z < -90)
-            {
-                elevation -= 12.0f;
-            }
-
-
-            // 강가 ***********
-            //if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
+            //// uplift ************
+            //if (vert.x + this.transform.position.x >= 60)
             //{
-            //    if (transform.position.z + vert.y <= 10)
-            //    {
-            //        elevation = -1.0f * elevationScale;
-            //    }
-
+            //    elevation += (this.transform.position.x) / 20;
+            //}
+            //if (vert.y + this.transform.position.z >= 60)
+            //{
+            //    elevation += (this.transform.position.z) / 20;
             //}
 
-            if (transform.position.z + vert.y <= 10 && transform.position.z + vert.y >= -10)
+            ////(100,100) 한정 _ 예시 // 못움직이게
+            //if (vert.x + this.transform.position.x >= 100)
+            //{
+            //    elevation += (this.transform.position.x) / 5;
+            //}
+            //if (vert.y + this.transform.position.z >= 100)
+            //{
+            //    elevation += (this.transform.position.z) / 5;
+            //}
+
+            ////절벽
+            hasCliff = true;
+            if (hasCliff)
             {
-                if(transform.position.x + vert.x < 0)
+
+            }
+            //if (vert.x + this.transform.position.x < -30)
+            //{
+            //    elevation -= 12.0f;
+            //}
+            //else if (vert.y + this.transform.position.z < -90)
+            //{
+            //    elevation -= 12.0f;
+            //}
+
+
+
+            ////make Mountain****************************
+
+            if (hasMountain)
+            {
+                float Radius = Random.Range(10, 20);
+                float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
+                float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
+                elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
+            }
+
+            //elevation += MakeMountainElevation(60, 50, 20, vert);
+            //elevation += MakeMountainElevation(0, 0, 10, vert);
+
+
+            hasRiver = true;
+            ////// 강가 ***********
+            if (hasRiver)
+            {
+
+                if (transform.position.z + vert.y <= width && transform.position.z + vert.y >= -width)
                 {
-                    elevation -= 5f;
+                    if (transform.position.x + vert.x < -width)
+                    {
+                        elevation = depth;
+
+                        if (!makeWaterPlane)
+                        {
+                            GameObject water = Instantiate(water_plane,
+                            new Vector3(transform.position.x + 25,
+                            -2.3f, transform.position.z + 25),
+                            Quaternion.identity);
+
+                            water.transform.SetParent(this.gameObject.transform);
+
+                            makeWaterPlane = true;
+                        }
+                    }
                 }
             }
 
-            //make Mountain****************************
+            ////if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
+            ////{
+            ////    if (transform.position.z + vert.y <= 10)
+            ////    {
+            ////        elevation = -1.0f * elevationScale;
+            ////    }
 
+            ////}
 
-            elevation += MakeMountainElevation(60, 50, 20, vert);
-            elevation += MakeMountainElevation(0, 0, 10, vert);
+            //if (transform.position.z + vert.y <= 10 && transform.position.z + vert.y >= -10)
+            //{
+            //    if(transform.position.x + vert.x < 0)
+            //    {
+            //        elevation -= 5f;
+            //    }
+            //}
+
 
             //edge 연결*****************************
 
@@ -610,7 +660,6 @@ public class myDel_Terrain : MonoBehaviour
         ScatterDetailMeshes();
     }
 
-
     float MakeMountainElevation(float cx, float cy, float r, Vertex vert)
     {
         float mountainElev = 0;
@@ -625,6 +674,15 @@ public class myDel_Terrain : MonoBehaviour
         }
 
         return mountainElev;
+    }
+
+    float MakeRiverElevation(bool nearRiver, float startPos, float width)
+    {
+        float riverElev = 0;
+
+
+
+        return riverElev;
     }
 
     void MakeWaterLoad()
@@ -648,10 +706,21 @@ public class myDel_Terrain : MonoBehaviour
         {
             if (i % 39 == 0)
             {
-                g = Instantiate(myPrefab_tree2,
+                if (transform.position.z + ver.y <= width && transform.position.z + ver.y >= -width)
+                {
+                    if (transform.position.x + ver.x < -width)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    g = Instantiate(myPrefab_tree2,
                     new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
                     Quaternion.identity);
-                g.transform.parent = this.transform;
+                    g.transform.parent = this.transform;
+                }
+                        
             }
 
             else if (i % 51 == 0 && bugsPrefabs.Length > 0)

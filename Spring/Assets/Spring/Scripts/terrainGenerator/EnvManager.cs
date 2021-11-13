@@ -137,8 +137,7 @@ public class EnvManager : MonoBehaviour
 
             if (envSetting != null)
             {
-                //canGenerate = envSetting.GetIsAbleToGenerate (new Vector2 (instTerrainPos.x, instTerrainPos.z));
-                canGenerate = true;
+                canGenerate = envSetting.GetIsAbleToGenerate (new Vector2 (instTerrainPos.x, instTerrainPos.z));
             }
             else
             {
@@ -518,6 +517,7 @@ public class EnvManager : MonoBehaviour
             float rotY = Random.Range (0, 360f);
 
             ret = Instantiate (treePrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), envObjectHolder.transform);
+            
         }
 
         return ret;

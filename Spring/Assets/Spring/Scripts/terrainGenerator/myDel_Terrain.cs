@@ -59,6 +59,7 @@ public class myDel_Terrain : MonoBehaviour
     public bool hasRiver = true;
     public bool hasCliff;
 
+    public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -83,11 +84,21 @@ public class myDel_Terrain : MonoBehaviour
                 //    elevations[ver.id] -= 1.5f;
                 //}
 
-                if(DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
+                if(DrawCircle(EnvManager.Inst.kidController.transform, ver, 3))
                 {
                     elevations[ver.id] -= 0.5f;
-                    //changeVert.Add(ver);
+
+                    if (manageSpawnObject.ContainsKey(ver))
+                    {
+                        GameObject tree = manageSpawnObject[ver];
+                        tree.transform.position = new Vector3(tree.transform.position.x, tree.transform.position.y -0.5f, tree.transform.position.z);
+                        
+                    }
+
+
                 }
+                
+                
 
                 
             }
@@ -98,21 +109,7 @@ public class myDel_Terrain : MonoBehaviour
                     if(transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
                         Destroy(this.gameObject.transform.GetChild(j).gameObject);
 
-                    //if(transform.GetChild(j).transform.name == ("Tree Type0 05(Clone)"))
-                    //{
-                    //    Debug.Log("Hello");
-                    //    for (int i = 0; i < changeVert.Count; i++)
-                    //    {
-                    //        GameObject g;
-                    //        Vertex tree = new Vertex(transform.GetChild(j).gameObject.transform.position.x, transform.GetChild(j).gameObject.transform.position.z);
-                    //        if(tree.Equals(changeVert[i]))
-                    //        {
-                    //            g = transform.GetChild(j).gameObject;
-                    //            g.transform.position.Set(g.transform.position.x, g.transform.position.y - 0.5f, g.transform.position.z);
-
-                    //        }
-                    //    }
-                    //}
+                    
                 }
             }
             MakeMesh();
@@ -129,6 +126,12 @@ public class myDel_Terrain : MonoBehaviour
                 if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
                 {
                     elevations[ver.id] += 0.5f;
+                    if (manageSpawnObject.ContainsKey(ver))
+                    {
+                        GameObject tree = manageSpawnObject[ver];
+                        tree.transform.position = new Vector3(tree.transform.position.x, tree.transform.position.y + 0.5f, tree.transform.position.z);
+
+                    }
                 }
             }
 
@@ -152,10 +155,12 @@ public class myDel_Terrain : MonoBehaviour
     bool DrawCircle(Transform trans, Vertex vert,float r)
     {
 
-        //중점으로부터 떨어진 거리
-        float dist = Mathf.Sqrt(Mathf.Pow((trans.position.x - ((float)vert.x + transform.position.x)), 2)
-            + Mathf.Pow((trans.position.z - ((float)vert.y + transform.position.z)), 2));
+        Vector3 boundary = trans.position;// + trans.forward*4f; //캐릭터 앞쪽으로 중심 옮길지 말지..
 
+        //중점으로부터 떨어진 거리
+        float dist = Mathf.Sqrt(Mathf.Pow((boundary.x - ((float)vert.x + transform.position.x)), 2)
+            + Mathf.Pow((boundary.z - ((float)vert.y + transform.position.z)), 2));
+        
         if (dist <= r)
         {
             return true;
@@ -163,6 +168,7 @@ public class myDel_Terrain : MonoBehaviour
 
         return false;
     }
+
     public bool meetRight;
     public bool meetLeft;
     public bool meetUp;
@@ -533,7 +539,7 @@ public class myDel_Terrain : MonoBehaviour
                             Quaternion.identity);
 
                             water.transform.SetParent(this.gameObject.transform);
-
+                            //manageSpawnObject.Add(vert, water);
                             makeWaterPlane = true;
                         }
 
@@ -545,7 +551,7 @@ public class myDel_Terrain : MonoBehaviour
                             Quaternion.identity);
 
                             bri.transform.SetParent(this.gameObject.transform);
-
+                            //manageSpawnObject.Add(vert, bri);
                             makeBridge = true;
                         }
                     }
@@ -688,23 +694,11 @@ public class myDel_Terrain : MonoBehaviour
 
         return mountainElev;
     }
-
-    void MakeWaterLoad()
-    {
-        foreach(Vertex ver in faildBindingEdge)
-        {
-            elevations[ver.id] = -5;
-            Instantiate(water_plane,
-            new Vector3((float)ver.x + transform.position.x, -0.5f, (float)ver.y + transform.position.z),
-            Quaternion.identity);
-        }
-    }
-
     public void spawnArcifact()
     {
         int i = 0;
 
-        //GameObject g;
+        GameObject g;
 
         foreach (Vertex ver in mesh.Vertices)
         {
@@ -720,11 +714,9 @@ public class myDel_Terrain : MonoBehaviour
                 }
                 else
                 {
-                    /*g = Instantiate(myPrefab_tree2,
-                    new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
-                    Quaternion.identity);
-                    g.transform.parent = this.transform;*/
-                    EnvManager.Inst.Instantiate_EnvObject_Tree (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    g = EnvManager.Inst.Instantiate_EnvObject_Tree (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    if(!manageSpawnObject.ContainsKey(ver))
+                        manageSpawnObject.Add(ver, g);
                 }
             }
 
@@ -733,22 +725,18 @@ public class myDel_Terrain : MonoBehaviour
             {
                 if (EnvManager.Inst != null)
                 {
-                    EnvManager.Inst.Instantiate_EnvObject_Flower (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    g = EnvManager.Inst.Instantiate_EnvObject_Flower (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    if (!manageSpawnObject.ContainsKey(ver))
+                        manageSpawnObject.Add(ver, g);
                 }
             }
 
             else if (i % 51 == 0)
             {
-                // 랜덤으로 곤충 생성
-                /*int bugIndex = Random.Range(0, bugsPrefabs.Length);
-
-                g = Instantiate(bugsPrefabs[bugIndex],
-                    new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z),
-                    Quaternion.identity);
-                g.transform.parent = this.transform;*/
                 if (EnvManager.Inst != null)
                 {
-                    EnvManager.Inst.Instantiate_Bug (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    g = EnvManager.Inst.Instantiate_Bug (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    //manageSpawnObject.Add(ver, g);
                 }
             }
 

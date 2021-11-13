@@ -47,6 +47,7 @@ public class myDel_Terrain : MonoBehaviour
     [Space (10)]
     public GameObject myPrefab_tree2;
     public GameObject water_plane;
+    public GameObject bridge;
 
     [Space(10)]
     public myDel_Terrain nearTerrainHolder_u = null;
@@ -436,7 +437,8 @@ public class myDel_Terrain : MonoBehaviour
         bin = new TriangleBin(mesh, (int)maxX, (int)maxX, minPointRadius * 2.0f);
 
         bool makeWaterPlane = false;
-        width = Random.Range(5.0f, 10.0f);
+        bool makeBridge = false;
+        width = Random.Range(15.0f, 20.0f);
         depth = Random.Range(-4.7f, -13f);
         startPoint = Random.Range(0.0f + width, 50.0f - width);
         //// Sample perlin noise to get elevations
@@ -517,10 +519,9 @@ public class myDel_Terrain : MonoBehaviour
             ////// 강가 ***********
             if (hasRiver)
             {
-
-                if (transform.position.z + vert.y <= width && transform.position.z + vert.y >= -width)
+                if (transform.position.z + vert.y <= 40 && transform.position.z + vert.y >= 30)
                 {
-                    if (transform.position.x + vert.x < -width)
+                    if (transform.position.x + vert.x < 0)
                     {
                         elevation = depth;
 
@@ -534,6 +535,18 @@ public class myDel_Terrain : MonoBehaviour
                             water.transform.SetParent(this.gameObject.transform);
 
                             makeWaterPlane = true;
+                        }
+
+                        if(!makeBridge)
+                        {
+                            GameObject bri = Instantiate(bridge,
+                            new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
+                            -1f, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
+                            Quaternion.identity);
+
+                            bri.transform.SetParent(this.gameObject.transform);
+
+                            makeBridge = true;
                         }
                     }
                 }
@@ -651,7 +664,7 @@ public class myDel_Terrain : MonoBehaviour
         //{
         //    elevation -= 0.3f;
         //}
-        SpawnButterFly();
+        spawnArcifact();
         //MakeWaterLoad();
         ClearUsedEdge();
 
@@ -675,29 +688,8 @@ public class myDel_Terrain : MonoBehaviour
 
         return mountainElev;
     }
-
-    float MakeRiverElevation(bool nearRiver, float startPos, float width)
-    {
-        float riverElev = 0;
-
-
-
-        return riverElev;
-    }
-
-    void MakeWaterLoad()
-    {
-        foreach(Vertex ver in faildBindingEdge)
-        {
-            elevations[ver.id] = -5;
-            Instantiate(water_plane,
-            new Vector3((float)ver.x + transform.position.x, -0.5f, (float)ver.y + transform.position.z),
-            Quaternion.identity);
-        }
-    }
-
     int i = 0;
-    public void SpawnButterFly()
+    public void spawnArcifact()
     {
         
         GameObject g;
@@ -706,9 +698,9 @@ public class myDel_Terrain : MonoBehaviour
         {
             if (i % 39 == 0)
             {
-                if (transform.position.z + ver.y <= width && transform.position.z + ver.y >= -width)
+                if (transform.position.z + ver.y <= 40 && transform.position.z + ver.y >= 30)
                 {
-                    if (transform.position.x + ver.x < -width)
+                    if (transform.position.x + ver.x < 0)
                     {
                         continue;
                     }

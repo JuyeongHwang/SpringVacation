@@ -688,7 +688,6 @@ public class myDel_Terrain : MonoBehaviour
 
         return mountainElev;
     }
-
     void MakeWaterLoad()
     {
         foreach(Vertex ver in faildBindingEdge)

@@ -51,6 +51,7 @@ public class EnvManager : MonoBehaviour
     
     [HideInInspector]
     public GameObject waterPlane;
+
     public static EnvManager Inst = null;
     
 

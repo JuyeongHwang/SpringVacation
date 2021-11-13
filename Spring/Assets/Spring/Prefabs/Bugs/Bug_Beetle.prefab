@@ -421,6 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1398257520271782694}
   - component: {fileID: 1398257520271782697}
+  - component: {fileID: -3494636534312177073}
   - component: {fileID: 5092350641756354049}
   m_Layer: 0
   m_Name: Bug_Beetle
@@ -457,7 +458,20 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 3}
-  m_Center: {x: -0.047609568, y: 0.3252337, z: 0.039316177}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &-3494636534312177073
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398257520271782695}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 6, y: 6, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5092350641756354049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,15 +485,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bugInfo_start: {fileID: 11400000, guid: e95e4ae50352a6740964d4e901666f12, type: 2}
+  hpBar: {fileID: 122428612}
+  bugCollider_min: {fileID: 1398257520271782697}
+  bugCollider_max: {fileID: -3494636534312177073}
   bugHP_current: 0
   bugHP_max: 0
   bugAlive: 1
-  hpBar: {fileID: 122428612}
+  bugCollider: 0
   bugMoveSpeed: 0
-  bugMoveDist: 0
   bugMoveDelay: 0
-  bugFloatingDist: 0
   bugRotSpeed: 0
+  currentEnvObject: {fileID: 0}
 --- !u!95 &6644820728532068427
 Animator:
   serializedVersion: 3

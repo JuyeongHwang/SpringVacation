@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xsize: 50
   ysize: 50
-  minPointRadius: 7
+  minPointRadius: 6.5
   randomPoints: 150
   trianglesInChunk: 20000
   elevationScale: 3
@@ -57,12 +57,6 @@ MonoBehaviour:
   detailMesh: {fileID: 4831155545516978, guid: 6cf986deb95a8a54d94827e5b2c36195, type: 3}
   detailMeshesToGenerate: 50
   chunkPrefab: {fileID: 4760822391077712, guid: 3f902dd3709cfc74b8331d78c6290acf, type: 3}
-  bugsPrefabs:
-  - {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
-  - {fileID: 1398257520271782695, guid: 4c82c21dcea13ef4b9e1b31c51463443, type: 3}
-  - {fileID: 1398257520271782695, guid: 4ee3c09c243efa24796f0c567d5e59c3, type: 3}
-  - {fileID: 1398257520271782695, guid: 39d04d14b5f5c234db5d14a7fd52fe27, type: 3}
-  myPrefab_tree2: {fileID: 117604, guid: 9469bb1d3aa88ca40aa4079e96a27f8e, type: 3}
   water_plane: {fileID: 7817576511583530391, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
   bridge: {fileID: 7052793637280484675, guid: d23082b54fc97554c869da3b87776427, type: 3}
   nearTerrainHolder_u: {fileID: 0}

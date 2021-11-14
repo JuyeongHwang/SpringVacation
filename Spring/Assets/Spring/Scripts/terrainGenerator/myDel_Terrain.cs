@@ -90,8 +90,8 @@ public class myDel_Terrain : MonoBehaviour
 
                     if (manageSpawnObject.ContainsKey(ver))
                     {
-                        GameObject tree = manageSpawnObject[ver];
-                        tree.transform.position = new Vector3(tree.transform.position.x, tree.transform.position.y -0.5f, tree.transform.position.z);
+                        GameObject g = manageSpawnObject[ver];
+                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y -0.5f, g.transform.position.z);
                         
                     }
 
@@ -123,13 +123,13 @@ public class myDel_Terrain : MonoBehaviour
 
             foreach (Vertex ver in mesh.Vertices)
             {
-                if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 4))
+                if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 3))
                 {
                     elevations[ver.id] += 0.5f;
                     if (manageSpawnObject.ContainsKey(ver))
                     {
-                        GameObject tree = manageSpawnObject[ver];
-                        tree.transform.position = new Vector3(tree.transform.position.x, tree.transform.position.y + 0.5f, tree.transform.position.z);
+                        GameObject g = manageSpawnObject[ver];
+                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.5f, g.transform.position.z);
 
                     }
                 }
@@ -513,9 +513,16 @@ public class myDel_Terrain : MonoBehaviour
             hasCliff = true;
             if (hasCliff)
             {
-                if(transform.position.x + vert.x <= -50)
+                //절벽
+                if (transform.position.x + vert.x <= -50)
                 {
                     elevation -= 10.0f;
+                }
+                //계단
+                if (transform.position.z + vert.y >= 55 && transform.position.z + vert.y <= 60 
+                    && vert.x+transform.position.x <=-35 && vert.x + transform.position.x >= -60)
+                {
+                    elevation = -10;
                 }
             }
 
@@ -540,7 +547,7 @@ public class myDel_Terrain : MonoBehaviour
                         {
                             GameObject water = Instantiate(water_plane,
                             new Vector3(transform.position.x + 25,
-                            elevation -depth, transform.position.z + 25),
+                            elevation -depth -1, transform.position.z + 25),
                             Quaternion.identity);
 
                             water.transform.SetParent(this.gameObject.transform);
@@ -552,7 +559,7 @@ public class myDel_Terrain : MonoBehaviour
                         {
                             GameObject bri = Instantiate(bridge,
                             new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
-                            elevation -depth, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
+                            elevation -depth-1, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
                             Quaternion.identity);
 
                             bri.transform.SetParent(this.gameObject.transform);
@@ -562,26 +569,6 @@ public class myDel_Terrain : MonoBehaviour
                     }
                 }
             }
-
-            
-
-            ////if (transform.position.x + vert.x >= 55 && transform.position.x + vert.x <= 80)
-            ////{
-            ////    if (transform.position.z + vert.y <= 10)
-            ////    {
-            ////        elevation = -1.0f * elevationScale;
-            ////    }
-
-            ////}
-
-            //if (transform.position.z + vert.y <= 10 && transform.position.z + vert.y >= -10)
-            //{
-            //    if(transform.position.x + vert.x < 0)
-            //    {
-            //        elevation -= 5f;
-            //    }
-            //}
-
 
             //edge 연결*****************************
 

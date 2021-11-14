@@ -192,8 +192,13 @@ public class KidController : MonoBehaviour
         {
             MoveY();
             Move();
+
+            SetAnimatorMoveBlend (1f);
         }
-        
+        else
+        {
+            SetAnimatorMoveBlend (0f);
+        }
         // 타킷 포인트 설정
         // 곤충으로 설정
         if (currentBugController != null)
@@ -344,6 +349,21 @@ public class KidController : MonoBehaviour
 
             yield return new WaitForSeconds (catchDelay);
         }
+    }
+
+    public void SetAnimatorMoveBlend (float b)
+    {
+        // 몸체 애니메이터
+        if (kidAnimator == null)
+            return;
+
+        kidAnimator.SetFloat ("MoveBlend", b);
+
+        // 툴 애니메이터
+        if (kidToolAnimator == null)
+            return;
+
+        kidToolAnimator.SetFloat ("MoveBlend", b);
     }
 
 

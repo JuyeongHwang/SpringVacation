@@ -447,6 +447,7 @@ public class myDel_Terrain : MonoBehaviour
         width = Random.Range(15.0f, 20.0f);
         depth = Random.Range(-4.7f, -13f);
         startPoint = Random.Range(0.0f + width, 50.0f - width);
+        int beachElevation = 0;
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -490,7 +491,7 @@ public class myDel_Terrain : MonoBehaviour
             //    elevation += (this.transform.position.z) / 5;
             //}
 
-            
+
             //if (vert.x + this.transform.position.x < -30)
             //{
             //    elevation -= 12.0f;
@@ -504,7 +505,7 @@ public class myDel_Terrain : MonoBehaviour
 
             ////make Mountain****************************
 
-            
+
 
             //elevation += MakeMountainElevation(60, 50, 20, vert);
             //elevation += MakeMountainElevation(0, 0, 10, vert);
@@ -519,14 +520,14 @@ public class myDel_Terrain : MonoBehaviour
                     elevation -= 10.0f;
                 }
                 //계단
-                if (transform.position.z + vert.y >= 55 && transform.position.z + vert.y <= 60 
-                    && vert.x+transform.position.x <=-35 && vert.x + transform.position.x >= -60)
+                if (transform.position.z + vert.y >= 55 && transform.position.z + vert.y <= 60
+                    && vert.x + transform.position.x <= -35 && vert.x + transform.position.x >= -60)
                 {
                     elevation = -10;
                 }
             }
 
-            if (hasMountain)
+            if (hasMountain && this.transform.position.x >=0)
             {
                 float Radius = Random.Range(10, 20);
                 float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
@@ -547,7 +548,7 @@ public class myDel_Terrain : MonoBehaviour
                         {
                             GameObject water = Instantiate(water_plane,
                             new Vector3(transform.position.x + 25,
-                            elevation -depth -1, transform.position.z + 25),
+                            elevation - depth - 1, transform.position.z + 25),
                             Quaternion.identity);
 
                             water.transform.SetParent(this.gameObject.transform);
@@ -555,11 +556,11 @@ public class myDel_Terrain : MonoBehaviour
                             makeWaterPlane = true;
                         }
 
-                        if(!makeBridge)
+                        if (!makeBridge)
                         {
                             GameObject bri = Instantiate(bridge,
                             new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
-                            elevation -depth-1, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
+                            elevation - depth - 1, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
                             Quaternion.identity);
 
                             bri.transform.SetParent(this.gameObject.transform);
@@ -569,6 +570,16 @@ public class myDel_Terrain : MonoBehaviour
                     }
                 }
             }
+
+
+            if (transform.position.x + vert.x <= -120)
+            {
+                float weight = (transform.position.x + (float)vert.x);
+                elevation +=weight/75;
+                
+            }
+
+
 
             //edge 연결*****************************
 

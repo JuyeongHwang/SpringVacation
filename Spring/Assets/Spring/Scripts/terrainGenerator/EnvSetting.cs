@@ -31,4 +31,14 @@ public class EnvSetting : ScriptableObject
 
         return false;
     }
+
+    public Vector2 GetMinBoundarySize()
+    {
+        return boundryCoord_min;
+    }
+
+    public Vector2 GetMaxBoundarySize()
+    {
+        return boundryCoord_max;
+    }
 }

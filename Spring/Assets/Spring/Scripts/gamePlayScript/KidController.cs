@@ -373,7 +373,14 @@ public class KidController : MonoBehaviour
         if (bc == null)
             return;
 
+        // 현재 곤충 초기화
+        currentBugController.SetColliderByBoolean (false);
+
         currentBugController = bc;
+
+        // 상태 초기화
+        nextKidState = KidState.IDLE;
+        isArrived = false;
     }
 
     // ======================================= 도구관련 함수 ===================================================

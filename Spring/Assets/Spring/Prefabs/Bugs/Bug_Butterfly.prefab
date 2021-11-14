@@ -507,10 +507,13 @@ MonoBehaviour:
   hpBar: {fileID: 122428612}
   bugCollider_min: {fileID: 1398257520271782697}
   bugCollider_max: {fileID: 8092725635436456904}
+  bugRenderer: {fileID: 3973712308813865152}
   bugHP_current: 0
   bugHP_max: 0
   bugAlive: 1
   bugCollider: 0
+  bugGrade: 0
+  bugGradeColor: {r: 0, g: 0, b: 0, a: 0}
   bugMoveSpeed: 0
   bugMoveDelay: 0
   bugRotSpeed: 0
@@ -571,9 +574,17 @@ PrefabInstance:
       value: bugs_butterfly
       objectReference: {fileID: 0}
     - target: {fileID: 3919479669875337753, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919479669875337753, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 221d0095a23a63448a594dca26a45b91, type: 2}
+    - target: {fileID: 3919479669875337753, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b44cf8bf65c83914d90d5467cb83139a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
 --- !u!1 &973013249752004488 stripped
@@ -584,5 +595,10 @@ GameObject:
 --- !u!4 &489492447601569074 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
+  m_PrefabInstance: {fileID: 90564251050724057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3973712308813865152 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3919479669875337753, guid: bfc2c4cddc269b447956f4758ea865b2, type: 3}
   m_PrefabInstance: {fileID: 90564251050724057}
   m_PrefabAsset: {fileID: 0}

@@ -16,6 +16,9 @@ public class bugController : MonoBehaviour
     public BoxCollider bugCollider_min;
     public BoxCollider bugCollider_max;
 
+    public Material bugOutlineMaterial;
+    public Renderer bugRenderer;    //[0]: 본체, [1]: 아웃라인
+
 
     [Header ("곤충 현재 상태")]
 
@@ -23,6 +26,11 @@ public class bugController : MonoBehaviour
     public float bugHP_max;
     public bool bugAlive = true;
     public bool bugCollider = false;    // in: true, out: false
+    public BugGrade bugGrade;
+    public Color bugGradeColor;
+    public float bugGradeMoveRatio;
+    public float bugGradeDelayRatio;
+    public float bugGradeMoneyRatio;
     
 
     // 이동관련함수
@@ -61,11 +69,27 @@ public class bugController : MonoBehaviour
             bugHP_max = 100;
         }
 
+        // 기본 정보 설정
         bugHP_current = bugHP_max;
         bugAlive = true;
         
         hpBar.value = 1f;
         
+        // 등급 설정
+        if (DataManager.Inst != null)
+        {
+            bugGrade = DataManager.Inst.GetBugGradeRandomly ();
+            bugGradeColor = DataManager.Inst.GetDataPreset ().DATABUGGRADES [(int)bugGrade].BUGGRADECOLOR;
+            bugGradeMoveRatio = DataManager.Inst.GetDataPreset ().DATABUGGRADES [(int)bugGrade].BUGSPEEDRATIO;
+            bugGradeDelayRatio = DataManager.Inst.GetDataPreset ().DATABUGGRADES [(int)bugGrade].BUGDELAYRATIO;
+            bugGradeMoneyRatio = DataManager.Inst.GetDataPreset ().DATABUGGRADES [(int)bugGrade].BUGMONEYRATIO;
+
+            // 등급에 따라 색 설정
+            Material retMat = Instantiate (bugRenderer.materials [1]);
+            bugRenderer.materials [1].SetColor ("_OutlineColor", bugGradeColor);
+        }
+        
+        // 콜라이더 설정
         SetColliderByBoolean (bugCollider = false);
     }
 
@@ -200,6 +224,10 @@ public class bugController : MonoBehaviour
                 bugRotSpeed = 0.25f;
             }
 
+            // 등급에 따른 계산
+            bugMoveSpeed *= bugGradeMoveRatio;
+            bugMoveDelay *= bugGradeDelayRatio;
+
             // 위치 설정
             Vector3 currentPos = gameObject.transform.position;
             Vector3 targetPos = currentPos;
@@ -249,10 +277,11 @@ public class bugController : MonoBehaviour
     {
         if (bugInfo_start != null)
         {
-            return bugInfo_start.GetBugMoney ();
+            // 등급 계산
+            return bugInfo_start.GetBugMoney () * bugGradeMoneyRatio;
         }
 
-        return 250;
+        return 250 * bugGradeMoneyRatio;
     }
 
     // ============================ 콜라이더 설정 =====================================
@@ -261,6 +290,9 @@ public class bugController : MonoBehaviour
     // 혹은 KidCollider에서 수행    
     public void SetColliderByBoolean (bool b)
     {
+        if (bugCollider_max == null || bugCollider_min == null)
+            return;
+
         // IN
         if (b == true)
         {

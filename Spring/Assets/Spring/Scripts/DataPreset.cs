@@ -63,6 +63,64 @@ public class DataInformation
     }
 }
 
+public enum BugGrade
+{
+    S = 0
+    , A = 1
+    , B = 2
+    , C = 3
+    , D = 4
+}
+
+[System.Serializable]
+public class DataBugGrade 
+{
+    [Header ("곤충 등급 정보")]
+    [SerializeField]
+    private BugGrade bugGrade;
+    [SerializeField]
+    private Color bugGradeColor;
+    [SerializeField]
+    private float bugSpeedRatio = 1f;
+    [SerializeField]
+    private float bugDelayRatio = 1f;
+    [SerializeField]
+    private float bugMoneyRatio = 1f;
+
+    [SerializeField]
+    private int bugGradePercentage = 10; 
+
+    public BugGrade BUGGRADE
+    {
+        get {return bugGrade;}
+    }
+
+    public Color BUGGRADECOLOR
+    {
+        get {return bugGradeColor;}
+    }
+
+    public float BUGSPEEDRATIO
+    {
+        get {return bugSpeedRatio;}
+    }
+
+    public float BUGDELAYRATIO
+    {
+        get {return bugDelayRatio;}
+    }
+
+    public float BUGMONEYRATIO 
+    {
+        get {return bugMoneyRatio;}
+    }
+
+    public int BUGGRADEPERCENTAGE
+    {
+        get {return bugGradePercentage;}
+    }
+}
+
 [System.Serializable]
 [CreateAssetMenu(fileName = "Data Preset", menuName = "Scriptables/Data Preset")]
 public class DataPreset : ScriptableObject
@@ -70,9 +128,17 @@ public class DataPreset : ScriptableObject
     [Header ("데이터 프리셋")]
     [SerializeField]
     protected DataInformation[] dataInformations;
+    [Header ("곤충 등급 프리셋")]
+    [SerializeField]
+    protected DataBugGrade [] dataBugGrades;
 
     public DataInformation[] DATAINFORMATIONS
     {
         get {return dataInformations;}
+    }
+
+    public DataBugGrade[] DATABUGGRADES
+    {
+        get {return dataBugGrades;}
     }
 }

@@ -488,10 +488,13 @@ MonoBehaviour:
   hpBar: {fileID: 122428612}
   bugCollider_min: {fileID: 1398257520271782697}
   bugCollider_max: {fileID: -2729241645283451609}
+  bugRenderer: {fileID: 3054071794444586348}
   bugHP_current: 0
   bugHP_max: 0
   bugAlive: 1
   bugCollider: 0
+  bugGrade: 0
+  bugGradeColor: {r: 0, g: 0, b: 0, a: 0}
   bugMoveSpeed: 0
   bugMoveDelay: 0
   bugRotSpeed: 0
@@ -567,9 +570,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1527614881612994136, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1527614881612994136, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4f4a91494ef094244a8c19aa9b5bef90, type: 2}
+    - target: {fileID: -1527614881612994136, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b44cf8bf65c83914d90d5467cb83139a, type: 2}
     - target: {fileID: 919132149155446097, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
       propertyPath: m_Name
       value: bugs_mantis
@@ -584,5 +595,10 @@ GameObject:
 --- !u!4 &5126315987998524207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
+  m_PrefabInstance: {fileID: 4660922451674506436}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3054071794444586348 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1527614881612994136, guid: 9f246b57b48fbf74caf6e2ff4e5ac6eb, type: 3}
   m_PrefabInstance: {fileID: 4660922451674506436}
   m_PrefabAsset: {fileID: 0}

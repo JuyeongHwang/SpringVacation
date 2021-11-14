@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &271487075
 Transform:
   m_ObjectHideFlags: 0
@@ -265,17 +265,13 @@ MonoBehaviour:
   - {fileID: 5740376482867091072}
   - {fileID: 561665332771458746}
   - {fileID: 8221434486581495630}
-  kidToolIndex: 5
   currentKidState: -1
   nextKidState: -1
-  kidCharacterController_maxSpeed: 2.5
-  kidCharacterController_maxSpeedRangeDist: 5
+  currentBugController: {fileID: 0}
+  StopCatching: {fileID: 0}
+  kidCharacterController_moveSpeed: 2.5
   kidCharacterController_velocity: {x: 0, y: 0, z: 0}
   kidCharacterController_isGrounded: 0
-  FoundBug: []
-  findObject: {fileID: 0}
-  TagName: butterfly
-  shortDis: 0
   speed: 0
 --- !u!143 &1049759497
 CharacterController:

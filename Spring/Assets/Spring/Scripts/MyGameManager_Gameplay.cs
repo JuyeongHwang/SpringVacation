@@ -93,4 +93,12 @@ public class MyGameManager_Gameplay : MonoBehaviour
             MySceneManager.Inst.GotoNextScene ();
         }
     }
+
+    public void SetCurrentBugOfKidContoller (bugController bc)
+    {
+        if (kidController == null)
+            return;
+
+        kidController.SetBug (bc);
+    }
 }

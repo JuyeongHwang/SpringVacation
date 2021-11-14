@@ -368,6 +368,14 @@ public class KidController : MonoBehaviour
         }
     }
 
+    public void SetBug (bugController bc)
+    {
+        if (bc == null)
+            return;
+
+        currentBugController = bc;
+    }
+
     // ======================================= 도구관련 함수 ===================================================
 
     public void SetChildToolByIndex (int index)

@@ -83,6 +83,21 @@ public class bugController : MonoBehaviour
             // 스스로 삭제하기
             Destroy (this.gameObject);
         }
+
+        float posY = 2f;
+        float detectY = 5f;
+        int hitlayermask = 1 << LayerMask.NameToLayer (groundLayerName);
+
+        // 위에서 레이를 쏴서 y 위치 조절
+        Vector3 pos = gameObject.transform.position;
+        Vector3 rayPos = pos + Vector3.up * posY;
+
+        RaycastHit hit;
+        if (Physics.Raycast (rayPos, Vector3.down, out hit, detectY, hitlayermask))
+        {
+            // 위치 설정
+            gameObject.transform.position = hit.point;
+        }
     }
 
     public void SetBugAnimatorTrigger (string trigger)
@@ -143,6 +158,14 @@ public class bugController : MonoBehaviour
     // ============================== 이동 관련 =====================================
     // 전체적인 움직임은 코루틴으로 작동하도록 코드를 작성하였습니다
 
+    bool HaveEnvObject ()
+    {
+        if (currentEnvObject != null)
+            return true;
+
+        return false;
+    }
+
     void BugMove ()
     {
         if (ibugMove != null )
@@ -154,6 +177,9 @@ public class bugController : MonoBehaviour
 
     IEnumerator IBugMove ()
     {
+        // envObjec를 가질때 까지 대기
+        yield return HaveEnvObject ();
+
         while (true)
         {
             if (bugInfo_start != null)
@@ -174,46 +200,9 @@ public class bugController : MonoBehaviour
                 bugRotSpeed = 0.25f;
             }
 
-            
-
             // 위치 설정
             Vector3 currentPos = gameObject.transform.position;
             Vector3 targetPos = currentPos;
-
-            // 최대 n번 검사
-            /*int checkN = 10;
-            for (int i = 0; i < checkN; i++)
-            {
-                bool targetPosOK = false;
-
-                // 현재 위치를 중앙으로 bugMoveDist만큼 사각형을 구역으로 가정하고
-                // 그 구역안의 한 위치를 무작위로 설정한다
-                //targetPos.x += Random.Range (-bugMoveDist, bugMoveDist);
-                //targetPos.z += Random.Range (-bugMoveDist, bugMoveDist);
-
-                // 위에서 레이를 쏴서 y 값 설정
-                float detectLength = 100;
-                int hitlayermask = 1 << LayerMask.NameToLayer (groundLayerName);
-
-                Vector3 rayPos = targetPos;
-                rayPos.y = detectLength;
-
-                RaycastHit hit;
-                if (Physics.Raycast (rayPos, Vector3.down, out hit, detectLength * 1.1f, hitlayermask))
-                {
-                    targetPos.y = hit.point.y;// + bugFloatingDist;
-                }
-
-                // 추후에 지형에 따른 검사 과정 추가
-                {
-                    targetPosOK = true;
-                }
-
-                if (targetPosOK)
-                {
-                    break;
-                }
-            }*/
 
             // 이동 과정 수정
             if (EnvManager.Inst != null)
@@ -229,7 +218,7 @@ public class bugController : MonoBehaviour
             // 애니메이션
             SetBugAnimatorTrigger ("Move");
             
-            while (Vector3.Distance (currentPos, targetPos) > 0.1f)
+            while (currentEnvObject != null && Vector3.Distance (currentPos, targetPos) > 0.1f)
             {
                 Vector3 moveDir = targetPos - currentPos;
                 moveDir = moveDir.normalized;
@@ -283,6 +272,17 @@ public class bugController : MonoBehaviour
         {
             bugCollider_max.enabled = false;
             bugCollider_min.enabled = true;
+        }
+    }
+
+    // ============================ 마우스 클릭 =========================================
+
+    // 마우스 클릭으로 타킷 변경
+    private void OnMouseDown() 
+    {
+        if (MyGameManager_Gameplay.Inst != null)
+        {
+            MyGameManager_Gameplay.Inst.SetCurrentBugOfKidContoller (this);
         }
     }
 }

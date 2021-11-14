@@ -314,7 +314,7 @@ public class bugController : MonoBehaviour
     {
         if (MyGameManager_Gameplay.Inst != null)
         {
-            MyGameManager_Gameplay.Inst.SetCurrentBugOfKidContoller (this);
+            MyGameManager_Gameplay.Inst.ClickFromBug (this);
         }
     }
 }

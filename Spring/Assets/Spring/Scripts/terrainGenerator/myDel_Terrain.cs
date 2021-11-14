@@ -1026,4 +1026,6 @@ public class myDel_Terrain : MonoBehaviour
             
         }
     }
+
+    // 마우스 클릭은 EnvChunk 에서 처리
 }

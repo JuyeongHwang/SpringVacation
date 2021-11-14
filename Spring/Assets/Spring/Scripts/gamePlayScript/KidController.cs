@@ -14,20 +14,20 @@ public class KidController : MonoBehaviour
     // 애니메이션 관련 변수들
     //public GameObject kidBody;
 
-    [Header ("애니메이터 설정")]
+    [Header ("꼬마 시작 설정")]
     // 시작하기 전에 사용자로부터 지정받아야 하도록 설정
     public Animator kidAnimator;
     public Animator[] kidToolAnimators; // 지정 받아야 하는 애니메이터
     protected Animator kidToolAnimator; // 인덱스를 이용한 현재 애니메이터
-    //public int kidToolIndex;
+    public GameObject kidTargetPoint;
 
     [Header ("상태 설정")]
     public KidState currentKidState;
     public KidState nextKidState;
     public bugController currentBugController;  // 현재 목표로하는 버그 컨트롤러 (일정거리에 상관없음)
+    public Vector3 currentClickPos;             // 가장 마지막에 클릭된 위치
     public Button StopCatching;
-    bool stopcatching = false;
-
+    //bool stopcatching = false;
 
     protected IEnumerator icatching;
 
@@ -35,6 +35,7 @@ public class KidController : MonoBehaviour
     protected CharacterController kidCharacterController;
     public float kidCharacterController_moveSpeed = 2.5f;   // 기본속도
     //public float kidCharacterController_maxSpeedRangeDist = 5f;
+    public float kidCharacterController_rotSpeed = 5f;
     public Vector3 kidCharacterController_velocity;
     public bool kidCharacterController_isGrounded;
     protected const float kidCharacterController_gravity = -10f;
@@ -101,6 +102,10 @@ public class KidController : MonoBehaviour
             attackPower = DataManager.Inst.GetDataPreset ()
             .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].CATCHPOWER;
         }
+
+        // 곤충 찾기
+        detectBug();
+        UIManager_Gameplay.Inst.SetConditionText_Finding ();
     }
 
     private void Update()
@@ -150,15 +155,15 @@ public class KidController : MonoBehaviour
                 else
                 {
                     //agent.SetDestination(findObject.transform.position);
-                    Move();
-                    MoveY();
+                    //Move();
+                    //MoveY();
                 }
             }
             // 찾은 버그가 없으면
             else
             {
-                detectBug();
-                UIManager_Gameplay.Inst.SetConditionText_Finding ();
+                //detectBug();
+                //UIManager_Gameplay.Inst.SetConditionText_Finding ();
             }
             break;
 
@@ -177,6 +182,29 @@ public class KidController : MonoBehaviour
             }
             break;
         }
+
+        // 이동 검사를 위한 계산
+        float distClose = 1f;
+        float dist = Vector3.Distance (kidTargetPoint.transform.position, gameObject.transform.position);
+
+        // 목표와 너무 가까이 있있거나 채집중이면 이동하지 않는다
+        if (dist > distClose && !isArrived)
+        {
+            MoveY();
+            Move();
+        }
+        
+        // 타킷 포인트 설정
+        // 곤충으로 설정
+        if (currentBugController != null)
+        {
+            kidTargetPoint.gameObject.transform.position = currentBugController.transform.position;
+        }
+        // 현재 쫒는 곤충이 없으면 마지막에 클린된 위치로 설정
+        else
+        {
+            kidTargetPoint.gameObject.transform.position = currentClickPos;
+        }
     }
 
     void LateUpdate ()
@@ -188,6 +216,21 @@ public class KidController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) 
+    {
+        bugController b = other.gameObject.GetComponent <bugController> ();
+
+        if (b != null
+            && currentBugController != null
+            && other.gameObject == currentBugController.gameObject)
+        {
+            Debug.Log ("채집시작!");
+
+            isArrived = true;
+            b.SetColliderByBoolean (true);
+        }
+    }
+
+    private void OnTriggerStay (Collider other) 
     {
         bugController b = other.gameObject.GetComponent <bugController> ();
 
@@ -219,23 +262,22 @@ public class KidController : MonoBehaviour
 
     // ================================== kid 관련 함수 =========================================
 
+    // kidTargetPoint를 따라가도록 수정
     void Move ()
     {
         Vector3 newDir = gameObject.transform.forward;
 
-        if (currentBugController != null)
+        if (kidTargetPoint != null)
         {
             // 회전
-            Vector3 targetDir = currentBugController.transform.position - transform.position;
-            float step = 1.0f * Time.deltaTime;
+            Vector3 targetDir = kidTargetPoint.transform.position - transform.position;
+            targetDir.y = 0f;
+            targetDir = targetDir.normalized;
+
+            float step = kidCharacterController_rotSpeed * Time.deltaTime;
             newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
             Debug.DrawRay(transform.position, newDir, Color.red);
             transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
-
-            float dist = Mathf.Sqrt(Mathf.Abs(currentBugController.transform.position.x-transform.position.x)+
-                Mathf.Abs(currentBugController.transform.position.y - transform.position.y)+
-                Mathf.Abs(currentBugController.transform.position.z - transform.position.z)
-                );
         }
 
         kidCharacterController_velocity = newDir * kidCharacterController_moveSpeed;
@@ -368,21 +410,6 @@ public class KidController : MonoBehaviour
         }
     }
 
-    public void SetBug (bugController bc)
-    {
-        if (bc == null)
-            return;
-
-        // 현재 곤충 초기화
-        currentBugController.SetColliderByBoolean (false);
-
-        currentBugController = bc;
-
-        // 상태 초기화
-        nextKidState = KidState.IDLE;
-        isArrived = false;
-    }
-
     // ======================================= 도구관련 함수 ===================================================
 
     public void SetChildToolByIndex (int index)
@@ -404,5 +431,39 @@ public class KidController : MonoBehaviour
                 }
             }
         }
+    }
+
+    // ===================================== 클릭 (터치) 입력 관련 함수 ==============================================
+
+    public void ClickFromBug (bugController bc)
+    {
+        if (bc == null)
+            return;
+
+        // 현재 곤충 초기화
+        if (currentBugController != null)
+            currentBugController.SetColliderByBoolean (false);
+
+        currentBugController = bc;
+
+        // 상태 초기화
+        nextKidState = KidState.IDLE;
+        isArrived = false;
+    }
+
+    public void ClickFromTerrain (Vector3 pos)
+    {
+         // 현재 곤충 초기화
+        if (currentBugController != null)
+            currentBugController.SetColliderByBoolean (false);
+
+        // 곤충 없음
+        currentBugController = null;
+
+        currentClickPos = pos;
+
+        // 상태 초기화
+        nextKidState = KidState.IDLE;
+        isArrived = false;
     }
 }

@@ -94,11 +94,20 @@ public class MyGameManager_Gameplay : MonoBehaviour
         }
     }
 
-    public void SetCurrentBugOfKidContoller (bugController bc)
+    // 클릭했을 때 꼬마로 다이렉트로 꽂는 것 보단 MyGameManager이라는 정거장을 통해 호출을 전달
+    public void ClickFromBug (bugController bc)
     {
         if (kidController == null)
             return;
 
-        kidController.SetBug (bc);
+        kidController.ClickFromBug (bc);
+    }
+
+    public void ClickFromTerrain (Vector3 Pos)
+    {
+        if (kidController == null)
+            return;
+
+        kidController.ClickFromTerrain (Pos);
     }
 }

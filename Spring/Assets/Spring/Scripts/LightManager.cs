@@ -13,6 +13,7 @@ public class LightManager : MonoBehaviour
     private float TimeOfDay;
 
     public Material riverMat;
+    public Material skyMat;
     protected float dayDuration;
 
     void Start ()
@@ -32,7 +33,7 @@ public class LightManager : MonoBehaviour
         if (Application.isPlaying)
         {
             TimeOfDay += Time.deltaTime * 24f / dayDuration;
-            TimeOfDay %= 24; //Clamp between 0-24
+            TimeOfDay = Mathf.Min (TimeOfDay, 24); //Clamp between 0-24
             UpdateLighting(TimeOfDay / 24f);
         }
         else
@@ -59,6 +60,11 @@ public class LightManager : MonoBehaviour
             if (riverMat != null)
             {
                 riverMat.SetFloat ("Vector1_ff3c4a1f6b0941508044adf34c334e48", 1 - Mathf.Sin (Mathf.PI * timePrecent));
+            }
+
+            if (skyMat != null)
+            {
+                skyMat.SetFloat ("Vector1_9d7170f9fdcf4156b7056caa61dbcca7", timePrecent);
             }
         }
 

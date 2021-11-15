@@ -471,38 +471,6 @@ public class myDel_Terrain : MonoBehaviour
 
 
 
-            //// uplift ************
-            //if (vert.x + this.transform.position.x >= 60)
-            //{
-            //    elevation += (this.transform.position.x) / 20;
-            //}
-            //if (vert.y + this.transform.position.z >= 60)
-            //{
-            //    elevation += (this.transform.position.z) / 20;
-            //}
-
-            ////(100,100) 한정 _ 예시 // 못움직이게
-            //if (vert.x + this.transform.position.x >= 100)
-            //{
-            //    elevation += (this.transform.position.x) / 5;
-            //}
-            //if (vert.y + this.transform.position.z >= 100)
-            //{
-            //    elevation += (this.transform.position.z) / 5;
-            //}
-
-
-            //if (vert.x + this.transform.position.x < -30)
-            //{
-            //    elevation -= 12.0f;
-            //}
-            //else if (vert.y + this.transform.position.z < -90)
-            //{
-            //    elevation -= 12.0f;
-            //}
-
-
-
             ////make Mountain****************************
 
 
@@ -527,7 +495,7 @@ public class myDel_Terrain : MonoBehaviour
                 }
             }
 
-            if (hasMountain && this.transform.position.x >=0)
+            if (hasMountain)// && this.transform.position.x >=0)
             {
                 float Radius = Random.Range(10, 20);
                 float RandomCenterPointX = Random.Range(Radius, 50 - Radius);

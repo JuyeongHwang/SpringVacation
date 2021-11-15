@@ -707,8 +707,11 @@ public class myDel_Terrain : MonoBehaviour
 
         foreach (Vertex ver in mesh.Vertices)
         {
+            if (EnvManager.Inst == null)
+                break;
+
             // 나무 생성
-            if (i % 39 == 0)
+            if (i % EnvManager.Inst.GetTreeSeed () == 0)
             {
                 if (transform.position.z + ver.y <= 40 && transform.position.z + ver.y >= 30)
                 {
@@ -720,28 +723,42 @@ public class myDel_Terrain : MonoBehaviour
                 else
                 {
                     g = EnvManager.Inst.Instantiate_EnvObject_Tree (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    
                     if(!manageSpawnObject.ContainsKey(ver))
                         manageSpawnObject.Add(ver, g);
                 }
             }
 
             // 꽃 생성
-            if (i % 47 == 0)
+            else if (i % EnvManager.Inst.GetFlowerSeed () == 0)
             {
                 if (EnvManager.Inst != null)
                 {
                     g = EnvManager.Inst.Instantiate_EnvObject_Flower (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    
                     if (!manageSpawnObject.ContainsKey(ver))
                         manageSpawnObject.Add(ver, g);
                 }
             }
 
-            else if (i % 51 == 0)
+            // 돌 생성
+            else if (i % EnvManager.Inst.GetRockSeed () == 0)
+            {
+                if (EnvManager.Inst != null)
+                {
+                    g = EnvManager.Inst.Instantiate_EnvObject_Rock (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    
+                    if (!manageSpawnObject.ContainsKey(ver))
+                        manageSpawnObject.Add(ver, g);
+                }
+            }
+
+            // 곤충 생성
+            else if (i % EnvManager.Inst.GetBugSeed () == 0)
             {
                 if (EnvManager.Inst != null)
                 {
                     g = EnvManager.Inst.Instantiate_Bug (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-                    //manageSpawnObject.Add(ver, g);
                 }
             }
 

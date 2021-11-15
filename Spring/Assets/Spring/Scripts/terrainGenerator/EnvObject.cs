@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum EnvObjectType
 {
-    TREE, FLOWER
+    TREE, FLOWER, ROCK
 }
 
 public class EnvObject : MonoBehaviour

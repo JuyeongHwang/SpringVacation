@@ -24,8 +24,13 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 프리팹 설정")]     // 나무, 버그 등 프리팹은 EnvManger에서 관리
     public GameObject customTerrainPrefab;
+    public int treeSeed = 37;
     public GameObject[] treePrefabs;
+    public int flowerSeed = 17;
     public GameObject[] flowerPrefabs;
+    public int rockSeed = 51;
+    public GameObject[] rockPrefabs;
+    public int bugSeed = 43;
     public GameObject[] bugPrefabs;
 
 
@@ -515,10 +520,8 @@ public class EnvManager : MonoBehaviour
         if (treePrefabs.Length > 0)
         {
             int index = Random.Range (0, treePrefabs.Length);
-            //float rotY = Random.Range (0, 360f);
 
             ret = Instantiate (treePrefabs [index], pos, Quaternion.Euler (Vector3.zero), envObjectHolder.transform);
-            
         }
 
         return ret;
@@ -531,9 +534,22 @@ public class EnvManager : MonoBehaviour
         if (flowerPrefabs.Length > 0)
         {
             int index = Random.Range (0, flowerPrefabs.Length);
-            //float rotY = Random.Range (0, 360f);
 
             ret = Instantiate (flowerPrefabs [index], pos, Quaternion.Euler (Vector3.zero), envObjectHolder.transform);
+        }
+
+        return ret;
+    }
+
+    public GameObject Instantiate_EnvObject_Rock (Vector3 pos)
+    {
+        GameObject ret = null;
+
+        if (rockPrefabs.Length > 0)
+        {
+            int index = Random.Range (0, rockPrefabs.Length);
+
+            ret = Instantiate (rockPrefabs [index], pos, Quaternion.Euler (Vector3.zero), envObjectHolder.transform);
         }
 
         return ret;
@@ -552,5 +568,25 @@ public class EnvManager : MonoBehaviour
         }
 
         return ret;
+    }
+
+    public int GetTreeSeed ()
+    {
+        return treeSeed;
+    }
+
+    public int GetFlowerSeed ()
+    {
+        return flowerSeed;
+    }
+
+    public int GetRockSeed ()
+    {
+        return rockSeed;
+    }
+
+    public int GetBugSeed ()
+    {
+        return bugSeed;
     }
 }

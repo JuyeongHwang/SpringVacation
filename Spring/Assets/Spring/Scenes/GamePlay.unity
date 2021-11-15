@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.15902616, g: 0.5176221, b: 1.0392603, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5147,6 +5147,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &129048618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 129048619}
+  m_Layer: 0
+  m_Name: ChunkHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &129048619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129048618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 352560302}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &256503148
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,14 +5392,19 @@ MonoBehaviour:
   terrainUnitSize: 50
   envSetting: {fileID: 11400000, guid: 1b57884620952b64fa15a0ffd37bb817, type: 2}
   checkDelay: 0.25
-  envObjectHolder: {fileID: 2039693594}
-  bugHolder: {fileID: 1229643966}
+  chunkHolder: {fileID: 129048618}
+  envObjectHolder: {fileID: 1229643966}
+  bugHolder: {fileID: 2039693594}
   customTerrainPrefab: {fileID: 6002182535403649078, guid: 6051785c901f7a049996260ec17ce38f, type: 3}
   treePrefabs:
   - {fileID: 138344, guid: 8a7cf5ac7b4145441a3dca86f869b09e, type: 3}
   - {fileID: 117604, guid: 9469bb1d3aa88ca40aa4079e96a27f8e, type: 3}
   - {fileID: 182406, guid: a1d34f7914a1d8148a0ce7262f7ba394, type: 3}
-  flowerPrefabs: []
+  flowerPrefabs:
+  - {fileID: 6675349126744488174, guid: 04952380bdb9c52499ba88df76b18e27, type: 3}
+  - {fileID: 3873208541786966968, guid: fef8b2e433ff0d145ae695d356147178, type: 3}
+  - {fileID: 3873208541786966968, guid: 6f7c6044d6f7bff4eb40b3d64162d173, type: 3}
+  - {fileID: 3873208541786966968, guid: 6a59c7b9117aab14881599b8fcbc01be, type: 3}
   bugPrefabs:
   - {fileID: 1398257520271782695, guid: 14fef0e7ae3cb584392903b68894219c, type: 3}
   - {fileID: 1398257520271782695, guid: 4c82c21dcea13ef4b9e1b31c51463443, type: 3}
@@ -5399,9 +5434,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 129048619}
   - {fileID: 725101747}
-  - {fileID: 2039693595}
   - {fileID: 1229643967}
+  - {fileID: 2039693595}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5688,7 +5724,7 @@ Transform:
   - {fileID: 2073767692}
   - {fileID: 370642639}
   m_Father: {fileID: 352560302}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &801363208
 PrefabInstance:
@@ -6579,7 +6615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 352560302}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2073767692 stripped
 Transform:

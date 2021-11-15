@@ -17,6 +17,7 @@ public class EnvManager : MonoBehaviour
 
 
     [Header ("터레인 홀더 설정")]       // 생성된 프리팹의 인스턴스를 모아주는 역할
+    public GameObject chunkHolder;
     public GameObject envObjectHolder;
     public GameObject bugHolder;
     
@@ -208,8 +209,8 @@ public class EnvManager : MonoBehaviour
                     ret.GenerateForNear();
                 }
 
-                // 부모를 해당 매니저로 설정한다
-                g.gameObject.transform.SetParent(this.gameObject.transform);
+                // 부모를 해당 매니저로 설정한다 -> 청크 홀더로 수정
+                g.gameObject.transform.SetParent(this.chunkHolder.transform);
 
                 // 리스트에 추가
                 customTerrains.Add(ret);
@@ -514,9 +515,9 @@ public class EnvManager : MonoBehaviour
         if (treePrefabs.Length > 0)
         {
             int index = Random.Range (0, treePrefabs.Length);
-            float rotY = Random.Range (0, 360f);
+            //float rotY = Random.Range (0, 360f);
 
-            ret = Instantiate (treePrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), envObjectHolder.transform);
+            ret = Instantiate (treePrefabs [index], pos, Quaternion.Euler (Vector3.zero), envObjectHolder.transform);
             
         }
 
@@ -530,9 +531,9 @@ public class EnvManager : MonoBehaviour
         if (flowerPrefabs.Length > 0)
         {
             int index = Random.Range (0, flowerPrefabs.Length);
-            float rotY = Random.Range (0, 360f);
+            //float rotY = Random.Range (0, 360f);
 
-            ret = Instantiate (flowerPrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), envObjectHolder.transform);
+            ret = Instantiate (flowerPrefabs [index], pos, Quaternion.Euler (Vector3.zero), envObjectHolder.transform);
         }
 
         return ret;

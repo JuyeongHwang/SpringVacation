@@ -228,7 +228,7 @@ public class KidController : MonoBehaviour
             && currentBugController != null
             && other.gameObject == currentBugController.gameObject)
         {
-            Debug.Log ("채집시작!");
+            //Debug.Log ("채집시작!");
 
             isArrived = true;
             b.SetColliderByBoolean (true);
@@ -243,7 +243,7 @@ public class KidController : MonoBehaviour
             && currentBugController != null
             && other.gameObject == currentBugController.gameObject)
         {
-            Debug.Log ("채집시작!");
+            //Debug.Log ("채집시작!");
 
             isArrived = true;
             b.SetColliderByBoolean (true);
@@ -258,7 +258,7 @@ public class KidController : MonoBehaviour
             && currentBugController != null
             && other.gameObject == currentBugController.gameObject)
         {
-            Debug.Log ("도망간다!");
+            //Debug.Log ("도망간다!");
 
             isArrived = false;
             b.SetColliderByBoolean (false);

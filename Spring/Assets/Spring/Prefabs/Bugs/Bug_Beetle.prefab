@@ -78,7 +78,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 951323919}
   m_HandleRect: {fileID: 0}
@@ -488,6 +488,7 @@ MonoBehaviour:
   hpBar: {fileID: 122428612}
   bugCollider_min: {fileID: 1398257520271782697}
   bugCollider_max: {fileID: -3494636534312177073}
+  bugOutlineMaterial: {fileID: 0}
   bugRenderer: {fileID: 4850774283445376099}
   bugHP_current: 0
   bugHP_max: 0
@@ -495,6 +496,9 @@ MonoBehaviour:
   bugCollider: 0
   bugGrade: 0
   bugGradeColor: {r: 0, g: 0, b: 0, a: 0}
+  bugGradeMoveRatio: 0
+  bugGradeDelayRatio: 0
+  bugGradeMoneyRatio: 0
   bugMoveSpeed: 0
   bugMoveDelay: 0
   bugRotSpeed: 0

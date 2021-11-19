@@ -460,7 +460,7 @@ public class EnvManager : MonoBehaviour
 
     public EnvObject GetEnvObjectByCase (EnvObjectType fav, EnvObject originEnvObject, Vector3 originPos)
     {
-        float distMax = 100;
+        float distMax = 10;
         float dist0 = 1000;
 
         // 가장 가까운 것 및 리턴할 것

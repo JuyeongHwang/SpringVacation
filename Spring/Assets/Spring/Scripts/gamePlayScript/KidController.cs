@@ -177,6 +177,9 @@ public class KidController : MonoBehaviour
             // 채집 완료하면
             else
             {   
+                // 새로운 버그 찾기
+                detectBug ();
+
                 // 상태 변화: 이동
                 nextKidState = KidState.IDLE;
             }
@@ -403,7 +406,6 @@ public class KidController : MonoBehaviour
     void attackBug()
     {
         UIManager_Gameplay.Inst.SetConditionText_Finded ();
-
 
         if (currentBugController != null)
         { 

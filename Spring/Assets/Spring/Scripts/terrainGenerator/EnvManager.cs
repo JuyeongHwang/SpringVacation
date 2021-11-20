@@ -63,6 +63,8 @@ public class EnvManager : MonoBehaviour
     [Header("Navmesh")]
     IEnumerator icheck;
 
+    public int totalGenTerrain;
+
     void Awake()
     {
         // 싱글톤
@@ -90,6 +92,11 @@ public class EnvManager : MonoBehaviour
 
     void Start()
     {
+
+        totalGenTerrain = (int)envSetting.GetMaxBoundarySize().x + (int)terrainUnitSize - (int)envSetting.GetMinBoundarySize().x;
+        totalGenTerrain /= terrainUnitSize;
+        totalGenTerrain *= totalGenTerrain;
+
         //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
         // 지형생성
@@ -102,6 +109,7 @@ public class EnvManager : MonoBehaviour
             CheckKidPosition();
         }
 
+        //Debug.Log(totalGenTerrain +"  " + customTerrains.Count);
         //foreach (var s in surfaces)
         //{
         //    s.RemoveData();
@@ -221,6 +229,9 @@ public class EnvManager : MonoBehaviour
                 customTerrains.Add(ret);
             }
         }
+
+        Debug.Log(customTerrains.Count  +  " " +totalGenTerrain);
+        UIManager_Gameplay.Inst.SetProgressText(customTerrains.Count / (float)totalGenTerrain * 100);
 
         return ret;
     }

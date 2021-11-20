@@ -10,6 +10,7 @@ public class UIManager_Gameplay : MonoBehaviour
     public Text timeText;
     public Text numText;
     public Text dayText;
+    public Text progressText;
 
     public static UIManager_Gameplay Inst = null;
 
@@ -31,6 +32,7 @@ public class UIManager_Gameplay : MonoBehaviour
         SetConditionText_Finding ();
         SetTimeText (0);
         SetDayText (DataManager.Inst.day);
+        SetProgressText(0);
         UpdateButterflyNum ();
     }
 
@@ -63,6 +65,14 @@ public class UIManager_Gameplay : MonoBehaviour
         if (dayText != null)
         {
             dayText.text = "DAY " + day.ToString ();
+        }
+    }
+
+    public void SetProgressText(float percent)
+    {
+        if(progressText != null)
+        {
+            progressText.text = "진행율 : " + percent;
         }
     }
 

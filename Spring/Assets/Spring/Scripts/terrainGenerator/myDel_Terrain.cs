@@ -70,96 +70,155 @@ public class myDel_Terrain : MonoBehaviour
         //GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
     }
 
+    private RaycastHit hit;
+    public float updownRange = 3.0f;
     private void Update()
     {
+        //if(Input.GetKey(KeyCode.A))
         //강
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            //List<Vertex> changeVert = new List<Vertex>();
-            foreach (Vertex ver in mesh.Vertices)
+            if (Input.GetMouseButtonDown(0))
             {
-                
-                //if(ver.x + transform.position.x >= 3 && ver.x + transform.position.x <=13)
-                //{
-                //    elevations[ver.id] -= 1.5f;
-                //}
-
-                if(DrawCircle(EnvManager.Inst.kidController.transform, ver, 3))
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if(Physics.Raycast(ray, out hit))
                 {
-                    elevations[ver.id] -= 0.5f;
-
-                    if (manageSpawnObject.ContainsKey(ver))
+                    if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        GameObject g = manageSpawnObject[ver];
-                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y -0.5f, g.transform.position.z);
+                        //Debug.Log(hit.point);
+                        foreach (Vertex ver in mesh.Vertices)
+                        {
+
+                            float dist = Mathf.Sqrt(Mathf.Pow((hit.point.x - ((float)ver.x + transform.position.x)), 2)
+                                    + Mathf.Pow((hit.point.z - ((float)ver.y + transform.position.z)), 2));
+
+                            if (dist <= updownRange)
+                            {
+                                elevations[ver.id] -= 0.5f;
+
+                                if (manageSpawnObject.ContainsKey(ver))
+                                {
+                                    GameObject g = manageSpawnObject[ver];
+                                    g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y - 0.5f, g.transform.position.z);
+
+                                }
+
+                            }
+
+
+
+                        }
+                        for (int j = 0; j < this.gameObject.transform.childCount; j++)
+                        {
+                            if (transform.GetChild(j) != null)
+                            {
+                                if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
+
+
+                            }
+                        }
+                        MakeMesh();
+                        ScatterDetailMeshes();
                         
                     }
-
-
                 }
-                
-                
-
-                
             }
-            for(int j = 0; j < this.gameObject.transform.childCount; j++)
+
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if(transform.GetChild(j) != null)
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
                 {
-                    if(transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-                        Destroy(this.gameObject.transform.GetChild(j).gameObject);
+                    if (hit.transform.name == "ChunkPrefab(Clone)")
+                    {
+                        //Debug.Log(hit.point);
+                        foreach (Vertex ver in mesh.Vertices)
+                        {
 
-                    
+                            float dist = Mathf.Sqrt(Mathf.Pow((hit.point.x - ((float)ver.x + transform.position.x)), 2)
+                                    + Mathf.Pow((hit.point.z - ((float)ver.y + transform.position.z)), 2));
+
+                            if (dist <= updownRange)
+                            {
+                                elevations[ver.id] += 0.5f;
+
+                                if (manageSpawnObject.ContainsKey(ver))
+                                {
+                                    GameObject g = manageSpawnObject[ver];
+                                    g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.5f, g.transform.position.z);
+
+                                }
+                            }
+
+                            
+
+
+                        }
+                        for (int j = 0; j < this.gameObject.transform.childCount; j++)
+                        {
+                            if (transform.GetChild(j) != null)
+                            {
+                                if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
+
+
+                            }
+                        }
+                        MakeMesh();
+                        ScatterDetailMeshes();
+
+                    }
                 }
             }
-            MakeMesh();
-            ScatterDetailMeshes();
-            //changeVert.Clear();
+
         }
 
         //산
-        if (Input.GetKeyDown(KeyCode.D))
-        {
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
 
-            foreach (Vertex ver in mesh.Vertices)
-            {
-                if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 3))
-                {
-                    elevations[ver.id] += 0.5f;
-                    if (manageSpawnObject.ContainsKey(ver))
-                    {
-                        GameObject g = manageSpawnObject[ver];
-                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.5f, g.transform.position.z);
+        //    foreach (Vertex ver in mesh.Vertices)
+        //    {
+        //        if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 3))
+        //        {
+        //            elevations[ver.id] += 0.5f;
+        //            if (manageSpawnObject.ContainsKey(ver))
+        //            {
+        //                GameObject g = manageSpawnObject[ver];
+        //                g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.5f, g.transform.position.z);
 
-                    }
-                }
-            }
+        //            }
+        //        }
+        //    }
 
-            for (int j = 0; j < this.gameObject.transform.childCount; j++)
-            {
-                if (transform.GetChild(j) != null)
-                {
-                    if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-                        Destroy(this.gameObject.transform.GetChild(j).gameObject);
-                }
+        //    for (int j = 0; j < this.gameObject.transform.childCount; j++)
+        //    {
+        //        if (transform.GetChild(j) != null)
+        //        {
+        //            if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+        //                Destroy(this.gameObject.transform.GetChild(j).gameObject);
+        //        }
 
-            }
+        //    }
 
-            MakeMesh();
-            ScatterDetailMeshes();
-        }
+        //    MakeMesh();
+        //    ScatterDetailMeshes();
+        //}
 
 
     }
 
-    bool DrawCircle(Transform trans, Vertex vert,float r)
+    bool DrawCircle(Vector3 trans, Vertex vert,float r)
     {
 
-        Vector3 boundary = trans.position;// + trans.forward*4f; //캐릭터 앞쪽으로 중심 옮길지 말지..
-
         //중점으로부터 떨어진 거리
-        float dist = Mathf.Sqrt(Mathf.Pow((boundary.x - ((float)vert.x + transform.position.x)), 2)
-            + Mathf.Pow((boundary.z - ((float)vert.y + transform.position.z)), 2));
+        float dist = Mathf.Sqrt(Mathf.Pow((trans.x - ((float)vert.x + transform.position.x)), 2)
+            + Mathf.Pow((trans.z - ((float)vert.y + transform.position.z)), 2));
         
         if (dist <= r)
         {

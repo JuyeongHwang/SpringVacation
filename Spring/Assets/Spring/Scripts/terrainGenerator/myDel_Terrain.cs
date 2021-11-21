@@ -155,8 +155,6 @@ public class myDel_Terrain : MonoBehaviour
                                 }
                             }
 
-                            
-
 
                         }
                         for (int j = 0; j < this.gameObject.transform.childCount; j++)
@@ -177,39 +175,6 @@ public class myDel_Terrain : MonoBehaviour
             }
 
         }
-
-        //산
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-
-        //    foreach (Vertex ver in mesh.Vertices)
-        //    {
-        //        if (DrawCircle(EnvManager.Inst.kidController.transform, ver, 3))
-        //        {
-        //            elevations[ver.id] += 0.5f;
-        //            if (manageSpawnObject.ContainsKey(ver))
-        //            {
-        //                GameObject g = manageSpawnObject[ver];
-        //                g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.5f, g.transform.position.z);
-
-        //            }
-        //        }
-        //    }
-
-        //    for (int j = 0; j < this.gameObject.transform.childCount; j++)
-        //    {
-        //        if (transform.GetChild(j) != null)
-        //        {
-        //            if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-        //                Destroy(this.gameObject.transform.GetChild(j).gameObject);
-        //        }
-
-        //    }
-
-        //    MakeMesh();
-        //    ScatterDetailMeshes();
-        //}
-
 
     }
 
@@ -301,8 +266,17 @@ public class myDel_Terrain : MonoBehaviour
             //elevation += MakeMountainElevation(0, 0, 10, vert);
 
 
+
             elevations.Add(elevation);
         }
+
+        GameObject water = Instantiate(water_plane,
+            new Vector3(transform.position.x + 25,
+            this.transform.position.y - 0.8f, transform.position.z + 25),
+            Quaternion.identity);
+
+        water.transform.SetParent(this.gameObject.transform);
+
         MakeMesh();
 
         ScatterDetailMeshes();
@@ -544,13 +518,13 @@ public class myDel_Terrain : MonoBehaviour
                 //절벽
                 if (transform.position.x + vert.x <= -50)
                 {
-                    elevation -= 10.0f;
+                    elevation -= 3.0f;
                 }
                 //계단
                 if (transform.position.z + vert.y >= 55 && transform.position.z + vert.y <= 60
                     && vert.x + transform.position.x <= -35 && vert.x + transform.position.x >= -60)
                 {
-                    elevation = -10;
+                    elevation = -3;
                 }
             }
 
@@ -571,17 +545,6 @@ public class myDel_Terrain : MonoBehaviour
                     {
                         elevation += depth;
 
-                        if (!makeWaterPlane)
-                        {
-                            GameObject water = Instantiate(water_plane,
-                            new Vector3(transform.position.x + 25,
-                            elevation - depth - 1, transform.position.z + 25),
-                            Quaternion.identity);
-
-                            water.transform.SetParent(this.gameObject.transform);
-                            //manageSpawnObject.Add(vert, water);
-                            makeWaterPlane = true;
-                        }
 
                         if (!makeBridge)
                         {
@@ -620,10 +583,6 @@ public class myDel_Terrain : MonoBehaviour
                 else
                 {
                     faildBindingEdge.Add(vert);
-                    //elevation = -3;
-                    //Instantiate(water_plane,
-                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
-                    //Quaternion.identity);
                 }
 
             }
@@ -643,10 +602,6 @@ public class myDel_Terrain : MonoBehaviour
                 else
                 {
                     faildBindingEdge.Add(vert);
-                    //elevation = -3;
-                    //Instantiate(water_plane,
-                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
-                    //Quaternion.identity);
                 }
             }
 
@@ -659,10 +614,6 @@ public class myDel_Terrain : MonoBehaviour
                 else
                 {
                     faildBindingEdge.Add(vert);
-                    //elevation = -3;
-                    //Instantiate(water_plane,
-                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
-                    //Quaternion.identity);
                 }
 
             }
@@ -676,32 +627,20 @@ public class myDel_Terrain : MonoBehaviour
                 else
                 {
                     faildBindingEdge.Add(vert);
-                    //elevation = -3;
-                    //Instantiate(water_plane,
-                    //new Vector3((float)vert.x + transform.position.x, -0.5f, (float)vert.y + transform.position.z),
-                    //Quaternion.identity);
                 }
             }
 
             elevations.Add(elevation);
 
         }
-        //예시
 
-        //if(vert.x + transform.position.x <= -70)
-        //{
-        //    elevation += 0.3f;
-        //}
+        GameObject water = Instantiate(water_plane,
+            new Vector3(transform.position.x + 25,
+            this.transform.position.y - 0.8f, transform.position.z + 25),
+            Quaternion.identity);
 
-        //else if (vert.x <= (double)70.0f && vert.x >=(double) 50.0f)
-        //{
-        //    elevation = -0.5f;
-        //}
+        water.transform.SetParent(this.gameObject.transform);
 
-        //else if(vert.x + transform.position.x >= 10)
-        //{
-        //    elevation -= 0.3f;
-        //}
         spawnArcifact();
         //MakeWaterLoad();
         ClearUsedEdge();

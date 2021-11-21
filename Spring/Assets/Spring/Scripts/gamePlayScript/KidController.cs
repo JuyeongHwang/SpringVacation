@@ -211,7 +211,7 @@ public class KidController : MonoBehaviour
         // 현재 쫒는 곤충이 없으면 마지막에 클린된 위치로 설정
         else
         {
-            kidTargetPoint.gameObject.transform.position = currentClickPos;
+           kidTargetPoint.gameObject.transform.position = currentClickPos;
         }
     }
 
@@ -473,16 +473,17 @@ public class KidController : MonoBehaviour
         isArrived = false;
     }
 
-    public void ClickFromTerrain (Vector3 pos)
+    public void ClickFromTerrain(Vector3 pos)
     {
-         // 현재 곤충 초기화
+        // 현재 곤충 초기화
         if (currentBugController != null)
-            currentBugController.SetColliderByBoolean (false);
+            currentBugController.SetColliderByBoolean(false);
 
         // 곤충 없음
         currentBugController = null;
 
-        currentClickPos = pos;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) { currentClickPos = transform.position; }
+        else { currentClickPos = pos; }
 
         // 상태 초기화
         nextKidState = KidState.IDLE;

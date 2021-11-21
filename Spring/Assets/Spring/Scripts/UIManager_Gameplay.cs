@@ -11,6 +11,7 @@ public class UIManager_Gameplay : MonoBehaviour
     public Text numText;
     public Text dayText;
     public Text progressText;
+    public GameObject progressCircle;
 
     public static UIManager_Gameplay Inst = null;
 
@@ -33,6 +34,7 @@ public class UIManager_Gameplay : MonoBehaviour
         SetTimeText (0);
         SetDayText (DataManager.Inst.day);
         SetProgressText(0);
+        SetProgressCircle(0);
         UpdateButterflyNum ();
     }
 
@@ -74,6 +76,12 @@ public class UIManager_Gameplay : MonoBehaviour
         {
             progressText.text = "진행율 : " + percent;
         }
+        SetProgressCircle(percent);
+    }
+
+    public void SetProgressCircle(float percent)
+    {
+        progressCircle.GetComponent<Image>().fillAmount = percent/100;
     }
 
     public void UpdateButterflyNum ()

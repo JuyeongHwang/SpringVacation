@@ -8,9 +8,9 @@ public class EnvSetting : ScriptableObject
 {
     [Header ("지형 설정")]
     [SerializeField]
-    Vector2 boundryCoord_min = new Vector2 (-100f, -100f);
+    public Vector2 boundryCoord_min = new Vector2 (-100f, -100f);
     [SerializeField]
-    Vector2 boundryCoord_max = new Vector2 (50f, 50f);
+    public Vector2 boundryCoord_max = new Vector2 (50f, 50f);
 
     // 외부 값을 통해 생성 가능한지의 여부만 리턴하도록 설정
     public bool GetIsAbleToGenerate (Vector2 curtPos)

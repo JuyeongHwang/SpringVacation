@@ -54,6 +54,7 @@ public class myDel_Terrain : MonoBehaviour
     public myDel_Terrain nearTerrainHolder_l = null;
     public myDel_Terrain nearTerrainHolder_r = null;
     public myDel_Terrain nearTerrainHolder_d = null;
+    public List<Vertex> faildBindingEdge = new List<Vertex>();
 
     public bool hasMountain;
     public bool hasRiver = true;
@@ -285,7 +286,7 @@ public class myDel_Terrain : MonoBehaviour
 
     public List<Vertex> upVert = new List<Vertex>();
     public Dictionary<double, float> hashupElev = new Dictionary<double, float>();
-    public List<float> forshow = new List<float>();
+
     public void generateUp()
     {
 
@@ -298,7 +299,6 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     hashupElev.Add(vert.x, elevations[vert.id]);
                 }
-                forshow.Add(elevations[vert.id]);
             }
         }
 
@@ -307,7 +307,7 @@ public class myDel_Terrain : MonoBehaviour
 
     public List<Vertex> downVert = new List<Vertex>();
     public Dictionary<double, float> hashDownElev = new Dictionary<double, float>();
-    public List<float> forshow2 = new List<float>();
+
     public void generateDown()
     {
 
@@ -321,8 +321,6 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     hashDownElev.Add(vert.x, elevations[vert.id]);
                 }
-
-                forshow2.Add(elevations[vert.id]);
             }
         }
     }
@@ -330,7 +328,7 @@ public class myDel_Terrain : MonoBehaviour
 
     public List<Vertex> leftVert = new List<Vertex>();
     public Dictionary<double, float> hashleftElev = new Dictionary<double, float>();
-    public List<float> forshow3 = new List<float>();
+
     public void generateLeft()
     {
 
@@ -343,8 +341,6 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     hashleftElev.Add(vert.y, elevations[vert.id]);
                 }
-
-                forshow3.Add(elevations[vert.id]);
             }
         }
 
@@ -353,7 +349,6 @@ public class myDel_Terrain : MonoBehaviour
 
     public List<Vertex> rightVert = new List<Vertex>();
     public Dictionary<double, float> hashrightElev = new Dictionary<double, float>();
-    public List<float> forshow4 = new List<float>();
     public void generateRight()
     {
 
@@ -366,8 +361,6 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     hashrightElev.Add(vert.y, elevations[vert.id]);
                 }
-
-                forshow4.Add(elevations[vert.id]);
             }
         }
 
@@ -386,7 +379,7 @@ public class myDel_Terrain : MonoBehaviour
     public List<Vertex> bindingDownVertex = new List<Vertex>();
     public Dictionary<double, float> bindingDownElev = new Dictionary<double, float>();
 
-    public List<Vertex> faildBindingEdge = new List<Vertex>();
+
     float minX = 0, minY = 0, maxX = 0, maxY = 0;
 
     float width;
@@ -422,13 +415,6 @@ public class myDel_Terrain : MonoBehaviour
         polygon.Add(new Vertex(xsize, 0));
         polygon.Add(new Vertex(0, ysize));
         polygon.Add(new Vertex(0, 0));
-
-        // Add uniformly-spaced points
-        // 재귀함수 구현 중 아래 반복문이 문제가 되어 주석처리하였습니다
-        /*foreach (Vector2 sample in sampler.Samples())
-        {
-            polygon.Add(new Vertex((double)sample.x, (double)sample.y));
-        }*/
 
         if (meetRight)
         {
@@ -480,7 +466,8 @@ public class myDel_Terrain : MonoBehaviour
         width = Random.Range(15.0f, 20.0f);
         depth = Random.Range(-4.7f, -13f);
         startPoint = Random.Range(0.0f + width, 50.0f - width);
-        int beachElevation = 0;
+        float minPoint = EnvManager.Inst.envSetting.boundryCoord_min.x;
+        float maxPoint = EnvManager.Inst.envSetting.boundryCoord_max.y;
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -503,29 +490,46 @@ public class myDel_Terrain : MonoBehaviour
             elevation = elevation / maxVal * elevationScale;
 
 
-
-            ////make Mountain****************************
-
-
-
-            //elevation += MakeMountainElevation(60, 50, 20, vert);
-            //elevation += MakeMountainElevation(0, 0, 10, vert);
-
             ////절벽
             hasCliff = true;
             if (hasCliff)
             {
+
                 //절벽
-                if (transform.position.x + vert.x <= -50)
+                if (transform.position.x + vert.x <= minPoint +50 )
                 {
-                    elevation -= 3.0f;
+                    elevation -=4.5f;
                 }
-                //계단
-                if (transform.position.z + vert.y >= 55 && transform.position.z + vert.y <= 60
-                    && vert.x + transform.position.x <= -35 && vert.x + transform.position.x >= -60)
-                {
-                    elevation = -3;
-                }
+                if (transform.position.z <= minPoint + 50) elevation -= 4.5f;
+
+            }
+
+            //해안가쪽
+            if (transform.position.x + vert.x <= minPoint+30)
+            {
+                float weight = (transform.position.x + (float)vert.x);
+                elevation += weight / 75;
+
+            }
+            if (transform.position.z + vert.y <= minPoint + 30)
+            {
+                float weight = (transform.position.z + (float)vert.y);
+                elevation += weight / 75;
+
+            }
+
+            //벽쪽
+            if (transform.position.x + vert.x >=maxPoint + 20)
+            {
+                float weight = (transform.position.x + (float)vert.x);
+                elevation += weight / Random.Range(65.0f, 75.0f);
+
+            }
+            if (transform.position.z + vert.y >= maxPoint + 20)
+            {
+                float weight = (transform.position.z + (float)vert.y);
+                elevation += weight / Random.Range(65.0f, 75.0f);
+
             }
 
             if (hasMountain)// && this.transform.position.x >=0)
@@ -535,6 +539,8 @@ public class myDel_Terrain : MonoBehaviour
                 float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
                 elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
             }
+
+
             hasRiver = true;
             ////// 강가 ***********
             if (hasRiver)
@@ -560,16 +566,6 @@ public class myDel_Terrain : MonoBehaviour
                     }
                 }
             }
-
-
-            if (transform.position.x + vert.x <= -120)
-            {
-                float weight = (transform.position.x + (float)vert.x);
-                elevation +=weight/75;
-                
-            }
-
-
 
             //edge 연결*****************************
 
@@ -632,14 +628,43 @@ public class myDel_Terrain : MonoBehaviour
 
             elevations.Add(elevation);
 
+
+
+            if (makeWaterPlane)
+            {
+                GameObject water = Instantiate(water_plane,
+                new Vector3(transform.position.x + 25,
+                elevation -1.5f, transform.position.z + 25),
+                Quaternion.identity);
+
+                water.transform.SetParent(this.gameObject.transform);
+
+                makeWaterPlane = true;
+
+            }
+
         }
 
-        GameObject water = Instantiate(water_plane,
-            new Vector3(transform.position.x + 25,
-            this.transform.position.y - 0.8f, transform.position.z + 25),
+
+        if (this.transform.position.z >= EnvManager.Inst.envSetting.boundryCoord_max.y)
+        {
+            GameObject cliff = Instantiate(EnvManager.Inst.cliffPrefab,
+            new Vector3(transform.position.x + 50,
+            this.transform.position.y , this.transform.position.z + 35),
+            Quaternion.Euler(new Vector3(0, 90, 0)));
+
+            cliff.transform.SetParent(this.gameObject.transform);
+        }
+
+        if (this.transform.position.x >= EnvManager.Inst.envSetting.boundryCoord_max.x)
+        {
+            GameObject cliff = Instantiate(EnvManager.Inst.cliffPrefab,
+            new Vector3(transform.position.x + 45,
+            this.transform.position.y, transform.position.z + 50),
             Quaternion.identity);
 
-        water.transform.SetParent(this.gameObject.transform);
+            cliff.transform.SetParent(this.gameObject.transform);
+        }
 
         spawnArcifact();
         //MakeWaterLoad();
@@ -665,6 +690,8 @@ public class myDel_Terrain : MonoBehaviour
 
         return mountainElev;
     }
+
+
     public void spawnArcifact()
     {
         int i = 0;

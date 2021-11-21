@@ -32,7 +32,7 @@ public class EnvManager : MonoBehaviour
     public GameObject[] rockPrefabs;
     public int bugSeed = 43;
     public GameObject[] bugPrefabs;
-
+    public GameObject cliffPrefab;
 
     [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
@@ -97,7 +97,6 @@ public class EnvManager : MonoBehaviour
         totalGenTerrain /= terrainUnitSize;
         totalGenTerrain *= totalGenTerrain;
 
-        //NavMeshSurface[] surfaces = gameObject.GetComponentsInChildren<NavMeshSurface>();
 
         // 지형생성
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
@@ -108,13 +107,6 @@ public class EnvManager : MonoBehaviour
         {
             CheckKidPosition();
         }
-
-        //Debug.Log(totalGenTerrain +"  " + customTerrains.Count);
-        //foreach (var s in surfaces)
-        //{
-        //    s.RemoveData();
-        //    s.BuildNavMesh();
-        //}
     }
 
     // 환경 매니져에서 인스턴스 수행

@@ -18,6 +18,9 @@ public class LightManager : MonoBehaviour
 
     void Start ()
     {
+        // 초기화
+        TimeOfDay = 0f;
+        
         if (DataManager.Inst != null)
         {
             dayDuration =  DataManager.Inst.GetDataPreset ()

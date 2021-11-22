@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.35574925, g: 0.70530874, b: 0.9512985, a: 1}
+  m_IndirectSpecularColor: {r: 0.0033629648, g: 0.021164548, b: 0.13548543, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -288,7 +288,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31569003}
-  m_LocalRotation: {x: 0.06836637, y: 0.6178754, z: -0.78143066, w: 0.05405713}
+  m_LocalRotation: {x: 0, y: 0.9961947, z: 0, w: 0.087155804}
   m_LocalPosition: {x: -6.75, y: 10.86, z: 14.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5601,7 +5601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DirectionLight: {fileID: 31569004}
   Preset: {fileID: 11400000, guid: 6522b9b134b13fe458b0f5de5f5180e5, type: 2}
-  TimeOfDay: 12.4
+  TimeOfDay: 0
   riverMat: {fileID: 2100000, guid: 10191db43b55a0d408c3667382d3d466, type: 2}
   skyMat: {fileID: 2100000, guid: 4540eb102a2644244888491e0f01d52b, type: 2}
 --- !u!114 &695846852

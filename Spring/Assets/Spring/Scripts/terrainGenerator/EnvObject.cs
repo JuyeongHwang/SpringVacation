@@ -22,51 +22,144 @@ public class EnvObject : MonoBehaviour
     public int randInstNum = 0;
     public float randRange = 0f;    // 범위
     
+    protected const string groundName = "Ground";
+
     protected void Start ()
     {
-        if (EnvManager.Inst != null)
-        {
-            EnvManager.Inst.AddEnvObject (this);
-        }
+        // 기울기 판단 후 적절한 위치인지 판단
+        RaycastHit hit;
+        float offset = 1f;
+        float offsetY = 5f;
+        float dist = 10f;
+        int hitlayermask = 1 << LayerMask.NameToLayer (groundName);
+        float placeDotCutoff = 0.75f;
 
-        // 랜덤배치 x
-        if (randInstNum == 0)
+        bool place = true;
+
+        // f
+        if (place == true
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * offset, Vector3.down, out hit, dist, hitlayermask))
         {
-            foreach (GameObject g in envOjects)
+            // 방향 구하기
+            Vector3 dir = hit.point - gameObject.transform.position;
+            dir = dir.normalized;
+
+            // 내적
+            float dt = Vector3.Dot (dir, Vector3.down);
+            dt = Mathf.Abs (dt);
+
+            if (dt > placeDotCutoff)
             {
-                if (randomRot)
-                {
-                    g.transform.localRotation = Quaternion.Euler (Vector3.up * Random.Range (0, 360));
-                }
-
-                g.transform.localScale = Vector3.one * Random.Range (scaleMin, scaleMax);
+                place = false;
             }
         }
-        // 랜덤 배치
+
+        // d
+        if (place == true
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * -offset, Vector3.down, out hit, dist, hitlayermask))
+        {
+            // 방향 구하기
+            Vector3 dir = hit.point - gameObject.transform.position;
+            dir = dir.normalized;
+
+            // 내적
+            float dt = Vector3.Dot (dir, Vector3.down);
+            dt = Mathf.Abs (dt);
+
+            if (dt > placeDotCutoff)
+            {
+                place = false;
+            }
+        }
+
+        // l
+        if (place == true
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * -offset, Vector3.down, out hit, dist, hitlayermask))
+        {
+            // 방향 구하기
+            Vector3 dir = hit.point - gameObject.transform.position;
+            dir = dir.normalized;
+
+            // 내적
+            float dt = Vector3.Dot (dir, Vector3.down);
+            dt = Mathf.Abs (dt);
+
+            if (dt > placeDotCutoff)
+            {
+                place = false;
+            }
+        }
+
+        // r
+        if (place == true
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * offset, Vector3.down, out hit, dist, hitlayermask))
+        {
+            // 방향 구하기
+            Vector3 dir = hit.point - gameObject.transform.position;
+            dir = dir.normalized;
+
+            // 내적
+            float dt = Vector3.Dot (dir, Vector3.down);
+            dt = Mathf.Abs (dt);
+
+            if (dt > placeDotCutoff)
+            {
+                place = false;
+            }
+        }
+
+        // 만약 배치 불가라면
+        if (place == false)
+        {
+            Destroy (gameObject);
+        }
         else
         {
-            foreach (GameObject g in envOjects)
+            if (EnvManager.Inst != null)
             {
-                g.SetActive (false);
+                EnvManager.Inst.AddEnvObject (this);
             }
 
-            for (int i = 0; i < randInstNum && envOjects.Length > 0; i++)
+            // 아래의 런덤 배치는 로컬상에서의 의미
+            // 랜덤배치 x
+            if (randInstNum == 0)
             {
-                Vector3 offsetPos = Vector3.forward * Random.Range (-randRange, randRange);
-                offsetPos += Vector3.right * Random.Range (-randRange, randRange);
-
-                GameObject g = Instantiate (envOjects [Random.Range (0, envOjects.Length)], gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                g.transform.localPosition = offsetPos;
-                g.SetActive (true);
-
-                if (randomRot)
+                foreach (GameObject g in envOjects)
                 {
-                    g.transform.localRotation = Quaternion.Euler (Vector3.up * Random.Range (0, 360));
+                    if (randomRot)
+                    {
+                        g.transform.localRotation = Quaternion.Euler (Vector3.up * Random.Range (0, 360));
+                    }
+
+                    g.transform.localScale = Vector3.one * Random.Range (scaleMin, scaleMax);
+                }
+            }
+            // 랜덤 배치
+            else
+            {
+                foreach (GameObject g in envOjects)
+                {
+                    g.SetActive (false);
                 }
 
-                g.transform.localScale = new Vector3 (g.transform.localScale.x * Random.Range (scaleMin, scaleMax)
-                , g.transform.localScale.y * Random.Range (scaleMin, scaleMax)
-                , g.transform.localScale.z * Random.Range (scaleMin, scaleMax));
+                for (int i = 0; i < randInstNum && envOjects.Length > 0; i++)
+                {
+                    Vector3 offsetPos = Vector3.forward * Random.Range (-randRange, randRange);
+                    offsetPos += Vector3.right * Random.Range (-randRange, randRange);
+
+                    GameObject g = Instantiate (envOjects [Random.Range (0, envOjects.Length)], gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    g.transform.localPosition = offsetPos;
+                    g.SetActive (true);
+
+                    if (randomRot)
+                    {
+                        g.transform.localRotation = Quaternion.Euler (Vector3.up * Random.Range (0, 360));
+                    }
+
+                    g.transform.localScale = new Vector3 (g.transform.localScale.x * Random.Range (scaleMin, scaleMax)
+                    , g.transform.localScale.y * Random.Range (scaleMin, scaleMax)
+                    , g.transform.localScale.z * Random.Range (scaleMin, scaleMax));
+                }
             }
         }
     }

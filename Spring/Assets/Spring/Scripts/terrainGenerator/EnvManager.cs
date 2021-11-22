@@ -475,6 +475,10 @@ public class EnvManager : MonoBehaviour
         // 모든 ???? 환경 오브젝트를 순회하며 검사한다
         foreach (EnvObject e in envObjects)
         {
+            // 혹시라도 모를 null값이 들어왔을 경우
+            if (e == null)
+                continue;
+
             // 조건 부적합
             if (e.GetEnvObjectType () != fav)
             {

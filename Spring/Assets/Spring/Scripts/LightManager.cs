@@ -16,6 +16,10 @@ public class LightManager : MonoBehaviour
     public Material skyMat;
     protected float dayDuration;
 
+    //[Header ("컬러")]
+    //public Color lightColor_white;
+    //public Color lightColor_red;
+
     void Start ()
     {
         // 초기화
@@ -60,15 +64,16 @@ public class LightManager : MonoBehaviour
             DirectionLight.color = Preset.DirectionalColor.Evaluate(timePrecent);
             DirectionLight.transform.localRotation = Quaternion.Euler(new Vector3(curtX, 170f, 0));
 
-            if (riverMat != null)
-            {
-                riverMat.SetFloat ("Vector1_ff3c4a1f6b0941508044adf34c334e48", 1 - Mathf.Sin (Mathf.PI * timePrecent));
-            }
+        }
 
-            if (skyMat != null)
-            {
-                skyMat.SetFloat ("Vector1_9d7170f9fdcf4156b7056caa61dbcca7", timePrecent);
-            }
+        if (riverMat != null)
+        {
+            riverMat.SetFloat ("Vector1_ff3c4a1f6b0941508044adf34c334e48", 1 - Mathf.Sin (Mathf.PI * timePrecent));
+        }
+
+        if (skyMat != null)
+        {
+            skyMat.SetFloat ("Vector1_9d7170f9fdcf4156b7056caa61dbcca7", timePrecent);
         }
 
     }

@@ -8,19 +8,22 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WaterShader_Reflection
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: -6465566751694194690, guid: 2854eb9703830834c99a146c5a9a9b83, type: 3}
+  m_ShaderKeywords: _DETAIL_MULX2
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_47fa6b9c6bc140ffaf0fd6376f3f5b8b:
+        m_Texture: {fileID: 2800000, guid: 5d0ee3fea901ca94db08ace03adda0e2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -31,14 +34,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1488c1987175acf44a03ba74ea146920, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -61,6 +64,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_50bef04a9dbc421488eeb1aaa9603814_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 1488c1987175acf44a03ba74ea146920, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_854ea5ca33a947e4be0731c7c9461fab_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 1488c1987175acf44a03ba74ea146920, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -81,9 +92,16 @@ Material:
     - Vector1_3b67fc42c88144328d386218bf3d4f1d: 0.1
     - Vector1_49ba789b505e492ca9e11bc720efc07e: 10
     - Vector1_755eeeaea8e945628ce240d1f18b753f: 1000
+    - Vector1_7b9081ba96c64db8b70218e74d426aca: 2
+    - Vector1_8eec7d24936a4eaa80835869060d336f: 3
+    - Vector1_983135b486b5497b82fe97c762529294: 0.25
+    - Vector1_aef504a4cd694af291b4cd8f0ae9ebbc: 1
     - Vector1_b474aa85560640d1bf94f8700a031c46: 5
     - Vector1_c078cd170d9a4c1fbf6509fbee1fc399: 0.25
+    - Vector1_dbd47b13249746dba52ed323e59dee36: 0.05
+    - Vector1_e3973cb862344404986f65149afca11f: 0.01
     - Vector1_eacd5462fd264d4d911b8eddf65d5831: 0.9
+    - Vector1_ec1e06a92ced4f018dddfc5c8220e27b: 1
     - Vector1_ff3c4a1f6b0941508044adf34c334e48: 1
     - _AlphaClip: 0
     - _Blend: 0
@@ -93,7 +111,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
-    - _DetailNormalMapScale: 1
+    - _DetailNormalMapScale: 1.651
     - _DstBlend: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -114,6 +132,7 @@ Material:
     m_Colors:
     - Color_1: {r: 0.4263784, g: 0.2588235, b: 1, a: 1}
     - Color_8de138bf38a9476b90bb018f1c48ed3d: {r: 0.2216981, g: 0.44679514, b: 1, a: 1}
+    - Color_b8a3cac7d4b1447da182b7e5e9a3477d: {r: 1, g: 0.99433964, b: 0.99433964, a: 0.53333336}
     - Color_de5a99f983cd434a8740efa56d486f14: {r: 0.58018863, g: 0.8516652, b: 1, a: 1}
     - Color_de5a99f983cd434a8740efa56d486f14_1: {r: 1, g: 0.96111614, b: 0.8066038, a: 1}
     - Color_f059c9295c684ce497faa616db6aa7b8: {r: 1, g: 1, b: 1, a: 1}

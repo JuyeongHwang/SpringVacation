@@ -132,6 +132,14 @@ public class EnvObject : MonoBehaviour
                     }
 
                     g.transform.localScale = Vector3.one * Random.Range (scaleMin, scaleMax);
+
+                    // 레이를 쏴서 위치 및 방향 재조절
+                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, hitlayermask))
+                    {
+                        g.transform.position = hit.point;
+
+                        g.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+                    }
                 }
             }
             // 랜덤 배치
@@ -159,6 +167,14 @@ public class EnvObject : MonoBehaviour
                     g.transform.localScale = new Vector3 (g.transform.localScale.x * Random.Range (scaleMin, scaleMax)
                     , g.transform.localScale.y * Random.Range (scaleMin, scaleMax)
                     , g.transform.localScale.z * Random.Range (scaleMin, scaleMax));
+
+                    // 레이를 쏴서 위치 및 방향 재조절
+                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, hitlayermask))
+                    {
+                        g.transform.position = hit.point;
+
+                        g.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+                    }
                 }
             }
         }

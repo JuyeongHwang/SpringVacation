@@ -545,26 +545,32 @@ public class myDel_Terrain : MonoBehaviour
             ////// 강가 ***********
             if (hasRiver)
             {
-                if (transform.position.z + vert.y <= 40 && transform.position.z + vert.y >= 30)
+                //if (transform.position.z + vert.y <= 40 && transform.position.z + vert.y >= 30)
+                //{
+                //    if (transform.position.x + vert.x < 0)
+                //    {
+                //        elevation += depth;
+
+
+                //        if (!makeBridge)
+                //        {
+                //            GameObject bri = Instantiate(bridge,
+                //            new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
+                //            elevation - depth - 1, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
+                //            Quaternion.identity);
+
+                //            bri.transform.SetParent(this.gameObject.transform);
+                //            //manageSpawnObject.Add(vert, bri);
+                //            makeBridge = true;
+                //        }
+                //    }
+                //}
+
+                if(transform.position.x + vert.x >=55 && transform.position.x + vert.x <=75)
                 {
-                    if (transform.position.x + vert.x < 0)
-                    {
-                        elevation += depth;
-
-
-                        if (!makeBridge)
-                        {
-                            GameObject bri = Instantiate(bridge,
-                            new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
-                            elevation - depth - 1, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
-                            Quaternion.identity);
-
-                            bri.transform.SetParent(this.gameObject.transform);
-                            //manageSpawnObject.Add(vert, bri);
-                            makeBridge = true;
-                        }
-                    }
+                    elevation -= 5.0f;
                 }
+
             }
 
             //edge 연결*****************************

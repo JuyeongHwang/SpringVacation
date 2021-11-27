@@ -568,7 +568,8 @@ public class myDel_Terrain : MonoBehaviour
 
                 if(transform.position.x + vert.x >=55 && transform.position.x + vert.x <=75)
                 {
-                    elevation -= 5.0f;
+                    if(transform.position.z <= 50)
+                        elevation -= 5.0f;
                 }
 
             }

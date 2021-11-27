@@ -31,6 +31,7 @@ public class CreateTerrainBG : MonoBehaviour
     // Prefab which is generated for each chunk of the mesh.
     public Transform chunkPrefab = null;
 
+    public bool forz;
     // Elevations at each point in the mesh
     private List<float> elevations;
 
@@ -40,6 +41,7 @@ public class CreateTerrainBG : MonoBehaviour
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
 
+    int totalsize;
 
     public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
     private void Awake()
@@ -48,8 +50,21 @@ public class CreateTerrainBG : MonoBehaviour
     }
     private void Start()
     {
-        Generate();
-        //transform.position = new Vector3(0, 10, 0);
+        totalsize = (int)EnvManager.Inst.envSetting.boundryCoord_max.x - (int)EnvManager.Inst.envSetting.boundryCoord_min.x;
+        Debug.Log(totalsize);
+        xsize = totalsize ;
+        ysize = totalsize ;
+
+        if (forz)
+        {
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_min.x, 0, EnvManager.Inst.envSetting.boundryCoord_max.y + 50);
+        }
+        else
+        {
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50, 0, EnvManager.Inst.envSetting.boundryCoord_min.y );
+        }
+
+        Generate();      
     }
 
     private RaycastHit hit;
@@ -114,10 +129,10 @@ public class CreateTerrainBG : MonoBehaviour
 
             elevation = elevation / maxVal * elevationScale;
 
-            elevation += MakeMountainElevation(150,75,50,vert) * 1.5f;
-            elevation += MakeMountainElevation(50, 30, 20, vert) * 1.5f;
-            elevation += MakeMountainElevation(220, 100, 65, vert) * 1.5f;
-            elevation += MakeMountainElevation(15, 120, 45, vert) * 1.5f;
+            elevation += MakeMountainElevation(totalsize+150, totalsize+75, 50,vert);
+            elevation += MakeMountainElevation(totalsize+50, totalsize+30, 20, vert);
+            elevation += MakeMountainElevation(totalsize+220, totalsize+100, 55, vert);
+            //elevation += MakeMountainElevation(totalsize+15, totalsize+120, 45, vert);
 
 
             elevations.Add(elevation);
@@ -133,8 +148,8 @@ public class CreateTerrainBG : MonoBehaviour
         float mountainElev = 0;
 
         //중점으로부터 떨어진 거리
-        float dist = Mathf.Sqrt(Mathf.Pow((cx - ((float)vert.x)), 2)
-            + Mathf.Pow((cy - ((float)vert.y)), 2));
+        float dist = Mathf.Sqrt(Mathf.Pow((cx - ((float)vert.x+ totalsize)), 2)
+            + Mathf.Pow((cy - ((float)vert.y+ totalsize)), 2));
 
         if (dist <= r)
         {

@@ -222,7 +222,7 @@ public class EnvManager : MonoBehaviour
             }
         }
 
-        Debug.Log(customTerrains.Count  +  " " +totalGenTerrain);
+        //Debug.Log(customTerrains.Count  +  " " +totalGenTerrain);
         UIManager_Gameplay.Inst.SetProgressText(customTerrains.Count / (float)totalGenTerrain * 100);
 
         return ret;

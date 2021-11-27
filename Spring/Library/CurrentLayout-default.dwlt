@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Scene
   m_RootView: {fileID: 8}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 776
     width: 883
     height: 531
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 276, y: 292}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 39
+  controlID: 23
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_MinSize: {x: 507, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 1
-  controlID: 37
+  controlID: 125
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 507, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 38
+  controlID: 126
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -202,7 +202,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1357
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_MinSize: {x: 231, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 129
+  controlID: 127
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -5981,7 +5981,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 30490
+  m_LastSelectedObjectID: -8400
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -6045,22 +6045,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Spring/Scripts/terrainGenerator
+    - Assets/Mountain
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 50
   m_LastFolders:
-  - Assets/Spring/Scripts/terrainGenerator
+  - Assets/Mountain
   m_LastFoldersGridSize: 50
   m_LastProjectPath: C:\Users\user\Documents\GitHub\SpringVacation\Spring
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 157}
-    m_SelectedIDs: 30890000
-    m_LastClickedID: 35120
-    m_ExpandedIDs: 000000001483000016830000188300001a8300001c8300001e83000020830000228300002483000026830000288300002a8300002c8300005e83000000ca9a3b
+    scrollPos: {x: 0, y: 143}
+    m_SelectedIDs: ea5e0000
+    m_LastClickedID: 24298
+    m_ExpandedIDs: 00000000b65e0000b85e0000ba5e0000bc5e0000be5e0000c05e0000c25e0000c45e0000c65e0000c85e0000ca5e0000cc5e0000ce5e0000145f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -6088,7 +6088,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001483000016830000188300001a8300001c8300001e83000020830000228300002483000026830000288300002a8300002c830000
+    m_ExpandedIDs: 00000000b65e0000b85e0000ba5e0000bc5e0000be5e0000c05e0000c25e0000c45e0000c65e0000c85e0000ca5e0000cc5e0000ce5e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -6209,9 +6209,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: ee01f8ff4adcf8ff6acbfffff4ffffffec76000002770000
+      m_SelectedIDs: 6ce1ffff
+      m_LastClickedID: -7828
+      m_ExpandedIDs: 06ddffff30dfffff6ee8ffff26eeffff52fbfffff4ffffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -6271,9 +6271,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 41.815117, y: -199.17778, z: 196.56503}
+    m_Target: {x: -320.90936, y: -231.86053, z: -41.845787}
     speed: 2
-    m_Value: {x: 41.815117, y: -199.17778, z: 196.56503}
+    m_Value: {x: -320.90936, y: -231.86053, z: -41.845787}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -6320,13 +6320,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.3047366, y: 0.013411931, z: -0.0035883836, w: 0.95248884}
+    m_Target: {x: 0.20513749, y: -0.67573166, z: 0.20560245, w: 0.6777436}
     speed: 2
-    m_Value: {x: 0.30469716, y: 0.011981433, z: -0.0031308176, w: 0.95236886}
+    m_Value: {x: 0.2061223, y: -0.67531997, z: 0.20658478, w: 0.67733246}
   m_Size:
-    m_Target: 207.15834
+    m_Target: 514.8838
     speed: 2
-    m_Value: 216.91972
+    m_Value: 492.71176
   m_Ortho:
     m_Target: 0
     speed: 2

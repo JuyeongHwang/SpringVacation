@@ -5179,6 +5179,63 @@ Transform:
   m_Father: {fileID: 352560302}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &152020519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 152020521}
+  - component: {fileID: 152020520}
+  m_Layer: 0
+  m_Name: terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &152020520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152020519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900dcd3e3398e90448c603dfa1c50f23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xsize: 500
+  ysize: 250
+  minPointRadius: 6.5
+  randomPoints: 1200
+  trianglesInChunk: 22500
+  elevationScale: 50
+  sampleSize: 1
+  octaves: 4
+  frequencyBase: 2
+  persistence: 1.1
+  detailMesh: {fileID: 4831155545516978, guid: 6cf986deb95a8a54d94827e5b2c36195, type: 3}
+  detailMeshesToGenerate: 50
+  chunkPrefab: {fileID: 4760822391077712, guid: 3f902dd3709cfc74b8331d78c6290acf, type: 3}
+  updownRange: 3
+--- !u!4 &152020521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152020519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -119.5, y: 0, z: 153}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &256503148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7435,7 +7492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 107.45641
       objectReference: {fileID: 0}
     - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
       propertyPath: m_LocalScale.y
@@ -7451,7 +7508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -77.2
       objectReference: {fileID: 0}
     - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
       propertyPath: m_LocalRotation.w

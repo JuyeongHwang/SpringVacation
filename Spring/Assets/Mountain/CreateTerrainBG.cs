@@ -49,7 +49,7 @@ public class CreateTerrainBG : MonoBehaviour
     private void Start()
     {
         Generate();
-        transform.position = new Vector3(0, 10, 0);
+        //transform.position = new Vector3(0, 10, 0);
     }
 
     private RaycastHit hit;

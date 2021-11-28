@@ -20,6 +20,9 @@ public class EnvChunk : MonoBehaviour
         if (MyGameManager_Gameplay.Inst != null)
         {
             MyGameManager_Gameplay.Inst.ClickFromTerrain (pos);
+
+            // 이펙트
+            Instantiate (MyGameManager_Gameplay.Inst.GetEffect_MouseDown (), hit.point, Quaternion.identity);
         }
     }
 }

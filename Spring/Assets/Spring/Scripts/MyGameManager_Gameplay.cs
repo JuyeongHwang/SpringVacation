@@ -19,6 +19,9 @@ public class MyGameManager_Gameplay : MonoBehaviour
     public static MyGameManager_Gameplay Inst = null;
     public bool isLoadGameScene;
 
+    [Header ("이펙트 설정")]
+    public GameObject effect_mouseDown;
+
     //protected KidController kidController;
 
     void Awake ()
@@ -109,5 +112,12 @@ public class MyGameManager_Gameplay : MonoBehaviour
             return;
 
         kidController.ClickFromTerrain (Pos);
+    }
+
+    // ================================  이펙트 =======================================
+
+    public GameObject GetEffect_MouseDown ()
+    {
+        return effect_mouseDown;
     }
 }

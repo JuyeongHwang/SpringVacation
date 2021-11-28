@@ -10,13 +10,14 @@ public class bugController : MonoBehaviour
     //public bugInfo bug;
     [Header ("곤충 설정")]
     public bugInfo bugInfo_start;
-    public Slider hpBar;
+    public bugUI bugUII;    // 클래스명과 혼동을 피하기 위한 오타
+    //public Slider hpBar;
     protected Animator bugAnimator;
 
     public BoxCollider bugCollider_min;
     public BoxCollider bugCollider_max;
 
-    public Material bugOutlineMaterial;
+    //public Material bugOutlineMaterial;
     public Renderer bugRenderer;    //[0]: 본체, [1]: 아웃라인
 
 
@@ -73,8 +74,6 @@ public class bugController : MonoBehaviour
         bugHP_current = bugHP_max;
         bugAlive = true;
         
-        hpBar.value = 1f;
-        
         // 등급 설정
         if (DataManager.Inst != null)
         {
@@ -91,6 +90,12 @@ public class bugController : MonoBehaviour
         
         // 콜라이더 설정
         SetColliderByBoolean (bugCollider = false);
+
+        // UI 설정
+        if (bugUII != null)
+        {
+            bugUII.SetBugUIInfo (bugInfo_start.GetBugName (), bugGrade);
+        }
     }
 
     private void Update()
@@ -152,9 +157,10 @@ public class bugController : MonoBehaviour
         bugHP_current += hp;
 
         // hp바 값 설정
-        if (hpBar != null)
+        if (bugUII != null)
         {
-            hpBar.value = bugHP_current / bugHP_max;
+            bugUII.SetBugHPValue (bugHP_current / bugHP_max);
+            bugUII.SetActiveBugUI_On ();
         }
 
         // 만약 HP가 0이하라면 fales를 반환하고 isAlive를 false로 하기

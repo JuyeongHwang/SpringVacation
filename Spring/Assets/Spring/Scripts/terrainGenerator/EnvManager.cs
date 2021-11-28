@@ -102,7 +102,7 @@ public class EnvManager : MonoBehaviour
 
     void Start()
     {
-
+        BezierRiver();
         totalGenTerrain = (int)envSetting.GetMaxBoundarySize().x + (int)terrainUnitSize - (int)envSetting.GetMinBoundarySize().x;
         totalGenTerrain /= terrainUnitSize;
         totalGenTerrain *= totalGenTerrain;
@@ -119,6 +119,37 @@ public class EnvManager : MonoBehaviour
         }
     }
 
+    public Vector3 P1;
+    public Vector3 P2;
+    public Vector3 P3;
+    public Vector3 P4;
+    public Vector4 RiverRange = new Vector4(55, 75, 100, -50); //start x, end x, start z, end z
+    public List<Vector3> BezierPoints = new List<Vector3>();
+    public void BezierRiver()
+    {
+
+        P1 = new Vector3(RiverRange[0], 0, RiverRange[2]);
+        P2 = new Vector3(RiverRange[0], 0, RiverRange[3]);
+        P3 = new Vector3(RiverRange[1], 0, RiverRange[2]);
+        P4 = new Vector3(RiverRange[1], 0, RiverRange[3]);
+
+        for (float i = 0.0f; i < 1.0f; i += 0.1f)
+        {
+            Vector3 A = Vector3.Lerp(P1, P2, i);
+            Vector3 B = Vector3.Lerp(P2, P3, i);
+            Vector3 C = Vector3.Lerp(P3, P4, i);
+
+            Vector3 D = Vector3.Lerp(A, B, i);
+            Vector3 E = Vector3.Lerp(B, C, i);
+
+            //최종 위치
+            Vector3 F = Vector3.Lerp(D, E, i);
+
+            BezierPoints.Add(F);
+
+        }
+
+    }
     // 환경 매니져에서 인스턴스 수행
     // 그리고 해당 컴포넌트를 반환
     public myDel_Terrain InstantiateCustomTerrain(Vector3 pivotTerrainPos, NearTerrainDir2 terrainDir)

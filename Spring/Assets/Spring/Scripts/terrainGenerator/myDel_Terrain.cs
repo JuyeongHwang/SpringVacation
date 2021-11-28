@@ -60,7 +60,6 @@ public class myDel_Terrain : MonoBehaviour
     public bool hasRiver = true;
     public bool hasCliff;
 
-    public Vector4 RiverRange = new Vector4( 55, 75, 50, -100 ); //start x, end x, start z, end z
 
     public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
     private void Awake()
@@ -69,7 +68,6 @@ public class myDel_Terrain : MonoBehaviour
     }
     private void Start()
     {
-        
         //GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
     }
 
@@ -519,16 +517,21 @@ public class myDel_Terrain : MonoBehaviour
             }
 
 
-            hasRiver = true;
+            //hasRiver = true;
             ////// 강가 ***********
-            if (hasRiver)
-            {
-                if(transform.position.x + vert.x >=RiverRange[0] && transform.position.x + vert.x <= RiverRange[1])
-                {
-                    if(transform.position.z <= RiverRange[2])
-                        elevation -= 5.0f;
-                }
+            //if (hasRiver)
+            //{
 
+            //    if(transform.position.x + vert.x >=RiverRange[0] && transform.position.x + vert.x <= RiverRange[1])
+            //    {
+            //        if(transform.position.z <= RiverRange[2])
+            //            elevation -= 5.0f;
+            //    }
+
+            //}
+            if (MakeRiver(vert))
+            {
+                elevation -= 5.0f;
             }
 
             //edge 연결*****************************
@@ -639,6 +642,29 @@ public class myDel_Terrain : MonoBehaviour
         ScatterDetailMeshes();
     }
 
+
+    //EnvManager로 넘겨야할듯
+   
+
+    bool MakeRiver(Vertex ver)
+    {
+        foreach(Vector3 point in EnvManager.Inst.BezierPoints)
+        {
+            float dist = Mathf.Sqrt(Mathf.Pow((point.x - ((float)ver.x + transform.position.x)), 2)
+                                    + Mathf.Pow((point.z - ((float)ver.y + transform.position.z)), 2));
+
+            if (dist <= 15)
+            {
+                Debug.Log("Hello?");
+                return true;
+
+            }
+
+            Debug.Log(";;;;");
+        }
+
+        return false;
+    }
     float MakeMountainElevation(float cx, float cy, float r, Vertex vert)
     {
         float mountainElev = 0;
@@ -668,9 +694,9 @@ public class myDel_Terrain : MonoBehaviour
                 break;
 
             //강이냐
-            if(transform.position.x + ver.x >= RiverRange[0] && transform.position.x + ver.x <= RiverRange[1])
+            if(transform.position.x + ver.x >= EnvManager.Inst.RiverRange[0] && transform.position.x + ver.x <= EnvManager.Inst.RiverRange[1])
             {
-                if (transform.position.z <= RiverRange[2]) continue;
+                if (transform.position.z <= EnvManager.Inst.RiverRange[2]) continue;
             }
 
             //산 지역이냐

@@ -65,6 +65,12 @@ public class EnvManager : MonoBehaviour
 
     public int totalGenTerrain;
 
+    protected const string groundName = "Ground";
+    protected const string waterName = "Water";
+
+    protected int layermask_ground;
+    protected int layermask_water;
+
     void Awake()
     {
         // 싱글톤
@@ -87,6 +93,10 @@ public class EnvManager : MonoBehaviour
         riverNoiseTexture2D = GetDiagramByDistance();
         
         DontDestroyOnLoad(gameObject);
+
+        // 레이어마스크 인트 설정
+        layermask_ground = 1 << LayerMask.NameToLayer (groundName);
+        layermask_water = 1 << LayerMask.NameToLayer (waterName);
     }
 
 
@@ -595,5 +605,17 @@ public class EnvManager : MonoBehaviour
     public int GetBugSeed ()
     {
         return bugSeed;
+    }
+
+    // =================================== 레이어마스크 =======================================
+
+    public int GetLayermask_Ground ()
+    {
+        return layermask_ground;
+    }
+
+    public int GetLayermask_Water ()
+    {
+        return layermask_water;
     }
 }

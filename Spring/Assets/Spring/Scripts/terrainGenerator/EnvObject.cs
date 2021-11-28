@@ -22,23 +22,23 @@ public class EnvObject : MonoBehaviour
     public int randInstNum = 0;
     public float randRange = 0f;    // 범위
     
-    protected const string groundName = "Ground";
+    
 
     protected void Start ()
     {
         // 기울기 판단 후 적절한 위치인지 판단
         RaycastHit hit;
         float offset = 1f;
-        float offsetY = 5f;
-        float dist = 10f;
-        int hitlayermask = 1 << LayerMask.NameToLayer (groundName);
+        float offsetY = 3f;
+        float dist = 4f;
+        //int EnvManager.Inst.GetLayermask_Ground () = 1 << LayerMask.NameToLayer (groundName);
         float placeDotCutoff = 0.75f;
 
         bool place = true;
 
         // f
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * offset, Vector3.down, out hit, dist, hitlayermask))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -56,7 +56,7 @@ public class EnvObject : MonoBehaviour
 
         // d
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * -offset, Vector3.down, out hit, dist, hitlayermask))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * -offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -74,7 +74,7 @@ public class EnvObject : MonoBehaviour
 
         // l
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * -offset, Vector3.down, out hit, dist, hitlayermask))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * -offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -92,7 +92,7 @@ public class EnvObject : MonoBehaviour
 
         // r
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * offset, Vector3.down, out hit, dist, hitlayermask))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -134,7 +134,7 @@ public class EnvObject : MonoBehaviour
                     g.transform.localScale = Vector3.one * Random.Range (scaleMin, scaleMax);
 
                     // 레이를 쏴서 위치 및 방향 재조절
-                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, hitlayermask))
+                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
                     {
                         g.transform.position = hit.point;
 
@@ -169,7 +169,7 @@ public class EnvObject : MonoBehaviour
                     , g.transform.localScale.z * Random.Range (scaleMin, scaleMax));
 
                     // 레이를 쏴서 위치 및 방향 재조절
-                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, hitlayermask))
+                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
                     {
                         g.transform.position = hit.point;
 

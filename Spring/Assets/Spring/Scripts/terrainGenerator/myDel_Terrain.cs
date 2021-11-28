@@ -60,6 +60,8 @@ public class myDel_Terrain : MonoBehaviour
     public bool hasRiver = true;
     public bool hasCliff;
 
+    public Vector4 RiverRange = new Vector4( 55, 75, 50, -100 ); //start x, end x, start z, end z
+
     public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
     private void Awake()
     {
@@ -179,21 +181,6 @@ public class myDel_Terrain : MonoBehaviour
 
     }
 
-    bool DrawCircle(Vector3 trans, Vertex vert,float r)
-    {
-
-        //중점으로부터 떨어진 거리
-        float dist = Mathf.Sqrt(Mathf.Pow((trans.x - ((float)vert.x + transform.position.x)), 2)
-            + Mathf.Pow((trans.z - ((float)vert.y + transform.position.z)), 2));
-        
-        if (dist <= r)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
     public bool meetRight;
     public bool meetLeft;
     public bool meetUp;
@@ -261,13 +248,6 @@ public class myDel_Terrain : MonoBehaviour
             }
 
             elevation = elevation / maxVal * elevationScale;
-
-
-            //elevation += MakeMountainElevation(60, 50, 20, vert);
-            //elevation += MakeMountainElevation(0, 0, 10, vert);
-
-
-
             elevations.Add(elevation);
         }
 
@@ -450,9 +430,7 @@ public class myDel_Terrain : MonoBehaviour
         // Add some randomly sampled points
         for (int i = 0; i < randomPoints; i++)
         {
-
             polygon.Add(new Vertex(Random.Range(minX, maxX), Random.Range(minY, maxY)));
-
         }
 
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
@@ -545,30 +523,9 @@ public class myDel_Terrain : MonoBehaviour
             ////// 강가 ***********
             if (hasRiver)
             {
-                //if (transform.position.z + vert.y <= 40 && transform.position.z + vert.y >= 30)
-                //{
-                //    if (transform.position.x + vert.x < 0)
-                //    {
-                //        elevation += depth;
-
-
-                //        if (!makeBridge)
-                //        {
-                //            GameObject bri = Instantiate(bridge,
-                //            new Vector3(Random.Range(0.0f, 50.0f) + transform.position.x,
-                //            elevation - depth - 1, transform.position.z + (40 + 30) / 2 + 15), //(bridge start + end)/2 + bridge offset
-                //            Quaternion.identity);
-
-                //            bri.transform.SetParent(this.gameObject.transform);
-                //            //manageSpawnObject.Add(vert, bri);
-                //            makeBridge = true;
-                //        }
-                //    }
-                //}
-
-                if(transform.position.x + vert.x >=55 && transform.position.x + vert.x <=75)
+                if(transform.position.x + vert.x >=RiverRange[0] && transform.position.x + vert.x <= RiverRange[1])
                 {
-                    if(transform.position.z <= 50)
+                    if(transform.position.z <= RiverRange[2])
                         elevation -= 5.0f;
                 }
 
@@ -710,6 +667,17 @@ public class myDel_Terrain : MonoBehaviour
             if (EnvManager.Inst == null)
                 break;
 
+            //강이냐
+            if(transform.position.x + ver.x >= RiverRange[0] && transform.position.x + ver.x <= RiverRange[1])
+            {
+                if (transform.position.z <= RiverRange[2]) continue;
+            }
+
+            //산 지역이냐
+            if (hasMountain)
+            {
+                continue;
+            }
             // 나무 생성
             if (i % EnvManager.Inst.GetTreeSeed () == 0)
             {

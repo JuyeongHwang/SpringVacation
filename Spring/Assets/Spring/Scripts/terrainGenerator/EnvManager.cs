@@ -128,12 +128,12 @@ public class EnvManager : MonoBehaviour
     public void BezierRiver()
     {
 
-        P1 = new Vector3(RiverRange[0], 0, RiverRange[2]);
-        P2 = new Vector3(RiverRange[0], 0, RiverRange[3]);
-        P3 = new Vector3(RiverRange[1], 0, RiverRange[2]);
-        P4 = new Vector3(RiverRange[1], 0, RiverRange[3]);
+        //P1 = new Vector3(RiverRange[0], 0, RiverRange[2]);
+        //P2 = new Vector3(RiverRange[0], 0, RiverRange[3]);
+        //P3 = new Vector3(RiverRange[1], 0, RiverRange[2]);
+        //P4 = new Vector3(RiverRange[1], 0, RiverRange[3]);
 
-        for (float i = 0.0f; i < 1.0f; i += 0.1f)
+        for (float i = 0.0f; i < 1.0f; i += 0.05f)
         {
             Vector3 A = Vector3.Lerp(P1, P2, i);
             Vector3 B = Vector3.Lerp(P2, P3, i);

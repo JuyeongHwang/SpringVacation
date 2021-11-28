@@ -5528,7 +5528,6 @@ GameObject:
   m_Component:
   - component: {fileID: 352560302}
   - component: {fileID: 352560301}
-  - component: {fileID: 352560303}
   m_Layer: 0
   m_Name: EnvMgr
   m_TagString: Untagged
@@ -5593,6 +5592,12 @@ MonoBehaviour:
   kidController: {fileID: 1170337323}
   waterPlane: {fileID: 7817576511583530391, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
   totalGenTerrain: 0
+  P1: {x: 100, y: 0, z: 100}
+  P2: {x: 45, y: 0, z: 0}
+  P3: {x: 75, y: 0, z: 45}
+  P4: {x: -35, y: 0, z: -50}
+  RiverRange: {x: 55, y: 75, z: 100, w: -50}
+  BezierPoints: []
 --- !u!4 &352560302
 Transform:
   m_ObjectHideFlags: 0
@@ -5611,24 +5616,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &352560303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352560300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ff1ceeea8615a49a5cb65171ade343, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObject: {fileID: 122555436}
-  TestValue: 0
-  P1: {x: 55, y: 0, z: 50}
-  P2: {x: 75, y: 0, z: 50}
-  P3: {x: 55, y: 0, z: -50}
-  P4: {x: 75, y: 0, z: -50}
 --- !u!4 &370642639 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4992676906851544, guid: 1aa7fd9d12fe726408ad998e8b2801aa, type: 3}
@@ -5821,7 +5808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &725101747
 Transform:
   m_ObjectHideFlags: 0
@@ -7658,6 +7645,10 @@ PrefabInstance:
     - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
       propertyPath: m_LocalScale.y
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 118.945
       objectReference: {fileID: 0}
     - target: {fileID: 718133591303344180, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
       propertyPath: m_LocalPosition.x

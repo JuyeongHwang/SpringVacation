@@ -246,15 +246,19 @@ public class myDel_Terrain : MonoBehaviour
             }
 
             elevation = elevation / maxVal * elevationScale;
+            if (MakeRiver(vert))
+            {
+                elevation -= 5.0f;
+            }
             elevations.Add(elevation);
         }
 
-        GameObject water = Instantiate(water_plane,
-            new Vector3(transform.position.x + 25,
-            this.transform.position.y - 0.8f, transform.position.z + 25),
-            Quaternion.identity);
+        //GameObject water = Instantiate(water_plane,
+        //    new Vector3(transform.position.x + 25,
+        //    this.transform.position.y - 0.8f, transform.position.z + 25),
+        //    Quaternion.identity);
 
-        water.transform.SetParent(this.gameObject.transform);
+        //water.transform.SetParent(this.gameObject.transform);
 
         MakeMesh();
 
@@ -508,6 +512,7 @@ public class myDel_Terrain : MonoBehaviour
 
             }
 
+            hasMountain = false;
             if (hasMountain)// && this.transform.position.x >=0)
             {
                 float Radius = Random.Range(10, 20);
@@ -653,7 +658,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist = Mathf.Sqrt(Mathf.Pow((point.x - ((float)ver.x + transform.position.x)), 2)
                                     + Mathf.Pow((point.z - ((float)ver.y + transform.position.z)), 2));
 
-            if (dist <= 15)
+            if (dist <= 12)
             {
                 Debug.Log("Hello?");
                 return true;

@@ -10,6 +10,9 @@ public class MyGameManager_Result : MonoBehaviour
     [Header ("캐릭터 설정")]
     public KidController_Result kidController_result;
 
+    [Header ("이펙트 설정")]
+    public GameObject[] effects;
+
     public static MyGameManager_Result Inst = null;
     void Awake ()
     {
@@ -54,6 +57,12 @@ public class MyGameManager_Result : MonoBehaviour
         kidController_result.SetToolIndex (DataManager.Inst.GetLevelIndex ());
         kidController_result.SetChildToolByIndex ();
         SetKidAnimatorTrigger ("Upgrade");
+
+        if (MyGameManager_Result.Inst != null)
+        {
+            // 이펙트
+            MyGameManager_Result.Inst.InstantiateEffectByIndex (0, kidController_result.gameObject.transform.position, Quaternion.identity);
+        }
     }
 
     public void SetKidAnimatorTrigger (string trigger)
@@ -62,5 +71,14 @@ public class MyGameManager_Result : MonoBehaviour
             return;
 
         kidController_result.SetAnimatorTrigger (trigger);
+    }
+
+    public void InstantiateEffectByIndex (int index, Vector3 pos, Quaternion rot)
+    {
+        if (effects.Length <= index)
+            return;
+
+        GameObject effectObject = Instantiate (effects [index], pos, rot);
+        Destroy (effectObject, 5f);
     }
 }

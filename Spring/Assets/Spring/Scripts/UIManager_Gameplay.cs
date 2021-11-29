@@ -58,7 +58,7 @@ public class UIManager_Gameplay : MonoBehaviour
     {
         if (timeText != null)
         {
-            timeText.text = "남은시간: " + ((int)time).ToString ();
+            timeText.text = "남은 시간: " + ((int)time).ToString ();
         }
     }
 
@@ -93,7 +93,7 @@ public class UIManager_Gameplay : MonoBehaviour
         {
             //numberText.text = "채집한 나비: " + DataManager.Inst.butterflyNum.ToString () + " 마리";
 
-            numText.text =  DataManager.Inst.money.ToString () + " 단위";
+            numText.text =   "채집한 곤충 가치: " + DataManager.Inst.money.ToString () + " ";
         }
     }
 }

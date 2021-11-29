@@ -350,6 +350,12 @@ public class KidController : MonoBehaviour
             else
                 SetAnimatorTrigger ("SwingB");
 
+            if (MyGameManager_Gameplay.Inst != null)
+            {
+                // 이펙트
+                 MyGameManager_Gameplay.Inst.InstantiateEffectByIndex (2, gameObject.transform.position + gameObject.transform.forward * 1f, Quaternion.identity);
+            }
+
             yield return new WaitForSeconds (catchDelay);
         }
     }

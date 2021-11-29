@@ -109,6 +109,12 @@ public class bugController : MonoBehaviour
         // 만약 죽으면
         if (bugAlive == false)
         {
+            if (MyGameManager_Gameplay.Inst != null)
+            {
+                // 이펙트
+                MyGameManager_Gameplay.Inst.InstantiateEffectByIndex (1, gameObject.transform.position, Quaternion.identity);
+            }
+
             // 스스로 삭제하기
             Destroy (this.gameObject);
         }

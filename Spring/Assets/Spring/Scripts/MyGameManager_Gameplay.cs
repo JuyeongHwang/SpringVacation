@@ -10,6 +10,7 @@ public class MyGameManager_Gameplay : MonoBehaviour
 
     [Header ("캐릭터 설정")]
     public KidController kidController;
+    public CameraController cameraController;
 
     //[Header("지형 생성")]
     //public GameObject forterrain;
@@ -20,7 +21,9 @@ public class MyGameManager_Gameplay : MonoBehaviour
     public bool isLoadGameScene;
 
     [Header ("이펙트 설정")]
-    public GameObject effect_mouseDown;
+    public GameObject[] effects;
+    // 0: 청크 클릭
+    // 1: 곤충 채집
 
     //protected KidController kidController;
 
@@ -40,6 +43,9 @@ public class MyGameManager_Gameplay : MonoBehaviour
         // kidController가 없으면 씬 내에서 찾는다
         if (kidController == null)
             kidController = FindObjectOfType <KidController> ();
+
+        if (cameraController == null)
+            cameraController = FindObjectOfType <CameraController> ();
     }
 
     void Start ()
@@ -114,10 +120,30 @@ public class MyGameManager_Gameplay : MonoBehaviour
         kidController.ClickFromTerrain (Pos);
     }
 
+    public GameObject GetCameraObject ()
+    {
+        if (cameraController == null)
+            return null;
+        
+        return cameraController.GetCameraObject ();
+    }
+
     // ================================  이펙트 =======================================
 
-    public GameObject GetEffect_MouseDown ()
+    /*public GameObject GetEffectByIndex (int index)
     {
-        return effect_mouseDown;
+        if (effects.Length <= index)
+            return null;
+
+        return effects [index];
+    }*/
+
+    public void InstantiateEffectByIndex (int index, Vector3 pos, Quaternion rot)
+    {
+        if (effects.Length <= index)
+            return;
+
+        GameObject effectObject = Instantiate (effects [index], pos, rot);
+        Destroy (effectObject, 5f);
     }
 }

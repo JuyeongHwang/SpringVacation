@@ -7,8 +7,10 @@ public class CameraController : MonoBehaviour
     [Header ("카메라 설정")]
 
     public GameObject cameraFocusObject;
+    public GameObject cameraObject;
     public float cameraFocusSmooth = 1;
     public float cameraFocusSmooth_rot = 1;
+    
 
     void Awake ()
     {
@@ -34,5 +36,10 @@ public class CameraController : MonoBehaviour
         resultDir = resultDir.normalized;
 
         gameObject.transform.forward = resultDir;
+    }
+
+    public GameObject GetCameraObject ()
+    {
+        return cameraObject;
     }
 }

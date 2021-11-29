@@ -5411,6 +5411,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256503148}
   m_CullTransparentMesh: 1
+--- !u!114 &327955883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5308205076924573925, guid: f6bd4869a4f5d1c429ffaaa924caee5c, type: 3}
+  m_PrefabInstance: {fileID: 5308205077091546969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80241be2032fe7842b6b16879525836e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &338963484
 GameObject:
   m_ObjectHideFlags: 0
@@ -5649,7 +5660,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &443236749 stripped
 Transform:
@@ -5778,8 +5789,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayDuration_remaining: 0
   kidController: {fileID: 1170337323}
+  cameraController: {fileID: 327955883}
   isLoadGameScene: 1
-  effect_mouseDown: {fileID: 5430952706555790090, guid: b2fbde21115eadc4699ca69b6049b964, type: 3}
+  effects:
+  - {fileID: 5430952706555790090, guid: b2fbde21115eadc4699ca69b6049b964, type: 3}
+  - {fileID: 5430952706555790090, guid: 960b934577c48764da88d4a47130e489, type: 3}
+  - {fileID: 5430952706555790090, guid: 340ace53c3fab8d42aa0c60dc4c1ab2e, type: 3}
 --- !u!4 &695846853
 Transform:
   m_ObjectHideFlags: 0
@@ -7456,17 +7471,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5308205076884904474, guid: f6bd4869a4f5d1c429ffaaa924caee5c, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 247
-      objectReference: {fileID: 0}
     - target: {fileID: 5308205076924573922, guid: f6bd4869a4f5d1c429ffaaa924caee5c, type: 3}
       propertyPath: m_Name
       value: CameraHolder
       objectReference: {fileID: 0}
     - target: {fileID: 5308205076924573924, guid: f6bd4869a4f5d1c429ffaaa924caee5c, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5308205076924573924, guid: f6bd4869a4f5d1c429ffaaa924caee5c, type: 3}
       propertyPath: m_LocalPosition.x

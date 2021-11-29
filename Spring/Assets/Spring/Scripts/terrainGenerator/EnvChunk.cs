@@ -22,7 +22,7 @@ public class EnvChunk : MonoBehaviour
             MyGameManager_Gameplay.Inst.ClickFromTerrain (pos);
 
             // 이펙트
-            Instantiate (MyGameManager_Gameplay.Inst.GetEffect_MouseDown (), hit.point, Quaternion.identity);
+            MyGameManager_Gameplay.Inst.InstantiateEffectByIndex (0, hit.point, Quaternion.identity);
         }
     }
 }

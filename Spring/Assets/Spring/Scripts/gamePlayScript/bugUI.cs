@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class bugUI : MonoBehaviour
 {
-    private Camera mc;
+    public GameObject mc;
 
     public Slider bugHPBar;
     public Text bugName;
@@ -15,13 +15,24 @@ public class bugUI : MonoBehaviour
 
     // 처음에는 UI가 안보이다가 채집하면 보이도록 동작함
 
+    void OnEnable ()
+    {
+        if (ibugUI != null)
+            StopCoroutine (ibugUI);
+    }
+
     void Awake ()
     {
-        mc = Camera.main.GetComponent <Camera> ();
+
     }
 
     void Start ()
     {
+        if (MyGameManager_Gameplay.Inst != null)
+        {   
+            mc = MyGameManager_Gameplay.Inst.GetCameraObject ();
+        }
+       
         SetActiveBugUI_Off ();
     }
 

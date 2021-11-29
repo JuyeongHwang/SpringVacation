@@ -46,6 +46,7 @@ public class UIManager_Result : MonoBehaviour
             {
                 GameObject grid = Instantiate (itemGridPrefab) as GameObject;
                 grid.transform.SetParent (itemGridHolder.transform);
+                grid.transform.localScale = Vector3.one;
 
                 UIShop_ItemGrid gridUI = grid.GetComponent <UIShop_ItemGrid> ();
 

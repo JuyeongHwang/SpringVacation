@@ -367,6 +367,7 @@ public class myDel_Terrain : MonoBehaviour
     float width;
     float depth;
     float startPoint;
+    List<Vertex> riverVert = new List<Vertex>();
     public virtual void GenerateForNear()
     {
 
@@ -512,31 +513,20 @@ public class myDel_Terrain : MonoBehaviour
 
             }
 
-            hasMountain = false;
-            if (hasMountain)// && this.transform.position.x >=0)
-            {
-                float Radius = Random.Range(10, 20);
-                float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
-                float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
-                elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
-            }
-
-
-            //hasRiver = true;
-            ////// 강가 ***********
-            //if (hasRiver)
-            //{
-
-            //    if(transform.position.x + vert.x >=RiverRange[0] && transform.position.x + vert.x <= RiverRange[1])
-            //    {
-            //        if(transform.position.z <= RiverRange[2])
-            //            elevation -= 5.0f;
-            //    }
-
-            //}
             if (MakeRiver(vert))
             {
+                riverVert.Add(vert);
                 elevation -= 5.0f;
+            }
+            else
+            {
+                if (hasMountain)// && this.transform.position.x >=0)
+                {
+                    float Radius = Random.Range(10, 20);
+                    float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
+                    float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
+                    elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
+                }
             }
 
             //edge 연결*****************************
@@ -647,10 +637,6 @@ public class myDel_Terrain : MonoBehaviour
         ScatterDetailMeshes();
     }
 
-
-    //EnvManager로 넘겨야할듯
-   
-
     bool MakeRiver(Vertex ver)
     {
         foreach(Vector3 point in EnvManager.Inst.BezierPoints)
@@ -660,12 +646,9 @@ public class myDel_Terrain : MonoBehaviour
 
             if (dist <= 12)
             {
-                Debug.Log("Hello?");
                 return true;
 
             }
-
-            Debug.Log(";;;;");
         }
 
         return false;
@@ -699,16 +682,10 @@ public class myDel_Terrain : MonoBehaviour
                 break;
 
             //강이냐
-            if(transform.position.x + ver.x >= EnvManager.Inst.RiverRange[0] && transform.position.x + ver.x <= EnvManager.Inst.RiverRange[1])
-            {
-                if (transform.position.z <= EnvManager.Inst.RiverRange[2]) continue;
-            }
-
+            if (riverVert.Contains(ver)) continue;
             //산 지역이냐
-            if (hasMountain)
-            {
-                continue;
-            }
+            if (hasMountain) continue;
+
             // 나무 생성
             if (i % EnvManager.Inst.GetTreeSeed () == 0)
             {

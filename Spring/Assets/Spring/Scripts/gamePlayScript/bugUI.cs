@@ -39,6 +39,11 @@ public class bugUI : MonoBehaviour
     // 방향 설정
     void LateUpdate ()
     {
+        if (mc == null && MyGameManager_Gameplay.Inst != null)
+        {   
+            mc = MyGameManager_Gameplay.Inst.GetCameraObject ();
+        }
+
         if (mc == null)
             return;
 

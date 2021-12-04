@@ -679,6 +679,19 @@ public class myDel_Terrain : MonoBehaviour
             }
         }
 
+        foreach (Vector3 point in EnvManager.Inst.BezierPoints2)
+        {
+            float dist = Mathf.Sqrt(Mathf.Pow((point.x - ((float)ver.x + transform.position.x)), 2)
+                                    + Mathf.Pow((point.z - ((float)ver.y + transform.position.z)), 2));
+
+            if (dist <= 4)
+            {
+
+                return true;
+
+            }
+        }
+
         return false;
     }
 

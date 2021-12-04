@@ -127,6 +127,7 @@ public class EnvManager : MonoBehaviour
     public Vector3 P4;
     public Vector4 RiverRange = new Vector4(55, 75, 100, -50); //start x, end x, start z, end z
     public List<Vector3> BezierPoints = new List<Vector3>();
+    public List<Vector3> BezierPoints2 = new List<Vector3>();
     public void BezierRiver()
     {
         List<Vector3> forRandom = new List<Vector3>();
@@ -143,8 +144,7 @@ public class EnvManager : MonoBehaviour
         Vector3 n4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
             (envSetting.boundryCoord_min.y));
 
-        forRandom.Add(n1);
-        forRandom.Add(n2); forRandom.Add(n3); forRandom.Add(n4);
+        forRandom.Add(n1);forRandom.Add(n2); forRandom.Add(n3); forRandom.Add(n4);
 
 
         int[] index = { 0, 1, 2, 3 };
@@ -176,6 +176,30 @@ public class EnvManager : MonoBehaviour
             Vector3 F = Vector3.Lerp(D, E, i);
 
             BezierPoints.Add(F);
+        }
+
+
+        P1 = new Vector3(envSetting.boundryCoord_min.x, 0,
+    Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
+        P3 = new Vector3(envSetting.boundryCoord_max.x + 50, 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
+        P4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
+            (envSetting.boundryCoord_max.y + 50));
+        P3 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
+            (envSetting.boundryCoord_min.y));
+        for (float i = 0.0f; i < 1.0f; i += 0.005f)
+        {
+            Vector3 A = Vector3.Lerp(P1, P2, i);
+            Vector3 B = Vector3.Lerp(P2, P3, i);
+            Vector3 C = Vector3.Lerp(P3, P4, i);
+
+            Vector3 D = Vector3.Lerp(A, B, i);
+            Vector3 E = Vector3.Lerp(B, C, i);
+
+            //최종 위치
+            Vector3 F = Vector3.Lerp(D, E, i);
+
+            BezierPoints2.Add(F);
         }
 
     }

@@ -784,15 +784,12 @@ public class myDel_Terrain : MonoBehaviour
         IEnumerator<Triangle> triangleEnumerator = mesh.Triangles.GetEnumerator();
 
         //Debug.Log(mesh.Triangles.Count + "  " + elevations.Count);
-
-        // for문과 for문 사이의 리스트를 빼왔습니다
-        List<Vector3> vertices = new List<Vector3>();
-        List<Vector3> normals = new List<Vector3>();
-        List<Vector2> uvs = new List<Vector2>();
-        List<int> triangles = new List<int>();
-
         for (int chunkStart = 0; chunkStart < mesh.Triangles.Count; chunkStart += trianglesInChunk)
         {
+            List<Vector3> vertices = new List<Vector3>();
+            List<Vector3> normals = new List<Vector3>();
+            List<Vector2> uvs = new List<Vector2>();
+            List<int> triangles = new List<int>();
 
             int chunkEnd = chunkStart + trianglesInChunk;
             for (int i = chunkStart; i < chunkEnd; i++)
@@ -850,7 +847,16 @@ public class myDel_Terrain : MonoBehaviour
                 }
             }
 
-            
+            Mesh chunkMesh = new Mesh();
+            chunkMesh.vertices = vertices.ToArray();
+            chunkMesh.uv = uvs.ToArray();
+            chunkMesh.triangles = triangles.ToArray();
+            chunkMesh.normals = normals.ToArray();
+
+            Transform chunk = Instantiate<Transform>(chunkPrefab, transform.position, transform.rotation);
+            chunk.GetComponent<MeshFilter>().mesh = chunkMesh;
+            chunk.GetComponent<MeshCollider>().sharedMesh = chunkMesh;
+            chunk.transform.parent = transform;
         }
         
         // 1차 -> 겹치는 버텍스의 인덱스 찾기
@@ -900,18 +906,6 @@ public class myDel_Terrain : MonoBehaviour
                 }
             }
         }*/
-
-        Mesh chunkMesh = new Mesh();
-        chunkMesh.vertices = vertices.ToArray();
-        chunkMesh.uv = uvs.ToArray();
-        chunkMesh.triangles = triangles.ToArray();
-        chunkMesh.normals = normals.ToArray();
-
-        Transform chunk = Instantiate<Transform>(chunkPrefab, transform.position, transform.rotation);
-        chunk.GetComponent<MeshFilter>().mesh = chunkMesh;
-        chunk.GetComponent<MeshCollider>().sharedMesh = chunkMesh;
-        chunk.transform.parent = transform;
-
     }
 
     /* Returns a point's local coordinates. */

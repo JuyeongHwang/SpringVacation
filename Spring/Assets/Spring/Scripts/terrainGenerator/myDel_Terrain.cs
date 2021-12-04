@@ -38,7 +38,7 @@ public class myDel_Terrain : MonoBehaviour
     // Fast triangle querier for arbitrary points
     private TriangleBin bin;
 
-
+    
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
     //[Space(10)]
@@ -58,9 +58,8 @@ public class myDel_Terrain : MonoBehaviour
     public List<Vertex> faildBindingEdge = new List<Vertex>();
 
     public bool hasMountain;
-    public bool hasRiver = true;
     public bool hasCliff;
-
+    public bool hasRiver = false;
      // 테스트
     SimpleSmoother simpleSmoother = new SimpleSmoother ();
 
@@ -77,44 +76,48 @@ public class myDel_Terrain : MonoBehaviour
 
     private RaycastHit hit;
     public float updownRange = 15;
+    public bool canEdit = true;
     private void Update()
     {
-
-        //강
-        if (Input.GetKey(KeyCode.A))
+        if (canEdit)
         {
-            if (Input.GetMouseButtonDown(0))
+            //강
+            if (Input.GetKey(KeyCode.A))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                
-
-                if (Physics.Raycast(ray, out hit))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (hit.transform.name == "ChunkPrefab(Clone)")
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+
+                    if (Physics.Raycast(ray, out hit))
                     {
-                        UpDownTerrain(false);
+                        if (hit.transform.name == "ChunkPrefab(Clone)")
+                        {
+                            UpDownTerrain(false);
+                        }
                     }
                 }
+
             }
 
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKey(KeyCode.D))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (hit.transform.name == "ChunkPrefab(Clone)")
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit))
                     {
-                        UpDownTerrain(true);
-                    }
-                    
-                }
-            }
+                        if (hit.transform.name == "ChunkPrefab(Clone)")
+                        {
+                            UpDownTerrain(true);
+                        }
 
+                    }
+                }
+
+            }
         }
+        
 
     }
 
@@ -677,6 +680,7 @@ public class myDel_Terrain : MonoBehaviour
 
             if (dist <= 12)
             {
+                
                 return true;
 
             }
@@ -684,6 +688,7 @@ public class myDel_Terrain : MonoBehaviour
 
         return false;
     }
+
     float MakeMountainElevation(float cx, float cy, float r, Vertex vert)
     {
         float mountainElev = 0;
@@ -699,7 +704,6 @@ public class myDel_Terrain : MonoBehaviour
 
         return mountainElev;
     }
-
 
     public void spawnArcifact()
     {
@@ -717,57 +721,61 @@ public class myDel_Terrain : MonoBehaviour
             //산 지역이냐
             if (hasMountain) continue;
 
-            // 나무 생성
-            if (i % EnvManager.Inst.GetTreeSeed () == 0)
+            if (canEdit)
             {
-                if (transform.position.z + ver.y <= 40 && transform.position.z + ver.y >= 30)
+                // 나무 생성
+                if (i % EnvManager.Inst.GetTreeSeed() == 0)
                 {
-                    if (transform.position.x + ver.x < 0)
+                    if (transform.position.z + ver.y <= 40 && transform.position.z + ver.y >= 30)
                     {
-                        continue;
+                        if (transform.position.x + ver.x < 0)
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        g = EnvManager.Inst.Instantiate_EnvObject_Tree(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+
+                        if (!manageSpawnObject.ContainsKey(ver))
+                            manageSpawnObject.Add(ver, g);
                     }
                 }
-                else
-                {
-                    g = EnvManager.Inst.Instantiate_EnvObject_Tree (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-                    
-                    if(!manageSpawnObject.ContainsKey(ver))
-                        manageSpawnObject.Add(ver, g);
-                }
-            }
 
-            // 꽃 생성
-            else if (i % EnvManager.Inst.GetFlowerSeed () == 0)
-            {
-                if (EnvManager.Inst != null)
+                // 꽃 생성
+                else if (i % EnvManager.Inst.GetFlowerSeed() == 0)
                 {
-                    g = EnvManager.Inst.Instantiate_EnvObject_Flower (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-                    
-                    if (!manageSpawnObject.ContainsKey(ver))
-                        manageSpawnObject.Add(ver, g);
-                }
-            }
+                    if (EnvManager.Inst != null)
+                    {
+                        g = EnvManager.Inst.Instantiate_EnvObject_Flower(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
 
-            // 돌 생성
-            else if (i % EnvManager.Inst.GetRockSeed () == 0)
-            {
-                if (EnvManager.Inst != null)
-                {
-                    g = EnvManager.Inst.Instantiate_EnvObject_Rock (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-                    
-                    if (!manageSpawnObject.ContainsKey(ver))
-                        manageSpawnObject.Add(ver, g);
+                        if (!manageSpawnObject.ContainsKey(ver))
+                            manageSpawnObject.Add(ver, g);
+                    }
                 }
-            }
 
-            // 곤충 생성
-            else if (i % EnvManager.Inst.GetBugSeed () == 0)
-            {
-                if (EnvManager.Inst != null)
+                // 돌 생성
+                else if (i % EnvManager.Inst.GetRockSeed() == 0)
                 {
-                    g = EnvManager.Inst.Instantiate_Bug (new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    if (EnvManager.Inst != null)
+                    {
+                        g = EnvManager.Inst.Instantiate_EnvObject_Rock(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+
+                        if (!manageSpawnObject.ContainsKey(ver))
+                            manageSpawnObject.Add(ver, g);
+                    }
+                }
+
+                // 곤충 생성
+                else if (i % EnvManager.Inst.GetBugSeed() == 0)
+                {
+                    if (EnvManager.Inst != null)
+                    {
+                        g = EnvManager.Inst.Instantiate_Bug(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    }
                 }
             }
+           
 
             i++;
         }

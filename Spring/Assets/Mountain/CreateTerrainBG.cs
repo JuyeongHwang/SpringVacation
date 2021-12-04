@@ -51,7 +51,6 @@ public class CreateTerrainBG : MonoBehaviour
     private void Start()
     {
         totalsize = (int)EnvManager.Inst.envSetting.boundryCoord_max.x - (int)EnvManager.Inst.envSetting.boundryCoord_min.x;
-        Debug.Log(totalsize);
         xsize = totalsize ;
         ysize = totalsize ;
 

@@ -33,6 +33,7 @@ public class EnvManager : MonoBehaviour
     public int bugSeed = 43;
     public GameObject[] bugPrefabs;
     public GameObject cliffPrefab;
+    public GameObject townPrefab;
 
     [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
@@ -54,6 +55,7 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 기타 설정")]
     public KidController kidController;
+    int townNum = 2;
     
     [HideInInspector]
     public GameObject waterPlane;
@@ -241,10 +243,16 @@ public class EnvManager : MonoBehaviour
                     }
                 }
 
-                int mountain = Random.Range(0, 2);
-                //Debug.Log(mountain);
-                ret.hasMountain = (mountain == 0 ? false : true);
 
+                int itown = Random.Range(0, 2);
+                bool hasTown = (itown == 0 ? false : true);
+
+                if (!hasTown)
+                {
+                    int mountain = Random.Range(0, 2);
+                    ret.hasMountain = (mountain == 0 ? false : true);
+                }
+                
                 if (!ret.meetDown && !ret.meetLeft && !ret.meetRight && !ret.meetUp)
                 {
                     ret.Generate();
@@ -254,6 +262,52 @@ public class EnvManager : MonoBehaviour
                     
                     ret.GenerateForNear();
                 }
+
+                bool envRiver = false;
+                foreach (Vector3 point in BezierPoints)
+                {
+                    float x = 0;
+                    float z = 0;
+
+                    x = (float)point.x / 50;
+                    z = (float)point.z / 50;
+
+                    //Debug.Log(Mathf.FloorToInt(x) + "     " + Mathf.FloorToInt(z));
+
+                    Vector3 pos = new Vector3(Mathf.FloorToInt(x) * 50, 0, Mathf.FloorToInt(z) * 50);
+                    //Debug.Log(pos);
+                    if (ret.transform.position.Equals(pos))
+                    {
+                        envRiver = true;
+                    }
+                }
+                Debug.Log(envRiver);
+                
+                if (townNum > 0 && !ret.hasMountain && !envRiver)
+                {
+                    townNum--;
+
+                    GameObject gtown;
+                    float rotY = Random.Range(0, 360f);
+                    rotY /= 90;
+
+                    gtown = Instantiate(townPrefab, instTerrainPos, Quaternion.Euler(Vector3.up *(rotY)), bugHolder.transform);
+
+                    //ret.canEdit = false;
+                }
+
+                //int itown = Random.Range(0, 2);
+                //bool hasTown = (itown == 0 ? false : true);
+                //if (hasTown && townNum > 0 && !ret.hasRiver)
+                //{
+                //    townNum--;
+                //    ret.canEdit = false;
+
+                //    GameObject gtown;
+                //    float rotY = Random.Range(0, 360f);
+
+                //    gtown = Instantiate(townPrefab, instTerrainPos, Quaternion.Euler(Vector3.up * rotY), bugHolder.transform);
+                //}
 
                 // 부모를 해당 매니저로 설정한다 -> 청크 홀더로 수정
                 g.gameObject.transform.SetParent(this.chunkHolder.transform);
@@ -617,6 +671,7 @@ public class EnvManager : MonoBehaviour
 
         return ret;
     }
+
 
     public int GetTreeSeed ()
     {

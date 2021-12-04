@@ -24,9 +24,9 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 프리팹 설정")]     // 나무, 버그 등 프리팹은 EnvManger에서 관리
     public GameObject customTerrainPrefab;
-    public int treeSeed = 37;
+    public int treeSeed = 60;
     public GameObject[] treePrefabs;
-    public int flowerSeed = 17;
+    public int flowerSeed = 1000;
     public GameObject[] flowerPrefabs;
     public int rockSeed = 51;
     public GameObject[] rockPrefabs;
@@ -308,7 +308,7 @@ public class EnvManager : MonoBehaviour
                         envRiver = true;
                     }
                 }
-                Debug.Log(envRiver);
+                //Debug.Log(envRiver);
                 
                 if (townNum > 0 && !ret.hasMountain && !envRiver)
                 {
@@ -642,15 +642,22 @@ public class EnvManager : MonoBehaviour
 
     // ====================================== 프리팹 관련 =========================================
 
-    public GameObject Instantiate_EnvObject_Tree (Vector3 pos)
+    public GameObject Instantiate_EnvObject_Tree (Vector3 pos, bool isbeach)
     {
         GameObject ret = null;
 
         if (treePrefabs.Length > 0)
         {
-            int index = Random.Range (0, treePrefabs.Length);
+            if (!isbeach)
+            {
+                int index = Random.Range(0, treePrefabs.Length - 1);
 
-            ret = Instantiate (treePrefabs [index], pos, Quaternion.Euler (Vector3.zero), envObjectHolder.transform);
+                ret = Instantiate(treePrefabs[index], pos, Quaternion.Euler(Vector3.zero), envObjectHolder.transform);
+            }
+            else
+            {
+                ret = Instantiate(treePrefabs[treePrefabs.Length-1], pos, Quaternion.Euler(Vector3.zero), envObjectHolder.transform);
+            }
         }
 
         return ret;

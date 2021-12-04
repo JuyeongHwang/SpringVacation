@@ -32,6 +32,7 @@ public class CreateTerrainBG : MonoBehaviour
     public Transform chunkPrefab = null;
 
     public bool forz;
+    public bool fory;
     // Elevations at each point in the mesh
     private List<float> elevations;
 
@@ -50,7 +51,7 @@ public class CreateTerrainBG : MonoBehaviour
     }
     private void Start()
     {
-        totalsize = (int)EnvManager.Inst.envSetting.boundryCoord_max.x - (int)EnvManager.Inst.envSetting.boundryCoord_min.x;
+        totalsize = (int)EnvManager.Inst.envSetting.boundryCoord_max.x - (int)EnvManager.Inst.envSetting.boundryCoord_min.x + 50;
         xsize = totalsize ;
         ysize = totalsize ;
 
@@ -58,9 +59,14 @@ public class CreateTerrainBG : MonoBehaviour
         {
             this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_min.x, 0, EnvManager.Inst.envSetting.boundryCoord_max.y + 50);
         }
-        else
+        else if (fory)
         {
-            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50, 0, EnvManager.Inst.envSetting.boundryCoord_min.y );
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50, 0, EnvManager.Inst.envSetting.boundryCoord_min.y);
+        }
+        else if(!forz && !fory)
+        {
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50, 0, EnvManager.Inst.envSetting.boundryCoord_max.y+50);
+
         }
 
         Generate();      
@@ -156,74 +162,6 @@ public class CreateTerrainBG : MonoBehaviour
         }
 
         return mountainElev;
-    }
-
-
-    public void spawnArcifact()
-    {
-        int i = 0;
-
-        GameObject g;
-
-        foreach (Vertex ver in mesh.Vertices)
-        {
-            if (EnvManager.Inst == null)
-                break;
-
-            // 唱公 积己
-            if (i % EnvManager.Inst.GetTreeSeed() == 0)
-            {
-                if (transform.position.z + ver.y <= 40 && transform.position.z + ver.y >= 30)
-                {
-                    if (transform.position.x + ver.x < 0)
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    g = EnvManager.Inst.Instantiate_EnvObject_Tree(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-
-                    if (!manageSpawnObject.ContainsKey(ver))
-                        manageSpawnObject.Add(ver, g);
-                }
-            }
-
-            // 采 积己
-            else if (i % EnvManager.Inst.GetFlowerSeed() == 0)
-            {
-                if (EnvManager.Inst != null)
-                {
-                    g = EnvManager.Inst.Instantiate_EnvObject_Flower(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-
-                    if (!manageSpawnObject.ContainsKey(ver))
-                        manageSpawnObject.Add(ver, g);
-                }
-            }
-
-            // 倒 积己
-            else if (i % EnvManager.Inst.GetRockSeed() == 0)
-            {
-                if (EnvManager.Inst != null)
-                {
-                    g = EnvManager.Inst.Instantiate_EnvObject_Rock(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-
-                    if (!manageSpawnObject.ContainsKey(ver))
-                        manageSpawnObject.Add(ver, g);
-                }
-            }
-
-            // 帮面 积己
-            else if (i % EnvManager.Inst.GetBugSeed() == 0)
-            {
-                if (EnvManager.Inst != null)
-                {
-                    g = EnvManager.Inst.Instantiate_Bug(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
-                }
-            }
-
-            i++;
-        }
     }
 
 
@@ -361,25 +299,6 @@ public class CreateTerrainBG : MonoBehaviour
             Quaternion randomRotation = Quaternion.AngleAxis(angle, Vector3.up);
 
             Instantiate<Transform>(detailMesh, position, randomRotation, this.transform);
-        }
-    }
-
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-
-        foreach (Triangle tri in mesh.Triangles)
-        {
-
-        }
-        foreach (Edge edge in mesh.Edges)
-        {
-
-        }
-
-        foreach (Vertex vert in mesh.Vertices)
-        {
-
         }
     }
 

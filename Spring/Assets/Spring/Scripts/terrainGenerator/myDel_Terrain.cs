@@ -65,8 +65,12 @@ public class myDel_Terrain : MonoBehaviour
 
 
     public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
+    float cliffRangeX;
+    float cliffRangeY;
     private void Awake()
     {
+        cliffRangeX = EnvManager.Inst.envSetting.boundryCoord_min.x + 30;
+        cliffRangeY = EnvManager.Inst.envSetting.boundryCoord_min.y + 30;
         DontDestroyOnLoad(gameObject);
     }
     private void Start()
@@ -79,45 +83,45 @@ public class myDel_Terrain : MonoBehaviour
     public bool canEdit = true;
     private void Update()
     {
-        if (canEdit)
+        //if (canEdit)
+        //{
+
+        //}
+        //강
+        if (Input.GetKey(KeyCode.A))
         {
-            //강
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+
+                if (Physics.Raycast(ray, out hit))
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-
-                    if (Physics.Raycast(ray, out hit))
+                    if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        if (hit.transform.name == "ChunkPrefab(Clone)")
-                        {
-                            UpDownTerrain(false);
-                        }
+                        UpDownTerrain(false);
                     }
                 }
-
             }
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (hit.transform.name == "ChunkPrefab(Clone)")
-                        {
-                            UpDownTerrain(true);
-                        }
-
-                    }
-                }
-
-            }
         }
-        
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.name == "ChunkPrefab(Clone)")
+                    {
+                        UpDownTerrain(true);
+                    }
+
+                }
+            }
+
+        }
 
     }
 
@@ -208,6 +212,8 @@ public class myDel_Terrain : MonoBehaviour
             }
         }
 
+        spawnArcifact();
+
 
     }
     public bool meetRight;
@@ -278,9 +284,11 @@ public class myDel_Terrain : MonoBehaviour
             }
 
             elevation = elevation / maxVal * elevationScale;
+            
             if (MakeRiver(vert))
             {
-                elevation -= 5.0f;
+                riverVert.Add(vert);
+                elevation -= 7.0f;
             }
             elevations.Add(elevation);
         }
@@ -292,6 +300,7 @@ public class myDel_Terrain : MonoBehaviour
 
         //water.transform.SetParent(this.gameObject.transform);
 
+        spawnArcifact();
         MakeMesh();
 
         ScatterDetailMeshes();
@@ -396,10 +405,9 @@ public class myDel_Terrain : MonoBehaviour
 
     float minX = 0, minY = 0, maxX = 0, maxY = 0;
 
-    float width;
-    float depth;
-    float startPoint;
     List<Vertex> riverVert = new List<Vertex>();
+
+
     public virtual void GenerateForNear()
     {
 
@@ -477,12 +485,19 @@ public class myDel_Terrain : MonoBehaviour
         bin = new TriangleBin(mesh, (int)maxX, (int)maxX, minPointRadius * 2.0f);
 
         bool makeWaterPlane = false;
-        bool makeBridge = false;
-        width = Random.Range(15.0f, 20.0f);
-        depth = Random.Range(-4.7f, -13f);
-        startPoint = Random.Range(0.0f + width, 50.0f - width);
+
         float minPoint = EnvManager.Inst.envSetting.boundryCoord_min.x;
         float maxPoint = EnvManager.Inst.envSetting.boundryCoord_max.y;
+
+        float Radius = Random.Range(10, 20);
+        float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
+        float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
+
+        float Radius2 = Random.Range(10, 20);
+        float RandomCenterPointX2 = Random.Range(Radius2, 50 - Radius);
+        float RandomCenterPointY2 = Random.Range(Radius2, 50 - Radius);
+
+
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -504,34 +519,13 @@ public class myDel_Terrain : MonoBehaviour
 
             elevation = elevation / maxVal * elevationScale;
 
+            //Cliff
+            if(transform.position.x + vert.x <= cliffRangeX ||
+                transform.position.z + vert.y <= cliffRangeY)
+            {
+                elevation = -3.5f;
+            }
 
-            ////절벽
-            //hasCliff = true;
-            //if (hasCliff)
-            //{
-
-            //    //절벽
-            //    if (transform.position.x + vert.x <= minPoint +50 )
-            //    {
-            //        elevation -=4.5f;
-            //    }
-            //    if (transform.position.z <= minPoint + 50) elevation -= 4.5f;
-
-            //}
-
-            //해안가쪽
-            //if (transform.position.x + vert.x <= minPoint+30)
-            //{
-            //    float weight = (transform.position.x + (float)vert.x);
-            //    elevation += weight / 75;
-
-            //}
-            //if (transform.position.z + vert.y <= minPoint + 30)
-            //{
-            //    float weight = (transform.position.z + (float)vert.y);
-            //    elevation += weight / 75;
-
-            //}
 
             //벽쪽
             if (transform.position.x + vert.x >=maxPoint + 20)
@@ -550,16 +544,16 @@ public class myDel_Terrain : MonoBehaviour
             if (MakeRiver(vert))
             {
                 riverVert.Add(vert);
-                elevation -= 5.0f;
+                elevation -= 7.0f;
             }
             else
             {
                 if (hasMountain)// && this.transform.position.x >=0)
                 {
-                    float Radius = Random.Range(10, 20);
-                    float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
-                    float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
                     elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
+                    elevation += MakeMountainElevation(RandomCenterPointX2 + transform.position.x, RandomCenterPointY2 + transform.position.z, Radius2, vert);
+
+
                 }
             }
 
@@ -663,7 +657,6 @@ public class myDel_Terrain : MonoBehaviour
         }
 
         spawnArcifact();
-        //MakeWaterLoad();
         ClearUsedEdge();
 
         MakeMesh();
@@ -678,7 +671,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist = Mathf.Sqrt(Mathf.Pow((point.x - ((float)ver.x + transform.position.x)), 2)
                                     + Mathf.Pow((point.z - ((float)ver.y + transform.position.z)), 2));
 
-            if (dist <= 8)
+            if (dist <= 9)
             {
                 
                 return true;
@@ -705,6 +698,7 @@ public class myDel_Terrain : MonoBehaviour
         return mountainElev;
     }
 
+
     public void spawnArcifact()
     {
         int i = 0;
@@ -721,25 +715,16 @@ public class myDel_Terrain : MonoBehaviour
             //산 지역이냐
             if (hasMountain) continue;
 
-            if (canEdit)
+            //해변?
+            if (ver.x +transform.position.x> cliffRangeX && ver.y+transform.position.z>cliffRangeY) //아니요
             {
                 // 나무 생성
                 if (i % EnvManager.Inst.GetTreeSeed() == 0)
                 {
-                    if (transform.position.z + ver.y <= 40 && transform.position.z + ver.y >= 30)
-                    {
-                        if (transform.position.x + ver.x < 0)
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        g = EnvManager.Inst.Instantiate_EnvObject_Tree(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                    g = EnvManager.Inst.Instantiate_EnvObject_Tree(new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z), false);
 
-                        if (!manageSpawnObject.ContainsKey(ver))
-                            manageSpawnObject.Add(ver, g);
-                    }
+                    if (!manageSpawnObject.ContainsKey(ver))
+                        manageSpawnObject.Add(ver, g);
                 }
 
                 // 꽃 생성
@@ -747,10 +732,14 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (EnvManager.Inst != null)
                     {
-                        g = EnvManager.Inst.Instantiate_EnvObject_Flower(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                        if(elevations[ver.id] - 0.18f > 0.0)
+                        {
+                            g = EnvManager.Inst.Instantiate_EnvObject_Flower(new Vector3((float)ver.x + transform.position.x, elevations[ver.id] - 0.18f, (float)ver.y + transform.position.z));
 
-                        if (!manageSpawnObject.ContainsKey(ver))
-                            manageSpawnObject.Add(ver, g);
+                            if (!manageSpawnObject.ContainsKey(ver))
+                                manageSpawnObject.Add(ver, g);
+                        }
+                        
                     }
                 }
 
@@ -759,7 +748,7 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (EnvManager.Inst != null)
                     {
-                        g = EnvManager.Inst.Instantiate_EnvObject_Rock(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                        g = EnvManager.Inst.Instantiate_EnvObject_Rock(new Vector3((float)ver.x + transform.position.x, elevations[ver.id] -1f, (float)ver.y + transform.position.z));
 
                         if (!manageSpawnObject.ContainsKey(ver))
                             manageSpawnObject.Add(ver, g);
@@ -771,7 +760,48 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (EnvManager.Inst != null)
                     {
-                        g = EnvManager.Inst.Instantiate_Bug(new Vector3((float)ver.x + transform.position.x, elevations[i], (float)ver.y + transform.position.z));
+                        g = EnvManager.Inst.Instantiate_Bug(new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z));
+                    }
+                }
+            }
+
+            else//예
+            {
+                // 나무 생성
+                if (i % EnvManager.Inst.GetTreeSeed() == 0)
+                {
+                    g = EnvManager.Inst.Instantiate_EnvObject_Tree(new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z),true);
+
+                    if (!manageSpawnObject.ContainsKey(ver))
+                        manageSpawnObject.Add(ver, g);
+                }
+
+                //해변용 추가??하면 해변용 곤충까지 같이 추가해야할듯,,,,
+                // 꽃 생성
+                else if (i % EnvManager.Inst.GetFlowerSeed() == 0)
+                {
+                    if (EnvManager.Inst != null)
+                    {
+                        if (elevations[ver.id] >= -0.5f)
+                        {
+                            g = EnvManager.Inst.Instantiate_EnvObject_Flower(new Vector3((float)ver.x + transform.position.x, elevations[ver.id] - 0.18f, (float)ver.y + transform.position.z));
+
+                            if (!manageSpawnObject.ContainsKey(ver))
+                                manageSpawnObject.Add(ver, g);
+                        }
+                    }
+                }
+
+                //해변용 추가??
+                // 돌 생성
+                else if (i % EnvManager.Inst.GetRockSeed() == 0)
+                {
+                    if (EnvManager.Inst != null)
+                    {
+                        g = EnvManager.Inst.Instantiate_EnvObject_Rock(new Vector3((float)ver.x + transform.position.x, elevations[ver.id] - 1f, (float)ver.y + transform.position.z));
+
+                        if (!manageSpawnObject.ContainsKey(ver))
+                            manageSpawnObject.Add(ver, g);
                     }
                 }
             }

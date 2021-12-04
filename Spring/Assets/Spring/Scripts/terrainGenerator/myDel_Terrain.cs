@@ -76,91 +76,23 @@ public class myDel_Terrain : MonoBehaviour
     }
 
     private RaycastHit hit;
-    public float updownRange = 3.0f;
+    public float updownRange = 15;
     private void Update()
     {
+
         //강
         if (Input.GetKey(KeyCode.A))
         {
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                List<Vector3> myArea = new List<Vector3>();
+                
 
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        foreach (Vertex ver in mesh.Vertices)
-                        {
-
-                            float dist = Mathf.Sqrt(Mathf.Pow((hit.point.x - ((float)ver.x + transform.position.x)), 2)
-                                    + Mathf.Pow((hit.point.z - ((float)ver.y + transform.position.z)), 2));
-
-                            if (dist <= updownRange)
-                            {
-                                elevations[ver.id] -= 0.5f;
-
-                                int x = 0;
-                                int z = 0;
-
-                                //음수라면
-                                if (x < 0)
-                                {
-                                    x = (((int)ver.x + (int)transform.position.x)) / 50 - 1;
-                                }
-                                else
-                                {
-                                    x = (((int)ver.x + (int)transform.position.x)) / 50;
-                                }
-                                if (z < 0)
-                                {
-                                    z = (((int)ver.y + (int)transform.position.z)) / 50 - 1;
-                                }
-                                else
-                                {
-                                    z = (((int)ver.y + (int)transform.position.z)) / 50;
-                                }
-
-                                Vector3 vec = new Vector3(x * 50, 0, z * 50);
-                                Debug.Log(vec);
-                                if (!myArea.Contains(vec))
-                                {
-                                    myArea.Add(vec);
-                                }
-
-                                if (manageSpawnObject.ContainsKey(ver))
-                                {
-                                    GameObject g = manageSpawnObject[ver];
-                                    g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y - 0.5f, g.transform.position.z);
-
-                                }
-
-                            }
-                        }
-
-
-                        foreach (Vector3 area in myArea)
-                        {
-                            if (area.Equals(this.transform.position))
-                            {
-                                Debug.Log("Hello");
-                                for (int j = 0; j < this.gameObject.transform.childCount; j++)
-                                {
-                                    if (transform.GetChild(j) != null)
-                                    {
-                                        if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-                                            Destroy(this.gameObject.transform.GetChild(j).gameObject);
-
-
-                                    }
-                                }
-
-                                MakeMesh();
-                                ScatterDetailMeshes();
-                            }
-                        }
-
+                        UpDownTerrain(false);
                     }
                 }
             }
@@ -176,41 +108,9 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        //Debug.Log(hit.point);
-                        foreach (Vertex ver in mesh.Vertices)
-                        {
-
-                            float dist = Mathf.Sqrt(Mathf.Pow((hit.point.x - ((float)ver.x + transform.position.x)), 2)
-                                    + Mathf.Pow((hit.point.z - ((float)ver.y + transform.position.z)), 2));
-
-                            if (dist <= updownRange)
-                            {
-                                elevations[ver.id] += 0.5f;
-
-                                if (manageSpawnObject.ContainsKey(ver))
-                                {
-                                    GameObject g = manageSpawnObject[ver];
-                                    g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.5f, g.transform.position.z);
-
-                                }
-                            }
-
-
-                        }
-                        for (int j = 0; j < this.gameObject.transform.childCount; j++)
-                        {
-                            if (transform.GetChild(j) != null)
-                            {
-                                if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-                                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
-
-
-                            }
-                        }
-                        MakeMesh();
-                        ScatterDetailMeshes();
-
+                        UpDownTerrain(true);
                     }
+                    
                 }
             }
 
@@ -218,6 +118,95 @@ public class myDel_Terrain : MonoBehaviour
 
     }
 
+
+    void UpDownTerrain(bool up)
+    {
+        List<Vector3> myArea = new List<Vector3>();
+
+        foreach (Vertex ver in mesh.Vertices)
+        {
+
+            float dist = Mathf.Sqrt(Mathf.Pow((hit.point.x - ((int)ver.x + transform.position.x)), 2)
+                    + Mathf.Pow((hit.point.z - ((int)ver.y + transform.position.z)), 2));
+
+            if (dist <= updownRange)
+            {
+                if (up)
+                {
+                    elevations[ver.id] += 0.8f;
+                }
+                else
+                {
+                    elevations[ver.id] -= 0.8f;
+                }
+                int x = 0;
+                int z = 0;
+
+                //음수라면
+                if ((float)ver.x + transform.position.x < 0)
+                {
+                    x = (((int)ver.x + (int)transform.position.x)) / 50 - 1;
+                }
+                else
+                {
+                    x = (((int)ver.x + (int)transform.position.x)) / 50;
+                }
+
+                if ((float)ver.y + transform.position.z < 0)
+                {
+                    z = (((int)ver.y + (int)transform.position.z)) / 50 - 1;
+                }
+                else
+                {
+                    z = (((int)ver.y + (int)transform.position.z)) / 50;
+                }
+
+                Vector3 vec = new Vector3(x * 50, 0, z * 50);
+                if (!myArea.Contains(vec))
+                {
+                    myArea.Add(vec);
+                }
+
+                if (manageSpawnObject.ContainsKey(ver))
+                {
+                    GameObject g = manageSpawnObject[ver];
+                    if (up)
+                    {
+                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.8f, g.transform.position.z);
+                    }
+                    else
+                    {
+
+                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y - 0.8f, g.transform.position.z);
+                    }
+
+                }
+
+            }
+        }
+
+        foreach (Vector3 area in myArea)
+        {
+            if (area.Equals(this.transform.position))
+            {
+                for (int j = 0; j < this.gameObject.transform.childCount; j++)
+                {
+                    if (transform.GetChild(j) != null)
+                    {
+                        if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                            Destroy(this.gameObject.transform.GetChild(j).gameObject);
+
+
+                    }
+                }
+
+                MakeMesh();
+                ScatterDetailMeshes();
+            }
+        }
+
+
+    }
     public bool meetRight;
     public bool meetLeft;
     public bool meetUp;

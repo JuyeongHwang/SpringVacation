@@ -212,9 +212,6 @@ public class myDel_Terrain : MonoBehaviour
             }
         }
 
-        spawnArcifact();
-
-
     }
     public bool meetRight;
     public bool meetLeft;

@@ -49,7 +49,7 @@ MonoBehaviour:
   minPointRadius: 6.5
   randomPoints: 150
   trianglesInChunk: 20000
-  elevationScale: 6
+  elevationScale: 12
   sampleSize: 1
   octaves: 16
   frequencyBase: 2
@@ -64,17 +64,14 @@ MonoBehaviour:
   nearTerrainHolder_r: {fileID: 0}
   nearTerrainHolder_d: {fileID: 0}
   hasMountain: 0
-  hasRiver: 1
   hasCliff: 0
+  hasRiver: 1
   updownRange: 3
+  canEdit: 1
   meetRight: 0
   meetLeft: 0
   meetUp: 0
   meetDown: 0
-  forshow: []
-  forshow2: []
-  forshow3: []
-  forshow4: []
 --- !u!114 &3273037411183462510
 MonoBehaviour:
   m_ObjectHideFlags: 0

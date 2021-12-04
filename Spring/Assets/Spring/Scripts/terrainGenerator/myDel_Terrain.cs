@@ -506,32 +506,32 @@ public class myDel_Terrain : MonoBehaviour
 
 
             ////절벽
-            hasCliff = true;
-            if (hasCliff)
-            {
+            //hasCliff = true;
+            //if (hasCliff)
+            //{
 
-                //절벽
-                if (transform.position.x + vert.x <= minPoint +50 )
-                {
-                    elevation -=4.5f;
-                }
-                if (transform.position.z <= minPoint + 50) elevation -= 4.5f;
+            //    //절벽
+            //    if (transform.position.x + vert.x <= minPoint +50 )
+            //    {
+            //        elevation -=4.5f;
+            //    }
+            //    if (transform.position.z <= minPoint + 50) elevation -= 4.5f;
 
-            }
+            //}
 
             //해안가쪽
-            if (transform.position.x + vert.x <= minPoint+30)
-            {
-                float weight = (transform.position.x + (float)vert.x);
-                elevation += weight / 75;
+            //if (transform.position.x + vert.x <= minPoint+30)
+            //{
+            //    float weight = (transform.position.x + (float)vert.x);
+            //    elevation += weight / 75;
 
-            }
-            if (transform.position.z + vert.y <= minPoint + 30)
-            {
-                float weight = (transform.position.z + (float)vert.y);
-                elevation += weight / 75;
+            //}
+            //if (transform.position.z + vert.y <= minPoint + 30)
+            //{
+            //    float weight = (transform.position.z + (float)vert.y);
+            //    elevation += weight / 75;
 
-            }
+            //}
 
             //벽쪽
             if (transform.position.x + vert.x >=maxPoint + 20)
@@ -678,7 +678,7 @@ public class myDel_Terrain : MonoBehaviour
             float dist = Mathf.Sqrt(Mathf.Pow((point.x - ((float)ver.x + transform.position.x)), 2)
                                     + Mathf.Pow((point.z - ((float)ver.y + transform.position.z)), 2));
 
-            if (dist <= 12)
+            if (dist <= 8)
             {
                 
                 return true;

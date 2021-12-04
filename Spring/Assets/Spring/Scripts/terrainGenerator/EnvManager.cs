@@ -129,13 +129,41 @@ public class EnvManager : MonoBehaviour
     public List<Vector3> BezierPoints = new List<Vector3>();
     public void BezierRiver()
     {
-
+        List<Vector3> forRandom = new List<Vector3>();
         //P1 = new Vector3(RiverRange[0], 0, RiverRange[2]);
         //P2 = new Vector3(RiverRange[0], 0, RiverRange[3]);
         //P3 = new Vector3(RiverRange[1], 0, RiverRange[2]);
         //P4 = new Vector3(RiverRange[1], 0, RiverRange[3]);
+        Vector3 n1 = new Vector3(envSetting.boundryCoord_min.x, 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
+        Vector3 n2 = new Vector3(envSetting.boundryCoord_max.x + 50, 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
+        Vector3 n3 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
+            (envSetting.boundryCoord_max.y + 50));
+        Vector3 n4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
+            (envSetting.boundryCoord_min.y));
 
-        for (float i = 0.0f; i < 1.0f; i += 0.05f)
+        forRandom.Add(n1);
+        forRandom.Add(n2); forRandom.Add(n3); forRandom.Add(n4);
+
+
+        int[] index = { 0, 1, 2, 3 };
+        for(int i = 0; i<10; i++)
+        {
+            int j1 = Random.Range(0, 4);
+            int j2 = Random.Range(0, 4);
+            int temp = index[j1];
+            index[j1] = index[j2];
+            index[j2] = temp;
+        }
+
+        P1 = forRandom[index[0]];
+        P2 = forRandom[index[1]];
+        P3 = forRandom[index[2]];
+        P4 = forRandom[index[3]];
+
+
+        for (float i = 0.0f; i < 1.0f; i += 0.01f)
         {
             Vector3 A = Vector3.Lerp(P1, P2, i);
             Vector3 B = Vector3.Lerp(P2, P3, i);
@@ -148,7 +176,6 @@ public class EnvManager : MonoBehaviour
             Vector3 F = Vector3.Lerp(D, E, i);
 
             BezierPoints.Add(F);
-
         }
 
     }

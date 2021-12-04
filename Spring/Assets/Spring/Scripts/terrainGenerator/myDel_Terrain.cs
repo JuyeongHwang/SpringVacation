@@ -79,18 +79,18 @@ public class myDel_Terrain : MonoBehaviour
     public float updownRange = 3.0f;
     private void Update()
     {
-        //if(Input.GetKey(KeyCode.A))
         //강
         if (Input.GetKey(KeyCode.A))
         {
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(ray, out hit))
+                List<Vector3> myArea = new List<Vector3>();
+
+                if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        //Debug.Log(hit.point);
                         foreach (Vertex ver in mesh.Vertices)
                         {
 
@@ -101,6 +101,34 @@ public class myDel_Terrain : MonoBehaviour
                             {
                                 elevations[ver.id] -= 0.5f;
 
+                                int x = 0;
+                                int z = 0;
+
+                                //음수라면
+                                if (x < 0)
+                                {
+                                    x = (((int)ver.x + (int)transform.position.x)) / 50 - 1;
+                                }
+                                else
+                                {
+                                    x = (((int)ver.x + (int)transform.position.x)) / 50;
+                                }
+                                if (z < 0)
+                                {
+                                    z = (((int)ver.y + (int)transform.position.z)) / 50 - 1;
+                                }
+                                else
+                                {
+                                    z = (((int)ver.y + (int)transform.position.z)) / 50;
+                                }
+
+                                Vector3 vec = new Vector3(x * 50, 0, z * 50);
+                                Debug.Log(vec);
+                                if (!myArea.Contains(vec))
+                                {
+                                    myArea.Add(vec);
+                                }
+
                                 if (manageSpawnObject.ContainsKey(ver))
                                 {
                                     GameObject g = manageSpawnObject[ver];
@@ -109,23 +137,30 @@ public class myDel_Terrain : MonoBehaviour
                                 }
 
                             }
-
-
-
                         }
-                        for (int j = 0; j < this.gameObject.transform.childCount; j++)
+
+
+                        foreach (Vector3 area in myArea)
                         {
-                            if (transform.GetChild(j) != null)
+                            if (area.Equals(this.transform.position))
                             {
-                                if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-                                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
+                                Debug.Log("Hello");
+                                for (int j = 0; j < this.gameObject.transform.childCount; j++)
+                                {
+                                    if (transform.GetChild(j) != null)
+                                    {
+                                        if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                                            Destroy(this.gameObject.transform.GetChild(j).gameObject);
 
 
+                                    }
+                                }
+
+                                MakeMesh();
+                                ScatterDetailMeshes();
                             }
                         }
-                        MakeMesh();
-                        ScatterDetailMeshes();
-                        
+
                     }
                 }
             }

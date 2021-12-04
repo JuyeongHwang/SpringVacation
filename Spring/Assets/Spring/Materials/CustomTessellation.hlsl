@@ -21,6 +21,9 @@ struct Varyings
     float3 normal : NORMAL;
     float4 vertex : SV_POSITION;
     float2 uv : TEXCOORD0;
+
+    // 추가
+    float3 worldPos : TEXCOORD1;
 };
  
  
@@ -38,6 +41,9 @@ struct ControlPoint
     float2 uv : TEXCOORD0;
     float4 color : COLOR;
     float3 normal : NORMAL;
+
+    // 추가
+    float3 worldPos : TEXCOORD1;
 };
  
 // the original vertex struct
@@ -47,7 +53,10 @@ struct Attributes
     float3 normal : NORMAL;
     float2 uv : TEXCOORD0;
     float4 color : COLOR;
- 
+    
+    // 추가
+    float3 worldPos : TEXCOORD1;
+
 };
  
 // tessellation variables, add these to your shader properties

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TriangleNet.Geometry;
 using TriangleNet.Topology;
+using TriangleNet.Smoothing;
 
 public class myDel_Terrain : MonoBehaviour
 {
@@ -59,6 +60,9 @@ public class myDel_Terrain : MonoBehaviour
     public bool hasMountain;
     public bool hasRiver = true;
     public bool hasCliff;
+
+     // 테스트
+    SimpleSmoother simpleSmoother = new SimpleSmoother ();
 
 
     public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
@@ -222,6 +226,7 @@ public class myDel_Terrain : MonoBehaviour
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
 
+        //simpleSmoother.Smooth (mesh);
 
         bin = new TriangleBin(mesh, xsize, ysize, minPointRadius * 2.0f);
 
@@ -438,6 +443,8 @@ public class myDel_Terrain : MonoBehaviour
 
         TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
         mesh = (TriangleNet.Mesh)polygon.Triangulate(options);
+
+        //simpleSmoother.Smooth (mesh);
 
 
         bin = new TriangleBin(mesh, (int)maxX, (int)maxX, minPointRadius * 2.0f);
@@ -778,12 +785,14 @@ public class myDel_Terrain : MonoBehaviour
 
         //Debug.Log(mesh.Triangles.Count + "  " + elevations.Count);
 
+        // for문과 for문 사이의 리스트를 빼왔습니다
+        List<Vector3> vertices = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<Vector2> uvs = new List<Vector2>();
+        List<int> triangles = new List<int>();
+
         for (int chunkStart = 0; chunkStart < mesh.Triangles.Count; chunkStart += trianglesInChunk)
         {
-            List<Vector3> vertices = new List<Vector3>();
-            List<Vector3> normals = new List<Vector3>();
-            List<Vector2> uvs = new List<Vector2>();
-            List<int> triangles = new List<int>();
 
             int chunkEnd = chunkStart + trianglesInChunk;
             for (int i = chunkStart; i < chunkEnd; i++)
@@ -817,19 +826,91 @@ public class myDel_Terrain : MonoBehaviour
                 uvs.Add(new Vector2(0.0f, 0.0f));
                 uvs.Add(new Vector2(0.0f, 0.0f));
                 uvs.Add(new Vector2(0.0f, 0.0f));
+
+                // 여태 생성된 트라이앵글 인덱스를 순회화며 중복 찾기
+                for (int j = 0; j < triangles.Count - 3; j++)
+                {
+                    if (vertices [triangles.Count-3] == vertices [j])
+                    {
+                        triangles [triangles.Count-3] = triangles [j];
+                        normals [j] = (normals [j] + normals [triangles.Count-3]) / 2;
+                    }
+
+                    if (vertices [triangles.Count-2] == vertices [j])
+                    {
+                        triangles [triangles.Count-2] = triangles [j];
+                        normals [j] = (normals [j] + normals [triangles.Count-2]) / 2;
+                    }
+
+                    if (vertices [triangles.Count-1] == vertices [j])
+                    {
+                        triangles [triangles.Count-1] = triangles [j];
+                        normals [j] = (normals [j] + normals [triangles.Count-1]) / 2;
+                    }
+                }
             }
 
-            Mesh chunkMesh = new Mesh();
-            chunkMesh.vertices = vertices.ToArray();
-            chunkMesh.uv = uvs.ToArray();
-            chunkMesh.triangles = triangles.ToArray();
-            chunkMesh.normals = normals.ToArray();
-
-            Transform chunk = Instantiate<Transform>(chunkPrefab, transform.position, transform.rotation);
-            chunk.GetComponent<MeshFilter>().mesh = chunkMesh;
-            chunk.GetComponent<MeshCollider>().sharedMesh = chunkMesh;
-            chunk.transform.parent = transform;
+            
         }
+        
+        // 1차 -> 겹치는 버텍스의 인덱스 찾기
+        /*List<List <int>> overlapTri = new List<List<int>> ();
+        for (int i = 0; i < triangles.Count; i++)
+        {
+            int j = 0;
+            for (; j < i; j++)
+            {
+                if (vertices [i] == vertices [j])
+                {
+                    break;
+                }
+            }
+
+            // 검사한 적이 없는 첫 인덱스
+            if (j == i)
+            {
+                // 새로 만들어 삽입
+                List <int> _l = new List<int> ();
+                _l.Add (i);
+
+                overlapTri.Add (_l);
+            }
+            // 검사한 적이 있는 인덱스
+            else
+            {
+                // 리스트에 있는 리스트에서 삽입할 리스트 찾기
+                foreach (List<int> ll in overlapTri)
+                {
+                    if (ll.Contains (j))
+                    {
+                        ll.Add (i);
+                    }
+                }
+            }
+        }
+
+        // 2차 순회하며 겹치는 버텍스들은 걸러내기
+        for (int i = 0; i < triangles.Count; i++)
+        {
+            foreach (List<int> ll in overlapTri)
+            {
+                if (ll.Contains (i))
+                {
+                    triangles [i] = triangles [ll [0]];
+                }
+            }
+        }*/
+
+        Mesh chunkMesh = new Mesh();
+        chunkMesh.vertices = vertices.ToArray();
+        chunkMesh.uv = uvs.ToArray();
+        chunkMesh.triangles = triangles.ToArray();
+        chunkMesh.normals = normals.ToArray();
+
+        Transform chunk = Instantiate<Transform>(chunkPrefab, transform.position, transform.rotation);
+        chunk.GetComponent<MeshFilter>().mesh = chunkMesh;
+        chunk.GetComponent<MeshCollider>().sharedMesh = chunkMesh;
+        chunk.transform.parent = transform;
 
     }
 

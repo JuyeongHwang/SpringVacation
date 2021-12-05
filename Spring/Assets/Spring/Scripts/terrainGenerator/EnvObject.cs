@@ -21,7 +21,8 @@ public class EnvObject : MonoBehaviour
     [Header ("랜덤 인스턴스 배치를 위한 설정 (randNum = 0인 경우 랜덤 배치 수행하지 않음)")]
     public int randInstNum = 0;
     public float randRange = 0f;    // 범위
-    
+
+    public float checkY = 0f;
     
 
     protected void Start ()
@@ -29,12 +30,19 @@ public class EnvObject : MonoBehaviour
         // 기울기 판단 후 적절한 위치인지 판단
         RaycastHit hit;
         float offset = 1f;
-        float offsetY = 3f;
-        float dist = 4f;
-        //int EnvManager.Inst.GetLayermask_Ground () = 1 << LayerMask.NameToLayer (groundName);
+        float offsetY = 2f;
+        float dist = 5f;
         float placeDotCutoff = 0.75f;
+        int maxHitCount = 10;
 
         bool place = true;
+
+        // 바로 아래 물이라면
+        if (place == true
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Water ()))
+        {
+            place = false;
+        }
 
         // f
         if (place == true
@@ -133,12 +141,15 @@ public class EnvObject : MonoBehaviour
 
                     g.transform.localScale = Vector3.one * Random.Range (scaleMin, scaleMax);
 
-                    // 레이를 쏴서 위치 및 방향 재조절
+                    // 레이를 쏴서 위치 및 방향 재조절 + 나무인 경우 스킵
                     if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
                     {
                         g.transform.position = hit.point;
 
-                        g.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+                        if (envObjectType != EnvObjectType.TREE)
+                        {
+                            g.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+                        }
                     }
                 }
             }
@@ -152,11 +163,8 @@ public class EnvObject : MonoBehaviour
 
                 for (int i = 0; i < randInstNum && envOjects.Length > 0; i++)
                 {
-                    Vector3 offsetPos = Vector3.forward * Random.Range (-randRange, randRange);
-                    offsetPos += Vector3.right * Random.Range (-randRange, randRange);
-
                     GameObject g = Instantiate (envOjects [Random.Range (0, envOjects.Length)], gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                    g.transform.localPosition = offsetPos;
+                    
                     g.SetActive (true);
 
                     if (randomRot)
@@ -168,12 +176,37 @@ public class EnvObject : MonoBehaviour
                     , g.transform.localScale.y * Random.Range (scaleMin, scaleMax)
                     , g.transform.localScale.z * Random.Range (scaleMin, scaleMax));
 
-                    // 레이를 쏴서 위치 및 방향 재조절
-                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+                    int hitCount = 0;
+                    do
+                    {
+                        // 배치 후
+                        Vector3 offsetPos = Vector3.forward * Random.Range (-randRange, randRange);
+                        offsetPos += Vector3.right * Random.Range (-randRange, randRange);
+
+                        g.transform.localPosition = offsetPos;
+
+                        // 레이 검사
+                        Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ());
+
+                        hitCount += 1;
+
+                    } while (hitCount < maxHitCount
+                    && Mathf.Abs (Vector3.Dot (Vector3.up, hit.normal)) < placeDotCutoff);
+
+                    // 배치를 못하면
+                    if (hitCount == maxHitCount)
+                    {
+                        Destroy (g.gameObject);
+                    }
+                    // 배치를 잘하면 적절히 방향 조절 + 나무인 경우 스킵
+                    else
                     {
                         g.transform.position = hit.point;
-
-                        g.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+                        
+                        if (envObjectType != EnvObjectType.TREE)
+                        {
+                            g.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+                        }
                     }
                 }
             }

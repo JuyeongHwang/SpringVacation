@@ -54,6 +54,7 @@ MonoBehaviour:
   scaleMax: 1.25
   randInstNum: 0
   randRange: 0
+  checkY: 0
 --- !u!65 &2987440111459084461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -108,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a8795446c073b5045a24a590c004996e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a8795446c073b5045a24a590c004996e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -194,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3db6b60ec2edaed4d87a20221f431ee4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3db6b60ec2edaed4d87a20221f431ee4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -280,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2d7fbc8e8e8b5e54a9acfe399d1cef71, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2d7fbc8e8e8b5e54a9acfe399d1cef71, type: 3}
       propertyPath: m_LocalPosition.z

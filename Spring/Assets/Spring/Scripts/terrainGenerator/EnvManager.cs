@@ -34,6 +34,7 @@ public class EnvManager : MonoBehaviour
     public GameObject[] bugPrefabs;
     public GameObject cliffPrefab;
     public GameObject townPrefab;
+    public GameObject bridgePrefab;
 
     [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
@@ -201,6 +202,22 @@ public class EnvManager : MonoBehaviour
 
             BezierPoints2.Add(F);
         }
+
+        int bridgeIndex = Random.Range(50, BezierPoints.Count-50);
+        Vector3 bridgePos = BezierPoints[bridgeIndex];
+        Vector3 bridgePos2 = BezierPoints[bridgeIndex+1];
+
+        Vector3 bridge = bridgePos2 - bridgePos;
+        Vector3 angle_bridge = new Vector3(bridge.y, -bridge.x, bridge.z); 
+
+        GameObject bridgeObj;
+        float rotY = Random.Range(0, 360f);
+        rotY /= 90;
+
+        bridgeObj = Instantiate(bridgePrefab, new Vector3(bridgePos.x, bridgePos.y, bridgePos.z), Quaternion.identity, envObjectHolder.transform);
+
+        Debug.Log(bridgePos);
+
 
     }
     // 환경 매니져에서 인스턴스 수행

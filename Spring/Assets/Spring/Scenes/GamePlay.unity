@@ -5596,6 +5596,7 @@ MonoBehaviour:
   checkDelay: 0.25
   chunkHolder: {fileID: 129048618}
   envObjectHolder: {fileID: 1229643966}
+  artObjectHolder: {fileID: 1719037378}
   bugHolder: {fileID: 2039693594}
   customTerrainPrefab: {fileID: 6002182535403649078, guid: 6051785c901f7a049996260ec17ce38f, type: 3}
   treeSeed: 53
@@ -5625,17 +5626,15 @@ MonoBehaviour:
   cliffPrefab: {fileID: 6341100950319876540, guid: d80d0e65352d60441a034ae1dab5cc41, type: 3}
   townPrefab: {fileID: 212097642375045907, guid: 85ec2694940190e438bdbea2fcd4eec7, type: 3}
   bridgePrefab: {fileID: 7052793637280484675, guid: d23082b54fc97554c869da3b87776427, type: 3}
+  bridgeNum: 5
+  bridgeNum1: 3
+  bridgeRelaxNum: 30
   currentCustomTerrain: {fileID: 0}
   customTerrains: []
   envObjects: []
   nearTerrainDepth: 4
   terrainNoiseScale: 1
   terrainNoisePow: 1
-  riverNoiseTexture2D: {fileID: 0}
-  riverNoiseSize: 1024
-  riverRegionAmount: 50
-  riverNoiseScale: 1
-  riverNoisePow: 1
   kidController: {fileID: 1170337323}
   waterPlane: {fileID: 7817576511583530391, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
   totalGenTerrain: 0
@@ -5659,6 +5658,7 @@ Transform:
   m_Children:
   - {fileID: 129048619}
   - {fileID: 1229643967}
+  - {fileID: 1719037379}
   - {fileID: 2039693595}
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -6450,6 +6450,36 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!1 &1719037378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1719037379}
+  m_Layer: 0
+  m_Name: ArtObjectHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1719037379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719037378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 352560302}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1735801107
 GameObject:
   m_ObjectHideFlags: 0
@@ -6814,7 +6844,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 352560302}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2084620424
 GameObject:

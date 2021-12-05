@@ -18,7 +18,8 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 홀더 설정")]       // 생성된 프리팹의 인스턴스를 모아주는 역할
     public GameObject chunkHolder;
-    public GameObject envObjectHolder;
+    public GameObject envObjectHolder;  // 자연물
+    public GameObject artObjectHolder;  // 인공물
     public GameObject bugHolder;
     
 
@@ -35,6 +36,10 @@ public class EnvManager : MonoBehaviour
     public GameObject cliffPrefab;
     public GameObject townPrefab;
     public GameObject bridgePrefab;
+    public int bridgeNum;   // 큰 강줄기
+    public int bridgeNum1;  // 작은 강줄기
+    public int bridgeRelaxNum;
+    private List <GameObject> bridges;
 
     [Header("터레인 현재 정보")]
     public myDel_Terrain currentCustomTerrain;
@@ -46,6 +51,7 @@ public class EnvManager : MonoBehaviour
     public float terrainNoiseScale = 1f;
     public float terrainNoisePow = 1f;
 
+    /*
     [Header("터레인 노이즈 설정: 강물")]
     [Tooltip("매 실행시 바뀌는 Texture")]
     public Texture2D riverNoiseTexture2D;
@@ -53,6 +59,8 @@ public class EnvManager : MonoBehaviour
     public int riverRegionAmount = 50;
     public float riverNoiseScale = 1f;
     public float riverNoisePow = 1f;
+    */
+    // 베지어 곡선을 사용하므로 보로노이를 이용한 생성은 주석처리하였습니다
 
     [Header ("터레인 기타 설정")]
     public KidController kidController;
@@ -93,7 +101,7 @@ public class EnvManager : MonoBehaviour
         // 리스트 초기화
         customTerrains = new List<myDel_Terrain>();
         // 보로노이
-        riverNoiseTexture2D = GetDiagramByDistance();
+        //riverNoiseTexture2D = GetDiagramByDistance();
         
         DontDestroyOnLoad(gameObject);
 
@@ -106,10 +114,11 @@ public class EnvManager : MonoBehaviour
     void Start()
     {
         BezierRiver();
+        InstantiateBridgeByBezierRiver (bridgeNum, bridgeNum1, bridgeRelaxNum);
+
         totalGenTerrain = (int)envSetting.GetMaxBoundarySize().x + (int)terrainUnitSize - (int)envSetting.GetMinBoundarySize().x;
         totalGenTerrain /= terrainUnitSize;
         totalGenTerrain *= totalGenTerrain;
-
 
         // 지형생성
         currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
@@ -181,7 +190,7 @@ public class EnvManager : MonoBehaviour
 
 
         P1 = new Vector3(envSetting.boundryCoord_min.x, 0,
-    Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
         P3 = new Vector3(envSetting.boundryCoord_max.x + 50, 0,
             Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
         P4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
@@ -202,24 +211,145 @@ public class EnvManager : MonoBehaviour
 
             BezierPoints2.Add(F);
         }
-
-        int bridgeIndex = Random.Range(50, BezierPoints.Count-50);
-        Vector3 bridgePos = BezierPoints[bridgeIndex];
-        Vector3 bridgePos2 = BezierPoints[bridgeIndex+1];
-
-        Vector3 bridge = bridgePos2 - bridgePos;
-        Vector3 angle_bridge = new Vector3(bridge.y, -bridge.x, bridge.z); 
-
-        GameObject bridgeObj;
-        float rotY = Random.Range(0, 360f);
-        rotY /= 90;
-
-        bridgeObj = Instantiate(bridgePrefab, new Vector3(bridgePos.x, bridgePos.y, bridgePos.z), Quaternion.identity, envObjectHolder.transform);
-
-        Debug.Log(bridgePos);
-
-
     }
+
+    // 다리 만들기
+    void InstantiateBridgeByBezierRiver (int num0, int num1, int relax)
+    {
+        // 생성
+        int bridgeIndexPer = (BezierPoints.Count) / num0;
+        bridges = new List<GameObject> ();
+
+        for (int i = 0; i < num0; i ++)
+        {
+            //int bridgeIndex = Random.Range(50, BezierPoints.Count-50);
+            //Vector3 bridgePos = BezierPoints[bridgeIndex];
+            //Vector3 bridgePos2 = BezierPoints[bridgeIndex+1];
+
+            int bridgeIndex = Random.Range (bridgeIndexPer * i, bridgeIndexPer * (i+1));
+            bridgeIndex = Mathf.Min (bridgeIndex, (BezierPoints.Count));
+
+            Vector3 bridgePos = Vector3.zero;
+            Vector3 bridgePos2 = Vector3.zero;
+
+            // 마지막 인덱스라면 다음 인덱스를 이용한 강의 방향을 구할 수 없다
+            if (bridgeIndex == BezierPoints.Count-1)
+            {
+                bridgeIndex -= 1;
+            }
+
+            bridgePos = BezierPoints [bridgeIndex];
+            bridgePos2 = BezierPoints [bridgeIndex + 1];
+
+            //Vector3 bridge = bridgePos2 - bridgePos;
+            //Vector3 angle_bridge = new Vector3(bridge.y, -bridge.x, bridge.z); ]
+
+            // 오른쪽 방향
+            Vector3 bridgeRight = bridgePos2 - bridgePos;
+            bridgeRight = bridgeRight.normalized;
+
+            // 앞 방향
+            Vector3 bridgeDir = Vector3.Cross (Vector3.up, bridgeRight);
+
+            GameObject bridgeObj;
+            //float rotY = Random.Range(0, 360f);
+            //rotY /= 90;
+
+            bridgeObj = Instantiate(bridgePrefab, new Vector3(bridgePos.x, bridgePos.y, bridgePos.z), Quaternion.identity, artObjectHolder.transform);
+            bridgeObj.transform.forward = bridgeDir;
+
+            bridges.Add (bridgeObj);
+
+            //Debug.Log(bridgePos);
+        }   
+
+        bridgeIndexPer = (BezierPoints2.Count) / num1;
+        
+        for (int i = 0; i < num1; i ++)
+        {
+            //int bridgeIndex = Random.Range(50, BezierPoints.Count-50);
+            //Vector3 bridgePos = BezierPoints[bridgeIndex];
+            //Vector3 bridgePos2 = BezierPoints[bridgeIndex+1];
+
+            int bridgeIndex = Random.Range (bridgeIndexPer * i, bridgeIndexPer * (i+1));
+            bridgeIndex = Mathf.Min (bridgeIndex, (BezierPoints2.Count));
+
+            Vector3 bridgePos = Vector3.zero;
+            Vector3 bridgePos2 = Vector3.zero;
+
+            // 마지막 인덱스라면 다음 인덱스를 이용한 강의 방향을 구할 수 없다
+            if (bridgeIndex == BezierPoints2.Count-1)
+            {
+                bridgeIndex -= 1;
+            }
+
+            bridgePos = BezierPoints2 [bridgeIndex];
+            bridgePos2 = BezierPoints2 [bridgeIndex + 1];
+
+            //Vector3 bridge = bridgePos2 - bridgePos;
+            //Vector3 angle_bridge = new Vector3(bridge.y, -bridge.x, bridge.z); ]
+
+            // 오른쪽 방향
+            Vector3 bridgeRight = bridgePos2 - bridgePos;
+            bridgeRight = bridgeRight.normalized;
+
+            // 앞 방향
+            Vector3 bridgeDir = Vector3.Cross (Vector3.up, bridgeRight);
+
+            GameObject bridgeObj;
+            //float rotY = Random.Range(0, 360f);
+            //rotY /= 90;
+
+            bridgeObj = Instantiate(bridgePrefab, new Vector3(bridgePos.x, bridgePos.y, bridgePos.z), Quaternion.identity, artObjectHolder.transform);
+            bridgeObj.transform.forward = bridgeDir;
+
+            bridges.Add (bridgeObj);
+
+            //Debug.Log(bridgePos);
+        }   
+
+        float closeDist = 10f;
+        float moveDist = 1f;
+
+        bool exefor = false;
+
+        // 릴렉스
+        for (int i = 0; i < relax && exefor == false; i++)
+        {
+            exefor = false;
+
+            for (int i0 = 0; i0 < bridges.Count; i0++)
+            {
+                Vector3 bpos0 = bridges [i0].transform.position;
+                Vector3 bright0 = bridges [i0].transform.right;
+                for (int i1 = 0; i1 < bridges.Count; i1++)
+                {
+                    if (i0 == i1)
+                        continue;
+
+                    Vector3 bpos1 = bridges [i1].transform.position;
+                    Vector3 bright1 = bridges [i1].transform.right;
+
+                    if (Vector3.Distance (bpos0, bpos1) <= closeDist)
+                    {
+                        Vector3 midpos = (bpos0 + bpos1) / 2;
+
+                        Vector3 b0midDir = (bpos0 - midpos).normalized;
+                        float b0sign = Mathf.Sign (Vector3.Dot (b0midDir, bright0));
+
+                        Vector3 b1midDir = (bpos1 - midpos).normalized;
+                        float b1sign = Mathf.Sign (Vector3.Dot (b1midDir, bright1));
+
+                        bridges [i0].transform.position += bright0 * b0sign * moveDist;
+                        bridges [i1].transform.position += bright1 * b1sign * moveDist;
+
+                        exefor = true;
+                    }
+                }
+            }
+        }
+    }
+
     // 환경 매니져에서 인스턴스 수행
     // 그리고 해당 컴포넌트를 반환
     public myDel_Terrain InstantiateCustomTerrain(Vector3 pivotTerrainPos, NearTerrainDir2 terrainDir)
@@ -520,15 +650,15 @@ public class EnvManager : MonoBehaviour
     // ========================================== 노이즈 관련 ==================================================
 
     // -0.5 ~ 0.5
-    public float GetTerrainNoise(Vector2 uv)
+    /*public float GetTerrainNoise(Vector2 uv)
     {
         float ret = Mathf.PerlinNoise(uv.x * terrainNoiseScale, uv.y * terrainNoiseScale) - 0.5f;
         ret = Mathf.Pow(ret, terrainNoisePow);
         return ret;
-    }
+    }*/
 
     // 0 or 1
-    public float GetRiverNoise(Vector2 uv)
+    /*public float GetRiverNoise(Vector2 uv)
     {
         Vector2 trueUV = new Vector2(riverNoiseSize * 0.5f + (uv.x) * riverNoiseScale, riverNoiseSize * 0.5f + (uv.y) * riverNoiseScale);
         //trueUV.x = (trueUV.x + riverNoiseSize) % riverNoiseSize;
@@ -541,11 +671,11 @@ public class EnvManager : MonoBehaviour
         if (ret > 0.5f)
             return 0;
         return 1;
-    }
+    }*/
 
     // ========================================== 보로노이 ========================================================
 
-    Texture2D GetDiagramByDistance()
+    /*Texture2D GetDiagramByDistance()
     {
         Vector2Int[] centroids = new Vector2Int[riverRegionAmount];
 
@@ -590,7 +720,7 @@ public class EnvManager : MonoBehaviour
 			}
 		}
 		return maxDst;
-	}*/
+	}
     int GetClosestCentroidIndex(Vector2Int pixelPos, Vector2Int[] centroids)
     {
         float smallestDst = float.MaxValue;
@@ -612,7 +742,7 @@ public class EnvManager : MonoBehaviour
         tex.SetPixels(pixelColors);
         tex.Apply();
         return tex;
-    }
+    }*/
 
     // ======================================= EnvObject 추가 ==================================
 

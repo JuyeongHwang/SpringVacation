@@ -136,6 +136,7 @@ public class EnvObject : MonoBehaviour
         }
         else
         {
+            // Env 매니저에게 등록
             if (EnvManager.Inst != null)
             {
                 EnvManager.Inst.AddEnvObject (this);
@@ -223,6 +224,14 @@ public class EnvObject : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    void OnDestroy ()
+    {
+        if (EnvManager.Inst != null)
+        {
+            EnvManager.Inst.DeleteEnvObject (this);
         }
     }
 

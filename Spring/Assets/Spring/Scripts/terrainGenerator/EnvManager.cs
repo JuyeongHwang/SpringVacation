@@ -82,6 +82,8 @@ public class EnvManager : MonoBehaviour
     protected int layermask_ground;
     protected int layermask_water;
 
+
+
     void Awake()
     {
         // 싱글톤
@@ -461,27 +463,78 @@ public class EnvManager : MonoBehaviour
                     ret.GenerateForNear();
                 }
 
+                // 좌표
+                float minX = ret.gameObject.transform.position.x ;
+                float maxX = ret.gameObject.transform.position.x + GetTerrainUnitSize_Original ();
+                float minZ = ret.gameObject.transform.position.z ;
+                float maxZ = ret.gameObject.transform.position.z + GetTerrainUnitSize_Original ();
+
                 bool envRiver = false;
                 foreach (Vector3 point in BezierPoints)
                 {
-                    float x = 0;
-                    float z = 0;
+                    //float x = 0;
+                    //float z = 0;
 
-                    x = (float)point.x / 50;
-                    z = (float)point.z / 50;
+                    //x = (float)point.x / 50;
+                    ///z = (float)point.z / 50;
 
                     //Debug.Log(Mathf.FloorToInt(x) + "     " + Mathf.FloorToInt(z));
 
-                    Vector3 pos = new Vector3(Mathf.FloorToInt(x) * 50, 0, Mathf.FloorToInt(z) * 50);
+                    //Vector3 pos = new Vector3(Mathf.FloorToInt(x) * 50, 0, Mathf.FloorToInt(z) * 50);
                     //Debug.Log(pos);
-                    if (ret.transform.position.Equals(pos))
+
+                    if (minX <= point.x && point.x < maxX
+                    && minZ <= point.z && point.z < maxZ)
                     {
+                        // print (point);
                         envRiver = true;
+
+                        //Instantiate (cliffPrefab, point, Quaternion.identity, ret.gameObject.transform);
+                        break;
+                    }
+                }
+
+                foreach (Vector3 point in BezierPoints2)
+                {
+                    if (envRiver == true)
+                        break;
+                    //float x = 0;
+                    //float z = 0;
+
+                    //x = (float)point.x / 50;
+                    //z = (float)point.z / 50;
+
+                    //Debug.Log(Mathf.FloorToInt(x) + "     " + Mathf.FloorToInt(z));
+
+                    //Vector3 pos = new Vector3(Mathf.FloorToInt(x) * 50, 0, Mathf.FloorToInt(z) * 50);
+                    //Debug.Log(pos);
+                    //if (ret.transform.position.Equals(pos))
+                    //{
+                        //envRiver = true;
+                    //   ret.hasRiver = true;
+                    //}
+
+                    if (minX <= point.x && point.x < maxX
+                    && minZ <= point.z && point.z < maxZ)
+                    {
+                        //print (point);
+                        envRiver = true;
+                        //Instantiate (cliffPrefab, point, Quaternion.identity, ret.gameObject.transform);
+                        break;
                     }
                 }
                 //Debug.Log(envRiver);
+
+                bool beach = false;
+
+                // 해변가 판단
+                if (gameObject.transform.position.x < envSetting.boundryCoord_min.x
+                || gameObject.transform.position.z < envSetting.boundryCoord_min.y)
+                {
+                    beach = true;
+                }
                 
-                if (townNum > 0 && !ret.hasMountain && !envRiver)
+                if (townNum > 0 && !ret.hasMountain && !envRiver && !beach)
                 {
                     townNum--;
 
@@ -489,7 +542,10 @@ public class EnvManager : MonoBehaviour
                     float rotY = Random.Range(0, 360f);
                     rotY /= 90;
 
-                    gtown = Instantiate(townPrefab, instTerrainPos, Quaternion.Euler(Vector3.up *(rotY)), bugHolder.transform);
+                    Vector3 townPos = instTerrainPos;
+                    townPos += new Vector3 (GetTerrainUnitSize_Original () * 0.5f, 0, GetTerrainUnitSize_Original () * 0.5f);
+
+                    gtown = Instantiate(townPrefab, townPos, Quaternion.Euler(Vector3.up *(rotY)), artObjectHolder.transform);
 
                     //ret.canEdit = false;
                 }
@@ -754,6 +810,17 @@ public class EnvManager : MonoBehaviour
         envObjects.Add (envO);
     }
 
+    public void DeleteEnvObject (EnvObject env0)
+    {
+        if (env0 == null)
+            return;
+
+        if (envObjects.Contains (env0))
+        {
+            envObjects.Remove (env0);
+        }
+    }
+
     public EnvObject GetEnvObjectByCase (EnvObjectType fav, EnvObject originEnvObject, Vector3 originPos)
     {
         float distMax = 10;
@@ -809,6 +876,21 @@ public class EnvManager : MonoBehaviour
         // 없으면 가장 가까운것
         
         return ee;
+    }
+
+    public List <EnvObject> GetEnvObjectsByPointAndRange (Vector3 point, float range)
+    {
+        List <EnvObject> ret = new List<EnvObject> ();
+
+        foreach (EnvObject eo in envObjects)
+        {
+            if (Vector3.Distance (point, eo.gameObject.transform.position) < range)
+            {
+                ret.Add (eo);
+            }
+        }
+
+        return ret;
     }
 
     // ====================================== 프리팹 관련 =========================================

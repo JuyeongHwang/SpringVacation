@@ -61,7 +61,8 @@ public class CreateTerrainBG : MonoBehaviour
         }
         else if (fory)
         {
-            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50, 0, EnvManager.Inst.envSetting.boundryCoord_min.y);
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50+totalsize, 0, EnvManager.Inst.envSetting.boundryCoord_min.y);
+            this.transform.Rotate(new Vector3(0, -90, 0));
         }
         else if(!forz && !fory)
         {
@@ -134,10 +135,12 @@ public class CreateTerrainBG : MonoBehaviour
 
             elevation = elevation / maxVal * elevationScale;
 
-            elevation += MakeMountainElevation(totalsize+150, totalsize+75, 50,vert);
+            //elevation += MakeMountainElevation(totalsize+150, totalsize+75, 70,vert);
+            elevation += MakeMountainElevation(totalsize +100, totalsize + 100, 45, vert);
             elevation += MakeMountainElevation(totalsize+50, totalsize+30, 20, vert);
             elevation += MakeMountainElevation(totalsize+220, totalsize+100, 55, vert);
-            //elevation += MakeMountainElevation(totalsize+15, totalsize+120, 45, vert);
+            //elevation += MakeMountainElevation(totalsize+55, totalsize+120, 45, vert);
+            elevation += MakeMountainElevation(totalsize + 120, totalsize + 200, 55, vert);
 
 
             elevations.Add(elevation);

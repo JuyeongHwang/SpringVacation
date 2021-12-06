@@ -731,6 +731,8 @@ public class myDel_Terrain : MonoBehaviour
                 // 나무 생성
                 if (i % EnvManager.Inst.GetTreeSeed() == 0)
                 {
+                    //print ("해변가 나무");
+
                     g = EnvManager.Inst.Instantiate_EnvObject_Tree(new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z), false);
 
                     if (!manageSpawnObject.ContainsKey(ver))

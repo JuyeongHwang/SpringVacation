@@ -38,10 +38,23 @@ public class EnvObject : MonoBehaviour
         bool place = true;
 
         // 바로 아래 물이라면
-        if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Water ()))
+        if (place == true)
         {
-            place = false;
+            float wy = -1f;
+            float gy = 0f;
+            if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Water ()))
+            {
+                wy = hit.point.y;
+            }
+            if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+            {
+                gy = hit.point.y;
+            }
+
+            if (gy < wy)
+            {
+                place = false;
+            }
         }
 
         // f

@@ -65,13 +65,16 @@ public class KidController : MonoBehaviour
     private float speed;
 
     float time = 0.0f;
+    AudioSource audio;
+    public AudioClip runGrassSound;
     void Awake ()
     {
         //if (kidBody != null)
         //{
-            //kidAnimator = kidBody.GetComponent <Animator> ();
+        //kidAnimator = kidBody.GetComponent <Animator> ();
         //}
-
+        audio = this.gameObject.GetComponent<AudioSource>();
+        
         kidCharacterController = GetComponent <CharacterController> ();
         agent = GetComponent<NavMeshAgent>();
 
@@ -120,15 +123,18 @@ public class KidController : MonoBehaviour
             switch (currentKidState)
             {
                 case KidState.IDLE:
-                SetAnimatorTrigger ("Run");
+                    SetAnimatorTrigger ("Run");
+                    this.audio.loop = true;
+                    this.audio.Play();
 
                 if (icatching != null)
                     StopCoroutine (icatching);
                 break;
 
                 case KidState.CATCHING:
-                // 코루틴으로 애니메이션설정
-                if (icatching != null)
+                    this.audio.loop = false;
+                    // 코루틴으로 애니메이션설정
+                    if (icatching != null)
                     StopCoroutine (icatching);
 
                 icatching = ISetAnimatorTrigger_Catching ();

@@ -28,13 +28,13 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 프리팹 설정")]     // 나무, 버그 등 프리팹은 EnvManger에서 관리
     public GameObject customTerrainPrefab;
-    public int treeSeed = 60;
+    public int treeSeed = 30;
     public GameObject[] treePrefabs;
-    public int flowerSeed = 1000;
+    public int flowerSeed = 500;
     public GameObject[] flowerPrefabs;
-    public int rockSeed = 51;
+    public int rockSeed = 27;
     public GameObject[] rockPrefabs;
-    public int bugSeed = 43;
+    public int bugSeed = 10;
     public GameObject[] bugPrefabs;
     public GameObject cliffPrefab;
     public GameObject townPrefab;
@@ -48,7 +48,7 @@ public class EnvManager : MonoBehaviour
     public myDel_Terrain currentCustomTerrain;
     public List<myDel_Terrain> customTerrains;
     public List <EnvObject> envObjects;
-    public int nearTerrainDepth = 2;    // 재귀함수로 지형 생성을 위한 수치
+    public int nearTerrainDepth = 8;    // 재귀함수로 지형 생성을 위한 수치
 
     [Header("터레인 노이즈 설정: 지형")]
     public float terrainNoiseScale = 1f;

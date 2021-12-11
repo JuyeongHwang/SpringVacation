@@ -84,11 +84,7 @@ public class myDel_Terrain : MonoBehaviour
     public bool canEdit = true;
     private void Update()
     {
-        //if (canEdit)
-        //{
-
-        //}
-        //강
+           
         if (Input.GetKey(KeyCode.A))
         {
             if (Input.GetMouseButtonDown(0))
@@ -126,11 +122,30 @@ public class myDel_Terrain : MonoBehaviour
 
     }
 
+    bool checkInside(Vertex v)
+    {
+
+        if (v.x >= 0 && v.x <= xsize)
+        {
+            if (v.y >= 0 && v.y <= ysize)
+            {
+
+                return true;
+
+            }
+        }
+
+        return false;
+    }
+
+
+    float movingrange = 0.4f;
 
     void UpDownTerrain(bool up)
     {
         List<Vector3> myArea = new List<Vector3>();
 
+        bool inside = false;
         foreach (Vertex ver in mesh.Vertices)
         {
 
@@ -141,78 +156,101 @@ public class myDel_Terrain : MonoBehaviour
             {
                 if (up)
                 {
-                    elevations[ver.id] += 0.8f;
+                    elevations[ver.id] += movingrange;
                 }
                 else
                 {
-                    elevations[ver.id] -= 0.8f;
+                    elevations[ver.id] -= movingrange;
                 }
-                int x = 0;
-                int z = 0;
+                //int x = 0;
+                //int z = 0;
 
-                //음수라면
-                if ((float)ver.x + transform.position.x < 0)
-                {
-                    x = (((int)ver.x + (int)transform.position.x)) / 50 - 1;
-                }
-                else
-                {
-                    x = (((int)ver.x + (int)transform.position.x)) / 50;
-                }
+                ////음수라면
+                //if ((float)ver.x + transform.position.x < 0)
+                //{
+                //    x = (((int)ver.x + (int)transform.position.x)) / 50 - 1;
+                //}
+                //else
+                //{
+                //    x = (((int)ver.x + (int)transform.position.x)) / 50;
+                //}
 
-                if ((float)ver.y + transform.position.z < 0)
-                {
-                    z = (((int)ver.y + (int)transform.position.z)) / 50 - 1;
-                }
-                else
-                {
-                    z = (((int)ver.y + (int)transform.position.z)) / 50;
-                }
+                //if ((float)ver.y + transform.position.z < 0)
+                //{
+                //    z = (((int)ver.y + (int)transform.position.z)) / 50 - 1;
+                //}
+                //else
+                //{
+                //    z = (((int)ver.y + (int)transform.position.z)) / 50;
+                //}
 
-                Vector3 vec = new Vector3(x * 50, 0, z * 50);
-                if (!myArea.Contains(vec))
+                //Vector3 vec = new Vector3(x * 50, 0, z * 50);
+                //if (!myArea.Contains(vec))
+                //{
+                //    myArea.Add(vec);
+                //}
+                if (checkInside(ver))
                 {
-                    myArea.Add(vec);
+                    inside = true;
                 }
-
                 if (manageSpawnObject.ContainsKey(ver))
                 {
                     GameObject g = manageSpawnObject[ver];
-                    if (up)
+                    if(g != null)
                     {
-                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + 0.8f, g.transform.position.z);
-                    }
-                    else
-                    {
+                        if (up)
+                        {
+                            g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y + movingrange, g.transform.position.z);
+                        }
+                        else
+                        {
 
-                        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y - 0.8f, g.transform.position.z);
+                            g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y - movingrange, g.transform.position.z);
+                        }
                     }
-
+                    
                 }
 
             }
         }
 
-        foreach (Vector3 area in myArea)
+        if (inside)
         {
-            if (area.Equals(this.transform.position))
+            for (int j = 0; j < this.gameObject.transform.childCount; j++)
             {
-                for (int j = 0; j < this.gameObject.transform.childCount; j++)
+                if (transform.GetChild(j) != null)
                 {
-                    if (transform.GetChild(j) != null)
-                    {
-                        if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
-                            Destroy(this.gameObject.transform.GetChild(j).gameObject);
+                    if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+                        Destroy(this.gameObject.transform.GetChild(j).gameObject);
 
 
-                    }
                 }
-
-                MakeMesh();
-                ScatterDetailMeshes();
             }
+
+            MakeMesh();
+            ScatterDetailMeshes();
         }
 
+        //foreach (Vector3 area in myArea)
+        //{
+        //    if (area.Equals(this.transform.position))
+        //    {
+        //        for (int j = 0; j < this.gameObject.transform.childCount; j++)
+        //        {
+        //            if (transform.GetChild(j) != null)
+        //            {
+        //                if (transform.GetChild(j).transform.name == "ChunkPrefab(Clone)" || transform.GetChild(j).transform.name == ("RockDetail(Clone)"))
+        //                    Destroy(this.gameObject.transform.GetChild(j).gameObject);
+
+
+        //            }
+        //        }
+
+        //        MakeMesh();
+        //        ScatterDetailMeshes();
+        //    }
+        //}
+        inside = false;
     }
     public bool meetRight;
     public bool meetLeft;
@@ -487,13 +525,13 @@ public class myDel_Terrain : MonoBehaviour
         float minPoint = EnvManager.Inst.envSetting.boundryCoord_min.x;
         float maxPoint = EnvManager.Inst.envSetting.boundryCoord_max.y;
 
-        float Radius = Random.Range(10, 20);
-        float RandomCenterPointX = Random.Range(Radius, 50 - Radius);
-        float RandomCenterPointY = Random.Range(Radius, 50 - Radius);
+        float Radius = Random.Range(5, 12);
+        float RandomCenterPointX = Random.Range(Radius, xsize - Radius);
+        float RandomCenterPointY = Random.Range(Radius, ysize - Radius);
 
-        float Radius2 = Random.Range(10, 20);
-        float RandomCenterPointX2 = Random.Range(Radius2, 50 - Radius);
-        float RandomCenterPointY2 = Random.Range(Radius2, 50 - Radius);
+        float Radius2 = Random.Range(5, 8);
+        float RandomCenterPointX2 = Random.Range(Radius2, xsize - Radius);
+        float RandomCenterPointY2 = Random.Range(Radius2, ysize - Radius);
 
 
         //// Sample perlin noise to get elevations
@@ -640,8 +678,8 @@ public class myDel_Terrain : MonoBehaviour
         if (this.transform.position.z >= EnvManager.Inst.envSetting.boundryCoord_max.y)
         {
             GameObject cliff = Instantiate(EnvManager.Inst.cliffPrefab,
-            new Vector3(transform.position.x + 50,
-            this.transform.position.y , this.transform.position.z + 35),
+            new Vector3(transform.position.x + 25,
+            this.transform.position.y , this.transform.position.z + 17.5f),
             Quaternion.Euler(new Vector3(0, 90, 0)));
 
             cliff.transform.SetParent(this.gameObject.transform);
@@ -652,8 +690,8 @@ public class myDel_Terrain : MonoBehaviour
         if (this.transform.position.x >= EnvManager.Inst.envSetting.boundryCoord_max.x)
         {
             GameObject cliff = Instantiate(EnvManager.Inst.cliffPrefab,
-            new Vector3(transform.position.x + 45,
-            this.transform.position.y, transform.position.z + 50),
+            new Vector3(transform.position.x + 22.5f,
+            this.transform.position.y, transform.position.z + 25),
             Quaternion.identity);
 
             cliff.transform.SetParent(this.gameObject.transform);

@@ -42,11 +42,11 @@ public class EnvObject : MonoBehaviour
         {
             float wy = -1f;
             float gy = 0f;
-            if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Water ()))
+            if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Water ()))
             {
                 wy = hit.point.y;
             }
-            if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+            if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
             {
                 gy = hit.point.y;
             }
@@ -59,7 +59,7 @@ public class EnvObject : MonoBehaviour
 
         // f
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -77,7 +77,7 @@ public class EnvObject : MonoBehaviour
 
         // d
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * -offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.forward * -offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -95,7 +95,7 @@ public class EnvObject : MonoBehaviour
 
         // l
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * -offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * -offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -113,7 +113,7 @@ public class EnvObject : MonoBehaviour
 
         // r
         if (place == true
-        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+        && Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY + Vector3.right * offset, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
         {
             // 방향 구하기
             Vector3 dir = hit.point - gameObject.transform.position;
@@ -156,7 +156,7 @@ public class EnvObject : MonoBehaviour
                     g.transform.localScale = Vector3.one * Random.Range (scaleMin, scaleMax);
 
                     // 레이를 쏴서 위치 및 방향 재조절 + 나무인 경우 스킵
-                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+                    if (Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
                     {
                         g.transform.position = hit.point;
 
@@ -200,7 +200,7 @@ public class EnvObject : MonoBehaviour
                         g.transform.localPosition = offsetPos;
 
                         // 레이 검사
-                        Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ());
+                        Physics.Raycast (g.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ());
 
                         hitCount += 1;
 

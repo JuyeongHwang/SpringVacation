@@ -10,17 +10,20 @@ public class CameraController : MonoBehaviour
     public GameObject cameraObject;
     public float cameraFocusSmooth = 1;
     public float cameraFocusSmooth_rot = 1;
-    
 
-    void Awake ()
-    {
-        
-    }
+    private bool startFrame = true;
+    
 
     void LateUpdate ()
     {
         if (cameraFocusObject == null)
             return;
+
+        if (startFrame)
+        {
+            startFrame = false;
+            gameObject.transform.position = cameraFocusObject.transform.position;
+        }
 
         // 이동
         Vector3 currentPos = gameObject.transform.position;

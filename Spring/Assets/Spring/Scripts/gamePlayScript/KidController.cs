@@ -67,6 +67,13 @@ public class KidController : MonoBehaviour
     float time = 0.0f;
     AudioSource audio;
     public AudioClip runGrassSound;
+
+    Stack <Vector3> latestPos;
+    //Quaternion latestRot;
+    public float latestDuration = 1f;
+    IEnumerator ilatest;
+
+
     void Awake ()
     {
         //if (kidBody != null)
@@ -96,6 +103,13 @@ public class KidController : MonoBehaviour
         currentKidState = KidState.NONE;
         nextKidState = KidState.IDLE;
 
+        // 위치 설정
+        latestPos = new Stack<Vector3> ();
+        if (EnvManager.Inst != null)
+        {
+            gameObject.transform.position = EnvManager.Inst.GetKidStartPoint ();
+        }
+
         // 이동 속도 및 공격 속도 설정
         if (DataManager.Inst != null)
         {
@@ -109,6 +123,9 @@ public class KidController : MonoBehaviour
         // 곤충 찾기
         detectBug();
         UIManager_Gameplay.Inst.SetConditionText_Finding ();
+
+        // 이전 위치 갱신
+        LatestTransfrom ();
     }
 
     private void Update()
@@ -231,6 +248,8 @@ public class KidController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
+        //print (other.gameObject.name);
+
         bugController b = other.gameObject.GetComponent <bugController> ();
 
         if (b != null
@@ -256,6 +275,13 @@ public class KidController : MonoBehaviour
 
             isArrived = true;
             b.SetColliderByBoolean (true);
+        }
+
+        // 물에 닿았을 때
+        if (other.gameObject.tag == "Water")
+        {
+            // 물 닿았을 때의 행동
+            TouchWater ();
         }
     }
 
@@ -500,5 +526,38 @@ public class KidController : MonoBehaviour
         // 상태 초기화
         nextKidState = KidState.IDLE;
         isArrived = false;
+    }
+
+    // ================================ 이전 위치 갱신 ================================
+
+    void LatestTransfrom ()
+    {
+        if (ilatest != null)
+            StopCoroutine (ilatest);
+
+        ilatest = ILatestTransform ();
+        StartCoroutine (ilatest);
+    }
+
+    IEnumerator ILatestTransform ()
+    {
+        while (true)
+        {
+            latestPos.Push (gameObject.transform.position);
+            //latestRot = gameObject.transform.rotation;
+
+            yield return new WaitForSeconds (latestDuration);
+        }
+    }
+    
+    // =================================== 물에 접촉 ==================================
+
+    void TouchWater ()
+    {
+        gameObject.transform.position = latestPos.Pop ();
+        //gameObject.transform.rotation = latestRot;
+
+        // 다시 갱신 시작
+        LatestTransfrom ();
     }
 }

@@ -9,32 +9,31 @@ Shader "Custom/TessellationShader"
         _MaxTessDistance("Max Tess Distance", Range(1, 32)) = 20
         _Noise("Noise", 2D) = "gray" {}
  
-    _Weight("Displacement Amount", Range(0, 1)) = 0
+        _Weight("Displacement Amount", Range(0, 1)) = 0
     }
  
         // The SubShader block containing the Shader code. 
         SubShader
-    {
-        // SubShader Tags define when and under which conditions a SubShader block or
-        // a pass is executed.
-        Tags{ "RenderType" = "Opaque" "RenderPipeline" = "UniversalRenderPipeline" }
- 
-        Pass
-    {
-        Tags{ "LightMode" = "UniversalForward" }
- 
- 
-        // The HLSL code block. Unity SRP uses the HLSL language.
-        HLSLPROGRAM
-        // The Core.hlsl file contains definitions of frequently used HLSL
-        // macros and functions, and also contains #include references to other
-        // HLSL files (for example, Common.hlsl, SpaceTransforms.hlsl, etc.). 
-#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"    
-#include "CustomTessellation.hlsl"
- 
- 
-#pragma require tessellation
-        // This line defines the name of the vertex shader. 
+        {
+            // SubShader Tags define when and under which conditions a SubShader block or
+            // a pass is executed.
+            Tags{ "RenderType" = "Opaque" "RenderPipeline" = "UniversalRenderPipeline" }
+        
+            Pass
+            {
+                Tags{ "LightMode" = "UniversalForward" }
+    
+    
+                // The HLSL code block. Unity SRP uses the HLSL language.
+                HLSLPROGRAM
+                // The Core.hlsl file contains definitions of frequently used HLSL
+                // macros and functions, and also contains #include references to other
+                // HLSL files (for example, Common.hlsl, SpaceTransforms.hlsl, etc.). 
+                #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"    
+                #include "CustomTessellation.hlsl"
+    
+                #pragma require tessellation
+                // This line defines the name of the vertex shader. 
 #pragma vertex TessellationVertexProgram
         // This line defines the name of the fragment shader. 
 #pragma fragment frag

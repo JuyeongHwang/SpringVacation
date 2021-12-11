@@ -60,6 +60,7 @@ public class myDel_Terrain : MonoBehaviour
     public bool hasMountain;
     public bool hasCliff;
     public bool hasRiver = false;
+    //public bool hasBeach = false;
      // 테스트
     SimpleSmoother simpleSmoother = new SimpleSmoother ();
 
@@ -632,6 +633,9 @@ public class myDel_Terrain : MonoBehaviour
 
         }
 
+        // 절벽 생성
+
+        hasCliff = false;
 
         if (this.transform.position.z >= EnvManager.Inst.envSetting.boundryCoord_max.y)
         {
@@ -641,6 +645,8 @@ public class myDel_Terrain : MonoBehaviour
             Quaternion.Euler(new Vector3(0, 90, 0)));
 
             cliff.transform.SetParent(this.gameObject.transform);
+
+            hasCliff = true;
         }
 
         if (this.transform.position.x >= EnvManager.Inst.envSetting.boundryCoord_max.x)
@@ -651,6 +657,8 @@ public class myDel_Terrain : MonoBehaviour
             Quaternion.identity);
 
             cliff.transform.SetParent(this.gameObject.transform);
+
+            hasCliff = true;
         }
 
         spawnArcifact();

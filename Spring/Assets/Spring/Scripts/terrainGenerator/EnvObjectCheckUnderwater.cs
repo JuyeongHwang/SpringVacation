@@ -29,12 +29,12 @@ public class EnvObjectCheckUnderwater : MonoBehaviour
         float dist = 10f;
         float waterYAdd = 0.05f;
 
-        if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Ground ()))
+        if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Ground ()))
         {
             groundY = hit.point.y;
         }
 
-        if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermask_Water ()))
+        if (Physics.Raycast (gameObject.transform.position + Vector3.up * offsetY, Vector3.down, out hit, dist, EnvManager.Inst.GetLayermaskValue_Water ()))
         {
             waterY = hit.point.y;
         }

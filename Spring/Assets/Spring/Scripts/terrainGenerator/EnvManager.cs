@@ -21,6 +21,9 @@ public class EnvManager : MonoBehaviour
     public GameObject envObjectHolder;  // 자연물
     public GameObject artObjectHolder;  // 인공물
     public GameObject bugHolder;
+
+    // 꼬마 시작 위치
+    public GameObject kidStartpoint;
     
 
     [Header ("터레인 프리팹 설정")]     // 나무, 버그 등 프리팹은 EnvManger에서 관리
@@ -469,7 +472,8 @@ public class EnvManager : MonoBehaviour
                 float minZ = ret.gameObject.transform.position.z ;
                 float maxZ = ret.gameObject.transform.position.z + GetTerrainUnitSize_Original ();
 
-                bool envRiver = false;
+                //bool envRiver = false;
+                ret.hasRiver = false;
                 foreach (Vector3 point in BezierPoints)
                 {
                     //float x = 0;
@@ -487,7 +491,8 @@ public class EnvManager : MonoBehaviour
                     && minZ <= point.z && point.z < maxZ)
                     {
                         // print (point);
-                        envRiver = true;
+                        //envRiver = true;
+                        ret.hasRiver = true;
 
                         //Instantiate (cliffPrefab, point, Quaternion.identity, ret.gameObject.transform);
                         break;
@@ -496,7 +501,7 @@ public class EnvManager : MonoBehaviour
 
                 foreach (Vector3 point in BezierPoints2)
                 {
-                    if (envRiver == true)
+                    if (ret.hasRiver == true)
                         break;
                     //float x = 0;
                     //float z = 0;
@@ -518,7 +523,7 @@ public class EnvManager : MonoBehaviour
                     && minZ <= point.z && point.z < maxZ)
                     {
                         //print (point);
-                        envRiver = true;
+                        ret.hasRiver = true;
                         //Instantiate (cliffPrefab, point, Quaternion.identity, ret.gameObject.transform);
                         break;
                     }
@@ -526,6 +531,7 @@ public class EnvManager : MonoBehaviour
                 //Debug.Log(envRiver);
 
                 bool beach = false;
+                //ret.hasBeach = false;
 
                 // 해변가 판단
                 if (gameObject.transform.position.x < envSetting.boundryCoord_min.x
@@ -534,7 +540,7 @@ public class EnvManager : MonoBehaviour
                     beach = true;
                 }
                 
-                if (townNum > 0 && !ret.hasMountain && !envRiver && !beach)
+                if (townNum > 0 && !ret.hasMountain && !ret.hasRiver && !beach)
                 {
                     townNum--;
 
@@ -546,6 +552,12 @@ public class EnvManager : MonoBehaviour
                     townPos += new Vector3 (GetTerrainUnitSize_Original () * 0.5f, 0, GetTerrainUnitSize_Original () * 0.5f);
 
                     gtown = Instantiate(townPrefab, townPos, Quaternion.Euler(Vector3.up *(rotY)), artObjectHolder.transform);
+
+                    // 마을로 시작 위치 설정
+                    if (kidStartpoint != null)
+                    {
+                        kidStartpoint.gameObject.transform.position = townPos;
+                    }
 
                     //ret.canEdit = false;
                 }
@@ -982,13 +994,31 @@ public class EnvManager : MonoBehaviour
 
     // =================================== 레이어마스크 =======================================
 
-    public int GetLayermask_Ground ()
+    public int GetLayermaskValue_Ground ()
     {
         return layermask_ground;
     }
 
-    public int GetLayermask_Water ()
+    public int GetLayermaskValue_Water ()
     {
         return layermask_water;
+    }
+    public LayerMask GetLayermask_Water ()
+    {
+        return LayerMask.GetMask (waterName);
+    }
+
+    // =================================== 시작지점 ===========================================
+
+    public Vector3 GetKidStartPoint ()
+    {
+        Vector3 ret = Vector3.zero;
+
+        if (kidStartpoint != null)
+        {
+            ret = kidStartpoint.gameObject.transform.position;
+        }
+
+        return ret;
     }
 }

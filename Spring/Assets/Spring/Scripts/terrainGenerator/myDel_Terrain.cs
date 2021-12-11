@@ -643,10 +643,6 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     elevation = (bindingLeftElev[vert.y]);
 
-                    if (vert.x + transform.position.x <= -40)
-                    {
-                        elevation += 2.5f;
-                    }
                     
                 }
                 else

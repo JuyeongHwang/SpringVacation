@@ -132,10 +132,10 @@ public class EnvManager : MonoBehaviour
         currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
-        /*if (kidController != null)
+        if (kidController != null)
         {
             CheckKidPosition();
-        }*/
+        }
     }
 
     public Vector3 P1;
@@ -649,8 +649,7 @@ public class EnvManager : MonoBehaviour
         return terrainUnitSize;
     }
 
-    // 한번에 생성할 것이므로 주석처리하였씁니다...
-    /*void CheckKidPosition()
+    void CheckKidPosition()
     {
         if (icheck != null)
             StopCoroutine(icheck);
@@ -716,7 +715,7 @@ public class EnvManager : MonoBehaviour
 
             yield return new WaitForSeconds(checkDelay);
         }
-    }*/
+    }
 
     // ========================================== 노이즈 관련 ==================================================
 

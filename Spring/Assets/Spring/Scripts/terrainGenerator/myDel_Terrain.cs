@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using TriangleNet.Geometry;
 using TriangleNet.Topology;
@@ -68,6 +69,31 @@ public class myDel_Terrain : MonoBehaviour
     public Dictionary<Vertex, GameObject> manageSpawnObject = new Dictionary<Vertex, GameObject>();
     float cliffRangeX;
     float cliffRangeY;
+
+    // 꼬마 위치 체크를 위한 수치
+    float terrainMinX;
+    float terrainMaxX;
+    float terrainMinZ;
+    float terrainMaxZ;
+
+    public bool isDiscovered = false;
+    IEnumerator idiscover;
+
+    private void OnEnable() 
+    {
+        if (idiscover != null)
+            StopCoroutine (idiscover);
+
+        idiscover = IDiscover ();
+        StartCoroutine (idiscover);
+    }
+
+    private void OnDisable ()
+    {
+        if (idiscover != null)
+            StopCoroutine (idiscover);
+    }
+
     private void Awake()
     {
         cliffRangeX = EnvManager.Inst.envSetting.boundryCoord_min.x + 30;
@@ -76,7 +102,12 @@ public class myDel_Terrain : MonoBehaviour
     }
     private void Start()
     {
-        //GameObject g = Instantiate(Butterfly, new Vector3(Random.Range(0, 100), 0, Random.Range(0, 100)), Quaternion.identity);
+        isDiscovered = false;
+
+        terrainMinX = gameObject.transform.position.x;
+        terrainMinZ = gameObject.transform.position.z;
+        terrainMaxX = terrainMinX + EnvManager.Inst.GetTerrainUnitSize ();
+        terrainMaxZ = terrainMinZ + EnvManager.Inst.GetTerrainUnitSize ();
     }
 
     private RaycastHit hit;
@@ -123,9 +154,7 @@ public class myDel_Terrain : MonoBehaviour
             }
 
         }
-
     }
-
 
     void UpDownTerrain(bool up)
     {
@@ -1176,4 +1205,30 @@ public class myDel_Terrain : MonoBehaviour
     }
 
     // 마우스 클릭은 EnvChunk 에서 처리
+
+
+    // ============================== 꼬마위치 체크 ==========================
+
+    IEnumerator IDiscover ()
+    {
+        float checkDur = 10f;
+
+        yield return null;
+
+        while (isDiscovered == false 
+        && MyGameManager_Gameplay.Inst != null 
+        && EnvManager.Inst != null)
+        {
+            Vector3 kidPos = MyGameManager_Gameplay.Inst.GetKidPosition ();
+
+            if (terrainMinX <= kidPos.x && kidPos.x <= terrainMaxX
+            && terrainMinZ <= kidPos.z && kidPos.z <= terrainMaxZ)
+            {
+                isDiscovered = true;
+                EnvManager.Inst.IncreaseTerrainNum_Current ();
+            }
+
+            yield return new WaitForSeconds (checkDur);
+        }
+    }
 }

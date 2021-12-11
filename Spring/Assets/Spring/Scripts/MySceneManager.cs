@@ -9,6 +9,7 @@ public class MySceneManager : MonoBehaviour
 
     [Header ("다음 씬 이름")]
     public string nextSceneName = "";
+    public string nextSceneName2 = "";
 
 //    public bool canClick = false;
     void Awake ()
@@ -38,11 +39,21 @@ public class MySceneManager : MonoBehaviour
         if (s != null)
         {
             // 코루틴으로 구조 변경
-            StartCoroutine (IGotoNextScene ());
+            StartCoroutine (IGotoNextScene (nextSceneName));
         }
     }
 
-    IEnumerator IGotoNextScene ()
+    public void GotoNextScene2 ()
+    {
+        Scene s = SceneManager.GetSceneByName (nextSceneName2);
+        if (s != null)
+        {
+            // 코루틴으로 구조 변경
+            StartCoroutine (IGotoNextScene (nextSceneName2));
+        }
+    }
+
+    IEnumerator IGotoNextScene (string sceneName)
     {
         if (SceneTransitionManager.Inst != null)
         {
@@ -54,36 +65,21 @@ public class MySceneManager : MonoBehaviour
             yield return null;
         }
 
-        if(nextSceneName == "Scene_Result")
+        if(sceneName == "Scene_Result")
         {
-            //MyGameManager_Gameplay.Inst.isLoadGameScene = false;
-            //DataManager.Inst.Env.gameObject.SetActive(false);
-            //DataManager.Inst.Kid.gameObject.SetActive(false);
-
-            //GameObject.Find("Env.").SetActive(false);
-
             if (EnvManager.Inst != null)
             {
                 EnvManager.Inst.gameObject.SetActive (false);
             }
         }
-        else if(nextSceneName == "Gameplay")
+        else if(sceneName == "Gameplay")
         {
-            //MyGameManager_Gameplay.Inst.isLoadGameScene = true;
-            //DataManager.Inst.Env.gameObject.SetActive(true);
-            //DataManager.Inst.Kid.gameObject.SetActive(true);
-            //reset transform.
-            //DataManager.Inst.Kid.gameObject.transform.position = new Vector3(33, 0, 33);
-            //DataManager.Inst.Kid.gameObject.transform.rotation = Quaternion.identity;
-
-            //GameObject.Find("Env.").SetActive(true);
-
             if (EnvManager.Inst != null)
             {
                 EnvManager.Inst.gameObject.SetActive (true);
             }
         }
 
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -23,7 +23,6 @@ public class EnvObject : MonoBehaviour
     public float randRange = 0f;    // 범위
 
     public float checkY = 0f;
-    
 
     protected void Start ()
     {

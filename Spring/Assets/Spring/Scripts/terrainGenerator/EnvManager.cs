@@ -77,7 +77,9 @@ public class EnvManager : MonoBehaviour
     [Header("Navmesh")]
     IEnumerator icheck;
 
+    // 진행도를 체크하기 위한 변수
     public int totalGenTerrain;
+    public int currentGenTerrain;
 
     protected const string groundName = "Ground";
     protected const string waterName = "Water";
@@ -85,7 +87,7 @@ public class EnvManager : MonoBehaviour
     protected int layermask_ground;
     protected int layermask_water;
 
-
+    
 
     void Awake()
     {
@@ -130,17 +132,17 @@ public class EnvManager : MonoBehaviour
         currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
-        if (kidController != null)
+        /*if (kidController != null)
         {
             CheckKidPosition();
-        }
+        }*/
     }
 
     public Vector3 P1;
     public Vector3 P2;
     public Vector3 P3;
     public Vector3 P4;
-    public Vector4 RiverRange = new Vector4(55, 75, 100, -50); //start x, end x, start z, end z
+    //public Vector4 RiverRange = new Vector4(55, 75, 100, -50); //start x, end x, start z, end z
     public List<Vector3> BezierPoints = new List<Vector3>();
     public List<Vector3> BezierPoints2 = new List<Vector3>();
     public void BezierRiver()
@@ -151,12 +153,12 @@ public class EnvManager : MonoBehaviour
         //P3 = new Vector3(RiverRange[1], 0, RiverRange[2]);
         //P4 = new Vector3(RiverRange[1], 0, RiverRange[3]);
         Vector3 n1 = new Vector3(envSetting.boundryCoord_min.x, 0,
-            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
-        Vector3 n2 = new Vector3(envSetting.boundryCoord_max.x + 50, 0,
-            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
-        Vector3 n3 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
-            (envSetting.boundryCoord_max.y + 50));
-        Vector3 n4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + GetTerrainUnitSize ()));
+        Vector3 n2 = new Vector3(envSetting.boundryCoord_max.x + GetTerrainUnitSize (), 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + GetTerrainUnitSize ()));
+        Vector3 n3 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + GetTerrainUnitSize ()), 0,
+            (envSetting.boundryCoord_max.y + GetTerrainUnitSize ()));
+        Vector3 n4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + GetTerrainUnitSize ()), 0,
             (envSetting.boundryCoord_min.y));
 
         forRandom.Add(n1);forRandom.Add(n2); forRandom.Add(n3); forRandom.Add(n4);
@@ -195,12 +197,12 @@ public class EnvManager : MonoBehaviour
 
 
         P1 = new Vector3(envSetting.boundryCoord_min.x, 0,
-            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
-        P3 = new Vector3(envSetting.boundryCoord_max.x + 50, 0,
-            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + 50));
-        P4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
-            (envSetting.boundryCoord_max.y + 50));
-        P3 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + 50), 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + GetTerrainUnitSize ()));
+        P3 = new Vector3(envSetting.boundryCoord_max.x + GetTerrainUnitSize (), 0,
+            Random.Range(envSetting.boundryCoord_min.y, envSetting.boundryCoord_max.y + GetTerrainUnitSize ()));
+        P4 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + GetTerrainUnitSize ()), 0,
+            (envSetting.boundryCoord_max.y + GetTerrainUnitSize ()));
+        P3 = new Vector3(Random.Range(envSetting.boundryCoord_min.x, envSetting.boundryCoord_max.x + GetTerrainUnitSize ()), 0,
             (envSetting.boundryCoord_min.y));
         for (float i = 0.0f; i < 1.0f; i += 0.005f)
         {
@@ -468,9 +470,9 @@ public class EnvManager : MonoBehaviour
 
                 // 좌표
                 float minX = ret.gameObject.transform.position.x ;
-                float maxX = ret.gameObject.transform.position.x + GetTerrainUnitSize_Original ();
+                float maxX = ret.gameObject.transform.position.x + GetTerrainUnitSize ();
                 float minZ = ret.gameObject.transform.position.z ;
-                float maxZ = ret.gameObject.transform.position.z + GetTerrainUnitSize_Original ();
+                float maxZ = ret.gameObject.transform.position.z + GetTerrainUnitSize ();
 
                 //bool envRiver = false;
                 ret.hasRiver = false;
@@ -549,14 +551,15 @@ public class EnvManager : MonoBehaviour
                     rotY /= 90;
 
                     Vector3 townPos = instTerrainPos;
-                    townPos += new Vector3 (GetTerrainUnitSize_Original () * 0.5f, 0, GetTerrainUnitSize_Original () * 0.5f);
+                    townPos += new Vector3 (GetTerrainUnitSize () * 0.5f, 0, GetTerrainUnitSize () * 0.5f);
 
                     gtown = Instantiate(townPrefab, townPos, Quaternion.Euler(Vector3.up *(rotY)), artObjectHolder.transform);
 
                     // 마을로 시작 위치 설정
                     if (kidStartpoint != null)
                     {
-                        kidStartpoint.gameObject.transform.position = townPos;
+                        float upGap = 1f;
+                        kidStartpoint.gameObject.transform.position = townPos + Vector3.up * upGap;
                     }
 
                     //ret.canEdit = false;
@@ -583,8 +586,7 @@ public class EnvManager : MonoBehaviour
             }
         }
 
-        //Debug.Log(customTerrains.Count  +  " " +totalGenTerrain);
-        UIManager_Gameplay.Inst.SetProgressText(customTerrains.Count / (float)totalGenTerrain * 100);
+        //UpdateProcessRate ();
 
         return ret;
     }
@@ -592,7 +594,7 @@ public class EnvManager : MonoBehaviour
     private void Update()
     {
         // 컨트롤러를 찾을 때 까지 반복
-        if (kidController == null)
+        /*if (kidController == null)
         {
             kidController = FindObjectOfType <KidController> ();
 
@@ -601,7 +603,7 @@ public class EnvManager : MonoBehaviour
             {
                 CheckKidPosition ();
             }
-        }
+        }*/
     }
 
     public myDel_Terrain GetTerrainHolderByPosition(Vector3 pos, NearTerrainDir2 dir)
@@ -612,19 +614,19 @@ public class EnvManager : MonoBehaviour
         switch (dir)
         {
             case NearTerrainDir2.UP:
-                pos += Vector3.forward * GetTerrainUnitSize_Original();
+                pos += Vector3.forward * GetTerrainUnitSize();
                 break;
 
             case NearTerrainDir2.LEFT:
-                pos -= Vector3.right * GetTerrainUnitSize_Original();
+                pos -= Vector3.right * GetTerrainUnitSize();
                 break;
 
             case NearTerrainDir2.RIGHT:
-                pos += Vector3.right * GetTerrainUnitSize_Original();
+                pos += Vector3.right * GetTerrainUnitSize();
                 break;
 
             case NearTerrainDir2.DOWN:
-                pos -= Vector3.forward * GetTerrainUnitSize_Original();
+                pos -= Vector3.forward * GetTerrainUnitSize();
                 break;
         }
 
@@ -642,12 +644,13 @@ public class EnvManager : MonoBehaviour
     }
 
     // ============================================ 터레인 사이즈 ====================================================
-    public int GetTerrainUnitSize_Original()
+    public int GetTerrainUnitSize()
     {
         return terrainUnitSize;
     }
 
-    void CheckKidPosition()
+    // 한번에 생성할 것이므로 주석처리하였씁니다...
+    /*void CheckKidPosition()
     {
         if (icheck != null)
             StopCoroutine(icheck);
@@ -671,10 +674,10 @@ public class EnvManager : MonoBehaviour
             gen = false;
 
             float posXMin = currentCustomTerrain.gameObject.transform.position.x;
-            float posXMax = posXMin + EnvManager.Inst.GetTerrainUnitSize_Original();
+            float posXMax = posXMin + EnvManager.Inst.GetTerrainUnitSize();
 
             float posZMin = currentCustomTerrain.gameObject.transform.position.z;
-            float posZSMax = posZMin + EnvManager.Inst.GetTerrainUnitSize_Original();
+            float posZSMax = posZMin + EnvManager.Inst.GetTerrainUnitSize();
 
             Vector3 kidPos = kidController.gameObject.transform.position;
 
@@ -713,7 +716,7 @@ public class EnvManager : MonoBehaviour
 
             yield return new WaitForSeconds(checkDelay);
         }
-    }
+    }*/
 
     // ========================================== 노이즈 관련 ==================================================
 
@@ -811,6 +814,27 @@ public class EnvManager : MonoBehaviour
         tex.Apply();
         return tex;
     }*/
+
+    // ==================================== 진행도 관련 =======================================
+
+    public void IncreaseTerrainNum_Current ()
+    {
+        currentGenTerrain += 1;
+        UpdateProcessRate ();
+    }
+
+    public void UpdateProcessRate ()
+    {
+        if (DataManager.Inst != null)
+        {
+            DataManager.Inst.SetProgress (currentGenTerrain, totalGenTerrain);
+
+            if (UIManager_Gameplay.Inst != null)
+            {
+                UIManager_Gameplay.Inst.SetProgressText(DataManager.Inst.GetProgress ());
+            }
+        }
+    }
 
     // ======================================= EnvObject 추가 ==================================
 
@@ -1020,5 +1044,23 @@ public class EnvManager : MonoBehaviour
         }
 
         return ret;
+    }
+
+    // ==================================== 엔딩 확인 ==========================================
+
+    public bool GetIsEnding ()
+    {
+        if (envSetting == null)
+            return false;
+
+        if (DataManager.Inst == null)
+            return false;
+
+        if (envSetting.GetIsEndingByCurrentProgress (DataManager.Inst.GetProgress ()))
+        {
+            return true;
+        }
+
+        return false;
     }
 }

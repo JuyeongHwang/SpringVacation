@@ -29,6 +29,8 @@ public class DataManager : MonoBehaviour
 
     public int day = 1;
 
+    public float progress;
+
     void Awake ()
     {
         // 싱글톤
@@ -130,5 +132,17 @@ public class DataManager : MonoBehaviour
 
         ret = (BugGrade)bgIndex;
         return ret;
+    }
+
+    // ============================= 진행률 정도 ==========================================
+
+    public void SetProgress (int current, int max)
+    {
+        progress = current / (float)max * 100f;
+    }
+
+    public float GetProgress ()
+    {
+        return progress;
     }
 }

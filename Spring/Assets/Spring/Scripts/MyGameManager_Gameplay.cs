@@ -97,9 +97,21 @@ public class MyGameManager_Gameplay : MonoBehaviour
             yield return null;
         }
 
-        if (MySceneManager.Inst != null)
+        // 게임시간 경과 후
+        if (MySceneManager.Inst != null && EnvManager.Inst != null)
         {
-            MySceneManager.Inst.GotoNextScene ();
+            // 진행율이 일정 수치 이상인 경우 엔딩
+            // 2일 경우 엔딩 씬으로 설정, 아니면 결과 씬으로 설정
+            if (EnvManager.Inst.GetIsEnding ())
+            {
+                // 아니면 결과화면
+                MySceneManager.Inst.GotoNextScene2 ();
+            }
+            else
+            {
+                // 아니면 결과화면
+                MySceneManager.Inst.GotoNextScene ();
+            }
         }
     }
 
@@ -126,6 +138,14 @@ public class MyGameManager_Gameplay : MonoBehaviour
             return null;
         
         return cameraController.GetCameraObject ();
+    }
+
+    public Vector3 GetKidPosition ()
+    {
+        if (kidController == null)
+            return Vector3.zero;
+
+        return kidController.transform.position;
     }
 
     // ================================  이펙트 =======================================

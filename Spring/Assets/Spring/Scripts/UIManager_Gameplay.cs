@@ -32,10 +32,14 @@ public class UIManager_Gameplay : MonoBehaviour
     {
         SetConditionText_Finding ();
         SetTimeText (0);
-        SetDayText (DataManager.Inst.day);
-        SetProgressText(0);
         SetProgressCircle(0);
         UpdateButterflyNum ();
+
+        if (DataManager.Inst != null)
+        {
+            SetDayText (DataManager.Inst.day);
+            SetProgressText(DataManager.Inst.GetProgress ());
+        }
     }
 
     public void SetConditionText_Finding ()

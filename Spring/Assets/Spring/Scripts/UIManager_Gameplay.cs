@@ -12,9 +12,10 @@ public class UIManager_Gameplay : MonoBehaviour
     public Text dayText;
     public Text progressText;
     public GameObject progressCircle;
+    public string[] tips;
 
     public static UIManager_Gameplay Inst = null;
-
+    
     void Awake ()
     {
         // 싱글톤
@@ -52,9 +53,11 @@ public class UIManager_Gameplay : MonoBehaviour
 
     public void SetConditionText_Finded ()
     {
+        int index = Random.Range(0, tips.Length);
+        
         if (conditionText != null)
         {
-            conditionText.text = "스페이스바를 눌러 곤충을 잡으세요!";
+            conditionText.text = "채집 중! \n" + tips[0];
         }
     }
 

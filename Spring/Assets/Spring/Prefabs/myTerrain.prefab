@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &7976496759220066283
 Transform:
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xsize: 25
   ysize: 25
-  minPointRadius: 6.5
-  randomPoints: 300
+  minPointRadius: 8
+  randomPoints: 80
   trianglesInChunk: 20000
   elevationScale: 6
   sampleSize: 1
@@ -66,6 +66,7 @@ MonoBehaviour:
   hasMountain: 0
   hasCliff: 0
   hasRiver: 1
+  isDiscovered: 0
   updownRange: 3
   canEdit: 1
   meetRight: 0

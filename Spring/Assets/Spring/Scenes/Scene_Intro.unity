@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1141525a8fbd864429ef8a837f56d21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introDuration: 3
+  introDuration: 10
 --- !u!4 &308547070
 Transform:
   m_ObjectHideFlags: 0
@@ -300,6 +300,10 @@ PrefabInstance:
     - target: {fileID: 3567499839571839036, guid: 597be3c61dd5ebb49a6458be34badd36, type: 3}
       propertyPath: m_Name
       value: EnvMgr
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567499839571839037, guid: 597be3c61dd5ebb49a6458be34badd36, type: 3}
+      propertyPath: nearTerrainDepth
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3567499839571839038, guid: 597be3c61dd5ebb49a6458be34badd36, type: 3}
       propertyPath: m_RootOrder
@@ -882,8 +886,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954129237}
-  m_LocalRotation: {x: 0.43866807, y: -0.4440452, z: 0.2632329, w: 0.73559684}
-  m_LocalPosition: {x: -5.0705633, y: 26.859877, z: 8.013437}
+  m_LocalRotation: {x: 0.4537746, y: 0.24937314, z: -0.13516203, w: 0.844768}
+  m_LocalPosition: {x: -66.9716, y: 168.30269, z: -90.13506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -951,6 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Gameplay
+  nextSceneName2: 
 --- !u!4 &2090488273
 Transform:
   m_ObjectHideFlags: 0

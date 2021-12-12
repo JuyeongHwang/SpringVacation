@@ -5,7 +5,7 @@ using UnityEngine;
 public class MyGameManager_Intro : MonoBehaviour
 {
     [Header ("인트로 설정")]
-    public float introDuration = 3f;
+    public float introDuration = 10f;
 
     public static MyGameManager_Intro Inst = null;
     void Awake ()

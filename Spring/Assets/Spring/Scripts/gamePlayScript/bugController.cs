@@ -57,6 +57,11 @@ public class bugController : MonoBehaviour
         BugMove ();
     }
 
+    private void OnDisable() 
+    {
+        BugMoveStop ();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -211,8 +216,16 @@ public class bugController : MonoBehaviour
         StartCoroutine (ibugMove);
     }
 
+    void BugMoveStop ()
+    {
+        if (ibugMove != null )
+            StopCoroutine (ibugMove);
+    }
+
     IEnumerator IBugMove ()
     {
+        float targetDist = 0.5f;
+
         // envObjec를 가질때 까지 대기
         yield return HaveEnvObject ();
 
@@ -258,7 +271,7 @@ public class bugController : MonoBehaviour
             // 애니메이션
             SetBugAnimatorTrigger ("Move");
             
-            while (currentEnvObject != null && Vector3.Distance (currentPos, targetPos) > 0.1f)
+            while (currentEnvObject != null && Vector3.Distance (currentPos, targetPos) > targetDist)
             {
                 Vector3 moveDir = targetPos - currentPos;
                 moveDir = moveDir.normalized;

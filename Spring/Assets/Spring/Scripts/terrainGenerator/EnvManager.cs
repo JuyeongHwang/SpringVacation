@@ -48,7 +48,7 @@ public class EnvManager : MonoBehaviour
     public myDel_Terrain currentCustomTerrain;
     public List<myDel_Terrain> customTerrains;
     public List <EnvObject> envObjects;
-    public int nearTerrainDepth = 8;    // 재귀함수로 지형 생성을 위한 수치
+    //public int nearTerrainDepth = 8;    // 재귀함수로 지형 생성을 위한 수치
 
     [Header("터레인 노이즈 설정: 지형")]
     public float terrainNoiseScale = 1f;
@@ -75,7 +75,7 @@ public class EnvManager : MonoBehaviour
     
 
     [Header("Navmesh")]
-    IEnumerator icheck;
+    //IEnumerator icheck;
 
     // 진행도를 체크하기 위한 변수
     public int totalGenTerrain;
@@ -87,7 +87,9 @@ public class EnvManager : MonoBehaviour
     protected int layermask_ground;
     protected int layermask_water;
 
-    
+    public List <myDel_Terrain> instTerrains;
+    //public List <myDel_Terrain> instTerrains_old;
+    public List <myDel_Terrain> instTerrains_new;
 
     void Awake()
     {
@@ -128,14 +130,14 @@ public class EnvManager : MonoBehaviour
         totalGenTerrain *= totalGenTerrain;
 
         // 지형생성
-        currentCustomTerrain = InstantiateCustomTerrain(Vector3.zero, NearTerrainDir2.NONE);
-        currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
+        // 딜레이 생성
+        StartInstTerrains ();
 
         // 주기마다 캐릭터 위치 체크 후 지형 생성
-        if (kidController != null)
+        /*if (kidController != null)
         {
             CheckKidPosition();
-        }
+        }*/
     }
 
     public Vector3 P1;
@@ -395,8 +397,8 @@ public class EnvManager : MonoBehaviour
             }
             else
             {
-                // 세팅이 없으면 무제한
-                canGenerate = true;
+                // 세팅이 없으면 생성하지 않음
+                canGenerate = false;
             }
 
             if (canGenerate)
@@ -586,8 +588,6 @@ public class EnvManager : MonoBehaviour
             }
         }
 
-        //UpdateProcessRate ();
-
         return ret;
     }
 
@@ -649,7 +649,7 @@ public class EnvManager : MonoBehaviour
         return terrainUnitSize;
     }
 
-    void CheckKidPosition()
+    /*void CheckKidPosition()
     {
         if (icheck != null)
             StopCoroutine(icheck);
@@ -715,7 +715,7 @@ public class EnvManager : MonoBehaviour
 
             yield return new WaitForSeconds(checkDelay);
         }
-    }
+    }*/
 
     // ========================================== 노이즈 관련 ==================================================
 
@@ -1061,5 +1061,77 @@ public class EnvManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    // ===================================== 순차적 절차 생성 ===================================
+
+    public void AddInstTerrainToList (myDel_Terrain mdt)
+    {
+        if (mdt == null)
+            return;
+
+        if (instTerrains_new.Contains (mdt) == false)
+        {
+            instTerrains_new.Add (mdt);
+            //print ("Add");
+        }
+    }
+
+    /*public void RemoveInstTerrainFromList (myDel_Terrain mdt)
+    {
+        if (mdt == null)
+            return;
+
+        if (instTerrains.Contains (mdt) == true)
+        {
+            instTerrains.Remove (mdt);
+            print ("Remove");
+        }
+    }*/
+
+    void StartInstTerrains ()
+    {
+        StartCoroutine (IStartInstTerrains ());
+    }
+
+    IEnumerator IStartInstTerrains ()
+    {
+        float firstDelay = 1f;
+        float delay = .1f;
+
+        yield return new WaitForSeconds (firstDelay);
+
+        instTerrains = new List<myDel_Terrain> ();
+        //instTerrains_old = new List<myDel_Terrain> ();
+        instTerrains_new = new List<myDel_Terrain> ();
+
+        currentCustomTerrain = InstantiateCustomTerrain (Vector3.zero, NearTerrainDir2.NONE);
+        AddInstTerrainToList (currentCustomTerrain);
+
+        for (int j = 0; j < instTerrains_new.Count; j++)
+        {
+            instTerrains.Add (instTerrains_new [j]);
+        }
+
+        while (instTerrains.Count > 0)
+        {
+            instTerrains_new.Clear ();
+
+            yield return new WaitForSeconds (delay);
+
+            for (int i = 0; i < instTerrains.Count; i++)
+            {
+                instTerrains [i].GenerateNearTerrain ();
+            }
+
+            instTerrains.Clear ();
+            for (int j = 0; j < instTerrains_new.Count; j++)
+            {
+                instTerrains.Add (instTerrains_new [j]);
+            }
+        }
+
+        instTerrains.Clear ();
+        instTerrains_new.Clear ();
     }
 }

@@ -1153,7 +1153,7 @@ public class myDel_Terrain : MonoBehaviour
         }
     }
 
-    public void GenerateNearTerrain (int depth)
+    /*public void GenerateNearTerrain (int depth)
     //public void GenerateNearTerrain ()
     {   
         if (EnvManager.Inst == null)
@@ -1216,6 +1216,70 @@ public class myDel_Terrain : MonoBehaviour
             nearTerrainHolder_d.GenerateNearTerrain (depth-1);
         }
        // UpdateNearTerrain();
+    }*/
+
+    public void GenerateNearTerrain ()
+    {   
+        if (EnvManager.Inst == null)
+            return;
+
+        // 자기 자신 주변 업데이트
+        UpdateNearTerrain ();
+
+        // =======================================================
+        // 1단계: 일단 생성
+
+        if (nearTerrainHolder_u == null)
+        {
+            nearTerrainHolder_u = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.UP);
+            EnvManager.Inst.AddInstTerrainToList (nearTerrainHolder_u);
+        }
+
+        if (nearTerrainHolder_l == null)
+        {
+            nearTerrainHolder_l = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.LEFT);
+            EnvManager.Inst.AddInstTerrainToList (nearTerrainHolder_l);
+        }
+
+        if (nearTerrainHolder_r == null)
+        {
+            nearTerrainHolder_r = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.RIGHT);
+            EnvManager.Inst.AddInstTerrainToList (nearTerrainHolder_r);
+        }
+
+        if (nearTerrainHolder_d == null)
+        {
+            nearTerrainHolder_d = EnvManager.Inst.InstantiateCustomTerrain(gameObject.transform.position, NearTerrainDir2.DOWN);
+            EnvManager.Inst.AddInstTerrainToList (nearTerrainHolder_d);
+        }
+
+        // =======================================================
+
+        // 자기 자신 주변 업데이트
+        UpdateNearTerrain ();
+
+        // 2단계: 주변지형 갱신
+        if (nearTerrainHolder_u != null)
+        {
+            nearTerrainHolder_u.UpdateNearTerrain(); 
+        }
+
+        if (nearTerrainHolder_l != null)
+        {
+            nearTerrainHolder_l.UpdateNearTerrain(); 
+        }
+
+        if (nearTerrainHolder_r != null)
+        {
+            nearTerrainHolder_r.UpdateNearTerrain(); 
+        }
+
+        if (nearTerrainHolder_d != null)
+        {
+            nearTerrainHolder_d.UpdateNearTerrain(); 
+        }
+
+        //print ("B");
     }
 
     public void OnDrawGizmos()

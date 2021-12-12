@@ -34,7 +34,7 @@ public class EnvManager : MonoBehaviour
     public GameObject[] flowerPrefabs;
     public int rockSeed = 27;
     public GameObject[] rockPrefabs;
-    public int bugSeed = 31;
+    public int bugSeed = 3;
     public GameObject[] bugPrefabs;
     public GameObject cliffPrefab;
     public GameObject townPrefab;

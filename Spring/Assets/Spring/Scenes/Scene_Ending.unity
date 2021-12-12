@@ -15,12 +15,12 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.54944426, g: 0.8259106, b: 0.9032867, a: 1}
+  m_FogColor: {r: 0.99448854, g: 0.66599965, b: 0.5415008, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 800
-  m_AmbientSkyColor: {r: 0.92069465, g: 0.9862355, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.95250714, g: 0.7161944, b: 0.48971593, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.35574925, g: 0.70530874, b: 0.9512985, a: 1}
+  m_IndirectSpecularColor: {r: 0.30586618, g: 0.14550781, b: 0.16626671, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -176,11 +176,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 31569004, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_Color.b
-      value: 0.792548
+      value: 0.17089324
       objectReference: {fileID: 0}
     - target: {fileID: 31569004, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_Color.g
-      value: 0.9249028
+      value: 0.519972
       objectReference: {fileID: 0}
     - target: {fileID: 31569004, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_Color.r
@@ -188,19 +188,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 31569005, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.07281761
+      value: 0.01948226
       objectReference: {fileID: 0}
     - target: {fileID: 31569005, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0478929
+      value: 0.08495043
       objectReference: {fileID: 0}
     - target: {fileID: 31569005, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.83230853
+      value: 0.22268312
       objectReference: {fileID: 0}
     - target: {fileID: 31569005, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.54741794
+      value: -0.9709872
       objectReference: {fileID: 0}
     - target: {fileID: 212058269708251889, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: m_RootOrder
@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6695970472384435077, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: TimeOfDay
-      value: 8
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 6695970472384435077, guid: a0d68f2eeb0751044b1d73ed9072a30c, type: 3}
       propertyPath: lightActive
@@ -783,7 +783,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 120}
+  m_SizeDelta: {x: 2400, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1600629813
 MonoBehaviour:

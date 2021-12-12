@@ -49,7 +49,7 @@ public class myDel_Terrain : MonoBehaviour
     //[Space (10)]
     //public GameObject myPrefab_tree2;
     public GameObject water_plane;
-    public GameObject bridge;
+    //public GameObject bridge;
 
     [Space(10)]
     public myDel_Terrain nearTerrainHolder_u = null;

@@ -411,6 +411,7 @@ public class EnvManager : MonoBehaviour
             {
                 float upGap = 1f;
                 kidStartpoint.gameObject.transform.position = pos + Vector3.up * upGap;
+                kidStartpoint.gameObject.transform.position += gtown.gameObject.transform.forward * GetTerrainUnitSize () * 0.5f;
             }
 
             houseNum_max--;

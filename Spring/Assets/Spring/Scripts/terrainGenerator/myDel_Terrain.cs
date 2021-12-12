@@ -683,17 +683,22 @@ public class myDel_Terrain : MonoBehaviour
                 }
             }
 
-            if (grass_seed % 5 == 0)
+            if (transform.position.x + vert.x >= cliffRangeX &&
+                transform.position.z + vert.y >= cliffRangeY)
             {
-
-                if (EnvManager.Inst.flowerPrefabs.Length > 0)
+                if (grass_seed % 3 == 0)
                 {
-                    int index = Random.Range(0, EnvManager.Inst.flowerPrefabs.Length);
 
-                    GameObject grass = Instantiate(EnvManager.Inst.flowerPrefabs[0], new Vector3((float)vert.x+transform.position.x, 
-                        elevation, (float)vert.y+transform.position.z),
-                        Quaternion.Euler(Vector3.zero), this.gameObject.transform);
+                    if (EnvManager.Inst.flowerPrefabs.Length > 0)
+                    {
+                        int index = Random.Range(0, EnvManager.Inst.flowerPrefabs.Length);
+
+                        GameObject grass = Instantiate(EnvManager.Inst.flowerPrefabs[0], new Vector3((float)vert.x + transform.position.x,
+                            elevation, (float)vert.y + transform.position.z),
+                            Quaternion.Euler(Vector3.zero), this.gameObject.transform);
+                    }
                 }
+
             }
 
             grass_seed++;

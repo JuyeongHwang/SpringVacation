@@ -61,7 +61,7 @@ public class myDel_Terrain : MonoBehaviour
     public bool hasMountain;
     public bool hasCliff;
     public bool hasRiver = false;
-    //public bool hasBeach = false;
+    public bool hasBeach = false;
      // 테스트
     SimpleSmoother simpleSmoother = new SimpleSmoother ();
 
@@ -77,9 +77,9 @@ public class myDel_Terrain : MonoBehaviour
     float terrainMaxZ;
 
     public bool isDiscovered = false;
-    IEnumerator idiscover;
+    //IEnumerator idiscover;
 
-    private void OnEnable() 
+    /*private void OnEnable() 
     {
         if (idiscover != null)
             StopCoroutine (idiscover);
@@ -92,7 +92,7 @@ public class myDel_Terrain : MonoBehaviour
     {
         if (idiscover != null)
             StopCoroutine (idiscover);
-    }
+    }*/
 
     private void Awake()
     {
@@ -1341,7 +1341,7 @@ public class myDel_Terrain : MonoBehaviour
 
     // ============================== 꼬마위치 체크 ==========================
 
-    IEnumerator IDiscover ()
+    /*IEnumerator IDiscover ()
     {
         float checkDur = 10f;
 
@@ -1362,5 +1362,5 @@ public class myDel_Terrain : MonoBehaviour
 
             yield return new WaitForSeconds (checkDur);
         }
-    }
+    }*/
 }

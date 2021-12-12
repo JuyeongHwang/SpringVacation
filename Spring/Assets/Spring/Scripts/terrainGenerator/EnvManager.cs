@@ -37,7 +37,9 @@ public class EnvManager : MonoBehaviour
     public int bugSeed = 3;
     public GameObject[] bugPrefabs;
     public GameObject cliffPrefab;
-    public GameObject townPrefab;
+    //public GameObject townPrefab;
+    public GameObject housePrefab;
+    public int houseNum = 7;
     public GameObject bridgePrefab;
     public int bridgeNum;   // 큰 강줄기
     public int bridgeNum1;  // 작은 강줄기
@@ -67,7 +69,7 @@ public class EnvManager : MonoBehaviour
 
     [Header ("터레인 기타 설정")]
     public KidController kidController;
-    int townNum = 2;
+    //int townNum = 2;
     
     [HideInInspector]
     public GameObject waterPlane;
@@ -75,7 +77,7 @@ public class EnvManager : MonoBehaviour
     
 
     [Header("Navmesh")]
-    //IEnumerator icheck;
+    IEnumerator icheck;
 
     // 진행도를 체크하기 위한 변수
     public int totalGenTerrain;
@@ -91,6 +93,11 @@ public class EnvManager : MonoBehaviour
     //public List <myDel_Terrain> instTerrains_old;
     public List <myDel_Terrain> instTerrains_new;
 
+    private void OnEnable() 
+    {
+        
+    }
+
     void Awake()
     {
         // 싱글톤
@@ -102,10 +109,6 @@ public class EnvManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        // 키드 찾기
-        if (kidController == null)
-            kidController = FindObjectOfType<KidController>();
 
         // 리스트 초기화
         customTerrains = new List<myDel_Terrain>();
@@ -123,7 +126,7 @@ public class EnvManager : MonoBehaviour
     void Start()
     {
         BezierRiver();
-        InstantiateBridgeByBezierRiver (bridgeNum, bridgeNum1, bridgeRelaxNum);
+        //InstantiateBridgeByBezierRiver (bridgeNum, bridgeNum1, bridgeRelaxNum);
 
         totalGenTerrain = (int)envSetting.GetMaxBoundarySize().x + (int)terrainUnitSize - (int)envSetting.GetMinBoundarySize().x;
         totalGenTerrain /= terrainUnitSize;
@@ -132,13 +135,23 @@ public class EnvManager : MonoBehaviour
         // 지형생성
         // 딜레이 생성
         StartInstTerrains ();
-
-        // 주기마다 캐릭터 위치 체크 후 지형 생성
-        /*if (kidController != null)
-        {
-            CheckKidPosition();
-        }*/
     }
+
+    private void Update()
+    {
+        // 컨트롤러를 찾을 때 까지 반복
+        if (kidController == null)
+        {
+            kidController = FindObjectOfType <KidController> ();
+
+            // 찾은 프레임에서 코루틴 수행
+            if (kidController != null)
+            {
+                CheckKidPosition ();
+            }
+        }
+    }
+
 
     public Vector3 P1;
     public Vector3 P2;
@@ -359,6 +372,51 @@ public class EnvManager : MonoBehaviour
         }
     }
 
+    void InstantiateHouse ()
+    {
+        // 생성 가능한 터레인 찾기
+        List <myDel_Terrain> houseTerrains = new List<myDel_Terrain> ();
+
+        for (int i = 0; i < customTerrains.Count; i++)
+        {
+            if (customTerrains [i].hasBeach == false
+            && customTerrains [i].hasMountain == false
+            && customTerrains [i].hasCliff == false
+            && customTerrains [i].hasRiver == false)
+            {
+                houseTerrains.Add (customTerrains [i]);
+            }
+        }
+
+        int houseNum_max = Mathf.Min (houseNum, houseTerrains.Count);
+
+        while (houseNum_max > 0)
+        {
+            int randIndex = Random.Range (0, houseTerrains.Count);
+            myDel_Terrain t = houseTerrains [randIndex];
+
+            GameObject gtown;
+
+            Vector3 pos = t.gameObject.transform.position;
+            pos +=  new Vector3 (GetTerrainUnitSize () * 0.5f, 0, GetTerrainUnitSize () * 0.5f);
+
+            float rotY = Random.Range(0, 360f);
+            Quaternion rot = Quaternion.Euler (Vector3.up * rotY);
+            //rotY /= 90;
+
+            gtown = Instantiate(housePrefab, pos, rot, artObjectHolder.transform);
+
+            // 마을로 시작 위치 설정
+            if (kidStartpoint != null)
+            {
+                float upGap = 1f;
+                kidStartpoint.gameObject.transform.position = pos + Vector3.up * upGap;
+            }
+
+            houseNum_max--;
+        }
+    }
+
     // 환경 매니져에서 인스턴스 수행
     // 그리고 해당 컴포넌트를 반환
     public myDel_Terrain InstantiateCustomTerrain(Vector3 pivotTerrainPos, NearTerrainDir2 terrainDir)
@@ -534,39 +592,16 @@ public class EnvManager : MonoBehaviour
                 }
                 //Debug.Log(envRiver);
 
-                bool beach = false;
+                //bool beach = false;
                 //ret.hasBeach = false;
-
                 // 해변가 판단
-                if (gameObject.transform.position.x < envSetting.boundryCoord_min.x
-                || gameObject.transform.position.z < envSetting.boundryCoord_min.y)
+                if (ret.gameObject.transform.position.x < envSetting.boundryCoord_min.x + 30
+                || ret.gameObject.transform.position.z < envSetting.boundryCoord_min.y + 30)
                 {
-                    beach = true;
+                    //beach = true;
+                    ret.hasBeach = true;
                 }
                 
-                if (townNum > 0 && !ret.hasMountain && !ret.hasRiver && !beach)
-                {
-                    townNum--;
-
-                    GameObject gtown;
-                    float rotY = Random.Range(0, 360f);
-                    rotY /= 90;
-
-                    Vector3 townPos = instTerrainPos;
-                    townPos += new Vector3 (GetTerrainUnitSize () * 0.5f, 0, GetTerrainUnitSize () * 0.5f);
-
-                    gtown = Instantiate(townPrefab, townPos, Quaternion.Euler(Vector3.up *(rotY)), artObjectHolder.transform);
-
-                    // 마을로 시작 위치 설정
-                    if (kidStartpoint != null)
-                    {
-                        float upGap = 1f;
-                        kidStartpoint.gameObject.transform.position = townPos + Vector3.up * upGap;
-                    }
-
-                    //ret.canEdit = false;
-                }
-
                 //int itown = Random.Range(0, 2);
                 //bool hasTown = (itown == 0 ? false : true);
                 //if (hasTown && townNum > 0 && !ret.hasRiver)
@@ -589,21 +624,6 @@ public class EnvManager : MonoBehaviour
         }
 
         return ret;
-    }
-
-    private void Update()
-    {
-        // 컨트롤러를 찾을 때 까지 반복
-        /*if (kidController == null)
-        {
-            kidController = FindObjectOfType <KidController> ();
-
-            // 찾은 프레임에서 코루틴 수행
-            if (kidController != null)
-            {
-                CheckKidPosition ();
-            }
-        }*/
     }
 
     public myDel_Terrain GetTerrainHolderByPosition(Vector3 pos, NearTerrainDir2 dir)
@@ -649,7 +669,7 @@ public class EnvManager : MonoBehaviour
         return terrainUnitSize;
     }
 
-    /*void CheckKidPosition()
+    void CheckKidPosition()
     {
         if (icheck != null)
             StopCoroutine(icheck);
@@ -660,17 +680,26 @@ public class EnvManager : MonoBehaviour
 
     IEnumerator ICheckKidPosition()
     {
-        bool gen = false;
+        //bool gen = false;
 
         while (true)
         {
+            yield return new WaitForSeconds(checkDelay);
+
             // 조건을 while에서 검사하도록 수정
             if (kidController == null || EnvManager.Inst == null || currentCustomTerrain == null)
             {
                 continue;
             }
 
-            gen = false;
+            // 자기 자신의 지형 탐사
+            if (currentCustomTerrain.isDiscovered == false)
+            {
+                currentCustomTerrain.isDiscovered = true;
+                IncreaseTerrainNum_Current ();
+            }
+
+            //gen = false;
 
             float posXMin = currentCustomTerrain.gameObject.transform.position.x;
             float posXMax = posXMin + EnvManager.Inst.GetTerrainUnitSize();
@@ -683,39 +712,43 @@ public class EnvManager : MonoBehaviour
             if (kidPos.x < posXMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_l;
-                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
-                gen = true;
+                //currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
+                //gen = true;
             }
             else if (kidPos.x > posXMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_r;
-                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
-                gen = true;
+                //currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
+                //gen = true;
             }
             else if (kidPos.z < posZMin)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_d;
-                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
-                gen = true;
+               // currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
+                //gen = true;
             }
             else if (kidPos.z > posZSMax)
             {
                 currentCustomTerrain = currentCustomTerrain.nearTerrainHolder_u;
-                currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
-                gen = true;
+                //currentCustomTerrain.GenerateNearTerrain (nearTerrainDepth);
+                //gen = true;
             }
 
-            if (gen)
+            if (currentCustomTerrain.isDiscovered == false)
+            {
+                currentCustomTerrain.isDiscovered = true;
+                IncreaseTerrainNum_Current ();
+            }
+
+            /*if (gen)
             {
                 foreach (myDel_Terrain cdt in customTerrains)
                 {
                     cdt.UpdateNearTerrain();
                 }
-            }
-
-            yield return new WaitForSeconds(checkDelay);
+            }*/
         }
-    }*/
+    }
 
     // ========================================== 노이즈 관련 ==================================================
 
@@ -1143,5 +1176,17 @@ public class EnvManager : MonoBehaviour
 
         instTerrains.Clear ();
         instTerrains_new.Clear ();
+
+        // ================================ 다리 생성 ===================================
+
+        yield return new WaitForSeconds (delay);
+
+        InstantiateBridgeByBezierRiver (bridgeNum, bridgeNum1, bridgeRelaxNum);
+
+        // ================================== 집 생성 =======================================
+
+        yield return new WaitForSeconds (delay);
+
+        InstantiateHouse ();
     }
 }

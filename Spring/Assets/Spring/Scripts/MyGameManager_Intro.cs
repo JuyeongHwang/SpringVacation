@@ -28,7 +28,7 @@ public class MyGameManager_Intro : MonoBehaviour
 
     IEnumerator IIntro ()
     {
-        yield return new WaitForSecondsRealtime (introDuration);
+        yield return new WaitForSeconds (introDuration);
 
         if (MySceneManager.Inst != null)
         {

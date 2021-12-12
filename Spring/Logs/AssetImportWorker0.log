@@ -15,11 +15,11 @@ C:/Users/user/Documents/GitHub/SpringVacation/Spring
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-63204
+53047
 Successfully changed project path to: C:/Users/user/Documents/GitHub/SpringVacation/Spring
 C:/Users/user/Documents/GitHub/SpringVacation/Spring
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 51.09 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 48.40 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.17f1 (a4537701e4ab)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/Resources/UnitySubsystems
@@ -35,28 +35,28 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56920
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56696
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003427 seconds.
+Registered in 0.003361 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 44.37 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 44.29 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.273 seconds
+- Completed reload, in  1.255 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1273ms)
-		BeginReloadAssembly (56ms)
+	ReloadAssembly (1255ms)
+		BeginReloadAssembly (54ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (302ms)
-			LoadAssemblies (52ms)
+		EndReloadAssembly (297ms)
+			LoadAssemblies (50ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (97ms)
+			SetupTypeCache (93ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (18ms)
 			SetupLoadedEditorAssemblies (129ms)
@@ -64,99 +64,99 @@ Domain Reload Profiling:
 				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (44ms)
-				BeforeProcessingInitializeOnLoad (12ms)
-				ProcessInitializeOnLoadAttributes (51ms)
-				ProcessInitializeOnLoadMethodAttributes (19ms)
+				BeforeProcessingInitializeOnLoad (11ms)
+				ProcessInitializeOnLoadAttributes (52ms)
+				ProcessInitializeOnLoadMethodAttributes (18ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005961 seconds.
+Registered in 0.006029 seconds.
 Begin MonoManager ReloadAssembly
-Symbol file data-00000283C263C030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file data-000002A37F1FBEF0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2E490E0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
+Symbol file data-000002A37EFFA830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2B61010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
+Symbol file data-000002A37F7A7070 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2885B30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file data-000002A37F226330 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C289B140 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file data-000002A3A1D369B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C27B4920 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file data-000002A37F7DE280 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C27B4920 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file data-000002A3A3122010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A151B010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file data-000002A3A1B69020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1549220 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file data-000002A3A16FAC20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2D95720 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
+Symbol file data-000002A3A2C2B630 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18C9010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
+Symbol file data-000002A3A221F430 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C27C02F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
+Symbol file data-000002A3A2A1E070 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A13ACB70 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file data-000002A3A1D369B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18DDA20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file data-000002A3A240C020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A13ACB70 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file data-000002A37F237B20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2705E80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
+Symbol file data-000002A3A2D4D840 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18DDA20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file data-000002A3A2460020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
+Symbol file data-000002A3A1936020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A191D010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
+Symbol file data-000002A37F33C050 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
+Symbol file data-000002A37F399C60 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2706260 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
+Symbol file data-000002A3A2D4D270 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2705C90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
+Symbol file data-000002A3A2D4D460 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1629010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file data-000002A3A2460020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2104620 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file data-000002A37F7DE280 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A13B1F80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
+Symbol file data-000002A37F1A6C50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C263C030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
+Symbol file data-000002A37F1FBEF0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2EDE490 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
+Symbol file data-000002A3A170C830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A164F220 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
+Symbol file data-000002A3A2486230 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 43.34 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 45.51 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.910 seconds
+- Completed reload, in  0.892 seconds
 Domain Reload Profiling:
-	ReloadAssembly (911ms)
-		BeginReloadAssembly (118ms)
+	ReloadAssembly (893ms)
+		BeginReloadAssembly (110ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (3ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (18ms)
-		EndReloadAssembly (737ms)
-			LoadAssemblies (94ms)
+			CreateAndSetChildDomain (13ms)
+		EndReloadAssembly (728ms)
+			LoadAssemblies (86ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (197ms)
+			SetupTypeCache (200ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (30ms)
-			SetupLoadedEditorAssemblies (335ms)
+			RebuildScriptCaches (31ms)
+			SetupLoadedEditorAssemblies (336ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (43ms)
-				BeforeProcessingInitializeOnLoad (86ms)
-				ProcessInitializeOnLoadAttributes (187ms)
+				RefreshPlugins (46ms)
+				BeforeProcessingInitializeOnLoad (79ms)
+				ProcessInitializeOnLoadAttributes (194ms)
 				ProcessInitializeOnLoadMethodAttributes (3ms)
 				AfterProcessingInitializeOnLoad (12ms)
 				EditorAssembliesLoaded (0ms)
@@ -166,933 +166,14 @@ Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.60 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2959 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 221.7 MB.
-System memory in use after: 221.9 MB.
-
-Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3404.
-Total: 2.649500 ms (FindLiveObjects: 0.259400 ms CreateObjectMapping: 0.084200 ms MarkObjects: 2.225800 ms  DeleteObjects: 0.079400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  path: Assets/Spring/Scenes/GamePlay.unity
-  artifactKey: Guid(97b26b53a9943df45919cd205b756e2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Scenes/GamePlay.unity using Guid(97b26b53a9943df45919cd205b756e2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de6047c6cc10271a79d73cdaa57634b7') in 0.012274 seconds 
-  Import took 0.015557 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.788631 seconds.
-  path: Assets/Spring/Scenes/Scene_Intro.unity
-  artifactKey: Guid(03cbbe385977e0b45901b778c2912096) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Scenes/Scene_Intro.unity using Guid(03cbbe385977e0b45901b778c2912096) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '851b673bdce5bf9cf1c646c26719b342') in 0.002255 seconds 
-  Import took 0.005986 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 63.020514 seconds.
-  path: Assets/Spring/Scenes/Scene_Ending.unity
-  artifactKey: Guid(52bc95c255f37334696d9b27d88fce14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Scenes/Scene_Ending.unity using Guid(52bc95c255f37334696d9b27d88fce14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ce6ebb841636112d0a7001de2783f84') in 0.002178 seconds 
-  Import took 0.006027 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.085198 seconds.
-  path: Assets/Spring/Scenes/Scene_Result.unity
-  artifactKey: Guid(7a5ad97aa85c93f46a74e3e2e6823119) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Scenes/Scene_Result.unity using Guid(7a5ad97aa85c93f46a74e3e2e6823119) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f35c1fff69adc2a95a9331d149f1bb36') in 0.002079 seconds 
-  Import took 0.005784 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000326 seconds.
-  path: Assets/Spring/Scenes/Scene_Result.unity
-  artifactKey: Guid(7a5ad97aa85c93f46a74e3e2e6823119) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Scenes/Scene_Result.unity using Guid(7a5ad97aa85c93f46a74e3e2e6823119) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f35c1fff69adc2a95a9331d149f1bb36') in 0.001858 seconds 
-  Import took 0.004332 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.007765 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000283C26C3010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AD309450 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C278D010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1BC4020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A27230B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5CC2470 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C27E7410 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A15D5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AF2FE020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A151B010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AEBB9000 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A27230B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A151B010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2FC0F60 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285ABB1F3D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2E88E50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2B61010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5F31020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2E88E50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285ABB1F3D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285ABB1F3D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2E88E50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1603220 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A475C030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A79AF120 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2EAF060 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.69 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.025 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1025ms)
-		BeginReloadAssembly (126ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (4ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (33ms)
-		EndReloadAssembly (824ms)
-			LoadAssemblies (134ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (270ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (28ms)
-			SetupLoadedEditorAssemblies (317ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (4ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (91ms)
-				ProcessInitializeOnLoadAttributes (205ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.62 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 210.5 MB.
-System memory in use after: 210.7 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3406.
-Total: 2.846400 ms (FindLiveObjects: 0.253800 ms CreateObjectMapping: 0.118400 ms MarkObjects: 2.459500 ms  DeleteObjects: 0.013800 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005420 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000285A5CCC2A0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AD308910 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AF310010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1E3B020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2ED2470 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1E3B020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A4B86020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2ECD020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2CB1730 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F64F0380 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C286CF20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2FC0F60 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F4331D90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2CB1730 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5F31020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2CB1730 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F4331D90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F4330840 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A4D2FB50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2ED2470 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5470090 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5CCC2A0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F0A57120 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2CB1730 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.70 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.843 seconds
-Domain Reload Profiling:
-	ReloadAssembly (843ms)
-		BeginReloadAssembly (113ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (23ms)
-		EndReloadAssembly (673ms)
-			LoadAssemblies (84ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (192ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (25ms)
-			SetupLoadedEditorAssemblies (292ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (3ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (75ms)
-				ProcessInitializeOnLoadAttributes (196ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (13ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.60 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 210.6 MB.
-System memory in use after: 210.8 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3408.
-Total: 2.585200 ms (FindLiveObjects: 0.252400 ms CreateObjectMapping: 0.085100 ms MarkObjects: 2.235600 ms  DeleteObjects: 0.011600 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005173 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FB54BE20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A520A030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A17EF500 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F69BA010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A17EF500 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A15D5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FDF69260 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FDF4A010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FB76B160 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A3134020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FDF69260 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FBC06D80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A4C5C020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5F31020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FDF6FAC0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FBC061E0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FBC05FF0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F6954470 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F69BA010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-000002857F3AB2A0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F81330B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A4C5C020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.789 seconds
-Domain Reload Profiling:
-	ReloadAssembly (789ms)
-		BeginReloadAssembly (100ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (23ms)
-		EndReloadAssembly (635ms)
-			LoadAssemblies (82ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (184ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (25ms)
-			SetupLoadedEditorAssemblies (281ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (3ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (77ms)
-				ProcessInitializeOnLoadAttributes (185ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.65 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 210.6 MB.
-System memory in use after: 210.8 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3410.
-Total: 2.791100 ms (FindLiveObjects: 0.206300 ms CreateObjectMapping: 0.078100 ms MarkObjects: 2.492400 ms  DeleteObjects: 0.013500 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005439 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C7F0D230 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AF310010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A560EE80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F69BA010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A270D890 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A152D020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285572C4D90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FB76A470 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2E88E50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A17F7510 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C980D940 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5F31020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C980D180 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C980CBB0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A45F7E00 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F69BA010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-000002857F3AB2A0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C5655940 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.60 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.832 seconds
-Domain Reload Profiling:
-	ReloadAssembly (832ms)
-		BeginReloadAssembly (105ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (22ms)
-		EndReloadAssembly (674ms)
-			LoadAssemblies (95ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (202ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (26ms)
-			SetupLoadedEditorAssemblies (278ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (3ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (74ms)
-				ProcessInitializeOnLoadAttributes (185ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.63 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 210.6 MB.
-System memory in use after: 210.8 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3412.
-Total: 2.682900 ms (FindLiveObjects: 0.189300 ms CreateObjectMapping: 0.080100 ms MarkObjects: 2.400500 ms  DeleteObjects: 0.012400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005463 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CFD75610 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2E88E50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5909020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A270D890 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5909020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A15D5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A3356020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FE32F010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FB76FF00 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5FF9030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A4B09ED0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1551020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CEDC38D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CB4F2010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A5F31020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CB4F2010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CEDC38D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CEDC53F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A270D890 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D281FC70 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A3341830 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D2BB18D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.789 seconds
-Domain Reload Profiling:
-	ReloadAssembly (789ms)
-		BeginReloadAssembly (96ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (23ms)
-		EndReloadAssembly (637ms)
-			LoadAssemblies (80ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (189ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (26ms)
-			SetupLoadedEditorAssemblies (278ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (3ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (74ms)
-				ProcessInitializeOnLoadAttributes (185ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 210.6 MB.
-System memory in use after: 210.9 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3414.
-Total: 2.792700 ms (FindLiveObjects: 0.202600 ms CreateObjectMapping: 0.080700 ms MarkObjects: 2.495400 ms  DeleteObjects: 0.013400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 250.083001 seconds.
-  path: Assets/Spring/Prefabs/Bugs/Seabug_Crab.prefab
-  artifactKey: Guid(c6a873eee9025de44ad1857558897462) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/Bugs/Seabug_Crab.prefab using Guid(c6a873eee9025de44ad1857558897462) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1e5c5949b7d01d8c86cdbbe2f0af3d8') in 0.292494 seconds 
-  Import took 0.297074 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.579892 seconds.
-  path: Assets/Spring/Settings/BugInfos/SeabugInfo_Conch.asset
-  artifactKey: Guid(28c0abebfa273324aae8fcc20b71fe67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/SeabugInfo_Conch.asset using Guid(28c0abebfa273324aae8fcc20b71fe67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8afa03ece857f7a46dcdb37ff3f133cb') in 0.004038 seconds 
-  Import took 0.008108 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.540663 seconds.
-  path: Assets/Spring/Settings/BugInfos/SeabugInfo_Crab.asset
-  artifactKey: Guid(a3340ed12025df74c9272bb6882981da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/SeabugInfo_Crab.asset using Guid(a3340ed12025df74c9272bb6882981da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdd9d2576d84d770f30cce1e7d42d0f6') in 0.002827 seconds 
-  Import took 0.006653 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.921228 seconds.
-  path: Assets/Spring/Settings/BugInfos/SeabugInfo_Starfish.asset
-  artifactKey: Guid(98f1eeb4cd9e08547a7a628f86b53e20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/SeabugInfo_Starfish.asset using Guid(98f1eeb4cd9e08547a7a628f86b53e20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54726daf5735828e3ea9eb67c44f853c') in 0.002893 seconds 
-  Import took 0.006603 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.891294 seconds.
-  path: Assets/Spring/Settings/BugInfos/BugInfo_Mantis.asset
-  artifactKey: Guid(51c1016da0db52147b770ea45b9ffe01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/BugInfo_Mantis.asset using Guid(51c1016da0db52147b770ea45b9ffe01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73e409a85128ca8b83169d20c78df2c4') in 0.002895 seconds 
-  Import took 0.006523 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.686193 seconds.
-  path: Assets/Spring/Settings/BugInfos/BugInfo_Stagbeetle.asset
-  artifactKey: Guid(c642bd16b8b674a4ea6806c4c4532222) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/BugInfo_Stagbeetle.asset using Guid(c642bd16b8b674a4ea6806c4c4532222) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e3138f4f7842f1b9e5849df2fcafbd2') in 0.002736 seconds 
-  Import took 0.006392 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.570902 seconds.
-  path: Assets/Spring/Settings/BugInfos/BugInfo_Butterfly.asset
-  artifactKey: Guid(bc97ce538f562e64197a243896bab5c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/BugInfo_Butterfly.asset using Guid(bc97ce538f562e64197a243896bab5c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19a76908885ff793b43a918d097b68fc') in 0.003242 seconds 
-  Import took 0.006864 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.360312 seconds.
-  path: Assets/Spring/Settings/BugInfos/BugInfo_Beetle.asset
-  artifactKey: Guid(e95e4ae50352a6740964d4e901666f12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/BugInfo_Beetle.asset using Guid(e95e4ae50352a6740964d4e901666f12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3ef4c58dad98a3d6bb0c03032e5f2ad') in 0.002853 seconds 
-  Import took 0.006554 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 27.812040 seconds.
-  path: Assets/Spring/Prefabs/EnvObjects/Flower A.prefab
-  artifactKey: Guid(fef8b2e433ff0d145ae695d356147178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/EnvObjects/Flower A.prefab using Guid(fef8b2e433ff0d145ae695d356147178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1edb03a9200bead699a237182881c038') in 0.031101 seconds 
-  Import took 0.035315 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.228726 seconds.
-  path: Assets/Spring/Prefabs/EnvObjects/Palm_Tree.prefab
-  artifactKey: Guid(c6b7fb383a3534b039692b5485b6e739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/EnvObjects/Palm_Tree.prefab using Guid(c6b7fb383a3534b039692b5485b6e739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2ab2eb42ac0b07f34eb9ae00cd44f04') in 0.009574 seconds 
-  Import took 0.013146 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002675 seconds.
-  path: Assets/Spring/Prefabs/EnvObjects/Palm_Tree.prefab
-  artifactKey: Guid(c6b7fb383a3534b039692b5485b6e739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/EnvObjects/Palm_Tree.prefab using Guid(c6b7fb383a3534b039692b5485b6e739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2ab2eb42ac0b07f34eb9ae00cd44f04') in 0.008766 seconds 
-  Import took 0.011857 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.928615 seconds.
-  path: Assets/Spring/Prefabs/EnvObjects/Palm_Tree.prefab
-  artifactKey: Guid(c6b7fb383a3534b039692b5485b6e739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/EnvObjects/Palm_Tree.prefab using Guid(c6b7fb383a3534b039692b5485b6e739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62420ab65c04a916e620eb8d8b205be0') in 0.008922 seconds 
-  Import took 0.012535 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005515 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000283CDE1CCB0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-000002860240D0B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F5FD1280 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A635DE80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2FC4F70 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AB031280 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CA2D1270 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C974B010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FF51DC60 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AA73C010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A55BA010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D1562820 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AA354580 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A62700A0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D17DF010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CEDC5F90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FDD62020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A2B61010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CAE3AE10 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A57FB040 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CEDC53F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283CEDC5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F669E010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D1D22010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C7284010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A6426880 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FFA29900 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.66 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.929 seconds
-Domain Reload Profiling:
-	ReloadAssembly (929ms)
-		BeginReloadAssembly (110ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (28ms)
-		EndReloadAssembly (754ms)
-			LoadAssemblies (86ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (228ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (26ms)
-			SetupLoadedEditorAssemblies (311ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (3ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (85ms)
-				ProcessInitializeOnLoadAttributes (205ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (13ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (11ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.67 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 229.5 MB.
-System memory in use after: 229.7 MB.
+Unloading 2959 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 221.5 MB.
+System memory in use after: 221.7 MB.
 
-Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 3463.
-Total: 3.210900 ms (FindLiveObjects: 0.262600 ms CreateObjectMapping: 0.103600 ms MarkObjects: 2.821400 ms  DeleteObjects: 0.022400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.005426 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file data-00000285AF2B9D70 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C7F0BBB0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F5FD1280 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A635DE80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F963E350 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F26D0010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D0BEF010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C974B010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A18EDA30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1FDC050 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A55BA010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000028605020910 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F963E350 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AEF71010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A98B3F60 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C980C7D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FDD62020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A1EB5010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285ADE2A3F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A7F6C010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C980C7D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C980C3F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C519A010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D1D22010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A9770080 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A6426880 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A79BC9B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285ACAF3010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.920 seconds
-Domain Reload Profiling:
-	ReloadAssembly (920ms)
-		BeginReloadAssembly (127ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (25ms)
-		EndReloadAssembly (727ms)
-			LoadAssemblies (114ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (235ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (28ms)
-			SetupLoadedEditorAssemblies (283ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (3ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (76ms)
-				ProcessInitializeOnLoadAttributes (189ms)
-				ProcessInitializeOnLoadMethodAttributes (3ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 229.5 MB.
-System memory in use after: 229.7 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3465.
-Total: 2.759100 ms (FindLiveObjects: 0.251500 ms CreateObjectMapping: 0.062200 ms MarkObjects: 2.432400 ms  DeleteObjects: 0.012400 ms)
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3404.
+Total: 3.218900 ms (FindLiveObjects: 0.314300 ms CreateObjectMapping: 0.166100 ms MarkObjects: 2.631800 ms  DeleteObjects: 0.105700 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -1106,113 +187,112 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 125.855303 seconds.
-  path: Assets/Spring/Settings/BugInfos/SeabugInfo_Starfish.asset
-  artifactKey: Guid(98f1eeb4cd9e08547a7a628f86b53e20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Settings/BugInfos/SeabugInfo_Starfish.asset using Guid(98f1eeb4cd9e08547a7a628f86b53e20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c645dacc467a6f4caf29b4d1358ee936') in 0.055528 seconds 
-  Import took 0.060208 seconds .
+  path: Assets/Spring/Prefabs/ArtObjects
+  artifactKey: Guid(ef2a9357b13450b418052430b33fd3b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Spring/Prefabs/ArtObjects using Guid(ef2a9357b13450b418052430b33fd3b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d09f57bc8b63c72a2ec271ff313d73d') in 0.005707 seconds 
+  Import took 0.009414 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.005402 seconds.
+Registered in 0.005574 seconds.
 Begin MonoManager ReloadAssembly
-Symbol file data-00000285AC6AFB30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file data-000002A37F7172F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AAFCB8C0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
+Symbol file data-000002A3AC544D80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FC5959D0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
+Symbol file data-000002A3A37D8010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A635DE80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file data-000002A3A1650010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C8B86020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file data-000002A37EF46090 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2CC1740 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file data-000002A3A607F010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AC6C2250 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file data-000002A3AEE9B040 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C974B010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file data-000002A3A1A02020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A836EBA0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file data-000002A37F4FFA20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F473C020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
+Symbol file data-000002A37F1A3C30 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285FE32F010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
+Symbol file data-000002A3A2C16020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A6FB6A10 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
+Symbol file data-000002A3AE8A4440 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AB3DB010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file data-000002A37EF46090 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F5C02020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file data-000002A3A2460020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000286053E1DD0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file data-000002A37F237B20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000028601C724C0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
+Symbol file data-000002A3ABA02E90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AF372010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file data-000002A3A380A010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285F9071020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
+Symbol file data-000002A3A15E3010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000028604C2E4B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
+Symbol file data-000002A37F33C050 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AF372010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
+Symbol file data-000002A3A5C42010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000028601C71160 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
+Symbol file data-000002A3ABA02E90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000028601C71540 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
+Symbol file data-000002A3ABA02E90 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C7FC4020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file data-000002A37F5DF750 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283D3CDF050 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file data-000002A3A37BB630 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000286049BF160 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
+Symbol file data-000002A37F6781B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285AF646750 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
+Symbol file data-000002A3A6140E40 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000285A79A48B0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
+Symbol file data-000002A3A8CF7220 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-00000283C2C45020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
+Symbol file data-000002A37F311970 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.63 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.852 seconds
+- Completed reload, in  0.815 seconds
 Domain Reload Profiling:
-	ReloadAssembly (852ms)
+	ReloadAssembly (816ms)
 		BeginReloadAssembly (103ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (3ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (26ms)
-		EndReloadAssembly (695ms)
-			LoadAssemblies (84ms)
+			CreateAndSetChildDomain (25ms)
+		EndReloadAssembly (659ms)
+			LoadAssemblies (85ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (189ms)
+			SetupTypeCache (196ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (25ms)
-			SetupLoadedEditorAssemblies (292ms)
+			RebuildScriptCaches (26ms)
+			SetupLoadedEditorAssemblies (286ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (76ms)
-				ProcessInitializeOnLoadAttributes (197ms)
+				BeforeProcessingInitializeOnLoad (75ms)
+				ProcessInitializeOnLoadAttributes (192ms)
 				ProcessInitializeOnLoadMethodAttributes (3ms)
 				AfterProcessingInitializeOnLoad (12ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.64 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 229.5 MB.
-System memory in use after: 229.7 MB.
+System memory in use before: 210.3 MB.
+System memory in use after: 210.5 MB.
 
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3467.
-Total: 2.687100 ms (FindLiveObjects: 0.239600 ms CreateObjectMapping: 0.102900 ms MarkObjects: 2.330500 ms  DeleteObjects: 0.013400 ms)
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3406.
+Total: 2.643400 ms (FindLiveObjects: 0.249800 ms CreateObjectMapping: 0.090100 ms MarkObjects: 2.290300 ms  DeleteObjects: 0.012500 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -1225,35 +305,115 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
-Received Import Request.
-  Time since last request: 136.635169 seconds.
-  path: Assets/Spring/Prefabs/Bugs
-  artifactKey: Guid(35316587a804bf14fbd104e949408736) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/Bugs using Guid(35316587a804bf14fbd104e949408736) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1085df8bcfe62fcf7bd881ac32dde956') in 0.005682 seconds 
-  Import took 0.009767 seconds .
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005794 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file data-000002A3A6088E40 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F63EF8C0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A37D8010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F66260C0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A37EF46090 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A3122010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F66260C0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A1A02020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A2069C80 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A37EF0E010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Searcher.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A5D2C020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F640B6F0 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Utilities.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A37EF46090 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A1B69020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A4E22C20 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F4118140 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3AF275030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A1936020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A15E3010 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3AF275030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F4118140 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F4118140 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3AEF67A50 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A1B8F230 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A31B6020 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3A6088E40 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponentsEditor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3F0BD5990 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\NavMeshComponents.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file data-000002A3AF275030 doesn't match image C:\Users\user\Documents\GitHub\SpringVacation\Spring\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.797 seconds
+Domain Reload Profiling:
+	ReloadAssembly (797ms)
+		BeginReloadAssembly (109ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (24ms)
+		EndReloadAssembly (636ms)
+			LoadAssemblies (83ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (185ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (25ms)
+			SetupLoadedEditorAssemblies (280ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (3ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (74ms)
+				ProcessInitializeOnLoadAttributes (188ms)
+				ProcessInitializeOnLoadMethodAttributes (3ms)
+				AfterProcessingInitializeOnLoad (12ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.61 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2810 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 210.3 MB.
+System memory in use after: 210.6 MB.
 
-========================================================================
-Received Import Request.
-  Time since last request: 1.926643 seconds.
-  path: Assets/Spring/Prefabs/Bugs/Seabug_Starfish.prefab
-  artifactKey: Guid(c2f3a64a89a9dff4b8611bfb8d5c7bfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/Bugs/Seabug_Starfish.prefab using Guid(c2f3a64a89a9dff4b8611bfb8d5c7bfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8a28ba7efceaba081684a4dc07bb6c0') in 0.148144 seconds 
-  Import took 0.152366 seconds .
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3408.
+Total: 2.685300 ms (FindLiveObjects: 0.210300 ms CreateObjectMapping: 0.082500 ms MarkObjects: 2.378800 ms  DeleteObjects: 0.012900 ms)
 
-========================================================================
-Received Import Request.
-  Time since last request: 2.215755 seconds.
-  path: Assets/Spring/Prefabs/Bugs/Seabug_Conch.prefab
-  artifactKey: Guid(1b4a0ea5315369f4390b6584a7a50d25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Prefabs/Bugs/Seabug_Conch.prefab using Guid(1b4a0ea5315369f4390b6584a7a50d25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1dc0ffcfda9737afbe7fb11b521ce4e9') in 0.020384 seconds 
-  Import took 0.024310 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.473615 seconds.
-  path: Assets/Spring/Models/bugs
-  artifactKey: Guid(b3c51a57bc9bf0e49a9a9505cb4fd66c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Spring/Models/bugs using Guid(b3c51a57bc9bf0e49a9a9505cb4fd66c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8d1a2f9a54b088d48beb8082ec3e00d') in 0.002000 seconds 
-  Import took 0.005648 seconds .
-
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

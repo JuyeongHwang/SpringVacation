@@ -886,6 +886,13 @@ public class EnvManager : MonoBehaviour
                 continue;
             }
 
+            //해변일 경우 pass
+
+            if(e.name == "Palm_Tree")
+            {
+                continue;
+            }
+
             float dist = Vector3.Distance (e.gameObject.transform.position, originPos);
 
             // 후보 등록
@@ -985,7 +992,10 @@ public class EnvManager : MonoBehaviour
 
         if (bugPrefabs.Length > 0)
         {
-            int index = Random.Range (0, bugPrefabs.Length);
+            // 일반 땅 : Random.Range (0, bugPrefabs.Length-3), 
+            // 해변가 : Random.Range (4, bugPrefabs.Length)
+
+            int index = Random.Range (0, bugPrefabs.Length-3);
             float rotY = Random.Range (0, 360f);
 
             ret = Instantiate (bugPrefabs [index], pos, Quaternion.Euler (Vector3.up * rotY), bugHolder.transform);

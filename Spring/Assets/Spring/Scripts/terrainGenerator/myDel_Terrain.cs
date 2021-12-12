@@ -561,7 +561,7 @@ public class myDel_Terrain : MonoBehaviour
         float RandomCenterPointX2 = Random.Range(Radius2, xsize - Radius);
         float RandomCenterPointY2 = Random.Range(Radius2, ysize - Radius);
 
-
+        int grass_seed = 0;
         //// Sample perlin noise to get elevations
         foreach (Vertex vert in mesh.Vertices)
         {
@@ -682,6 +682,21 @@ public class myDel_Terrain : MonoBehaviour
                     faildBindingEdge.Add(vert);
                 }
             }
+
+            if (grass_seed % 5 == 0)
+            {
+
+                if (EnvManager.Inst.flowerPrefabs.Length > 0)
+                {
+                    int index = Random.Range(0, EnvManager.Inst.flowerPrefabs.Length);
+
+                    GameObject grass = Instantiate(EnvManager.Inst.flowerPrefabs[0], new Vector3((float)vert.x+transform.position.x, 
+                        elevation, (float)vert.y+transform.position.z),
+                        Quaternion.Euler(Vector3.zero), this.gameObject.transform);
+                }
+            }
+
+            grass_seed++;
 
             elevations.Add(elevation);
 

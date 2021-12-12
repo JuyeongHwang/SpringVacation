@@ -141,15 +141,14 @@ public class KidController : MonoBehaviour
             {
                 case KidState.IDLE:
                     SetAnimatorTrigger ("Run");
-                    this.audio.loop = true;
-                    this.audio.Play();
+
 
                 if (icatching != null)
                     StopCoroutine (icatching);
                 break;
 
                 case KidState.CATCHING:
-                    this.audio.loop = false;
+
                     // 코루틴으로 애니메이션설정
                     if (icatching != null)
                     StopCoroutine (icatching);
@@ -216,6 +215,7 @@ public class KidController : MonoBehaviour
         // 목표와 너무 가까이 있있거나 채집중이면 이동하지 않는다
         if (dist > distClose && !isArrived)
         {
+
             MoveY();
             Move();
 
@@ -223,6 +223,8 @@ public class KidController : MonoBehaviour
         }
         else
         {
+            audio.Play();
+            audio.loop = true;
             SetAnimatorMoveBlend (0f);
         }
         // 타킷 포인트 설정

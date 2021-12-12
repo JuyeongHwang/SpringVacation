@@ -11,10 +11,40 @@ public class KidController_Ending : MonoBehaviour
     protected Animator kidToolAnimator; // 인덱스를 이용한 현재 애니메이터
     public int kidToolIndex;
 
+    void Awake ()
+    {
+        // 위치 세팅
+        RaycastHit hit;
+
+        if (Physics.Raycast (gameObject.transform.position, Vector3.down, out hit, EnvManager.Inst.GetLayermaskValue_Ground ()))
+        {
+            gameObject.transform.position = hit.point;
+        } 
+
+        // 방향 세팅
+        CameraHolder_Ending cam = FindObjectOfType <CameraHolder_Ending> ();
+
+        Vector3 dir = cam.transform.position - gameObject.transform.position;
+        dir.y = 0;
+        dir = dir.normalized;
+
+        gameObject.transform.forward = dir;
+    }
+
     void Start ()
     {
+        if (DataManager.Inst != null)
+        {
+            SetToolIndex (DataManager.Inst.GetLevelIndex ());
+        }
+
         SetChildToolByIndex ();
-        SetAnimatorTrigger ("Bye");
+        SetAnimatorTrigger ("Idle");
+
+        if (EnvManager.Inst != null)
+        {
+            gameObject.transform.position = EnvManager.Inst.GetKidStartPoint ();
+        }
     }
 
     public void SetAnimatorTrigger (string triggerName)

@@ -20,10 +20,15 @@ public class LightManager : MonoBehaviour
     //public Color lightColor_white;
     //public Color lightColor_red;
 
+    public bool lightActive = true;
+
     void Start ()
     {
-        // 초기화
-        TimeOfDay = 0f;
+        if (lightActive == true)
+        {
+            // 초기화
+            TimeOfDay = 0f;
+        }
         
         if (DataManager.Inst != null)
         {
@@ -37,6 +42,12 @@ public class LightManager : MonoBehaviour
         if (Preset == null)
             return;
 
+        if (lightActive == false)
+        {
+            UpdateLighting(TimeOfDay / 24f);
+            return;
+        }
+            
         if (Application.isPlaying)
         {
             TimeOfDay += Time.deltaTime * 24f / dayDuration;

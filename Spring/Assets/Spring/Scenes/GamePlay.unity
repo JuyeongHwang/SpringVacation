@@ -5613,7 +5613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayDuration_remaining: 0
-  kidController: {fileID: 1170337323}
+  kidController: {fileID: 0}
   cameraController: {fileID: 327955883}
   isLoadGameScene: 1
   effects:
@@ -6133,17 +6133,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3420779302466885948, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
   m_PrefabInstance: {fileID: 1170337319}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1170337323 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7054725728203461189, guid: 33d16441a946a0940be7c0f22e8589c5, type: 3}
-  m_PrefabInstance: {fileID: 1170337319}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170337320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe0f3ab48027ea4ab2b9f33a106f1ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1170337325
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7108,7 +7097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Scene_Result
-  nextSceneName2: 
+  nextSceneName2: Scene_Ending
 --- !u!4 &2084620426
 Transform:
   m_ObjectHideFlags: 0

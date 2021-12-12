@@ -30,7 +30,7 @@ public class EnvManager : MonoBehaviour
     public GameObject customTerrainPrefab;
     public int treeSeed = 30;
     public GameObject[] treePrefabs;
-    public int flowerSeed = 500;
+    public int flowerSeed = 1500;
     public GameObject[] flowerPrefabs;
     public int rockSeed = 27;
     public GameObject[] rockPrefabs;

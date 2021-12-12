@@ -553,11 +553,11 @@ public class myDel_Terrain : MonoBehaviour
         float minPoint = EnvManager.Inst.envSetting.boundryCoord_min.x;
         float maxPoint = EnvManager.Inst.envSetting.boundryCoord_max.y;
 
-        float Radius = Random.Range(5, 12);
+        float Radius = Random.Range(5, 11);
         float RandomCenterPointX = Random.Range(Radius, xsize - Radius);
         float RandomCenterPointY = Random.Range(Radius, ysize - Radius);
 
-        float Radius2 = Random.Range(5, 8);
+        float Radius2 = Random.Range(3, 7);
         float RandomCenterPointX2 = Random.Range(Radius2, xsize - Radius);
         float RandomCenterPointY2 = Random.Range(Radius2, ysize - Radius);
 
@@ -583,15 +583,20 @@ public class myDel_Terrain : MonoBehaviour
 
             elevation = elevation / maxVal * elevationScale;
 
-            //Cliff
-            if(transform.position.x + vert.x <= cliffRangeX ||
+            //해변가
+            if (transform.position.x + vert.x <= cliffRangeX ||
                 transform.position.z + vert.y <= cliffRangeY)
             {
                 elevation = -3.5f;
             }
 
+            if (transform.position.x + vert.x <= EnvManager.Inst.envSetting.boundryCoord_min.x+0.3 ||
+                transform.position.z + vert.y <= EnvManager.Inst.envSetting.boundryCoord_min.y+0.3)
+            {
+                elevation = -4.3f;
+            }
 
-            //벽쪽
+                //벽쪽
             if (transform.position.x + vert.x >=maxPoint + 20)
             {
                 float weight = (transform.position.x + (float)vert.x);
@@ -612,12 +617,14 @@ public class myDel_Terrain : MonoBehaviour
             }
             else
             {
-                if (hasMountain)// && this.transform.position.x >=0)
+                if (transform.position.x + vert.x >= cliffRangeX &&
+                    transform.position.z + vert.y >= cliffRangeY)
                 {
-                    elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
-                    elevation += MakeMountainElevation(RandomCenterPointX2 + transform.position.x, RandomCenterPointY2 + transform.position.z, Radius2, vert);
-
-
+                    if (hasMountain)// && this.transform.position.x >=0)
+                    {
+                        elevation += MakeMountainElevation(RandomCenterPointX + transform.position.x, RandomCenterPointY + transform.position.z, Radius, vert);
+                        elevation += MakeMountainElevation(RandomCenterPointX2 + transform.position.x, RandomCenterPointY2 + transform.position.z, Radius2, vert);
+                    }
                 }
             }
 

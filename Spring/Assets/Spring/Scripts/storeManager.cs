@@ -8,6 +8,14 @@ using UnityEngine.UI;
 public class storeManager : MonoBehaviour
 {
     public Button levelBtn;
+
+    AudioSource bgm;
+    public void Start()
+    {
+        bgm = GetComponent<AudioSource>();
+
+        bgm.Play();
+    }
     public void ClickSell()
     {
         if (DataManager.Inst != null)

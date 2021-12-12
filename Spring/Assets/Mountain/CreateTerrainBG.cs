@@ -51,22 +51,22 @@ public class CreateTerrainBG : MonoBehaviour
     }
     private void Start()
     {
-        totalsize = (int)EnvManager.Inst.envSetting.boundryCoord_max.x - (int)EnvManager.Inst.envSetting.boundryCoord_min.x + 50;
+        totalsize = (int)EnvManager.Inst.envSetting.boundryCoord_max.x - (int)EnvManager.Inst.envSetting.boundryCoord_min.x + 25;
         xsize = totalsize ;
         ysize = totalsize ;
 
         if (forz)
         {
-            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_min.x, 0, EnvManager.Inst.envSetting.boundryCoord_max.y + 50);
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_min.x, 0, EnvManager.Inst.envSetting.boundryCoord_max.y + 25);
         }
         else if (fory)
         {
-            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50+totalsize, 0, EnvManager.Inst.envSetting.boundryCoord_min.y);
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 25+totalsize, 0, EnvManager.Inst.envSetting.boundryCoord_min.y);
             this.transform.Rotate(new Vector3(0, -90, 0));
         }
         else if(!forz && !fory)
         {
-            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 50, 0, EnvManager.Inst.envSetting.boundryCoord_max.y+50);
+            this.transform.position = new Vector3(EnvManager.Inst.envSetting.boundryCoord_max.x + 25, 0, EnvManager.Inst.envSetting.boundryCoord_max.y+25);
 
         }
 

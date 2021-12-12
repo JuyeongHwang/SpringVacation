@@ -849,7 +849,7 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (EnvManager.Inst != null)
                     {
-                        g = EnvManager.Inst.Instantiate_Bug(new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z));
+                        g = EnvManager.Inst.Instantiate_Bug(false, new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z));
                     }
                 }
             }
@@ -891,6 +891,14 @@ public class myDel_Terrain : MonoBehaviour
 
                         if (!manageSpawnObject.ContainsKey(ver))
                             manageSpawnObject.Add(ver, g);
+                    }
+                }
+
+                else if (i % EnvManager.Inst.GetBugSeed() == 0)
+                {
+                    if (EnvManager.Inst != null)
+                    {
+                        g = EnvManager.Inst.Instantiate_Bug(true,new Vector3((float)ver.x + transform.position.x, elevations[ver.id], (float)ver.y + transform.position.z));
                     }
                 }
             }

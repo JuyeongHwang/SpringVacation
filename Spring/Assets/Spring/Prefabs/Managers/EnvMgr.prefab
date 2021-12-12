@@ -383,6 +383,9 @@ MonoBehaviour:
   - {fileID: 1398257520271782695, guid: 4c82c21dcea13ef4b9e1b31c51463443, type: 3}
   - {fileID: 1398257520271782695, guid: 4ee3c09c243efa24796f0c567d5e59c3, type: 3}
   - {fileID: 1398257520271782695, guid: 39d04d14b5f5c234db5d14a7fd52fe27, type: 3}
+  - {fileID: 316858012749429440, guid: 1b4a0ea5315369f4390b6584a7a50d25, type: 3}
+  - {fileID: 3583253408902299419, guid: c6a873eee9025de44ad1857558897462, type: 3}
+  - {fileID: 5305841537071296662, guid: c2f3a64a89a9dff4b8611bfb8d5c7bfd, type: 3}
   cliffPrefab: {fileID: 6341100950319876540, guid: d80d0e65352d60441a034ae1dab5cc41, type: 3}
   townPrefab: {fileID: 212097642375045907, guid: 85ec2694940190e438bdbea2fcd4eec7, type: 3}
   bridgePrefab: {fileID: 7052793637280484675, guid: d23082b54fc97554c869da3b87776427, type: 3}
@@ -392,13 +395,14 @@ MonoBehaviour:
   currentCustomTerrain: {fileID: 0}
   customTerrains: []
   envObjects: []
-  nearTerrainDepth: 6
   terrainNoiseScale: 1
   terrainNoisePow: 1
   kidController: {fileID: 0}
   waterPlane: {fileID: 7817576511583530391, guid: d8a50a42bbde5aa4fbbb2de476b8001b, type: 3}
   totalGenTerrain: 0
   currentGenTerrain: 0
+  instTerrains: []
+  instTerrains_new: []
   P1: {x: 150, y: 0, z: 0}
   P2: {x: 20, y: 0, z: -60}
   P3: {x: -150, y: 0, z: 45}

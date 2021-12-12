@@ -11,7 +11,7 @@ public class videoCamera : MonoBehaviour
     }
 
 
-    private float speed_move = 3.0f;
+    private float speed_move = 6.0f;
     private float speed_rota = 2.0f;
 
     void moveObjectFunc()
@@ -23,15 +23,32 @@ public class videoCamera : MonoBehaviour
         transform.Translate(Vector3.right * keyH);
         transform.Translate(Vector3.forward * keyV);
 
-        //float mouseX = Input.GetAxis("Mouse X");
-        //float mouseY = Input.GetAxis("Mouse Y");
-        //transform.Rotate(Vector3.up * speed_rota * mouseX);
-        //transform.Rotate(Vector3.left * speed_rota * mouseY);
 
-        if (Input.GetKey(KeyCode.Space))
+
+        if (Input.GetKey(KeyCode.Q))
         {
+            transform.Translate(Vector3.up * Time.deltaTime * 2.0f);
             //??
-            transform.Rotate(Vector3.right * speed_rota * Time.deltaTime);
+            //transform.Rotate(Vector3.right * speed_rota * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed_move = 12.0f;
+        }
+        else { speed_move = 4.5f; }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            transform.Translate(Vector3.up * Time.deltaTime * -2.0f);
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+            transform.Rotate(Vector3.up * speed_rota * mouseX);
+            transform.Rotate(Vector3.left * speed_rota * mouseY);
         }
     }
 }

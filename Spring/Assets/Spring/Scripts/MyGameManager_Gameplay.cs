@@ -76,13 +76,13 @@ public class MyGameManager_Gameplay : MonoBehaviour
         //gameplayDuration_remaining = gameplayDuration;
         if (DataManager.Inst != null)
         {
-            gameplayDuration_remaining = DataManager.Inst.GetDataPreset ()
-            .DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].DAYDURATION;
+            gameplayDuration_remaining = 60f;
+                //DataManager.Inst.GetDataPreset ().DATAINFORMATIONS [DataManager.Inst.GetLevelIndex ()].DAYDURATION;
         }
         else
         {
             // 기본시간 지정
-            gameplayDuration_remaining = 30f;
+            gameplayDuration_remaining = 60f;
         }
 
         while (gameplayDuration_remaining > 0)

@@ -32,6 +32,7 @@ public class myDel_Terrain : MonoBehaviour
 
     // Prefab which is generated for each chunk of the mesh.
     public Transform chunkPrefab = null;
+    public EnvChunk myEnvChunk = null;
 
     // Elevations at each point in the mesh
     private List<float> elevations;
@@ -110,24 +111,24 @@ public class myDel_Terrain : MonoBehaviour
         terrainMaxZ = terrainMinZ + EnvManager.Inst.GetTerrainUnitSize ();
     }
 
-    private RaycastHit hit;
+    //private RaycastHit hit;
     public float updownRange = 15;
     public bool canEdit = true;
     private void Update()
     {
-           
+        RaycastHit hit;
+
         if (Input.GetKey(KeyCode.A))
         {
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        UpDownTerrain(false);
+                        UpDownTerrain(false, hit);
                     }
                 }
             }
@@ -143,14 +144,13 @@ public class myDel_Terrain : MonoBehaviour
                 {
                     if (hit.transform.name == "ChunkPrefab(Clone)")
                     {
-                        UpDownTerrain(true);
+                        UpDownTerrain(true, hit);
                     }
-
                 }
             }
-
         }
     }
+
 
     bool checkInside(Vertex v)
     {
@@ -169,7 +169,8 @@ public class myDel_Terrain : MonoBehaviour
 
     float movingrange = 0.4f;
 
-    void UpDownTerrain(bool up)
+    // 이펙트와 기능 통일을 위해 조금 수정하였습니다....
+    public void UpDownTerrain(bool up, RaycastHit hit)
     {
         List<Vector3> myArea = new List<Vector3>();
 
@@ -279,6 +280,8 @@ public class myDel_Terrain : MonoBehaviour
         //    }
         //}
         inside = false;
+
+        
     }
     public bool meetRight;
     public bool meetLeft;
@@ -1036,6 +1039,9 @@ public class myDel_Terrain : MonoBehaviour
             chunk.GetComponent<MeshFilter>().mesh = chunkMesh;
             chunk.GetComponent<MeshCollider>().sharedMesh = chunkMesh;
             chunk.transform.parent = transform;
+
+            myEnvChunk = chunk.GetComponent <EnvChunk> ();
+            myEnvChunk.SetMyDelTerrain (this);
         }
         
         // 1차 -> 겹치는 버텍스의 인덱스 찾기
